@@ -1,0 +1,590 @@
+{
+    "xmlconnect": {
+        "application": "xmlconnect_application",
+        "history": "xmlconnect_history",
+        "application_design": "xmlconnect_application",
+        "queue": "xmlconnect_queue",
+        "template": "xmlconnect_notification_template",
+        "configData": "xmlconnect_config_data",
+        "images": "xmlconnect_images"
+    },
+    "wishlist": {
+        "wishlist": "wishlist",
+        "item": "wishlist_item",
+        "item_option": "wishlist_item_option"
+    },
+    "widget": {
+        "widget": "widget",
+        "widget_instance": "widget_instance",
+        "widget_instance_page": "widget_instance_page",
+        "widget_instance_page_layout": "widget_instance_page_layout"
+    },
+    "weee": {
+        "tax": "weee_tax",
+        "discount": "weee_discount"
+    },
+    "tax": {
+        "tax_class": "tax_class",
+        "tax_calculation": "tax_calculation",
+        "tax_calculation_rate": "tax_calculation_rate",
+        "tax_calculation_rate_title": "tax_calculation_rate_title",
+        "tax_calculation_rule": "tax_calculation_rule",
+        "tax_order_aggregated_created": "tax_order_aggregated_created",
+        "tax_order_aggregated_updated": "tax_order_aggregated_updated",
+        "sales_order_tax": "sales_order_tax",
+        "sales_order_tax_item": "sales_order_tax_item"
+    },
+    "tag": {
+        "tag": "tag",
+        "relation": "tag_relation",
+        "summary": "tag_summary",
+        "properties": "tag_properties"
+    },
+    "sitemap": {
+        "sitemap": "sitemap"
+    },
+    "shipping": {
+        "tablerate": "shipping_tablerate"
+    },
+    "sendfriend": {
+        "sendfriend": "sendfriend_log"
+    },
+    "salesrule": {
+        "rule": "salesrule",
+        "rule_customer": "salesrule_customer",
+        "label": "salesrule_label",
+        "coupon": "salesrule_coupon",
+        "coupon_usage": "salesrule_coupon_usage",
+        "coupon_aggregated": "coupon_aggregated",
+        "coupon_aggregated_updated": "coupon_aggregated_updated",
+        "coupon_aggregated_order": "coupon_aggregated_order",
+        "product_attribute": "salesrule_product_attribute",
+        "website": "salesrule_website",
+        "customer_group": "salesrule_customer_group"
+    },
+    "sales": {
+        "quote": "sales_flat_quote",
+        "quote_address": "sales_flat_quote_address",
+        "quote_item": "sales_flat_quote_item",
+        "quote_entity": "sales_quote_entity",
+        "quote_temp": "sales_quote_temp",
+        "order": "sales_flat_order",
+        "order_entity": "sales_order_entity",
+        "quote_address_item": "sales_flat_quote_address_item",
+        "quote_item_option": "sales_flat_quote_item_option",
+        "quote_payment": "sales_flat_quote_payment",
+        "quote_address_shipping_rate": "sales_flat_quote_shipping_rate",
+        "order_grid": "sales_flat_order_grid",
+        "order_item": "sales_flat_order_item",
+        "order_address": "sales_flat_order_address",
+        "order_payment": "sales_flat_order_payment",
+        "order_status_history": "sales_flat_order_status_history",
+        "order_status": "sales_order_status",
+        "order_status_state": "sales_order_status_state",
+        "order_status_label": "sales_order_status_label",
+        "invoice": "sales_flat_invoice",
+        "invoice_grid": "sales_flat_invoice_grid",
+        "invoice_item": "sales_flat_invoice_item",
+        "invoice_comment": "sales_flat_invoice_comment",
+        "shipment": "sales_flat_shipment",
+        "shipment_grid": "sales_flat_shipment_grid",
+        "shipment_item": "sales_flat_shipment_item",
+        "shipment_comment": "sales_flat_shipment_comment",
+        "shipment_track": "sales_flat_shipment_track",
+        "creditmemo": "sales_flat_creditmemo",
+        "creditmemo_grid": "sales_flat_creditmemo_grid",
+        "creditmemo_item": "sales_flat_creditmemo_item",
+        "creditmemo_comment": "sales_flat_creditmemo_comment",
+        "recurring_profile": "sales_recurring_profile",
+        "recurring_profile_order": "sales_recurring_profile_order",
+        "order_tax": "sales_order_tax",
+        "order_item_option": "sales_flat_order_item_option",
+        "order_aggregated_created": "sales_order_aggregated_created",
+        "order_aggregated_updated": "sales_order_aggregated_updated",
+        "shipping_aggregated": "sales_shipping_aggregated",
+        "shipping_aggregated_order": "sales_shipping_aggregated_order",
+        "invoiced_aggregated": "sales_invoiced_aggregated",
+        "invoiced_aggregated_order": "sales_invoiced_aggregated_order",
+        "refunded_aggregated": "sales_refunded_aggregated",
+        "refunded_aggregated_order": "sales_refunded_aggregated_order",
+        "payment_transaction": "sales_payment_transaction",
+        "bestsellers_aggregated_daily": "sales_bestsellers_aggregated_daily",
+        "bestsellers_aggregated_monthly": "sales_bestsellers_aggregated_monthly",
+        "bestsellers_aggregated_yearly": "sales_bestsellers_aggregated_yearly",
+        "billing_agreement": "sales_billing_agreement",
+        "billing_agreement_order": "sales_billing_agreement_order"
+    },
+    "review": {
+        "review": "review",
+        "review_detail": "review_detail",
+        "review_status": "review_status",
+        "review_entity": "review_entity",
+        "review_aggregate": "review_entity_summary",
+        "review_store": "review_store"
+    },
+    "reports": {
+        "event": "report_event",
+        "event_type": "report_event_types",
+        "compared_product_index": "report_compared_product_index",
+        "viewed_product_index": "report_viewed_product_index",
+        "viewed_aggregated_daily": "report_viewed_product_aggregated_daily",
+        "viewed_aggregated_monthly": "report_viewed_product_aggregated_monthly",
+        "viewed_aggregated_yearly": "report_viewed_product_aggregated_yearly"
+    },
+    "rating": {
+        "rating": "rating",
+        "rating_store": "rating_store",
+        "rating_title": "rating_title",
+        "rating_entity": "rating_entity",
+        "rating_option": "rating_option",
+        "rating_option_vote": "rating_option_vote",
+        "rating_vote_aggregated": "rating_option_vote_aggregated"
+    },
+    "productalert": {
+        "price": "product_alert_price",
+        "stock": "product_alert_stock"
+    },
+    "poll": {
+        "poll": "poll",
+        "poll_answer": "poll_answer",
+        "poll_vote": "poll_vote",
+        "poll_store": "poll_store"
+    },
+    "persistent": {
+        "session": "persistent_session"
+    },
+    "paypaluk": {
+        "api_debug": "paypaluk_api_debug"
+    },
+    "paypal": {
+        "api_debug": "paypal_api_debug",
+        "settlement_report": "paypal_settlement_report",
+        "settlement_report_row": "paypal_settlement_report_row",
+        "cert": "paypal_cert",
+        "payment_transaction": "paypal_payment_transaction"
+    },
+    "paygate": {
+        "authorizenet_debug": "paygate_authorizenet_debug"
+    },
+    "ogone": {
+        "api_debug": "ogone_api_debug"
+    },
+    "oauth": {
+        "consumer": "oauth_consumer",
+        "token": "oauth_token",
+        "nonce": "oauth_nonce"
+    },
+    "newsletter": {
+        "subscriber": "newsletter_subscriber",
+        "queue": "newsletter_queue",
+        "queue_link": "newsletter_queue_link",
+        "queue_store_link": "newsletter_queue_store_link",
+        "template": "newsletter_template",
+        "problem": "newsletter_problem"
+    },
+    "log": {
+        "customer": "log_customer",
+        "visitor": "log_visitor",
+        "visitor_info": "log_visitor_info",
+        "url_table": "log_url",
+        "url_info_table": "log_url_info",
+        "summary_table": "log_summary",
+        "summary_type_table": "log_summary_type",
+        "quote_table": "log_quote",
+        "visitor_online": "log_visitor_online"
+    },
+    "index": {
+        "event": "index_event",
+        "process": "index_process",
+        "process_event": "index_process_event"
+    },
+    "importexport": {
+        "importdata": "importexport_importdata"
+    },
+    "googlebase": {
+        "types": "googlebase_types",
+        "items": "googlebase_items",
+        "attributes": "googlebase_attributes"
+    },
+    "giftmessage": {
+        "message": "gift_message"
+    },
+    "eav": {
+        "entity": "eav_entity",
+        "entity_value_prefix": "eav_entity",
+        "entity_type": "eav_entity_type",
+        "entity_store": "eav_entity_store",
+        "entity_attribute": "eav_entity_attribute",
+        "attribute": "eav_attribute",
+        "attribute_set": "eav_attribute_set",
+        "attribute_group": "eav_attribute_group",
+        "attribute_option": "eav_attribute_option",
+        "attribute_option_value": "eav_attribute_option_value",
+        "attribute_label": "eav_attribute_label",
+        "form_type": "eav_form_type",
+        "form_type_entity": "eav_form_type_entity",
+        "form_fieldset": "eav_form_fieldset",
+        "form_fieldset_label": "eav_form_fieldset_label",
+        "form_element": "eav_form_element"
+    },
+    "downloadable": {
+        "link": "downloadable_link",
+        "link_title": "downloadable_link_title",
+        "link_price": "downloadable_link_price",
+        "sample": "downloadable_sample",
+        "sample_title": "downloadable_sample_title",
+        "link_purchased": "downloadable_link_purchased",
+        "link_purchased_item": "downloadable_link_purchased_item",
+        "product_price_indexer_idx": "catalog_product_index_price_downlod_idx",
+        "product_price_indexer_tmp": "catalog_product_index_price_downlod_tmp"
+    },
+    "directory": {
+        "country": "directory_country",
+        "country_format": "directory_country_format",
+        "country_region": "directory_country_region",
+        "country_region_name": "directory_country_region_name",
+        "currency_rate": "directory_currency_rate"
+    },
+    "dataflow": {
+        "session": "dataflow_session",
+        "import": "dataflow_import_data",
+        "profile": "dataflow_profile",
+        "profile_history": "dataflow_profile_history",
+        "batch": "dataflow_batch",
+        "batch_export": "dataflow_batch_export",
+        "batch_import": "dataflow_batch_import"
+    },
+    "customer": {
+        "entity": "customer_entity",
+        "address_entity": "customer_address_entity",
+        "value_prefix": "customer_entity",
+        "customer_group": "customer_group",
+        "eav_attribute": "customer_eav_attribute",
+        "eav_attribute_website": "customer_eav_attribute_website",
+        "form_attribute": "customer_form_attribute"
+    },
+    "cron": {
+        "schedule": "cron_schedule"
+    },
+    "core": {
+        "website": "core_website",
+        "store_group": "core_store_group",
+        "store": "core_store",
+        "config_field": "core_config_field",
+        "config_data": "core_config_data",
+        "email_template": "core_email_template",
+        "variable": "core_variable",
+        "variable_value": "core_variable_value",
+        "translate": "core_translate",
+        "session": "core_session",
+        "layout_update": "core_layout_update",
+        "layout_link": "core_layout_link",
+        "url_rewrite": "core_url_rewrite",
+        "url_rewrite_tag": "core_url_rewrite_tag",
+        "design_change": "design_change",
+        "flag": "core_flag",
+        "email_queue": "core_email_queue",
+        "email_recipients": "core_email_queue_recipients",
+        "file_storage": "core_file_storage",
+        "directory_storage": "core_directory_storage"
+    },
+    "compiler": {
+        "configuration": "compiler_configuration"
+    },
+    "cms": {
+        "page": "cms_page",
+        "page_store": "cms_page_store",
+        "block": "cms_block",
+        "block_store": "cms_block_store"
+    },
+    "checkout": {
+        "agreement": "checkout_agreement",
+        "agreement_store": "checkout_agreement_store"
+    },
+    "catalogsearch": {
+        "search_query": "catalogsearch_query",
+        "result": "catalogsearch_result",
+        "fulltext": "catalogsearch_fulltext"
+    },
+    "catalogrule": {
+        "rule": "catalogrule",
+        "rule_product": "catalogrule_product",
+        "rule_product_price_tmp": "catalogrule_product_price_tmp",
+        "rule_product_price": "catalogrule_product_price",
+        "affected_product": "catalogrule_affected_product",
+        "rule_group_website": "catalogrule_group_website",
+        "website": "catalogrule_website",
+        "customer_group": "catalogrule_customer_group"
+    },
+    "cataloginventory": {
+        "stock": "cataloginventory_stock",
+        "stock_item": "cataloginventory_stock_item",
+        "stock_status": "cataloginventory_stock_status",
+        "stock_status_indexer_idx": "cataloginventory_stock_status_idx",
+        "stock_status_indexer_tmp": "cataloginventory_stock_status_tmp"
+    },
+    "catalogindex": {
+        "eav": "catalog_product_index_eav",
+        "price": "catalog_product_index_price",
+        "minimal_price": "catalogindex_minimal_price",
+        "aggregation": "catalogindex_aggregation",
+        "aggregation_tag": "catalogindex_aggregation_tag",
+        "aggregation_to_tag": "catalogindex_aggregation_to_tag"
+    },
+    "catalog": {
+        "product": "catalog_product_entity",
+        "category": "catalog_category_entity",
+        "category_product": "catalog_category_product",
+        "category_product_index": "catalog_category_product_index",
+        "compare_item": "catalog_compare_item",
+        "product_website": "catalog_product_website",
+        "product_enabled_index": "catalog_product_enabled_index",
+        "product_link_type": "catalog_product_link_type",
+        "product_link": "catalog_product_link",
+        "product_link_attribute": "catalog_product_link_attribute",
+        "product_link_attribute_decimal": "catalog_product_link_attribute_decimal",
+        "product_link_attribute_int": "catalog_product_link_attribute_int",
+        "product_link_attribute_varchar": "catalog_product_link_attribute_varchar",
+        "product_super_attribute": "catalog_product_super_attribute",
+        "product_super_attribute_label": "catalog_product_super_attribute_label",
+        "product_super_attribute_pricing": "catalog_product_super_attribute_pricing",
+        "product_super_link": "catalog_product_super_link",
+        "product_attribute_tier_price": "catalog_product_entity_tier_price",
+        "product_attribute_group_price": "catalog_product_entity_group_price",
+        "product_attribute_media_gallery": "catalog_product_entity_media_gallery",
+        "product_attribute_media_gallery_value": "catalog_product_entity_media_gallery_value",
+        "product_option": "catalog_product_option",
+        "product_option_price": "catalog_product_option_price",
+        "product_option_title": "catalog_product_option_title",
+        "product_option_type_value": "catalog_product_option_type_value",
+        "product_option_type_price": "catalog_product_option_type_price",
+        "product_option_type_title": "catalog_product_option_type_title",
+        "category_flat": "catalog_category_flat",
+        "product_flat": "catalog_product_flat",
+        "eav_attribute": "catalog_eav_attribute",
+        "product_relation": "catalog_product_relation",
+        "product_index_eav": "catalog_product_index_eav",
+        "product_index_eav_decimal": "catalog_product_index_eav_decimal",
+        "product_index_price": "catalog_product_index_price",
+        "product_index_tier_price": "catalog_product_index_tier_price",
+        "product_index_group_price": "catalog_product_index_group_price",
+        "product_index_website": "catalog_product_index_website",
+        "product_price_indexer_cfg_option_aggregate_idx": "catalog_product_index_price_cfg_opt_agr_idx",
+        "product_price_indexer_cfg_option_aggregate_tmp": "catalog_product_index_price_cfg_opt_agr_tmp",
+        "product_price_indexer_cfg_option_idx": "catalog_product_index_price_cfg_opt_idx",
+        "product_price_indexer_cfg_option_tmp": "catalog_product_index_price_cfg_opt_tmp",
+        "product_price_indexer_final_idx": "catalog_product_index_price_final_idx",
+        "product_price_indexer_final_tmp": "catalog_product_index_price_final_tmp",
+        "product_price_indexer_option_idx": "catalog_product_index_price_opt_idx",
+        "product_price_indexer_option_tmp": "catalog_product_index_price_opt_tmp",
+        "product_price_indexer_option_aggregate_idx": "catalog_product_index_price_opt_agr_idx",
+        "product_price_indexer_option_aggregate_tmp": "catalog_product_index_price_opt_agr_tmp",
+        "product_eav_indexer_idx": "catalog_product_index_eav_idx",
+        "product_eav_indexer_tmp": "catalog_product_index_eav_tmp",
+        "product_eav_decimal_indexer_idx": "catalog_product_index_eav_decimal_idx",
+        "product_eav_decimal_indexer_tmp": "catalog_product_index_eav_decimal_tmp",
+        "product_price_indexer_idx": "catalog_product_index_price_idx",
+        "product_price_indexer_tmp": "catalog_product_index_price_tmp",
+        "category_product_indexer_idx": "catalog_category_product_index_idx",
+        "category_product_indexer_tmp": "catalog_category_product_index_tmp",
+        "category_product_enabled_indexer_idx": "catalog_category_product_index_enbl_idx",
+        "category_product_enabled_indexer_tmp": "catalog_category_product_index_enbl_tmp",
+        "category_anchor_indexer_idx": "catalog_category_anc_categs_index_idx",
+        "category_anchor_indexer_tmp": "catalog_category_anc_categs_index_tmp",
+        "category_anchor_products_indexer_idx": "catalog_category_anc_products_index_idx",
+        "category_anchor_products_indexer_tmp": "catalog_category_anc_products_index_tmp"
+    },
+    "captcha": {
+        "log": "captcha_log"
+    },
+    "bundle": {
+        "option": "catalog_product_bundle_option",
+        "option_value": "catalog_product_bundle_option_value",
+        "selection": "catalog_product_bundle_selection",
+        "selection_price": "catalog_product_bundle_selection_price",
+        "price_index": "catalog_product_bundle_price_index",
+        "stock_index": "catalog_product_bundle_stock_index",
+        "price_indexer_idx": "catalog_product_index_price_bundle_idx",
+        "price_indexer_tmp": "catalog_product_index_price_bundle_tmp",
+        "selection_indexer_idx": "catalog_product_index_price_bundle_sel_idx",
+        "selection_indexer_tmp": "catalog_product_index_price_bundle_sel_tmp",
+        "option_indexer_idx": "catalog_product_index_price_bundle_opt_idx",
+        "option_indexer_tmp": "catalog_product_index_price_bundle_opt_tmp"
+    },
+    "api2": {
+        "acl_role": "api2_acl_role",
+        "acl_user": "api2_acl_user",
+        "acl_rule": "api2_acl_rule",
+        "acl_attribute": "api2_acl_attribute"
+    },
+    "api": {
+        "assert": "api_assert",
+        "role": "api_role",
+        "rule": "api_rule",
+        "user": "api_user",
+        "session": "api_session"
+    },
+    "adminnotification": {
+        "inbox": "adminnotification_inbox"
+    },
+    "admin": {
+        "user": "admin_user",
+        "role": "admin_role",
+        "rule": "admin_rule",
+        "assert": "admin_assert"
+    },
+    "enterprise_urlrewrite": {
+        "url_rewrite": "enterprise_url_rewrite",
+        "redirect": "enterprise_url_rewrite_redirect",
+        "redirect_rewrite": "enterprise_url_rewrite_redirect_rewrite"
+    },
+    "enterprise_targetrule": {
+        "rule": "enterprise_targetrule",
+        "customersegment": "enterprise_targetrule_customersegment",
+        "product": "enterprise_targetrule_product",
+        "segment": "enterprise_targetrule_customersegment",
+        "index": "enterprise_targetrule_index",
+        "index_related": "enterprise_targetrule_index_related",
+        "index_crosssell": "enterprise_targetrule_index_crosssell",
+        "index_upsell": "enterprise_targetrule_index_upsell",
+        "index_related_product": "enterprise_targetrule_index_related_product",
+        "index_upsell_product": "enterprise_targetrule_index_upsell_product",
+        "index_crosssell_product": "enterprise_targetrule_index_crosssell_product"
+    },
+    "enterprise_support": {
+        "backup": "enterprise_support_backup",
+        "backup_item": "enterprise_support_backup_item",
+        "sysreport": "enterprise_support_sysreport"
+    },
+    "enterprise_staging": {
+        "staging": "enterprise_staging",
+        "staging_item": "enterprise_staging_item",
+        "staging_action": "enterprise_staging_action",
+        "staging_log": "enterprise_staging_log",
+        "staging_product_unlinked": "enterprise_staging_product_unlinked"
+    },
+    "enterprise_search": {
+        "recommendations": "catalogsearch_recommendations"
+    },
+    "enterprise_salesarchive": {
+        "order_grid": "enterprise_sales_order_grid_archive",
+        "invoice_grid": "enterprise_sales_invoice_grid_archive",
+        "creditmemo_grid": "enterprise_sales_creditmemo_grid_archive",
+        "shipment_grid": "enterprise_sales_shipment_grid_archive"
+    },
+    "enterprise_rma": {
+        "rma": "enterprise_rma",
+        "rma_grid": "enterprise_rma_grid",
+        "rma_status_history": "enterprise_rma_status_history",
+        "item_entity": "enterprise_rma_item_entity",
+        "item_eav_attribute": "enterprise_rma_item_eav_attribute",
+        "item_eav_attribute_website": "enterprise_rma_item_eav_attribute_website",
+        "item_form_attribute": "enterprise_rma_item_form_attribute",
+        "rma_shipping_label": "enterprise_rma_shipping_label"
+    },
+    "enterprise_reward": {
+        "reward": "enterprise_reward",
+        "reward_history": "enterprise_reward_history",
+        "reward_rate": "enterprise_reward_rate",
+        "reward_salesrule": "enterprise_reward_salesrule"
+    },
+    "enterprise_reminder": {
+        "rule": "enterprise_reminder_rule",
+        "website": "enterprise_reminder_rule_website",
+        "template": "enterprise_reminder_template",
+        "coupon": "enterprise_reminder_rule_coupon",
+        "log": "enterprise_reminder_rule_log"
+    },
+    "enterprise_pci": {
+        "admin_passwords": "enterprise_admin_passwords"
+    },
+    "enterprise_mview": {
+        "metadata": "enterprise_mview_metadata",
+        "subscriber": "enterprise_mview_subscriber",
+        "event": "enterprise_mview_event",
+        "metadata_event": "enterprise_mview_metadata_event",
+        "metadata_group": "enterprise_mview_metadata_group"
+    },
+    "enterprise_logging": {
+        "event": "enterprise_logging_event",
+        "event_changes": "enterprise_logging_event_changes"
+    },
+    "enterprise_invitation": {
+        "invitation": "enterprise_invitation",
+        "invitation_history": "enterprise_invitation_status_history",
+        "invitation_track": "enterprise_invitation_track"
+    },
+    "enterprise_index": {
+        "multiplier": "enterprise_index_multiplier"
+    },
+    "enterprise_importexport": {
+        "scheduled_operation": "enterprise_scheduled_operations"
+    },
+    "enterprise_giftwrapping": {
+        "wrapping": "enterprise_giftwrapping",
+        "attribute": "enterprise_giftwrapping_store_attributes",
+        "website": "enterprise_giftwrapping_website"
+    },
+    "enterprise_giftregistry": {
+        "type": "enterprise_giftregistry_type",
+        "info": "enterprise_giftregistry_type_info",
+        "label": "enterprise_giftregistry_label",
+        "entity": "enterprise_giftregistry_entity",
+        "item": "enterprise_giftregistry_item",
+        "item_option": "enterprise_giftregistry_item_option",
+        "person": "enterprise_giftregistry_person",
+        "data": "enterprise_giftregistry_data"
+    },
+    "enterprise_giftcardaccount": {
+        "giftcardaccount": "enterprise_giftcardaccount",
+        "pool": "enterprise_giftcardaccount_pool",
+        "history": "enterprise_giftcardaccount_history"
+    },
+    "enterprise_giftcard": {
+        "amount": "enterprise_giftcard_amount"
+    },
+    "enterprise_customersegment": {
+        "segment": "enterprise_customersegment_segment",
+        "event": "enterprise_customersegment_event",
+        "customer": "enterprise_customersegment_customer",
+        "website": "enterprise_customersegment_website"
+    },
+    "enterprise_customerbalance": {
+        "balance": "enterprise_customerbalance",
+        "balance_history": "enterprise_customerbalance_history"
+    },
+    "enterprise_customer": {
+        "sales_order": "enterprise_customer_sales_flat_order",
+        "sales_order_address": "enterprise_customer_sales_flat_order_address",
+        "sales_quote": "enterprise_customer_sales_flat_quote",
+        "sales_quote_address": "enterprise_customer_sales_flat_quote_address"
+    },
+    "enterprise_cms": {
+        "page_version": "enterprise_cms_page_version",
+        "page_revision": "enterprise_cms_page_revision",
+        "increment": "enterprise_cms_increment",
+        "hierarchy_metadata": "enterprise_cms_hierarchy_metadata",
+        "hierarchy_node": "enterprise_cms_hierarchy_node",
+        "hierarchy_lock": "enterprise_cms_hierarchy_lock"
+    },
+    "enterprise_catalogpermissions": {
+        "permission": "enterprise_catalogpermissions",
+        "permission_index": "enterprise_catalogpermissions_index",
+        "permission_index_product": "enterprise_catalogpermissions_index_product"
+    },
+    "enterprise_catalogevent": {
+        "event": "enterprise_catalogevent_event",
+        "event_image": "enterprise_catalogevent_event_image"
+    },
+    "enterprise_catalog": {
+        "product": "enterprise_catalog_product_rewrite",
+        "category": "enterprise_catalog_category_rewrite"
+    },
+    "enterprise_banner": {
+        "banner": "enterprise_banner",
+        "content": "enterprise_banner_content",
+        "customersegment": "enterprise_banner_customersegment",
+        "catalogrule": "enterprise_banner_catalogrule",
+        "salesrule": "enterprise_banner_salesrule"
+    }
+}

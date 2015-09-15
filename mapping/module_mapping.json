@@ -1,0 +1,330 @@
+{
+    "Enterprise_AdminGws": {
+        "m2module": "Magento_AdminGws"
+    },
+    "Enterprise_Banner": {
+        "m2module": "Magento_Banner"
+    },
+    "Enterprise_Bundle": {
+        "comment": "Functionality no longer needed"
+    },
+    "Enterprise_Catalog": {
+        "m2module": "Magento_AdvancedCatalog"
+    },
+    "Enterprise_CatalogEvent": {
+        "m2module": "Magento_CatalogEvent"
+    },
+    "Enterprise_CatalogInventory": {
+        "comment": "Indexing functionality moved to Magento_CatalogInventory module"
+    },
+    "Enterprise_CatalogPermissions": {
+        "m2module": "Magento_CatalogPermissions"
+    },
+    "Enterprise_CatalogSearch": {
+        "comment": "Indexing functionality moved to Magento_CatalogSearch module"
+    },
+    "Enterprise_Checkout": {
+        "m2module": "Magento_AdvancedCheckout"
+    },
+    "Enterprise_Cms": {
+        "m2module": "Magento_VersionsCms"
+    },
+    "Enterprise_Customer": {
+        "m2module": "Magento_CustomerCustomAttributes"
+    },
+    "Enterprise_CustomerBalance": {
+        "m2module": "Magento_CustomerBalance"
+    },
+    "Enterprise_CustomerSegment": {
+        "m2module": "Magento_CustomerSegment"
+    },
+    "Enterprise_Eav": {
+        "m2module": "Magento_CustomAttributeManagement"
+    },
+    "Enterprise_Enterprise": {
+        "m2module": "Magento_Enterprise"
+    },
+    "Enterprise_GiftCard": {
+        "m2module": "Magento_GiftCard"
+    },
+    "Enterprise_GiftCardAccount": {
+        "m2module": "Magento_GiftCardAccount"
+    },
+    "Enterprise_GiftRegistry": {
+        "m2module": "Magento_GiftRegistry"
+    },
+    "Enterprise_GiftWrapping": {
+        "m2module": "Magento_GiftWrapping"
+    },
+    "Enterprise_GoogleAnalyticsUniversal": {
+        "m2module": "Magento_GoogleTagManager"
+    },
+    "Enterprise_ImportExport": {
+        "m2module": "Magento_ScheduledImportExport"
+    },
+    "Enterprise_Index": {
+        "comment": "Functionality moved to framework and Magento_Indexer"
+    },
+    "Enterprise_Invitation": {
+        "m2module": "Magento_Invitation"
+    },
+    "Enterprise_License": {
+        "comment": "obsolete"
+    },
+    "Enterprise_Logging": {
+        "m2module": "Magento_Logging"
+    },
+    "Enterprise_Mview": {
+        "comment": "Functionality moved to framework"
+    },
+    "Enterprise_PageCache": {
+        "m2module": "Magento_PageCache"
+    },
+    "Enterprise_Pbridge": {
+        "comment": "obsolete"
+    },
+    "Enterprise_Pci": {
+        "m2module": "Magento_EncryptionKey"
+    },
+    "Enterprise_Persistent": {
+        "m2module": "Magento_PersistentHistory"
+    },
+    "Enterprise_PricePermissions": {
+        "m2module": "Magento_PricePermissions"
+    },
+    "Enterprise_PromotionPermissions": {
+        "m2module": "Magento_PromotionPermissions"
+    },
+    "Enterprise_Reminder": {
+        "m2module": "Magento_Reminder"
+    },
+    "Enterprise_Reward": {
+        "m2module": "Magento_Reward"
+    },
+    "Enterprise_Rma": {
+        "m2module": "Magento_Rma"
+    },
+    "Enterprise_SalesArchive": {
+        "m2module": "Magento_SalesArchive"
+    },
+    "Enterprise_Search": {
+        "m2module": "Magento_AdvancedSearch"
+    },
+    "Enterprise_Staging": {
+        "comment": "obsolete"
+    },
+    "Enterprise_Support": {
+        "m2module": "Magento_Support"
+    },
+    "Enterprise_TargetRule": {
+        "m2module": "Magento_TargetRule"
+    },
+    "Enterprise_UrlRewrite": {
+        "m2module": "Magento_UrlRewrite"
+    },
+    "Enterprise_WebsiteRestriction": {
+        "m2module": "Magento_WebsiteRestriction"
+    },
+    "Enterprise_Wishlist": {
+        "m2module": "Magento_MultipleWishlist"
+    },
+    "Mage_Admin": {
+        "m2module": "Magento_Authorization"
+    },
+    "Mage_AdminNotification": {
+        "m2module": "Magento_AdminNotification"
+    },
+    "Mage_Adminhtml": {
+        "m2module": "Magento_Backend",
+        "comment": "Many blocks and controller moved to individual modules"
+    },
+    "Mage_Api": {
+        "comment": "obsolete"
+    },
+    "Mage_Api2": {
+        "comment": "obsolete"
+    },
+    "Mage_Authorizenet": {
+        "m2module": "Magento_Authorizenet"
+    },
+    "Mage_Backup": {
+        "m2module": "Magento_Backup"
+    },
+    "Mage_Bundle": {
+        "m2module": "Magento_Bundle"
+    },
+    "Mage_Captcha": {
+        "m2module": "Magento_Captcha"
+    },
+    "Mage_Catalog": {
+        "m2module": "Magento_Catalog"
+    },
+    "Mage_CatalogIndex": {
+        "comment": "obsolete"
+    },
+    "Mage_CatalogInventory": {
+        "m2module": "Magento_CatalogInventory"
+    },
+    "Mage_CatalogRule": {
+        "m2module": "Magento_CatalogRule"
+    },
+    "Mage_CatalogSearch": {
+        "m2module": "Magento_CatalogSearch"
+    },
+    "Mage_Centinel": {
+        "comment": "obsolete"
+    },
+    "Mage_Checkout": {
+        "m2module": "Magento_Checkout"
+    },
+    "Mage_Cms": {
+        "m2module": "Magento_Cms"
+    },
+    "Mage_Compiler": {
+        "comment": "obsolete"
+    },
+    "Mage_ConfigurableSwatches": {
+        "m2module": "Magento_Swatches???"
+    },
+    "Mage_Connect": {
+        "comment": "obsolete"
+    },
+    "Mage_Contacts": {
+        "m2module": "Magento_Contact"
+    },
+    "Mage_Core": {
+        "comment": "Functionalities moved to framework and several other modules"
+    },
+    "Mage_Cron": {
+        "m2module": "Magento_Cron"
+    },
+    "Mage_CurrencySymbol": {
+        "m2module": "Magento_CurrencySymbol"
+    },
+    "Mage_Customer": {
+        "m2module": "Magento_Customer"
+    },
+    "Mage_Dataflow": {
+        "comment": "obsolete"
+    },
+    "Mage_Directory": {
+        "m2module": "Magento_Directory"
+    },
+    "Mage_Downloadable": {
+        "m2module": "Magento_Downloadable"
+    },
+    "Mage_Eav": {
+        "m2module": "Magento_Eav"
+    },
+    "Mage_GiftMessage": {
+        "m2module": "Magento_GiftMessage"
+    },
+    "Mage_GoogleAnalytics": {
+        "m2module": "Magento_GoogleAnalytics"
+    },
+    "Mage_GoogleBase": {
+        "comment": "obsolete"
+    },
+    "Mage_GoogleCheckout": {
+        "comment": "obsolete"
+    },
+    "Mage_ImportExport": {
+        "m2module": "Magento_ImportExport"
+    },
+    "Mage_Index": {
+        "m2module": "Magento_Indexer"
+    },
+    "Mage_Install": {
+        "comment": "obsolete"
+    },
+    "Mage_Log": {
+        "m2module": "Removed, some functionality moved to Magento_CustomerModule"
+    },
+    "Mage_Media": {
+        "comment": "obsolete, merged into Magento_Catalog module"
+    },
+    "Mage_Newsletter": {
+        "m2module": "Magento_Newsletter"
+    },
+    "Mage_Oauth": {
+        "m2module": "Magento_Integration"
+    },
+    "Mage_Ogone": {
+        "comment": "obsolete"
+    },
+    "Mage_Page": {
+        "comment": "Removed, functionality moved to framework and Magento_Theme module"
+    },
+    "Mage_Paygate": {
+        "comment": "Consolidated into Magento_Authorizenet module"
+    },
+    "Mage_Payment": {
+        "m2module": "Magento_Payment"
+    },
+    "Mage_Paypal": {
+        "m2module": "Magento_Paypal"
+    },
+    "Mage_PaypalUk": {
+        "comment": "Consolidated into Magento_Paypal module"
+    },
+    "Mage_Persistent": {
+        "m2module": "Magento_Persistent"
+    },
+    "Mage_Poll": {
+        "comment": "obsolete"
+    },
+    "Mage_ProductAlert": {
+        "m2module": "Magento_ProductAlert"
+    },
+    "Mage_Rating": {
+        "m2module": "Magento_Review"
+    },
+    "Mage_Reports": {
+        "m2module": "Magento_Reports"
+    },
+    "Mage_Review": {
+        "m2module": "Magento_Review"
+    },
+    "Mage_Rss": {
+        "m2module": "Magento_Rss"
+    },
+    "Mage_Rule": {
+        "m2module": "Magento_Rule"
+    },
+    "Mage_Sales": {
+        "m2module": "Magento_Sales"
+    },
+    "Mage_SalesRule": {
+        "m2module": "Magento_SalesRule"
+    },
+    "Mage_Sendfriend": {
+        "m2module": "Magento_Sendfriend"
+    },
+    "Mage_Shipping": {
+        "m2module": "Magento_Shipping"
+    },
+    "Mage_Sitemap": {
+        "m2module": "Magento_Sitemap"
+    },
+    "Mage_Tag": {
+        "comment": "obsolete"
+    },
+    "Mage_Tax": {
+        "m2module": "Magento_Tax"
+    },
+    "Mage_Usa": {
+        "comment": "Splitted into modules for individual carriers, e.g., Dhl, Fedex, Ups, Usps."
+    },
+    "Mage_Weee": {
+        "m2module": "Magento_Weee"
+    },
+    "Mage_Widget": {
+        "m2module": "Magento_Widget"
+    },
+    "Mage_Wishlist": {
+        "m2module": "Magento_Wishlist"
+    },
+    "Mage_XmlConnect": {
+        "comment": "obsolete"
+    }
+}

@@ -1,0 +1,842 @@
+{
+    "Mage": {
+        "m2class": "obsolete",
+        "comment": "Mage class has been removed. The functionalities are distributed among ObjectManger and other classes",
+        "methods": {
+            "getModel": "Use dependency injection and factory",
+            "helper": "Use dependency injection in PHP classes and use $this->helper('full_helper_class_name') in phtml",
+            "getSingleton": "Use dependency injection",
+            "getResourceModel": "Use dependency injection and factory",
+            "getResourceSingleton": "Use dependency injection",
+            "app": "The functionality in Mage_Core_Model_App has been splitted into multiple classes.",
+            "throwException": "Create and throw exception",
+            "log": "Replaced with \\Psr\\Log\\LoggerInterface.",
+            "logException": "Replaced with \\Psr\\Log\\LoggerInterface.",
+            "setIsDeveloperMode": "Set developer mode by setting 'SetEnv MAGE_MODE developer' in .htaccess",
+            "dispatchEvent": "Use \\Magento\\Framework\\Event\\ManagerInterface",
+            "addObserver": "Add event observer in events.xml",
+            "getStoreConfig": "Use \\Magento\\Framework\\App\\Config\\ScopeConfigInterface.",
+            "registry": "Use \\Magento\\Framework\\Registry",
+            "unregistry": "Use \\Magento\\Framework\\Registry",
+            "register": "Use \\Magento\\Framework\\Registry"
+        }
+    },
+    "Mage_AdminNotification_Helper_Data": {
+        "m2class": "obsolete",
+        "comment": "Use \\Magento\\AdminNotification\\Model\\Inbox directly."
+    },
+    "Mage_AdminNotification_Model_Survey": {
+        "m2class": "obsolete"
+    },
+    "Mage_Admin_Helper_Rules_Fallback": {
+        "m2class": "obsolete"
+    },
+    "Mage_Media_Model_Image_Config_Interface": {
+        "m2class": "\\Magento\\Catalog\\Model\\Product\\Media\\ConfigInterface"
+    },
+    "Mage_Admin_Model_Acl": {
+        "m2class" : "\\Magento\\Framework\\Acl"
+    },
+    "Mage_Admin_Model_Config": {
+        "m2class": "obsolete"
+    },
+    "Varien_Data_Collection_Db": {
+        "m2class": "\\Magento\\Framework\\Data\\Collection\\AbstractDb"
+    },
+    "Varien_Data_Form_Element_Abstract": {
+        "m2class": "\\Magento\\Framework\\Data\\Form\\Element\\AbstractElement"
+    },
+    "Varien_Data_Form_Element_Renderer_Interface": {
+        "m2class": "\\Magento\\Framework\\Data\\Form\\Element\\Renderer\\RendererInterface"
+    },
+    "Varien_Date": "unmapped",
+    "Varien_Db_Adapter_Interface": {
+        "m2class": "\\Magento\\Framework\\Db\\Adapter\\AdapterInterface"
+    },
+    "Varien_Data_Collection": {
+        "m2class": "\\Magento\\Framework\\Data\\Collection"
+    },
+    "Mage_Admin_Model_Resource_Acl": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Authorization\\Model\\Acl\\Loader\\Role and \\Magento\\Authorization\\Model\\Acl\\Loader\\Rule"
+    },
+    "Mage_Admin_Model_Resource_Roles_Collection": {
+        "m2class": "\\Magento\\Authorization\\Model\\Resource\\Role\\Collection"
+    },
+    "Mage_Admin_Model_Roles": {
+        "m2class": "\\Magento\\Authorization\\Model\\Role",
+        "methods": {
+            "getUsersCollection": "obsolete",
+            "getResourcesTree": "obsolete",
+            "getResourcesList": "obsolete",
+            "getResourcesList2D": "obsolete"
+        }
+    },
+    "Mage_Adminhtml_Block_Catalog_Category_Abstract": {
+        "m2class": "obsolete",
+        "comment": "Adminhtml blocks are moved to individual modules."
+    },
+    "Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist": {
+        "m2class": "obsolete",
+        "comment": "Adminhtml blocks are moved to individual modules."
+    },
+    "Mage_Adminhtml_Block_Dashboard": {
+        "m2class": "\\Magento\\Backend\\Block\\Dashboard"
+    },
+    "Mage_Adminhtml_Block_Messages": {
+        "m2class": "\\Magento\\Framework\\View\\Element\\Messages"
+    },
+    "Mage_Adminhtml_Block_Permissions_Grid_Role": {
+        "m2class": "obsolete"
+    },
+    "Mage_Adminhtml_Block_Report_Filter_Form": {
+        "m2class": "\\Magento\\Reports\\Block\\Adminhtml\\Filter\\Form"
+    },
+    "Mage_Adminhtml_Block_Sales_Creditmemo_Grid": {
+        "m2class": "obsolete",
+        "comment": "Converted to UI component. See Magento/Sales/view/adminhtml/ui_component/sales_order_creditmemo_grid.xml"
+    },
+    "Mage_Adminhtml_Block_Sales_Invoice_Grid": {
+        "m2class": "obsolete",
+        "comment": "Converted to UI component. See Magento/Sales/view/adminhtml/ui_component/sales_order_invoice_grid.xml"
+    },
+    "Mage_Adminhtml_Block_Sales_Items_Abstract": {
+        "m2class": "\\Magento\\Sales\\Block\\Adminhtml\\Items\\AbstractItems"
+    },
+    "Mage_Adminhtml_Block_Sales_Items_Renderer_Default": {
+        "m2class": "\\Magento\\Sales\\Block\\Adminhtml\\Items\\Renderer\\DefaultRenderer"
+    },
+    "Mage_Adminhtml_Block_Sales_Order_Abstract": {
+        "m2class": "\\Magento\\Sales\\Block\\Adminhtml\\Order\\AbstractOrder"
+    },
+    "Mage_Adminhtml_Block_Sales_Order_Create_Abstract": {
+        "m2class": "\\Magento\\Sales\\Block\\Adminhtml\\Order\\Create\\AbstractCreate"
+    },
+    "Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default": {
+        "m2class": "\\Magento\\Sales\\Block\\Adminhtml\\Order\\Create\\Totals\\DefaultTotals"
+    },
+    "Mage_Adminhtml_Block_Sales_Order_Grid": {
+        "m2class": "obsolete",
+        "comment": "Converted to UI component. See Magento/Sales/view/adminhtml/ui_component/sales_order_grid.xml"
+    },
+    "Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default": {
+        "m2class": "\\Magento\\Sales\\Block\\Adminhtml\\Order\\View\\Items\\Renderer\\DefaultRenderer"
+    },
+    "Mage_Adminhtml_Block_Sales_Shipment_Grid": {
+        "m2class": "obsolete",
+        "comment": "Converted to UI component. See Magento/Sales/view/adminhtml/ui_component/sales_order_shipment_grid.xml"
+    },
+    "Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract": {
+        "m2class": "\\Magento\\Config\\Block\\System\\Config\\Form\\Field\\FieldArray\\AbstractFieldArray"
+    },
+    "Mage_Adminhtml_Block_System_Config_Switcher": {
+        "m2class": "obsolete",
+        "comment": "Functionality moved to \\Magento\\Backend\\Block\\Template"
+    },
+    "Mage_Adminhtml_Block_Template": {
+        "m2class": "\\Magento\\Backend\\Block\\Template"
+    },
+    "Mage_Adminhtml_Block_Text_List": {
+        "m2class": "\\Magento\\Backend\\Block\\Text\\ListText"
+    },
+    "Mage_Adminhtml_Block_Widget_Accordion": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Accordion"
+    },
+    "Mage_Adminhtml_Block_Widget_Container": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Container"
+    },
+    "Mage_Adminhtml_Block_Widget_Form": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Form"
+    },
+    "Mage_Adminhtml_Block_Widget_Form_Container": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Form\\Container"
+    },
+    "Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Form\\Renderer\\Fieldset"
+    },
+    "Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Form\\Renderer\\Fieldset\\Element"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Filter\\Date"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Filter\\Select"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Text": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Filter\\Text"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\AbstractRenderer"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\Action"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\Currency"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\ADatetimection"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\Massaction"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\Number"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\Options"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Column\\Renderer\\Text"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Container": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\Container"
+    },
+    "Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Grid\\AbstractMassaction"
+    },
+    "Mage_Adminhtml_Block_Widget_Tab_Interface": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Tab\\TabInterface"
+    },
+    "Mage_Adminhtml_Block_Widget_Tabs": {
+        "m2class": "\\Magento\\Backend\\Block\\Widget\\Tabs"
+    },
+    "Mage_Adminhtml_Catalog_ProductController": {
+        "m2class": "obsolete",
+        "comment": "The controller has been splited further into actions under Magento/Catalog/Controller/Adminhtml/Product/."
+    },
+    "Mage_Adminhtml_Cms_PageController": {
+        "m2class": "obsolete",
+        "comment": "The controller has been splited into multiple actions under Magento/Cms/Controller/Adminhtml/Page/"
+    },
+    "Mage_Adminhtml_Controller_Action": {
+        "m2class": "\\Magento\\Backend\\App\\Action"
+    },
+    "Mage_Adminhtml_Helper_Catalog": {
+        "m2class": "\\Magento\\Catalog\\Helper\\Catalog"
+    },
+    "Mage_Adminhtml_Helper_Catalog_Product_Composite": {
+        "m2class": "\\Magento\\Catalog\\Helper\\Product\\Composite"
+    },
+    "Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute": {
+        "m2class": "\\Magento\\Catalog\\Helper\\Product\\Edit\\Action\\Attribute"
+    },
+    "Mage_Adminhtml_Helper_Sales": {
+        "m2class": "\\Magento\\Sales\\Helper\\Admin"
+    },
+    "Mage_Adminhtml_Model_LayoutUpdate_Validator": {
+        "m2class": "\\Magento\\Framework\\View\\Model\\Layout\\Update\\Validator"
+    },
+    "Mage_Adminhtml_Model_Report_Item": {
+        "m2class": "\\Magento\\Reports\\Model\\Item"
+    },
+    "Mage_Adminhtml_Model_Sales_Order_Create": {
+        "m2class": "\\Magento\\Sales\\Model\\AdminOrder\\Create"
+    },
+    "Mage_Adminhtml_Sales_OrderController": {
+        "m2class": "obsolete",
+        "comment": "The controller has been splited into multiple actions under Magento/Sales/Controller/Adminhtml/Order/"
+    },
+    "Mage_Adminhtml_Sales_Order_CreateController": {
+        "m2class": "obsolete",
+        "comment": "The controller has been splited into multiple actions under Magento/Sales/Controller/Adminhtml/Order/Create"
+    },
+    "Mage_Api2_Exception": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi\\Exception"
+    },
+    "Mage_Api2_Model_Auth_User_Admin": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api2_Model_Resource": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api2_Model_Resource_Validator": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api2_Model_Resource_Validator_Eav": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api2_Model_Resource_Validator_Fields": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api2_Model_Route_ApiType": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api2_Model_Server": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Helper_Data": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Resource_Abstract": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Resource_Role_Collection": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Resource_Rules_Collection": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Resource_User_Collection": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Roles": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Rules": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Server": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_Session": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Api_Model_User": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Webapi"
+    },
+    "Mage_Archive_Gz": {
+        "m2class": "\\Magento\\Framework\\Archive\\Gz"
+    },
+    "Mage_Archive_Helper_File": {
+        "m2class": "\\Magento\\Framework\\Archive\\Helper\\File"
+    },
+    "Mage_Archive_Helper_File_Gz": {
+        "m2class": "\\Magento\\Framework\\Archive\\Helper\\File\\Gz"
+    },
+    "Mage_Archive_Tar": {
+        "m2class": "\\Magento\\Framework\\Archive\\Tar"
+    },
+    "Mage_Backup": {
+        "m2class": "\\Magento\\Framework\\Backup\\BackupInterface",
+        "comment": "Use \\Magento\\Framework\\Backup\\Factory to create an instance"
+    },
+    "Mage_CatalogIndex_Model_Catalog_Index_Flag": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogIndex_Model_Catalog_Index_Kill_Flag": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogIndex_Model_Data_Simple": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogIndex_Model_Data_Virtual": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogIndex_Model_Indexer": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogIndex_Model_Resource_Data_Abstract": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogIndex_Model_Retreiver": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogInventory_Model_Observer": {
+        "m2class": "obsolete",
+        "comment": "Splitted into multiple classes under /Magento/CatalogInventory/Observer/"
+    },
+    "Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default": {
+        "m2class": "obsolete"
+    },
+    "Mage_CatalogSearch_Model_Query": {
+        "m2class": "\\Magento\\Search\\Model\\Query"
+    },
+    "Mage_CatalogSearch_Model_Resource_Query_Collection": {
+        "m2class": "\\Magento\\Search\\Model\\Resource\\Query\\Collection"
+    },
+    "Mage_Catalog_Block_Layer_Filter_Abstract": {
+        "m2class": "obssolete"
+    },
+    "Mage_Catalog_Block_Product_Abstract": {
+        "m2class": "\\Magento\\Catalog\\Block\\Product\\AbstractProduct"
+    },
+    "Mage_Catalog_Block_Product_Price_Template": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Catalog\\Pricing\\Render"
+    },
+    "Mage_Catalog_Block_Product_View_Abstract": {
+        "m2class": "\\Magento\\Catalog\\Block\\Product\\View\\AbstractView"
+    },
+    "Mage_Catalog_Helper_Category_Url_Rewrite_Interface": {
+        "m2class": "obsolete"
+    },
+    "Mage_Catalog_Helper_Category_Flat": {
+        "m2class": "obsolete"
+    },
+    "Mage_Catalog_Helper_Product_Configuration_Interface": {
+        "m2class": "\\Magento\\Catalog\\Helper\\Product\\Configuration\\ConfigurationInterface"
+    },
+    "Mage_Catalog_Helper_Product_Flat": "unmapped",
+    "Mage_Catalog_Helper_Product_Url_Rewrite_Interface": "unmapped",
+    "Mage_Catalog_Model_Abstract": "unmapped",
+    "Mage_Catalog_Model_Api_Resource": "unmapped",
+    "Mage_Catalog_Model_Category_Url": "unmapped",
+    "Mage_Catalog_Model_Convert_Adapter_Product": "unmapped",
+    "Mage_Catalog_Model_Convert_Parser_Product": "unmapped",
+    "Mage_Catalog_Model_Index": "unmapped",
+    "Mage_Catalog_Model_Product_Attribute_Backend_Urlkey": "unmapped",
+    "Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type": "unmapped",
+    "Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled": "unmapped",
+    "Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price": "unmapped",
+    "Mage_Catalog_Model_Product_Compare_List": "unmapped",
+    "Mage_Catalog_Model_Product_Configuration_Item_Interface": "unmapped",
+    "Mage_Catalog_Model_Product_Configuration_Item_Option_Interface": "unmapped",
+    "Mage_Catalog_Model_Product_Flat_Flag": "unmapped",
+    "Mage_Catalog_Model_Product_Indexer_Price": "unmapped",
+    "Mage_Catalog_Model_Product_Option_Type_Default": "unmapped",
+    "Mage_Catalog_Model_Product_Type_Abstract": "unmapped",
+    "Mage_Catalog_Model_Resource_Eav_Mysql4_Product": "unmapped",
+    "Mage_Catalog_Model_Resource_Product_Flat_Indexer": "unmapped",
+    "Mage_Catalog_Model_Resource_Product_Indexer_Abstract": "unmapped",
+    "Mage_Catalog_Model_Resource_Product_Indexer_Price": "unmapped",
+    "Mage_Catalog_Model_Resource_Product_Indexer_Price_Default": "unmapped",
+    "Mage_Catalog_Model_Url": "unmapped",
+    "Mage_Centinel_Model_Service": "unmapped",
+    "Mage_Checkout_Block_Cart_Abstract": "unmapped",
+    "Mage_Checkout_Block_Total_Default": "unmapped",
+    "Mage_Checkout_Model_Agreement": "unmapped",
+    "Mage_Checkout_Model_Api_Resource": "unmapped",
+    "Mage_Checkout_Model_Api_Resource_Product": "unmapped",
+    "Mage_Checkout_Model_Cart_Interface": "unmapped",
+    "Mage_Checkout_Model_Type_Multishipping": "unmapped",
+    "Mage_Cms_Helper_Data": "unmapped",
+    "Mage_Cms_Model_Adminhtml_Template_Filter": "unmapped",
+    "Mage_Cms_Model_Resource_Page_Service": "unmapped",
+    "Mage_Compiler_Model_Process": "unmapped",
+    "Mage_ConfigurableSwatches_Helper_Productimg": "unmapped",
+    "Mage_Connect_Model_Session": "unmapped",
+    "Mage_Core_Block_Abstract": {
+        "m2class": "\\Magento\\Framework\\View\\Element\\AbstractBlock"
+    },
+    "Mage_Core_Block_Text_List": {
+        "m2class": "\\Magento\\Framework\\View\\Element\\Text\\ListText"
+    },
+    "Mage_Core_Controller_Front_Action": {
+        "m2class": "\\Magento\\Framework\\App\\Action\\Action"
+    },
+    "Mage_Core_Model_Layout": {
+        "m2class": "\\Magento\\Framework\\View\\LayoutInterface"
+    },
+    "Mage_Core_Controller_Request_Http": {
+        "m2class": "\\Magento\\Framework\\App\\Request\\Http",
+        "comment": "See \\Magento\\Framework\\App\\RequestInterface"
+    },
+    "Mage_Core_Controller_Varien_Exception": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Controller_Varien_Router_Abstract": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\App\\RouterInterface"
+    },
+    "Mage_Core_Exception": {
+        "m2class": "\\Magento\\Framework\\Exception\\LocalizedException"
+    },
+    "Mage_Core_Helper_Abstract": {
+        "m2class": "\\Magento\\Framework\\App\\Helper\\AbstractHelper"
+    },
+    "Mage_Core_Helper_File_Storage": {
+        "m2class": "\\Magento\\MediaStorage\\Helper\\File\\Storage"
+    },
+    "Mage_Core_Helper_File_Storage_Database": {
+        "m2class": "\\Magento\\MediaStorage\\Helper\\File\\Storage\\Database"
+    },
+    "Mage_Core_Helper_Http": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\HTTP\\PhpEnvironment"
+    },
+    "Mage_Core_Helper_Js": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Helper_Translate": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Translate"
+    },
+    "Mage_Core_Model_Abstract": {
+        "m2class": "\\Magento\\Framework\\Model\\AbstractModel"
+    },
+    "Mage_Core_Model_App": {
+        "m2class": "obsolete",
+        "comment": "Functionality splitted among many classes",
+        "methods": {
+            "getCookie": "Use \\Magento\\Framework\\Stdlib\\CookieManagerInterface",
+            "getStore": "Use \\Magento\\Store\\Model\\StoreManagerInterface",
+            "getStores": "Use \\Magento\\Store\\Model\\StoreManagerInterface",
+            "getDefaultStoreView": "Use \\Magento\\Store\\Model\\StoreManagerInterface",
+            "getWebsite": "Use \\Magento\\Store\\Model\\StoreManagerInterface",
+            "getWebsites": "Use \\Magento\\Store\\Model\\StoreManagerInterface",
+            "getGroup": "Use \\Magento\\Store\\Model\\StoreManagerInterface",
+            "getLocale": "Functionalities in Mage_Core_Model_Locale has been splitted among multiple classes",
+            "getLayout": "Use \\Magento\\Framework\\View\\LayoutInterface",
+            "getTranslator": "Use \\Magento\\Framework\\TranslateInterface",
+            "getHelper": "Inject helper through constructor",
+            "getCacheInstance": "See \\Magento\\Framework\\Cache\\FrontendInterface",
+            "getCache": "See \\Magento\\Framework\\Cache\\FrontendInterface",
+            "loadCache": "See \\Magento\\Framework\\Cache\\FrontendInterface",
+            "saveCache": "See \\Magento\\Framework\\Cache\\FrontendInterface",
+            "removeCache": "See \\Magento\\Framework\\Cache\\FrontendInterface",
+            "cleamCache": "See \\Magento\\Framework\\Cache\\FrontendInterface",
+            "getRequest": "Inject \\Magento\\Framework\\App\\Request\\Http through constructor.",
+            "getResponse": "Inject \\Magento\\Framework\\App\\ResponseInterface",
+            "dispatchEvent": "Use \\Magento\\Framework\\Event\\ManagerInterface",
+            "getGroups": "Use \\Magento\\Store\\Model\\StoreManagerInterface"
+        }
+    },
+    "Mage_Core_Model_Cache": {
+        "m2class": "\\Magento\\Framework\\App\\CacheInterface",
+        "comment": "Also see \\Magento\\Framework\\App\\Cache\\Frontend\\Factory"
+    },
+    "Mage_Core_Model_Config": {
+        "m2class": "obsolete",
+        "comment": "Functionality divided among classes. See \\Magento\\Framework\\App\\Config\\ScopeConfigInterface and \\Magento\\Store\\Model\\StoresConfig"
+    },
+    "Mage_Core_Helper_Data": {
+        "m2class": "obsolete",
+        "comment": "functionality divided among classes.",
+        "methods": {
+            "jsonEncode": "\\Magento\\Framework\\Json\\Helper\\Data::jsonEncode",
+            "jsonDecode": "\\Magento\\Framework\\Json\\Helper\\Data::jsonDecode"
+        }
+    },
+    "Mage_Core_Model_Config_Base": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Model_Config_Data": {
+        "m2class": "\\Magento\\Framework\\App\\Config\\Value"
+    },
+    "Mage_Core_Model_Config_Element": {
+        "m2class": "\\Magento\\Framework\\App\\Config\\Element"
+    },
+    "Mage_Core_Model_Convert": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Framework\\Convert"
+    },
+    "Mage_Core_Model_Cookie": {
+        "m2class": "\\Magento\\Framework\\Stdlib\\Cookie\\CookieMetadata",
+        "method": {
+            "getConfigDomain": "obsolete",
+            "getLifetime": "\\Magento\\Framework\\Session\\Config::getCookieLifetime"
+        }
+    },
+    "Mage_Core_Model_Design_Package": {
+        "m2class": "\\Magento\\Theme\\Model\\View\\DesignInterface"
+    },
+    "Mage_Core_Model_Design_Source_Design": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Model_Domainpolicy": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Model_Email": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Email\\Model\\Template"
+    },
+    "Mage_Core_Model_Email_Queue": {
+        "m2class": "obsolete",
+        "comment": "See \\Magento\\Email"
+    },
+    "Mage_Core_Model_Email_Template_Abstract": {
+        "m2class": "\\Magento\\Email\\Model\\AbstractTemplate"
+    },
+    "Mage_Core_Model_Encryption": {
+        "m2class": "\\Magento\\Framework\\Encryption\\EncryptorInterface"
+    },
+    "Mage_Core_Model_File_Storage": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Storage"
+    },
+    "Mage_Core_Model_File_Storage_Database": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Storage\\Database"
+    },
+    "Mage_Core_Model_File_Storage_Directory_Database": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Storage\\Directory\\Database"
+    },
+    "Mage_Core_Model_File_Storage_File": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Storage\\File"
+    },
+    "Mage_Core_Model_File_Storage_Flag": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Storage\\Flag"
+    },
+    "Mage_Core_Model_File_Uploader": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Uploader"
+    },
+    "Mage_Core_Model_File_Validator_AvailablePath": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Validator\\AvailablePath"
+    },
+    "Mage_Core_Model_File_Validator_NotProtectedExtension": {
+        "m2class": "\\Magento\\MediaStorage\\Model\\File\\Validator\\NotProtectedException"
+    },
+    "Mage_Core_Model_Locale": {
+        "m2class": "obsolete",
+        "comment": "Functionality splitted among multiple classes, see \\Magento\\Framework\\Stdlib\\DateTime\\TimezoneInterface and \\Magento\\Framework\\Locale",
+        "method": {
+            "getTimeFormat": "\\Magento\\Framework\\Stdlib\\DateTime\\TimezoneInterface::getTimeForat",
+            "getDateTimeFormat": "\\Magento\\Framework\\Stdlib\\DateTime\\TimezoneInterface::getDateTimeFormat",
+            "currency": "obsolete"
+        }
+    },
+    "Mage_Core_Model_Log_Adapter": {
+        "m2class": "\\Psr\\Log\\LoggerInterface"
+    },
+    "Mage_Core_Model_Logger": {
+        "m2class": "\\Psr\\Log\\LoggerInterface",
+        "methods": {
+            "logException": "obsolete"
+        }
+    },
+    "Mage_Core_Model_Resource": {
+        "m2class": "\\Magento\\Framework\\App\\Resource"
+    },
+    "Mage_Core_Model_Resource_Abstract": {
+        "m2class": "\\Magento\\Framework\\Model\\Resource\\AbstractResource"
+    },
+    "Mage_Core_Model_Resource_Config_Data_Collection": {
+        "m2class": "\\Magento\\Config\\Model\\Resource\\Config\\Data\\Collection"
+    },
+    "Mage_Core_Model_Resource_Db_Abstract": {
+        "m2class": "\\Magento\\Framework\\Model\\Resource\\Db\\AbstractDb"
+    },
+    "Mage_Core_Model_Resource_Db_Collection_Abstract": {
+        "m2class": "\\Magento\\Framework\\Model\\Resource\\Db\\Collection\\AbstractCollection"
+    },
+    "Mage_Core_Model_Resource_Language_Collection": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Model_Resource_Setup": {
+        "m2class": "\\Magento\\Framework\\Setup\\SetupInterface",
+        "comment": "See also \\Magento\\Framework\\Setup\\ModuleDataSetupInterface and \\Magento\\Framework\\Setup\\SchemaSetupInterface"
+    },
+    "Mage_Core_Model_Session_Abstract": {
+        "m2class": "\\Magento\\Framework\\Session\\SessionManagerInterface"
+    },
+    "Mage_Core_Model_Translate": {
+        "m2class": "\\Magento\\Framework\\TranslateInterface",
+        "comment": "Also see \\Magento\\Framework\\Translate\\AdapterInterface"
+    },
+    "Mage_Core_Model_Translate_Expr": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Model_Translate_Inline": {
+        "m2class": "\\Magento\\Framework\\Translate\\InlineInterface"
+    },
+    "Mage_Core_Model_Url": {
+        "m2class": "\\Magento\\Framework\\UrlInterface"
+    },
+    "Mage_Core_Model_Url_Rewrite_Interface": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Model_Url_Rewrite_Request": {
+        "m2class": "obsolete"
+    },
+    "Mage_Core_Model_Url_Validator": {
+        "m2class": "\\Magento\\Framework\\Url\\Validator"
+    },
+    "Mage_Cron_Helper_Data": "unmapped",
+    "Mage_Customer_AccountController": "unmapped",
+    "Mage_Customer_Helper_Data": "unmapped",
+    "Mage_Customer_Model_Address_Abstract": "unmapped",
+    "Mage_Customer_Model_Attribute_Data": "unmapped",
+    "Mage_Customer_Model_Convert_Parser_Customer": "unmapped",
+    "Mage_Customer_Model_Entity_Customer_Collection": "unmapped",
+    "Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract": "unmapped",
+    "Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract": "unmapped",
+    "Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract": "unmapped",
+    "Mage_Eav_Model_Attribute_Data": "unmapped",
+    "Mage_Eav_Model_Attribute_Data_Abstract": "unmapped",
+    "Mage_Eav_Model_Convert_Adapter_Entity": "unmapped",
+    "Mage_Eav_Model_Convert_Parser_Abstract": "unmapped",
+    "Mage_Eav_Model_Entity_Abstract": "unmapped",
+    "Mage_Eav_Model_Entity_Attribute_Abstract": "unmapped",
+    "Mage_Eav_Model_Entity_Attribute_Backend_Abstract": "unmapped",
+    "Mage_Eav_Model_Entity_Attribute_Frontend_Abstract": "unmapped",
+    "Mage_Eav_Model_Entity_Attribute_Source_Abstract": "unmapped",
+    "Mage_Eav_Model_Entity_Collection_Abstract": "unmapped",
+    "Mage_GiftMessage_Helper_Data": "unmapped",
+    "Mage_HTTP_Client": "unmapped",
+    "Mage_ImportExport_Model_Abstract": "unmapped",
+    "Mage_ImportExport_Model_Config": "unmapped",
+    "Mage_ImportExport_Model_Source_": "unmapped",
+    "Mage_ImportExport_Model_Source_Import_Behavior": "unmapped",
+    "Mage_Index_Block_Adminhtml_Notifications": "unmapped",
+    "Mage_Index_Block_Adminhtml_Process_Grid_Massaction": "unmapped",
+    "Mage_Index_Exception": "unmapped",
+    "Mage_Index_Helper_Data": "unmapped",
+    "Mage_Index_Model_Event": "unmapped",
+    "Mage_Index_Model_Indexer_Abstract": "unmapped",
+    "Mage_Index_Model_Lock": "unmapped",
+    "Mage_Index_Model_Lock_Storage_Db": "unmapped",
+    "Mage_Index_Model_Lock_Storage_Interface": "unmapped",
+    "Mage_Index_Model_Process": "unmapped",
+    "Mage_Index_Model_Resource_Abstract": "unmapped",
+    "Mage_Index_Model_Resource_Lock_Resource": "unmapped",
+    "Mage_Index_Model_Resource_Process": "unmapped",
+    "Mage_Index_Model_Resource_Process_Collection": "unmapped",
+    "Mage_Install_Model_Installer": "unmapped",
+    "Mage_Log_Helper_Data": "unmapped",
+    "Mage_Log_Model_Customer": "unmapped",
+    "Mage_Log_Model_Visitor": "unmapped",
+    "Mage_Log_Model_Visitor_Online": "unmapped",
+    "Mage_Oauth_Model_Server": "unmapped",
+    "Mage_Oauth_Model_Token": "unmapped",
+    "Mage_Page_Block_Html_Head": "unmapped",
+    "Mage_Page_Block_Template_Links_Block": "unmapped",
+    "Mage_Page_Helper_Data": "unmapped",
+    "Mage_Paygate_Helper_Data": "unmapped",
+    "Mage_Paygate_Model_Authorizenet": "unmapped",
+    "Mage_Payment_Block_Info_Container": "unmapped",
+    "Mage_Payment_Model_Billing_AgreementAbstract": "unmapped",
+    "Mage_Payment_Model_Billing_Agreement_MethodInterface": "unmapped",
+    "Mage_Payment_Model_Method_Abstract": "unmapped",
+    "Mage_Payment_Model_Recurring_Profile": "unmapped",
+    "Mage_Payment_Model_Recurring_Profile_MethodInterface": "unmapped",
+    "Mage_PaypalUk_Model_Direct": "unmapped",
+    "Mage_PaypalUk_Model_Pro": "unmapped",
+    "Mage_Paypal_Controller_Express_Abstract": "unmapped",
+    "Mage_Poll_Helper_Data": "unmapped",
+    "Mage_Poll_Model_Poll": "unmapped",
+    "Mage_Poll_Model_Poll_Answer": "unmapped",
+    "Mage_Reports_Model_Resource_Report_Abstract": "unmapped",
+    "Mage_Reports_Model_Resource_Report_Collection_Abstract": "unmapped",
+    "Mage_Reports_Model_Resource_Tag_Collection": "unmapped",
+    "Mage_Reports_Model_Resource_Tag_Customer_Collection": "unmapped",
+    "Mage_Reports_Model_Resource_Tag_Product_Collection": "unmapped",
+    "Mage_Reports_Model_Totals": "unmapped",
+    "Mage_Rss_Block_Wishlist": "unmapped",
+    "Mage_Rss_Helper_Data": "unmapped",
+    "Mage_Rss_Model_Session": "unmapped",
+    "Mage_Rule_Helper_Data": "unmapped",
+    "Mage_Rule_Model_Abstract": "unmapped",
+    "Mage_Rule_Model_Action_Abstract": "unmapped",
+    "Mage_Rule_Model_Condition_Abstract": "unmapped",
+    "Mage_Rule_Model_Condition_Product_Abstract": "unmapped",
+    "Mage_Rule_Model_Resource_Abstract": "unmapped",
+    "Mage_Rule_Model_Resource_Rule_Collection_Abstract": "unmapped",
+    "Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder": "unmapped",
+    "Mage_SalesRule_Helper_Data": "unmapped",
+    "Mage_Sales_Block_Items_Abstract": "unmapped",
+    "Mage_Sales_Block_Order_Email_Items_Default": "unmapped",
+    "Mage_Sales_Block_Order_Email_Items_Order_Default": "unmapped",
+    "Mage_Sales_Block_Order_Item_Renderer_Default": "unmapped",
+    "Mage_Sales_Model_Billing_Agreement": "unmapped",
+    "Mage_Sales_Model_Convert_Quote": "unmapped",
+    "Mage_Sales_Model_Entity_Order_Collection": "unmapped",
+    "Mage_Sales_Model_Order_Creditmemo_Total_Abstract": "unmapped",
+    "Mage_Sales_Model_Order_Invoice_Total_Abstract": "unmapped",
+    "Mage_Sales_Model_Order_Pdf_Abstract": "unmapped",
+    "Mage_Sales_Model_Order_Pdf_Items_Abstract": "unmapped",
+    "Mage_Sales_Model_Order_Pdf_Total_Default": "unmapped",
+    "Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract": "unmapped",
+    "Mage_Sales_Model_Quote": "unmapped",
+    "Mage_Sales_Model_Quote_Address": "unmapped",
+    "Mage_Sales_Model_Quote_Address_Rate": "unmapped",
+    "Mage_Sales_Model_Quote_Address_Total_Abstract": "unmapped",
+    "Mage_Sales_Model_Quote_Config": "unmapped",
+    "Mage_Sales_Model_Quote_Item": "unmapped",
+    "Mage_Sales_Model_Quote_Item_Option": "unmapped",
+    "Mage_Sales_Model_Recurring_Profile": "unmapped",
+    "Mage_Sales_Model_Resource_Order_Creditmemo_Grid_Collection": "unmapped",
+    "Mage_Sales_Model_Resource_Order_Grid_Collection": "unmapped",
+    "Mage_Sales_Model_Resource_Order_Invoice_Grid_Collection": "unmapped",
+    "Mage_Sales_Model_Resource_Order_Shipment_Grid_Collection": "unmapped",
+    "Mage_Sales_Model_Resource_Quote_Collection": "unmapped",
+    "Mage_Sales_Model_Resource_Quote_Item_Collection": "unmapped",
+    "Mage_Sales_Model_Resource_Report_Abstract": "unmapped",
+    "Mage_Sales_Model_Resource_Report_Collection_Abstract": "unmapped",
+    "Mage_Sales_Model_Service_Order": "unmapped",
+    "Mage_Sales_Model_Service_Quote": "unmapped",
+    "Mage_Shipping_Model_Carrier_Abstract": "unmapped",
+    "Mage_Shipping_Model_Carrier_Interface": "unmapped",
+    "Mage_Shipping_Model_Carrier_Tablerate": "unmapped",
+    "Mage_Shipping_Model_Rate_Abstract": "unmapped",
+    "Mage_Shipping_Model_Resource_Carrier_Tablerate": "unmapped",
+    "Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection": "unmapped",
+    "Mage_Shipping_Model_Shipment_Return": "unmapped",
+    "Mage_System_Dirs": "unmapped",
+    "Mage_System_Ftp": "unmapped",
+    "Mage_Tag_Helper_Data": "unmapped",
+    "Mage_Tag_Model_Customer_Resource_Collection": "unmapped",
+    "Mage_Tag_Model_Resource_Customer_Collection": "unmapped",
+    "Mage_Tag_Model_Resource_Popular_Collection": "unmapped",
+    "Mage_Tag_Model_Resource_Product_Collection": "unmapped",
+    "Mage_Tag_Model_Resource_Tag_Collection": "unmapped",
+    "Mage_Tag_Model_Tag": "unmapped",
+    "Mage_Tax_Block_Adminhtml_Notifications": "unmapped",
+    "Mage_Tax_Model_Class": "unmapped",
+    "Mage_Tax_Model_Class_Source_Customer": "unmapped",
+    "Mage_Tax_Model_Class_Source_Product": "unmapped",
+    "Mage_Usa_Helper_Data": "unmapped",
+    "Mage_Widget_Block_Interface": "unmapped",
+    "Mage_Wishlist_Block_Abstract": "unmapped",
+    "Mage_Wishlist_IndexController": "unmapped",
+    "Mage_Wishlist_Model_Resource_Product_Collection": "unmapped",
+    "Mage_Wishlist_Model_Session": "unmapped",
+    "Mage_Xml_Generator": "unmapped",
+    "Mage_Xml_Parser": "unmapped",
+    "Varien_Autoload": "obsolete",
+    "Varien_Convert_Exception": "unmapped",
+    "Varien_Convert_Mapper_Column": "unmapped",
+    "Varien_Convert_Parser_Xml_Excel": "unmapped",
+    "Varien_Crypt": "unmapped",
+    "Varien_Directory_Collection": "unmapped",
+    "Varien_File_Object": "unmapped",
+    "Varien_Filter_Object": "unmapped",
+    "Varien_Filter_Object_Grid": "unmapped",
+    "Varien_Image_Adapter": "unmapped",
+    "Varien_Io_File": "unmapped",
+    "Varien_Io_Sftp": "unmapped",
+    "Varien_Object_Cache": "unmapped",
+    "Varien_Object_Mapper": "unmapped",
+    "Varien_Pear": "unmapped",
+    "Varien_Pear_Package": "unmapped",
+    "Varien_Profiler": "unmapped",
+    "Enterprise_Catalog_Model_Category": "unmapped",
+    "Enterprise_Catalog_Model_Product": "unmapped",
+    "Enterprise_Catalog_Model_Resource_Category": "unmapped",
+    "Enterprise_Catalog_Model_Resource_Product": "unmapped",
+    "Enterprise_Eav_Block_Form_Renderer_Abstract": "unmapped",
+    "Enterprise_Eav_Block_Form_Template": "unmapped",
+    "Enterprise_Index_Exception": "unmapped",
+    "Enterprise_Index_Helper_Data": "unmapped",
+    "Enterprise_Index_Model_Action_Abstract": "unmapped",
+    "Enterprise_Index_Model_Action_Exception": "unmapped",
+    "Enterprise_Index_Model_Cron": "unmapped",
+    "Enterprise_Index_Model_Indexer": "unmapped",
+    "Enterprise_Index_Model_Indexer_Dummy": "unmapped",
+    "Enterprise_Index_Model_Process": "unmapped",
+    "Enterprise_Mview_Exception": "unmapped",
+    "Enterprise_Mview_Model_Action_Changelog_Create": "unmapped",
+    "Enterprise_Mview_Model_Action_Interface": "unmapped",
+    "Enterprise_Mview_Model_Client": "unmapped",
+    "Enterprise_Mview_Model_Event": "unmapped",
+    "Enterprise_Mview_Model_Metadata": "unmapped",
+    "Enterprise_Pci_Model_Encryption": "unmapped",
+    "Enterprise_Pci_Model_Observer": "unmapped",
+    "Enterprise_UrlRewrite_Block_Adminhtml_UrlRedirect_Edit_Form": "unmapped",
+    "Enterprise_UrlRewrite_Helper_Core_Url_Rewrite": "unmapped",
+    "Enterprise_UrlRewrite_Model_Index_Action_Url_Rewrite_RefreshAbstract": "unmapped",
+    "Enterprise_UrlRewrite_Model_Index_Observer": "unmapped",
+    "Enterprise_UrlRewrite_Model_Url_Rewrite": "unmapped",
+    "Enterprise_WebsiteRestriction_Helper_Data": "unmapped",
+    "Enterprise_WebsiteRestriction_IndexController": "unmapped"
+}

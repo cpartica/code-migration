@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+namespace Magento\Migration\Mapping;
+
+class AliasMap
+{
+    /**
+     * @var array
+     */
+    protected $mapping = [];
+
+    /**
+     * @var null|string
+     */
+    protected $m1BaseDir = null;
+
+    /**
+     * @var \Magento\Migration\Logger\Logger
+     */
+    protected $logger;
+
+    /**
+     * @var Context
+     */
+    protected $context;
+
+    /**
+     * @param \Magento\Migration\Logger\Logger $logger
+     * @param Context $context
+     */
+    public function __construct(\Magento\Migration\Logger\Logger $logger, Context $context)
+    {
+        $this->logger = $logger;
+        $this->context = $context;
+    }
+
+    /**
+     * Map alias of specified type to class prefix. The possible types are helper, block and model
+     *
+     * @param string $alias
+     * @param string $type
+     * @return string|null
+     */
+    public function mapAlias($alias, $type)
+    {
+        if (empty($this->mapping)) {
+            $this->getAllMapping();
+        }
+        if (isset($this->mapping[$type]) && isset($this->mapping[$type][$alias])) {
+            return $this->mapping[$type][$alias];
+        } else {
+            $this->logger->warn("Could not map alias " . $alias . ' of type ' . $type);
+            return null;
+        }
+    }
+
+    /**
+     * Populate alias map
+     *
+     * @return array
+     */
+    public function getAllMapping()
+    {
+        if (empty($this->mapping)) {
+            if ($this->context->getM1BaseDir()) {
+                //generate mapping based on magento configuration
+                $configFiles = glob($this->context->getM1BaseDir() . '/app/code/*/*/*/etc/config.xml');
+
+                $aliases = [
+                    'helper' => [],
+                    'block' => [],
+                    'model' => [],
+                ];
+                $types = array_keys($aliases);
+                foreach ($configFiles as $configFile) {
+                    $configFileContent = file_get_contents($configFile);
+                    $config = new \Magento\Migration\Utility\M1\Config($configFileContent);
+                    foreach ($types as $type) {
+                        $aliasesForType = $config->getAliases($type . 's');
+                        $aliases[$type] = array_merge($aliases[$type], $aliasesForType);
+
+                    }
+                }
+
+                //add default
+                $coreModules = glob($this->context->getM1BaseDir() . '/app/code/core/Mage/*');
+                foreach ($coreModules as $coreModulePath) {
+                    $defaultAlias = lcfirst(basename($coreModulePath));
+                    foreach ($types as $type) {
+                        if (!isset($aliases[$type][$defaultAlias])) {
+                            $alias = 'mage ' . $defaultAlias . ' ' . $type;
+                            $alias = str_replace(' ', '_', ucwords($alias));
+                            $aliases[$type][$defaultAlias] = $alias;
+                        }
+                    }
+                }
+                $this->mapping = array_merge_recursive($this->mapping, $aliases);
+            } else {
+                //use included mapping for magento core module
+                $path = BP . '/mapping/aliases*.json';
+                $mappingFiles = glob($path);
+                foreach ($mappingFiles as $mappingFile) {
+                    $content = file_get_contents($mappingFile);
+                    $mapping = json_decode($content, true);
+                    $this->mapping = array_merge_recursive($this->mapping, $mapping);
+                }
+            }
+        }
+        return $this->mapping;
+    }
+}
