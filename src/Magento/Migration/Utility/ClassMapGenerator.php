@@ -67,6 +67,9 @@ class ClassMapGenerator
             if (count($parts) > 3 && $parts[0] == 'Magento' && $parts[1] == 'Backend') {
                 $parts = $this->mapAdminhtml($parts);
             }
+            if (count($parts) > 4 && $parts[0] == 'Magento' && $parts[2] == 'Model' && $parts[3] == 'Resource') {
+                $parts[3] = 'ResourceModel';
+            }
         } elseif ($parts[0] == 'Varien') {
             array_shift($parts);
             $parts = array_merge(['Magento', 'Framework'], $parts);

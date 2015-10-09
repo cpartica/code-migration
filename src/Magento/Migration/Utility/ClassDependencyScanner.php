@@ -99,8 +99,8 @@ class ClassDependencyScanner
             $index++;
         }
 
-        for ($i = 0; $i < count($referenceClasses); $i++) {
-            $referenceClasses[$i] = array_unique($referenceClasses[$i]);
+        foreach ($referenceClasses as &$referenceType) {
+            $referenceType = array_unique($referenceType);
         }
         return $referenceClasses;
     }

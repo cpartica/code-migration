@@ -61,7 +61,7 @@
         "comment": "See \\Magento\\Authorization\\Model\\Acl\\Loader\\Role and \\Magento\\Authorization\\Model\\Acl\\Loader\\Rule"
     },
     "Mage_Admin_Model_Resource_Roles_Collection": {
-        "m2class": "\\Magento\\Authorization\\Model\\Resource\\Role\\Collection"
+        "m2class": "\\Magento\\Authorization\\Model\\ResourceModel\\Role\\Collection"
     },
     "Mage_Admin_Model_Roles": {
         "m2class": "\\Magento\\Authorization\\Model\\Role",
@@ -365,7 +365,7 @@
         "m2class": "\\Magento\\Search\\Model\\Query"
     },
     "Mage_CatalogSearch_Model_Resource_Query_Collection": {
-        "m2class": "\\Magento\\Search\\Model\\Resource\\Query\\Collection"
+        "m2class": "\\Magento\\Search\\Model\\ResourceModel\\Query\\Collection"
     },
     "Mage_Catalog_Block_Layer_Filter_Abstract": {
         "m2class": "obssolete"
@@ -606,19 +606,19 @@
         }
     },
     "Mage_Core_Model_Resource": {
-        "m2class": "\\Magento\\Framework\\App\\Resource"
+        "m2class": "\\Magento\\Framework\\App\\ResourceConnection"
     },
     "Mage_Core_Model_Resource_Abstract": {
-        "m2class": "\\Magento\\Framework\\Model\\Resource\\AbstractResource"
+        "m2class": "\\Magento\\Framework\\Model\\ModelResource\\AbstractResource"
     },
     "Mage_Core_Model_Resource_Config_Data_Collection": {
-        "m2class": "\\Magento\\Config\\Model\\Resource\\Config\\Data\\Collection"
+        "m2class": "\\Magento\\Config\\Model\\ModelResource\\Config\\Data\\Collection"
     },
     "Mage_Core_Model_Resource_Db_Abstract": {
-        "m2class": "\\Magento\\Framework\\Model\\Resource\\Db\\AbstractDb"
+        "m2class": "\\Magento\\Framework\\Model\\ModelResource\\Db\\AbstractDb"
     },
     "Mage_Core_Model_Resource_Db_Collection_Abstract": {
-        "m2class": "\\Magento\\Framework\\Model\\Resource\\Db\\Collection\\AbstractCollection"
+        "m2class": "\\Magento\\Framework\\Model\\ModelResource\\Db\\Collection\\AbstractCollection"
     },
     "Mage_Core_Model_Resource_Language_Collection": {
         "m2class": "obsolete"

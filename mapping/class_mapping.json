@@ -15,7 +15,7 @@
         "m2class": "\\Magento\\User\\Model\\User"
     },
     "Mage_Admin_Model_Acl_Resource": {
-        "m2class": "\\Magento\\Framework\\Acl\\Resource"
+        "m2class": "\\Magento\\Framework\\Acl\\AclResource"
     },
     "Mage_Admin_Model_Acl_Role_Generic": {
         "m2class": "\\Magento\\Authorization\\Model\\Acl\\Role\\Generic"
@@ -30,25 +30,25 @@
         "m2class": "\\Magento\\Authorization\\Model\\Acl\\Role\\User"
     },
     "Mage_Admin_Model_Resource_Role": {
-        "m2class": "\\Magento\\Authorization\\Model\\Resource\\Role"
+        "m2class": "\\Magento\\Authorization\\Model\\ResourceModel\\Role"
     },
     "Mage_Admin_Model_Resource_Rules": {
-        "m2class": "\\Magento\\Authorization\\Model\\Resource\\Rules"
+        "m2class": "\\Magento\\Authorization\\Model\\ResourceModel\\Rules"
     },
     "Mage_Admin_Model_Resource_User": {
-        "m2class": "\\Magento\\User\\Model\\Resource\\User"
+        "m2class": "\\Magento\\User\\Model\\ResourceModel\\User"
     },
     "Mage_Admin_Model_Resource_Permissions_Collection": {
-        "m2class": "\\Magento\\Authorization\\Model\\Resource\\Permissions\\Collection"
+        "m2class": "\\Magento\\Authorization\\Model\\ResourceModel\\Permissions\\Collection"
     },
     "Mage_Admin_Model_Resource_Role_Collection": {
-        "m2class": "\\Magento\\Authorization\\Model\\Resource\\Role\\Collection"
+        "m2class": "\\Magento\\Authorization\\Model\\ResourceModel\\Role\\Collection"
     },
     "Mage_Admin_Model_Resource_Rules_Collection": {
-        "m2class": "\\Magento\\Authorization\\Model\\Resource\\Rules\\Collection"
+        "m2class": "\\Magento\\Authorization\\Model\\ResourceModel\\Rules\\Collection"
     },
     "Mage_Admin_Model_Resource_User_Collection": {
-        "m2class": "\\Magento\\User\\Model\\Resource\\User\\Collection"
+        "m2class": "\\Magento\\User\\Model\\ResourceModel\\User\\Collection"
     },
     "Mage_Adminhtml_Block_Abstract": {
         "m2class": "\\Magento\\Backend\\Block\\AbstractBlock"
@@ -287,23 +287,11 @@
     "Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Text": {
         "m2class": "\\Magento\\Catalog\\Block\\Adminhtml\\Product\\Edit\\Tab\\Options\\Type\\Text"
     },
-    "Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group": {
-        "m2class": "\\Magento\\Catalog\\Block\\Adminhtml\\Product\\Edit\\Tab\\Price\\Group"
-    },
     "Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier": {
         "m2class": "\\Magento\\Catalog\\Block\\Adminhtml\\Product\\Edit\\Tab\\Price\\Tier"
     },
     "Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config": {
         "m2class": "\\Magento\\ConfigurableProduct\\Block\\Adminhtml\\Product\\Edit\\Tab\\Super\\Config"
-    },
-    "Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Filter_Inventory": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Block\\Adminhtml\\Product\\Edit\\Tab\\Super\\Config\\Grid\\Filter\\Inventory"
-    },
-    "Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_Checkbox": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Block\\Adminhtml\\Product\\Edit\\Tab\\Super\\Config\\Grid\\Renderer\\Checkbox"
-    },
-    "Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_Inventory": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Block\\Adminhtml\\Product\\Edit\\Tab\\Super\\Config\\Grid\\Renderer\\Inventory"
     },
     "Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark": {
         "m2class": "\\Magento\\Catalog\\Block\\Adminhtml\\Product\\Frontend\\Product\\Watermark"
@@ -1112,9 +1100,6 @@
     "Mage_Adminhtml_Model_Config": {
         "m2class": "\\Magento\\Config\\Model\\Config\\Structure"
     },
-    "Mage_Adminhtml_Model_Observer": {
-        "m2class": "\\Magento\\Backend\\Model\\Observer"
-    },
     "Mage_Adminhtml_Model_Session": {
         "m2class": "\\Magento\\Backend\\Model\\Session"
     },
@@ -1186,9 +1171,6 @@
     },
     "Mage_Adminhtml_Model_System_Config_Backend_Admin_Custompath": {
         "m2class": "\\Magento\\Config\\Model\\Config\\Backend\\Admin\\Custompath"
-    },
-    "Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer": {
-        "m2class": "\\Magento\\Config\\Model\\Config\\Backend\\Admin\\Observer"
     },
     "Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom": {
         "m2class": "\\Magento\\Config\\Model\\Config\\Backend\\Admin\\Usecustom"
@@ -1466,23 +1448,17 @@
     "Mage_AdminNotification_Model_Inbox": {
         "m2class": "\\Magento\\AdminNotification\\Model\\Inbox"
     },
-    "Mage_AdminNotification_Model_Observer": {
-        "m2class": "\\Magento\\AdminNotification\\Model\\Observer"
-    },
     "Mage_AdminNotification_Model_Resource_Inbox": {
-        "m2class": "\\Magento\\AdminNotification\\Model\\Resource\\Inbox"
+        "m2class": "\\Magento\\AdminNotification\\Model\\ResourceModel\\Inbox"
     },
     "Mage_AdminNotification_Model_Resource_Inbox_Collection": {
-        "m2class": "\\Magento\\AdminNotification\\Model\\Resource\\Inbox\\Collection"
+        "m2class": "\\Magento\\AdminNotification\\Model\\ResourceModel\\Inbox\\Collection"
     },
     "Mage_Authorizenet_Helper_Data": {
         "m2class": "\\Magento\\Authorizenet\\Helper\\Data"
     },
     "Mage_Authorizenet_Model_Directpost": {
         "m2class": "\\Magento\\Authorizenet\\Model\\Directpost"
-    },
-    "Mage_Authorizenet_Model_Directpost_Observer": {
-        "m2class": "\\Magento\\Authorizenet\\Model\\Directpost\\Observer"
     },
     "Mage_Authorizenet_Model_Directpost_Request": {
         "m2class": "\\Magento\\Authorizenet\\Model\\Directpost\\Request"
@@ -1502,9 +1478,6 @@
     "Mage_Backup_Model_Db": {
         "m2class": "\\Magento\\Backup\\Model\\Db"
     },
-    "Mage_Backup_Model_Observer": {
-        "m2class": "\\Magento\\Backup\\Model\\Observer"
-    },
     "Mage_Backup_Model_Config_Backend_Cron": {
         "m2class": "\\Magento\\Backup\\Model\\Config\\Backend\\Cron"
     },
@@ -1515,7 +1488,7 @@
         "m2class": "\\Magento\\Backup\\Model\\Fs\\Collection"
     },
     "Mage_Backup_Model_Resource_Db": {
-        "m2class": "\\Magento\\Backup\\Model\\Resource\\Db"
+        "m2class": "\\Magento\\Backup\\Model\\ResourceModel\\Db"
     },
     "Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle": {
         "m2class": "\\Magento\\Bundle\\Block\\Adminhtml\\Catalog\\Product\\Composite\\Fieldset\\Bundle"
@@ -1614,25 +1587,25 @@
         "m2class": "\\Magento\\Bundle\\Model\\Product\\Attribute\\Source\\Price\\View"
     },
     "Mage_Bundle_Model_Resource_Bundle": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Bundle"
+        "m2class": "\\Magento\\Bundle\\Model\\ResourceModel\\Bundle"
     },
     "Mage_Bundle_Model_Resource_Option": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Option"
+        "m2class": "\\Magento\\Bundle\\Model\\ResourceModel\\Option"
     },
     "Mage_Bundle_Model_Resource_Selection": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Selection"
+        "m2class": "\\Magento\\Bundle\\Model\\ResourceModel\\Selection"
     },
     "Mage_Bundle_Model_Resource_Indexer_Price": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Indexer\\Price"
+        "m2class": "\\Magento\\Bundle\\Model\\ResourceModel\\Indexer\\Price"
     },
     "Mage_Bundle_Model_Resource_Indexer_Stock": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Indexer\\Stock"
+        "m2class": "\\Magento\\Bundle\\Model\\ResourceModel\\Indexer\\Stock"
     },
     "Mage_Bundle_Model_Resource_Option_Collection": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Option\\Collection"
+        "m2class": "\\Magento\\Bundle\\Model\\ResourceModel\\Option\\Collection"
     },
     "Mage_Bundle_Model_Resource_Selection_Collection": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Selection\\Collection"
+        "m2class": "\\Magento\\Bundle\\Model\\ResourceModel\\Selection\\Collection"
     },
     "Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo": {
         "m2class": "\\Magento\\Bundle\\Model\\Sales\\Order\\Pdf\\Items\\Creditmemo"
@@ -1655,9 +1628,6 @@
     "Mage_Captcha_Helper_Data": {
         "m2class": "\\Magento\\Captcha\\Helper\\Data"
     },
-    "Mage_Captcha_Model_Observer": {
-        "m2class": "\\Magento\\Captcha\\Model\\Observer"
-    },
     "Mage_Captcha_Model_Config_Font": {
         "m2class": "\\Magento\\Captcha\\Model\\Config\\Font"
     },
@@ -1671,7 +1641,7 @@
         "m2class": "\\Magento\\Captcha\\Model\\Config\\Form\\Frontend"
     },
     "Mage_Captcha_Model_Resource_Log": {
-        "m2class": "\\Magento\\Captcha\\Model\\Resource\\Log"
+        "m2class": "\\Magento\\Captcha\\Model\\ResourceModel\\Log"
     },
     "Mage_Catalog_Block_Breadcrumbs": {
         "m2class": "\\Magento\\Catalog\\Block\\Breadcrumbs"
@@ -1889,9 +1859,6 @@
     "Mage_Catalog_Model_Product_Attribute_Backend_Boolean": {
         "m2class": "\\Magento\\Catalog\\Model\\Product\\Attribute\\Backend\\Boolean"
     },
-    "Mage_Catalog_Model_Product_Attribute_Backend_Groupprice": {
-        "m2class": "\\Magento\\Catalog\\Model\\Product\\Attribute\\Backend\\Groupprice"
-    },
     "Mage_Catalog_Model_Product_Attribute_Backend_Media": {
         "m2class": "\\Magento\\Catalog\\Model\\Product\\Attribute\\Backend\\Media"
     },
@@ -1968,142 +1935,139 @@
         "m2class": "\\Magento\\GroupedProduct\\Model\\Product\\Type\\Grouped\\Price"
     },
     "Mage_Catalog_Model_Resource_Attribute": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Attribute"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Attribute"
     },
     "Mage_Catalog_Model_Resource_Category": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category"
     },
     "Mage_Catalog_Model_Resource_Config": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Config"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Config"
     },
     "Mage_Catalog_Model_Resource_Product": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product"
     },
     "Mage_Catalog_Model_Resource_Setup": {
         "m2class": "\\Magento\\Catalog\\Setup\\CategorySetup"
     },
     "Mage_Catalog_Model_Resource_Url": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Url"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Url"
     },
     "Mage_Catalog_Model_Resource_Category_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Collection"
     },
     "Mage_Catalog_Model_Resource_Category_Flat": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Flat"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Flat"
     },
     "Mage_Catalog_Model_Resource_Category_Tree": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Tree"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Tree"
     },
     "Mage_Catalog_Model_Resource_Category_Attribute_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Attribute\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Attribute\\Collection"
     },
     "Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Attribute\\Frontend\\Image"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Attribute\\Frontend\\Image"
     },
     "Mage_Catalog_Model_Resource_Category_Attribute_Source_Layout": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Attribute\\Source\\Layout"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Attribute\\Source\\Layout"
     },
     "Mage_Catalog_Model_Resource_Category_Attribute_Source_Mode": {
         "m2class": "\\Magento\\Catalog\\Model\\Category\\Attribute\\Source\\Mode"
     },
     "Mage_Catalog_Model_Resource_Category_Attribute_Source_Page": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Attribute\\Source\\Page"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Attribute\\Source\\Page"
     },
     "Mage_Catalog_Model_Resource_Category_Flat_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Category\\Flat\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Category\\Flat\\Collection"
     },
     "Mage_Catalog_Model_Resource_Eav_Attribute": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Eav\\Attribute"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Eav\\Attribute"
     },
     "Mage_Catalog_Model_Resource_Layer_Filter_Attribute": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Layer\\Filter\\Attribute"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Layer\\Filter\\Attribute"
     },
     "Mage_Catalog_Model_Resource_Layer_Filter_Decimal": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Layer\\Filter\\Decimal"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Layer\\Filter\\Decimal"
     },
     "Mage_Catalog_Model_Resource_Layer_Filter_Price": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Layer\\Filter\\Price"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Layer\\Filter\\Price"
     },
     "Mage_Catalog_Model_Resource_Product_Action": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Action"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Action"
     },
     "Mage_Catalog_Model_Resource_Product_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Flat": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Flat"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Flat"
     },
     "Mage_Catalog_Model_Resource_Product_Link": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Link"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Link"
     },
     "Mage_Catalog_Model_Resource_Product_Option": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Option"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Option"
     },
     "Mage_Catalog_Model_Resource_Product_Relation": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Relation"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Relation"
     },
     "Mage_Catalog_Model_Resource_Product_Website": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Website"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Website"
     },
     "Mage_Catalog_Model_Resource_Product_Attribute_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Attribute\\Collection"
-    },
-    "Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Attribute\\Backend\\Groupprice"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Attribute\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Attribute\\Backend\\Image"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Attribute\\Backend\\Image"
     },
     "Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Attribute\\Backend\\Media"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Attribute\\Backend\\Media"
     },
     "Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Attribute\\Backend\\Tierprice"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Attribute\\Backend\\Tierprice"
     },
     "Mage_Catalog_Model_Resource_Product_Compare_Item": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Compare\\Item"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Compare\\Item"
     },
     "Mage_Catalog_Model_Resource_Product_Compare_Item_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Compare\\Item\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Compare\\Item\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Indexer\\Eav\\Decimal"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Indexer\\Eav\\Decimal"
     },
     "Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Indexer\\Eav\\Source"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Indexer\\Eav\\Source"
     },
     "Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Model\\Resource\\Product\\Indexer\\Price\\Configurable"
+        "m2class": "\\Magento\\ConfigurableProduct\\Model\\ResourceModel\\Product\\Indexer\\Price\\Configurable"
     },
     "Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped": {
-        "m2class": "\\Magento\\GroupedProduct\\Model\\Resource\\Product\\Indexer\\Price\\Grouped"
+        "m2class": "\\Magento\\GroupedProduct\\Model\\ResourceModel\\Product\\Indexer\\Price\\Grouped"
     },
     "Mage_Catalog_Model_Resource_Product_Link_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Link\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Link\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Link_Product_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Link\\Product\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Link\\Product\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Option_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Option\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Option\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Option_Value": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Option\\Value"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Option\\Value"
     },
     "Mage_Catalog_Model_Resource_Product_Option_Value_Collection": {
-        "m2class": "\\Magento\\Catalog\\Model\\Resource\\Product\\Option\\Value\\Collection"
+        "m2class": "\\Magento\\Catalog\\Model\\ResourceModel\\Product\\Option\\Value\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Type_Configurable": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Model\\Resource\\Product\\Type\\Configurable"
+        "m2class": "\\Magento\\ConfigurableProduct\\Model\\ResourceModel\\Product\\Type\\Configurable"
     },
     "Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Model\\Resource\\Product\\Type\\Configurable\\Attribute"
+        "m2class": "\\Magento\\ConfigurableProduct\\Model\\ResourceModel\\Product\\Type\\Configurable\\Attribute"
     },
     "Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Model\\Resource\\Product\\Type\\Configurable\\Attribute\\Collection"
+        "m2class": "\\Magento\\ConfigurableProduct\\Model\\ResourceModel\\Product\\Type\\Configurable\\Attribute\\Collection"
     },
     "Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Model\\Resource\\Product\\Type\\Configurable\\Product\\Collection"
+        "m2class": "\\Magento\\ConfigurableProduct\\Model\\ResourceModel\\Product\\Type\\Configurable\\Product\\Collection"
     },
     "Mage_Catalog_Model_System_Config_Backend_Catalog_Url_Rewrite_Suffix": {
         "m2class": "\\Magento\\Catalog\\Model\\System\\Config\\Backend\\Catalog\\Url\\Rewrite\\Suffix"
@@ -2142,19 +2106,19 @@
         "m2class": "\\Magento\\CatalogInventory\\Model\\Indexer\\Stock"
     },
     "Mage_CatalogInventory_Model_Resource_Stock": {
-        "m2class": "\\Magento\\CatalogInventory\\Model\\Resource\\Stock"
+        "m2class": "\\Magento\\CatalogInventory\\Model\\ResourceModel\\Stock"
     },
     "Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable": {
-        "m2class": "\\Magento\\ConfigurableProduct\\Model\\Resource\\Indexer\\Stock\\Configurable"
+        "m2class": "\\Magento\\ConfigurableProduct\\Model\\ResourceModel\\Indexer\\Stock\\Configurable"
     },
     "Mage_CatalogInventory_Model_Resource_Stock_Item": {
-        "m2class": "\\Magento\\CatalogInventory\\Model\\Resource\\Stock\\Item"
+        "m2class": "\\Magento\\CatalogInventory\\Model\\ResourceModel\\Stock\\Item"
     },
     "Mage_CatalogInventory_Model_Resource_Stock_Status": {
-        "m2class": "\\Magento\\CatalogInventory\\Model\\Resource\\Stock\\Status"
+        "m2class": "\\Magento\\CatalogInventory\\Model\\ResourceModel\\Stock\\Status"
     },
     "Mage_CatalogInventory_Model_Resource_Stock_Item_Collection": {
-        "m2class": "\\Magento\\CatalogInventory\\Model\\Resource\\Stock\\Item\\Collection"
+        "m2class": "\\Magento\\CatalogInventory\\Model\\ResourceModel\\Stock\\Item\\Collection"
     },
     "Mage_CatalogInventory_Model_Source_Backorders": {
         "m2class": "\\Magento\\CatalogInventory\\Model\\Source\\Backorders"
@@ -2187,16 +2151,16 @@
         "m2class": "\\Magento\\CatalogRule\\Model\\Rule"
     },
     "Mage_CatalogRule_Model_Resource_Rule": {
-        "m2class": "\\Magento\\CatalogRule\\Model\\Resource\\Rule"
+        "m2class": "\\Magento\\CatalogRule\\Model\\ResourceModel\\Rule"
     },
     "Mage_CatalogRule_Model_Resource_Rule_Collection": {
-        "m2class": "\\Magento\\CatalogRule\\Model\\Resource\\Rule\\Collection"
+        "m2class": "\\Magento\\CatalogRule\\Model\\ResourceModel\\Rule\\Collection"
     },
     "Mage_CatalogRule_Model_Resource_Rule_Product_Price": {
-        "m2class": "\\Magento\\CatalogRule\\Model\\Resource\\Rule\\Product\\Price"
+        "m2class": "\\Magento\\CatalogRule\\Model\\ResourceModel\\Rule\\Product\\Price"
     },
     "Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection": {
-        "m2class": "\\Magento\\CatalogRule\\Model\\Resource\\Rule\\Product\\Price\\Collection"
+        "m2class": "\\Magento\\CatalogRule\\Model\\ResourceModel\\Rule\\Product\\Price\\Collection"
     },
     "Mage_CatalogRule_Model_Rule_Action_Collection": {
         "m2class": "\\Magento\\CatalogRule\\Model\\Rule\\Action\\Collection"
@@ -2247,19 +2211,19 @@
         "m2class": "\\Magento\\CatalogSearch\\Model\\Layer\\Filter\\Attribute"
     },
     "Mage_CatalogSearch_Model_Resource_Advanced": {
-        "m2class": "\\Magento\\CatalogSearch\\Model\\Resource\\Advanced"
+        "m2class": "\\Magento\\CatalogSearch\\Model\\ResourceModel\\Advanced"
     },
     "Mage_CatalogSearch_Model_Resource_Fulltext": {
-        "m2class": "\\Magento\\CatalogSearch\\Model\\Resource\\Fulltext"
+        "m2class": "\\Magento\\CatalogSearch\\Model\\ResourceModel\\Fulltext"
     },
     "Mage_CatalogSearch_Model_Resource_Advanced_Collection": {
-        "m2class": "\\Magento\\CatalogSearch\\Model\\Resource\\Advanced\\Collection"
+        "m2class": "\\Magento\\CatalogSearch\\Model\\ResourceModel\\Advanced\\Collection"
     },
     "Mage_CatalogSearch_Model_Resource_Fulltext_Collection": {
-        "m2class": "\\Magento\\CatalogSearch\\Model\\Resource\\Fulltext\\Collection"
+        "m2class": "\\Magento\\CatalogSearch\\Model\\ResourceModel\\Fulltext\\Collection"
     },
     "Mage_CatalogSearch_Model_Resource_Search_Collection": {
-        "m2class": "\\Magento\\CatalogSearch\\Model\\Resource\\Search\\Collection"
+        "m2class": "\\Magento\\CatalogSearch\\Model\\ResourceModel\\Search\\Collection"
     },
     "Mage_Checkout_Exception": {
         "m2class": "\\Magento\\Checkout\\Exception"
@@ -2358,16 +2322,16 @@
         "m2class": "\\Magento\\Checkout\\Model\\Config\\Source\\Cart\\Summary"
     },
     "Mage_Checkout_Model_Resource_Agreement": {
-        "m2class": "\\Magento\\CheckoutAgreements\\Model\\Resource\\Agreement"
+        "m2class": "\\Magento\\CheckoutAgreements\\Model\\ResourceModel\\Agreement"
     },
     "Mage_Checkout_Model_Resource_Cart": {
-        "m2class": "\\Magento\\Checkout\\Model\\Resource\\Cart"
+        "m2class": "\\Magento\\Checkout\\Model\\ResourceModel\\Cart"
     },
     "Mage_Checkout_Model_Resource_Setup": {
         "m2class": "\\Magento\\Checkout\\Setup\\InstallData"
     },
     "Mage_Checkout_Model_Resource_Agreement_Collection": {
-        "m2class": "\\Magento\\CheckoutAgreements\\Model\\Resource\\Agreement\\Collection"
+        "m2class": "\\Magento\\CheckoutAgreements\\Model\\ResourceModel\\Agreement\\Collection"
     },
     "Mage_Checkout_Model_Type_Onepage": {
         "m2class": "\\Magento\\Checkout\\Model\\Type\\Onepage"
@@ -2396,23 +2360,20 @@
     "Mage_Cms_Model_Block": {
         "m2class": "\\Magento\\Cms\\Model\\Block"
     },
-    "Mage_Cms_Model_Observer": {
-        "m2class": "\\Magento\\Cms\\Model\\Observer"
-    },
     "Mage_Cms_Model_Page": {
         "m2class": "\\Magento\\Cms\\Model\\Page"
     },
     "Mage_Cms_Model_Resource_Block": {
-        "m2class": "\\Magento\\Cms\\Model\\Resource\\Block"
+        "m2class": "\\Magento\\Cms\\Model\\ResourceModel\\Block"
     },
     "Mage_Cms_Model_Resource_Page": {
-        "m2class": "\\Magento\\Cms\\Model\\Resource\\Page"
+        "m2class": "\\Magento\\Cms\\Model\\ResourceModel\\Page"
     },
     "Mage_Cms_Model_Resource_Block_Collection": {
-        "m2class": "\\Magento\\Cms\\Model\\Resource\\Block\\Collection"
+        "m2class": "\\Magento\\Cms\\Model\\ResourceModel\\Block\\Collection"
     },
     "Mage_Cms_Model_Resource_Page_Collection": {
-        "m2class": "\\Magento\\Cms\\Model\\Resource\\Page\\Collection"
+        "m2class": "\\Magento\\Cms\\Model\\ResourceModel\\Page\\Collection"
     },
     "Mage_Cms_Model_Template_Filter": {
         "m2class": "\\Magento\\Cms\\Model\\Template\\Filter"
@@ -2504,9 +2465,6 @@
     "Mage_Core_Model_Message": {
         "m2class": "\\Magento\\Framework\\Message\\Factory"
     },
-    "Mage_Core_Model_Observer": {
-        "m2class": "\\Magento\\Theme\\Model\\Observer"
-    },
     "Mage_Core_Model_Session": {
         "m2class": "\\Magento\\Framework\\Session\\Generic"
     },
@@ -2577,76 +2535,76 @@
         "m2class": "\\Magento\\Framework\\Message\\Warning"
     },
     "Mage_Core_Model_Resource_Config": {
-        "m2class": "\\Magento\\Config\\Model\\Resource\\Config"
+        "m2class": "\\Magento\\Config\\Model\\ResourceModel\\Config"
     },
     "Mage_Core_Model_Resource_Design": {
-        "m2class": "\\Magento\\Theme\\Model\\Resource\\Design"
+        "m2class": "\\Magento\\Theme\\Model\\ResourceModel\\Design"
     },
     "Mage_Core_Model_Resource_Flag": {
-        "m2class": "\\Magento\\Framework\\Flag\\Resource"
+        "m2class": "\\Magento\\Framework\\Flag\\FlagResource"
     },
     "Mage_Core_Model_Resource_Iterator": {
-        "m2class": "\\Magento\\Framework\\Model\\Resource\\Iterator"
+        "m2class": "\\Magento\\Framework\\Model\\ModelResource\\Iterator"
     },
     "Mage_Core_Model_Resource_Resource": {
-        "m2class": "\\Magento\\Framework\\Module\\Resource"
+        "m2class": "\\Magento\\Framework\\Module\\ModuleResource"
     },
     "Mage_Core_Model_Resource_Session": {
         "m2class": "\\Magento\\Framework\\Session\\SaveHandler\\DbTable"
     },
     "Mage_Core_Model_Resource_Store": {
-        "m2class": "\\Magento\\Store\\Model\\Resource\\Store"
+        "m2class": "\\Magento\\Store\\Model\\ResourceModel\\Store"
     },
     "Mage_Core_Model_Resource_Transaction": {
         "m2class": "\\Magento\\Framework\\DB\\Transaction"
     },
     "Mage_Core_Model_Resource_Translate": {
-        "m2class": "\\Magento\\Translation\\Model\\Resource\\Translate"
+        "m2class": "\\Magento\\Translation\\Model\\ResourceModel\\Translate"
     },
     "Mage_Core_Model_Resource_Variable": {
-        "m2class": "\\Magento\\Variable\\Model\\Resource\\Variable"
+        "m2class": "\\Magento\\Variable\\Model\\ResourceModel\\Variable"
     },
     "Mage_Core_Model_Resource_Website": {
-        "m2class": "\\Magento\\Store\\Model\\Resource\\Website"
+        "m2class": "\\Magento\\Store\\Model\\ResourceModel\\Website"
     },
     "Mage_Core_Model_Resource_Design_Collection": {
-        "m2class": "\\Magento\\Theme\\Model\\Resource\\Design\\Collection"
+        "m2class": "\\Magento\\Theme\\Model\\ResourceModel\\Design\\Collection"
     },
     "Mage_Core_Model_Resource_Email_Template": {
-        "m2class": "\\Magento\\Email\\Model\\Resource\\Template"
+        "m2class": "\\Magento\\Email\\Model\\ResourceModel\\Template"
     },
     "Mage_Core_Model_Resource_Email_Template_Collection": {
-        "m2class": "\\Magento\\Email\\Model\\Resource\\Template\\Collection"
+        "m2class": "\\Magento\\Email\\Model\\ResourceModel\\Template\\Collection"
     },
     "Mage_Core_Model_Resource_Entity_Table": {
-        "m2class": "\\Magento\\Framework\\Model\\Resource\\Entity\\Table"
+        "m2class": "\\Magento\\Framework\\Model\\ModelResource\\Entity\\Table"
     },
     "Mage_Core_Model_Resource_Store_Collection": {
-        "m2class": "\\Magento\\Store\\Model\\Resource\\Store\\Collection"
+        "m2class": "\\Magento\\Store\\Model\\ResourceModel\\Store\\Collection"
     },
     "Mage_Core_Model_Resource_Store_Group": {
-        "m2class": "\\Magento\\Store\\Model\\Resource\\Group"
+        "m2class": "\\Magento\\Store\\Model\\ResourceModel\\Group"
     },
     "Mage_Core_Model_Resource_Store_Group_Collection": {
-        "m2class": "\\Magento\\Store\\Model\\Resource\\Group\\Collection"
+        "m2class": "\\Magento\\Store\\Model\\ResourceModel\\Group\\Collection"
     },
     "Mage_Core_Model_Resource_Translate_String": {
-        "m2class": "\\Magento\\Translation\\Model\\Resource\\StringUtils"
+        "m2class": "\\Magento\\Translation\\Model\\ResourceModel\\StringUtils"
     },
     "Mage_Core_Model_Resource_Type_Db": {
-        "m2class": "\\Magento\\Framework\\Model\\Resource\\Type\\Db"
+        "m2class": "\\Magento\\Framework\\Model\\ModelResource\\Type\\Db"
     },
     "Mage_Core_Model_Resource_Url_Rewrite": {
-        "m2class": "\\Magento\\UrlRewrite\\Model\\Resource\\UrlRewrite"
+        "m2class": "\\Magento\\UrlRewrite\\Model\\ResourceModel\\UrlRewrite"
     },
     "Mage_Core_Model_Resource_Url_Rewrite_Collection": {
-        "m2class": "\\Magento\\UrlRewrite\\Model\\Resource\\UrlRewriteCollection"
+        "m2class": "\\Magento\\UrlRewrite\\Model\\ResourceModel\\UrlRewriteCollection"
     },
     "Mage_Core_Model_Resource_Variable_Collection": {
-        "m2class": "\\Magento\\Variable\\Model\\Resource\\Variable\\Collection"
+        "m2class": "\\Magento\\Variable\\Model\\ResourceModel\\Variable\\Collection"
     },
     "Mage_Core_Model_Resource_Website_Collection": {
-        "m2class": "\\Magento\\Store\\Model\\Resource\\Website\\Collection"
+        "m2class": "\\Magento\\Store\\Model\\ResourceModel\\Website\\Collection"
     },
     "Mage_Core_Model_Source_Email_Variables": {
         "m2class": "\\Magento\\Email\\Model\\Source\\Variables"
@@ -2666,17 +2624,14 @@
     "Mage_Cron_Exception": {
         "m2class": "\\Magento\\Framework\\Exception\\CronException"
     },
-    "Mage_Cron_Model_Observer": {
-        "m2class": "\\Magento\\Cron\\Model\\Observer"
-    },
     "Mage_Cron_Model_Schedule": {
         "m2class": "\\Magento\\Cron\\Model\\Schedule"
     },
     "Mage_Cron_Model_Resource_Schedule": {
-        "m2class": "\\Magento\\Cron\\Model\\Resource\\Schedule"
+        "m2class": "\\Magento\\Cron\\Model\\ResourceModel\\Schedule"
     },
     "Mage_Cron_Model_Resource_Schedule_Collection": {
-        "m2class": "\\Magento\\Cron\\Model\\Resource\\Schedule\\Collection"
+        "m2class": "\\Magento\\Cron\\Model\\ResourceModel\\Schedule\\Collection"
     },
     "Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol": {
         "m2class": "\\Magento\\CurrencySymbol\\Block\\Adminhtml\\System\\Currencysymbol"
@@ -2746,9 +2701,6 @@
     },
     "Mage_Customer_Model_Group": {
         "m2class": "\\Magento\\Customer\\Model\\Group"
-    },
-    "Mage_Customer_Model_Observer": {
-        "m2class": "\\Magento\\Customer\\Model\\Observer"
     },
     "Mage_Customer_Model_Session": {
         "m2class": "\\Magento\\Customer\\Model\\Session"
@@ -2820,49 +2772,49 @@
         "m2class": "\\Magento\\Customer\\Model\\Customer\\Attribute\\Source\\Website"
     },
     "Mage_Customer_Model_Resource_Address": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Address"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Address"
     },
     "Mage_Customer_Model_Resource_Attribute": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Attribute"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Attribute"
     },
     "Mage_Customer_Model_Resource_Customer": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Customer"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Customer"
     },
     "Mage_Customer_Model_Resource_Group": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Group"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Group"
     },
     "Mage_Customer_Model_Resource_Setup": {
         "m2class": "\\Magento\\Customer\\Setup\\CustomerSetup"
     },
     "Mage_Customer_Model_Resource_Address_Collection": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Address\\Collection"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Address\\Collection"
     },
     "Mage_Customer_Model_Resource_Address_Attribute_Collection": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Address\\Attribute\\Collection"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Address\\Attribute\\Collection"
     },
     "Mage_Customer_Model_Resource_Address_Attribute_Backend_Region": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Address\\Attribute\\Backend\\Region"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Address\\Attribute\\Backend\\Region"
     },
     "Mage_Customer_Model_Resource_Address_Attribute_Source_Country": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Address\\Attribute\\Source\\Country"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Address\\Attribute\\Source\\Country"
     },
     "Mage_Customer_Model_Resource_Address_Attribute_Source_Region": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Address\\Attribute\\Source\\Region"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Address\\Attribute\\Source\\Region"
     },
     "Mage_Customer_Model_Resource_Attribute_Collection": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Attribute\\Collection"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Attribute\\Collection"
     },
     "Mage_Customer_Model_Resource_Customer_Collection": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Customer\\Collection"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Customer\\Collection"
     },
     "Mage_Customer_Model_Resource_Form_Attribute": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Form\\Attribute"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Form\\Attribute"
     },
     "Mage_Customer_Model_Resource_Form_Attribute_Collection": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Form\\Attribute\\Collection"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Form\\Attribute\\Collection"
     },
     "Mage_Customer_Model_Resource_Group_Collection": {
-        "m2class": "\\Magento\\Customer\\Model\\Resource\\Group\\Collection"
+        "m2class": "\\Magento\\Customer\\Model\\ResourceModel\\Group\\Collection"
     },
     "Mage_Directory_Block_Currency": {
         "m2class": "\\Magento\\Directory\\Block\\Currency"
@@ -2901,25 +2853,25 @@
         "m2class": "\\Magento\\Directory\\Model\\Currency\\Import\\Webservicex"
     },
     "Mage_Directory_Model_Resource_Country": {
-        "m2class": "\\Magento\\Directory\\Model\\Resource\\Country"
+        "m2class": "\\Magento\\Directory\\Model\\ResourceModel\\Country"
     },
     "Mage_Directory_Model_Resource_Currency": {
-        "m2class": "\\Magento\\Directory\\Model\\Resource\\Currency"
+        "m2class": "\\Magento\\Directory\\Model\\ResourceModel\\Currency"
     },
     "Mage_Directory_Model_Resource_Region": {
-        "m2class": "\\Magento\\Directory\\Model\\Resource\\Region"
+        "m2class": "\\Magento\\Directory\\Model\\ResourceModel\\Region"
     },
     "Mage_Directory_Model_Resource_Country_Collection": {
-        "m2class": "\\Magento\\Directory\\Model\\Resource\\Country\\Collection"
+        "m2class": "\\Magento\\Directory\\Model\\ResourceModel\\Country\\Collection"
     },
     "Mage_Directory_Model_Resource_Country_Format": {
-        "m2class": "\\Magento\\Directory\\Model\\Resource\\Country\\Format"
+        "m2class": "\\Magento\\Directory\\Model\\ResourceModel\\Country\\Format"
     },
     "Mage_Directory_Model_Resource_Country_Format_Collection": {
-        "m2class": "\\Magento\\Directory\\Model\\Resource\\Country\\Format\\Collection"
+        "m2class": "\\Magento\\Directory\\Model\\ResourceModel\\Country\\Format\\Collection"
     },
     "Mage_Directory_Model_Resource_Region_Collection": {
-        "m2class": "\\Magento\\Directory\\Model\\Resource\\Region\\Collection"
+        "m2class": "\\Magento\\Directory\\Model\\ResourceModel\\Region\\Collection"
     },
     "Mage_Downloadable_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Downloadable": {
         "m2class": "\\Magento\\Downloadable\\Block\\Adminhtml\\Catalog\\Product\\Composite\\Fieldset\\Downloadable"
@@ -2975,9 +2927,6 @@
     "Mage_Downloadable_Model_Link": {
         "m2class": "\\Magento\\Downloadable\\Model\\Link"
     },
-    "Mage_Downloadable_Model_Observer": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Observer"
-    },
     "Mage_Downloadable_Model_Sample": {
         "m2class": "\\Magento\\Downloadable\\Model\\Sample"
     },
@@ -2994,31 +2943,31 @@
         "m2class": "\\Magento\\Downloadable\\Model\\Product\\Type"
     },
     "Mage_Downloadable_Model_Resource_Link": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Link"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Link"
     },
     "Mage_Downloadable_Model_Resource_Sample": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Sample"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Sample"
     },
     "Mage_Downloadable_Model_Resource_Indexer_Price": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Indexer\\Price"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Indexer\\Price"
     },
     "Mage_Downloadable_Model_Resource_Link_Collection": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Link\\Collection"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Link\\Collection"
     },
     "Mage_Downloadable_Model_Resource_Link_Purchased": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Link\\Purchased"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Link\\Purchased"
     },
     "Mage_Downloadable_Model_Resource_Link_Purchased_Collection": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Link\\Purchased\\Collection"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Link\\Purchased\\Collection"
     },
     "Mage_Downloadable_Model_Resource_Link_Purchased_Item": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Link\\Purchased\\Item"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Link\\Purchased\\Item"
     },
     "Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Link\\Purchased\\Item\\Collection"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Link\\Purchased\\Item\\Collection"
     },
     "Mage_Downloadable_Model_Resource_Sample_Collection": {
-        "m2class": "\\Magento\\Downloadable\\Model\\Resource\\Sample\\Collection"
+        "m2class": "\\Magento\\Downloadable\\Model\\ResourceModel\\Sample\\Collection"
     },
     "Mage_Downloadable_Model_Sales_Order_Pdf_Items_Creditmemo": {
         "m2class": "\\Magento\\Downloadable\\Model\\Sales\\Order\\Pdf\\Items\\Creditmemo"
@@ -3149,9 +3098,6 @@
     "Mage_Eav_Model_Entity_Increment_Alphanum": {
         "m2class": "\\Magento\\Eav\\Model\\Entity\\Increment\\Alphanum"
     },
-    "Mage_Eav_Model_Entity_Increment_Numeric": {
-        "m2class": "\\Magento\\Eav\\Model\\Entity\\Increment\\Numeric"
-    },
     "Mage_Eav_Model_Form_Element": {
         "m2class": "\\Magento\\Eav\\Model\\Form\\Element"
     },
@@ -3162,70 +3108,70 @@
         "m2class": "\\Magento\\Eav\\Model\\Form\\Type"
     },
     "Mage_Eav_Model_Resource_Attribute": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Attribute"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Attribute"
     },
     "Mage_Eav_Model_Resource_Config": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Config"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Config"
     },
     "Mage_Eav_Model_Resource_Attribute_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Attribute\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Attribute\\Collection"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute"
     },
     "Mage_Eav_Model_Resource_Entity_Store": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Store"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Store"
     },
     "Mage_Eav_Model_Resource_Entity_Type": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Type"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Type"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute\\Collection"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute_Group": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute\\Group"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute\\Group"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute_Option": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute\\Option"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute\\Option"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute_Set": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute\\Set"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute\\Set"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute\\Group\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute\\Group\\Collection"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute\\Option\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute\\Option\\Collection"
     },
     "Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Attribute\\Set\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Attribute\\Set\\Collection"
     },
     "Mage_Eav_Model_Resource_Entity_Type_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Entity\\Type\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Entity\\Type\\Collection"
     },
     "Mage_Eav_Model_Resource_Form_Attribute": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Attribute"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Attribute"
     },
     "Mage_Eav_Model_Resource_Form_Element": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Element"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Element"
     },
     "Mage_Eav_Model_Resource_Form_Fieldset": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Fieldset"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Fieldset"
     },
     "Mage_Eav_Model_Resource_Form_Type": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Type"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Type"
     },
     "Mage_Eav_Model_Resource_Form_Attribute_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Attribute\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Attribute\\Collection"
     },
     "Mage_Eav_Model_Resource_Form_Element_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Element\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Element\\Collection"
     },
     "Mage_Eav_Model_Resource_Form_Fieldset_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Fieldset\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Fieldset\\Collection"
     },
     "Mage_Eav_Model_Resource_Form_Type_Collection": {
-        "m2class": "\\Magento\\Eav\\Model\\Resource\\Form\\Type\\Collection"
+        "m2class": "\\Magento\\Eav\\Model\\ResourceModel\\Form\\Type\\Collection"
     },
     "Mage_GiftMessage_Block_Adminhtml_Product_Helper_Form_Config": {
         "m2class": "\\Magento\\GiftMessage\\Block\\Adminhtml\\Product\\Helper\\Form\\Config"
@@ -3257,26 +3203,20 @@
     "Mage_GiftMessage_Model_Message": {
         "m2class": "\\Magento\\GiftMessage\\Model\\Message"
     },
-    "Mage_GiftMessage_Model_Observer": {
-        "m2class": "\\Magento\\GiftMessage\\Model\\Observer"
-    },
     "Mage_GiftMessage_Model_Resource_Message": {
-        "m2class": "\\Magento\\GiftMessage\\Model\\Resource\\Message"
+        "m2class": "\\Magento\\GiftMessage\\Model\\ResourceModel\\Message"
     },
     "Mage_GiftMessage_Model_Resource_Setup": {
         "m2class": "\\Magento\\GiftMessage\\Setup\\InstallData"
     },
     "Mage_GiftMessage_Model_Resource_Message_Collection": {
-        "m2class": "\\Magento\\GiftMessage\\Model\\Resource\\Message\\Collection"
+        "m2class": "\\Magento\\GiftMessage\\Model\\ResourceModel\\Message\\Collection"
     },
     "Mage_GoogleAnalytics_Block_Ga": {
         "m2class": "\\Magento\\GoogleAnalytics\\Block\\Ga"
     },
     "Mage_GoogleAnalytics_Helper_Data": {
         "m2class": "\\Magento\\GoogleAnalytics\\Helper\\Data"
-    },
-    "Mage_GoogleAnalytics_Model_Observer": {
-        "m2class": "\\Magento\\GoogleAnalytics\\Model\\Observer"
     },
     "Mage_ImportExport_Block_Adminhtml_Export_Edit": {
         "m2class": "\\Magento\\ImportExport\\Block\\Adminhtml\\Export\\Edit"
@@ -3330,10 +3270,10 @@
         "m2class": "\\Magento\\CatalogImportExport\\Model\\Import\\Proxy\\Product"
     },
     "Mage_ImportExport_Model_Import_Proxy_Product_Resource": {
-        "m2class": "\\Magento\\CatalogImportExport\\Model\\Import\\Proxy\\Product\\Resource"
+        "m2class": "\\Magento\\CatalogImportExport\\Model\\Import\\Proxy\\Product\\ResourceModel"
     },
     "Mage_ImportExport_Model_Resource_Import_Data": {
-        "m2class": "\\Magento\\ImportExport\\Model\\Resource\\Import\\Data"
+        "m2class": "\\Magento\\ImportExport\\Model\\ResourceModel\\Import\\Data"
     },
     "Mage_ImportExport_Model_Source_Export_Entity": {
         "m2class": "\\Magento\\ImportExport\\Model\\Source\\Export\\Entity"
@@ -3372,28 +3312,28 @@
         "m2class": "\\Magento\\Newsletter\\Model\\Template"
     },
     "Mage_Newsletter_Model_Resource_Problem": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Problem"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Problem"
     },
     "Mage_Newsletter_Model_Resource_Queue": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Queue"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Queue"
     },
     "Mage_Newsletter_Model_Resource_Subscriber": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Subscriber"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Subscriber"
     },
     "Mage_Newsletter_Model_Resource_Template": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Template"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Template"
     },
     "Mage_Newsletter_Model_Resource_Problem_Collection": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Problem\\Collection"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Problem\\Collection"
     },
     "Mage_Newsletter_Model_Resource_Queue_Collection": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Queue\\Collection"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Queue\\Collection"
     },
     "Mage_Newsletter_Model_Resource_Subscriber_Collection": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Subscriber\\Collection"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Subscriber\\Collection"
     },
     "Mage_Newsletter_Model_Resource_Template_Collection": {
-        "m2class": "\\Magento\\Newsletter\\Model\\Resource\\Template\\Collection"
+        "m2class": "\\Magento\\Newsletter\\Model\\ResourceModel\\Template\\Collection"
     },
     "Mage_Newsletter_Model_Template_Filter": {
         "m2class": "\\Magento\\Newsletter\\Model\\Template\\Filter"
@@ -3475,9 +3415,6 @@
     },
     "Mage_Payment_Model_Info": {
         "m2class": "\\Magento\\Payment\\Model\\Info"
-    },
-    "Mage_Payment_Model_Observer": {
-        "m2class": "\\Magento\\Payment\\Model\\Observer"
     },
     "Mage_Payment_Model_Info_Exception": {
         "m2class": "\\Magento\\Framework\\Exception\\PaymentException"
@@ -3681,19 +3618,19 @@
         "m2class": "\\Magento\\Paypal\\Model\\Report\\Settlement\\Row"
     },
     "Mage_Paypal_Model_Resource_Cert": {
-        "m2class": "\\Magento\\Paypal\\Model\\Resource\\Cert"
+        "m2class": "\\Magento\\Paypal\\Model\\ResourceModel\\Cert"
     },
     "Mage_Paypal_Model_Resource_Setup": {
         "m2class": "\\Magento\\Paypal\\Setup\\InstallData"
     },
     "Mage_Paypal_Model_Resource_Report_Settlement": {
-        "m2class": "\\Magento\\Paypal\\Model\\Resource\\Report\\Settlement"
+        "m2class": "\\Magento\\Paypal\\Model\\ResourceModel\\Report\\Settlement"
     },
     "Mage_Paypal_Model_Resource_Report_Settlement_Row": {
-        "m2class": "\\Magento\\Paypal\\Model\\Resource\\Report\\Settlement\\Row"
+        "m2class": "\\Magento\\Paypal\\Model\\ResourceModel\\Report\\Settlement\\Row"
     },
     "Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection": {
-        "m2class": "\\Magento\\Paypal\\Model\\Resource\\Report\\Settlement\\Row\\Collection"
+        "m2class": "\\Magento\\Paypal\\Model\\ResourceModel\\Report\\Settlement\\Row\\Collection"
     },
     "Mage_Paypal_Model_System_Config_Backend_Cert": {
         "m2class": "\\Magento\\Paypal\\Model\\System\\Config\\Backend\\Cert"
@@ -3755,14 +3692,11 @@
     "Mage_Persistent_Model_Session": {
         "m2class": "\\Magento\\Persistent\\Model\\Session"
     },
-    "Mage_Persistent_Model_Observer_Session": {
-        "m2class": "\\Magento\\Persistent\\Model\\Observer\\Session"
-    },
     "Mage_Persistent_Model_Persistent_Config": {
         "m2class": "\\Magento\\Persistent\\Model\\Persistent\\Config"
     },
     "Mage_Persistent_Model_Resource_Session": {
-        "m2class": "\\Magento\\Persistent\\Model\\Resource\\Session"
+        "m2class": "\\Magento\\Persistent\\Model\\ResourceModel\\Session"
     },
     "Mage_ProductAlert_Block_Email_Price": {
         "m2class": "\\Magento\\ProductAlert\\Block\\Email\\Price"
@@ -3789,28 +3723,25 @@
         "m2class": "\\Magento\\ProductAlert\\Model\\Stock"
     },
     "Mage_ProductAlert_Model_Resource_Price": {
-        "m2class": "\\Magento\\ProductAlert\\Model\\Resource\\Price"
+        "m2class": "\\Magento\\ProductAlert\\Model\\ResourceModel\\Price"
     },
     "Mage_ProductAlert_Model_Resource_Stock": {
-        "m2class": "\\Magento\\ProductAlert\\Model\\Resource\\Stock"
+        "m2class": "\\Magento\\ProductAlert\\Model\\ResourceModel\\Stock"
     },
     "Mage_ProductAlert_Model_Resource_Price_Collection": {
-        "m2class": "\\Magento\\ProductAlert\\Model\\Resource\\Price\\Collection"
+        "m2class": "\\Magento\\ProductAlert\\Model\\ResourceModel\\Price\\Collection"
     },
     "Mage_ProductAlert_Model_Resource_Price_Customer_Collection": {
-        "m2class": "\\Magento\\ProductAlert\\Model\\Resource\\Price\\Customer\\Collection"
+        "m2class": "\\Magento\\ProductAlert\\Model\\ResourceModel\\Price\\Customer\\Collection"
     },
     "Mage_ProductAlert_Model_Resource_Stock_Collection": {
-        "m2class": "\\Magento\\ProductAlert\\Model\\Resource\\Stock\\Collection"
+        "m2class": "\\Magento\\ProductAlert\\Model\\ResourceModel\\Stock\\Collection"
     },
     "Mage_ProductAlert_Model_Resource_Stock_Customer_Collection": {
-        "m2class": "\\Magento\\ProductAlert\\Model\\Resource\\Stock\\Customer\\Collection"
+        "m2class": "\\Magento\\ProductAlert\\Model\\ResourceModel\\Stock\\Customer\\Collection"
     },
     "Mage_Rating_Helper_Data": {
         "m2class": "\\Magento\\Review\\Helper\\Data"
-    },
-    "Mage_Rating_Model_Observer": {
-        "m2class": "\\Magento\\Review\\Model\\Observer"
     },
     "Mage_Rating_Model_Rating": {
         "m2class": "\\Magento\\Review\\Model\\Rating"
@@ -3825,25 +3756,25 @@
         "m2class": "\\Magento\\Review\\Model\\Rating\\Option\\Vote"
     },
     "Mage_Rating_Model_Resource_Rating": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Rating"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Rating"
     },
     "Mage_Rating_Model_Resource_Rating_Collection": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Rating\\Collection"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Rating\\Collection"
     },
     "Mage_Rating_Model_Resource_Rating_Entity": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Rating\\Entity"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Rating\\Entity"
     },
     "Mage_Rating_Model_Resource_Rating_Option": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Rating\\Option"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Rating\\Option"
     },
     "Mage_Rating_Model_Resource_Rating_Option_Collection": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Rating\\Option\\Collection"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Rating\\Option\\Collection"
     },
     "Mage_Rating_Model_Resource_Rating_Option_Vote": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Rating\\Option\\Vote"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Rating\\Option\\Vote"
     },
     "Mage_Rating_Model_Resource_Rating_Option_Vote_Collection": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Rating\\Option\\Vote\\Collection"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Rating\\Option\\Vote\\Collection"
     },
     "Mage_Reports_Block_Product_Compared": {
         "m2class": "\\Magento\\Reports\\Block\\Product\\Compared"
@@ -3869,9 +3800,6 @@
     "Mage_Reports_Model_Flag": {
         "m2class": "\\Magento\\Reports\\Model\\Flag"
     },
-    "Mage_Reports_Model_Event_Observer": {
-        "m2class": "\\Magento\\Reports\\Model\\Event\\Observer"
-    },
     "Mage_Reports_Model_Event_Type": {
         "m2class": "\\Magento\\Reports\\Model\\Event\\Type"
     },
@@ -3885,85 +3813,85 @@
         "m2class": "\\Magento\\Reports\\Model\\Product\\Index\\Viewed"
     },
     "Mage_Reports_Model_Resource_Event": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Event"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Event"
     },
     "Mage_Reports_Model_Resource_Accounts_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Accounts\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Accounts\\Collection"
     },
     "Mage_Reports_Model_Resource_Customer_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Customer\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Customer\\Collection"
     },
     "Mage_Reports_Model_Resource_Customer_Orders_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Customer\\Orders\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Customer\\Orders\\Collection"
     },
     "Mage_Reports_Model_Resource_Customer_Totals_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Customer\\Totals\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Customer\\Totals\\Collection"
     },
     "Mage_Reports_Model_Resource_Event_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Event\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Event\\Collection"
     },
     "Mage_Reports_Model_Resource_Event_Type": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Event\\Type"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Event\\Type"
     },
     "Mage_Reports_Model_Resource_Event_Type_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Event\\Type\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Event\\Type\\Collection"
     },
     "Mage_Reports_Model_Resource_Order_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Order\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Order\\Collection"
     },
     "Mage_Reports_Model_Resource_Product_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Collection"
     },
     "Mage_Reports_Model_Resource_Product_Downloads_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Downloads\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Downloads\\Collection"
     },
     "Mage_Reports_Model_Resource_Product_Index_Compared": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Index\\Compared"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Index\\Compared"
     },
     "Mage_Reports_Model_Resource_Product_Index_Viewed": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Index\\Viewed"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Index\\Viewed"
     },
     "Mage_Reports_Model_Resource_Product_Index_Compared_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Index\\Compared\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Index\\Compared\\Collection"
     },
     "Mage_Reports_Model_Resource_Product_Index_Viewed_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Index\\Viewed\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Index\\Viewed\\Collection"
     },
     "Mage_Reports_Model_Resource_Product_Lowstock_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Lowstock\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Lowstock\\Collection"
     },
     "Mage_Reports_Model_Resource_Product_Sold_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Product\\Sold\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Product\\Sold\\Collection"
     },
     "Mage_Reports_Model_Resource_Product_Viewed_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Report\\Product\\Viewed\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Report\\Product\\Viewed\\Collection"
     },
     "Mage_Reports_Model_Resource_Quote_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Quote\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Quote\\Collection"
     },
     "Mage_Reports_Model_Resource_Report_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Report\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Report\\Collection"
     },
     "Mage_Reports_Model_Resource_Report_Product_Viewed": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Report\\Product\\Viewed"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Report\\Product\\Viewed"
     },
     "Mage_Reports_Model_Resource_Report_Product_Viewed_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Report\\Product\\Viewed\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Report\\Product\\Viewed\\Collection"
     },
     "Mage_Reports_Model_Resource_Review_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Review\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Review\\Collection"
     },
     "Mage_Reports_Model_Resource_Review_Customer_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Review\\Customer\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Review\\Customer\\Collection"
     },
     "Mage_Reports_Model_Resource_Review_Product_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Review\\Product\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Review\\Product\\Collection"
     },
     "Mage_Reports_Model_Resource_Wishlist_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Wishlist\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Wishlist\\Collection"
     },
     "Mage_Reports_Model_Resource_Wishlist_Product_Collection": {
-        "m2class": "\\Magento\\Reports\\Model\\Resource\\Wishlist\\Product\\Collection"
+        "m2class": "\\Magento\\Reports\\Model\\ResourceModel\\Wishlist\\Product\\Collection"
     },
     "Mage_Review_Block_Form": {
         "m2class": "\\Magento\\Review\\Block\\Form"
@@ -3986,32 +3914,29 @@
     "Mage_Review_Helper_Data": {
         "m2class": "\\Magento\\Review\\Helper\\Data"
     },
-    "Mage_Review_Model_Observer": {
-        "m2class": "\\Magento\\Review\\Model\\Observer"
-    },
     "Mage_Review_Model_Review": {
         "m2class": "\\Magento\\Review\\Model\\Review"
     },
     "Mage_Review_Model_Resource_Review": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Review"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Review"
     },
     "Mage_Review_Model_Resource_Review_Collection": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Review\\Collection"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Review\\Collection"
     },
     "Mage_Review_Model_Resource_Review_Status": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Review\\Status"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Review\\Status"
     },
     "Mage_Review_Model_Resource_Review_Summary": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Review\\Summary"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Review\\Summary"
     },
     "Mage_Review_Model_Resource_Review_Product_Collection": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Review\\Product\\Collection"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Review\\Product\\Collection"
     },
     "Mage_Review_Model_Resource_Review_Status_Collection": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Review\\Status\\Collection"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Review\\Status\\Collection"
     },
     "Mage_Review_Model_Resource_Review_Summary_Collection": {
-        "m2class": "\\Magento\\Review\\Model\\Resource\\Review\\Summary\\Collection"
+        "m2class": "\\Magento\\Review\\Model\\ResourceModel\\Review\\Summary\\Collection"
     },
     "Mage_Review_Model_Review_Status": {
         "m2class": "\\Magento\\Review\\Model\\Review\\Status"
@@ -4023,7 +3948,7 @@
         "m2class": "\\Magento\\Rss\\Model\\Rss"
     },
     "Mage_Rss_Model_Resource_Order": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Rss\\OrderStatus"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Rss\\OrderStatus"
     },
     "Mage_Rss_Model_System_Config_Backend_Links": {
         "m2class": "\\Magento\\Rss\\Model\\System\\Config\\Backend\\Links"
@@ -4275,202 +4200,199 @@
         "m2class": "\\Magento\\Sales\\Model\\Order\\Total\\Config\\Base"
     },
     "Mage_Sales_Model_Resource_Order": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order"
     },
     "Mage_Sales_Model_Resource_Report": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report"
     },
     "Mage_Sales_Model_Resource_Setup": {
         "m2class": "\\Magento\\Sales\\Setup\\SalesSetup"
     },
     "Mage_Sales_Model_Resource_Order_Address": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Address"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Address"
     },
     "Mage_Sales_Model_Resource_Order_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Creditmemo": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Creditmemo"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Creditmemo"
     },
     "Mage_Sales_Model_Resource_Order_Invoice": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice"
     },
     "Mage_Sales_Model_Resource_Order_Item": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Item"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Item"
     },
     "Mage_Sales_Model_Resource_Order_Payment": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Payment"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Payment"
     },
     "Mage_Sales_Model_Resource_Order_Shipment": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment"
     },
     "Mage_Sales_Model_Resource_Order_Status": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Status"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Status"
     },
     "Mage_Sales_Model_Resource_Order_Tax": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Tax"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Tax"
     },
     "Mage_Sales_Model_Resource_Order_Address_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Address\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Address\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Attribute\\Backend\\Billing"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Attribute\\Backend\\Billing"
     },
     "Mage_Sales_Model_Resource_Order_Attribute_Backend_Child": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Attribute\\Backend\\Child"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Attribute\\Backend\\Child"
     },
     "Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Attribute\\Backend\\Shipping"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Attribute\\Backend\\Shipping"
     },
     "Mage_Sales_Model_Resource_Order_Creditmemo_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Creditmemo\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Creditmemo\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Creditmemo_Comment": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Creditmemo\\Comment"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Creditmemo\\Comment"
     },
     "Mage_Sales_Model_Resource_Order_Creditmemo_Item": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Creditmemo\\Item"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Creditmemo\\Item"
     },
     "Mage_Sales_Model_Resource_Order_Creditmemo_Attribute_Backend_Child": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Creditmemo\\Attribute\\Backend\\Child"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Creditmemo\\Attribute\\Backend\\Child"
     },
     "Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Creditmemo\\Comment\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Creditmemo\\Comment\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Creditmemo\\Item\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Creditmemo\\Item\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Comment": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Comment"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Comment"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Item": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Item"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Item"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Child": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Attribute\\Backend\\Child"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Attribute\\Backend\\Child"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Item": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Attribute\\Backend\\Item"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Attribute\\Backend\\Item"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Order": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Attribute\\Backend\\Order"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Attribute\\Backend\\Order"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Comment\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Comment\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Invoice_Item_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Invoice\\Item\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Invoice\\Item\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Item_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Item\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Item\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Payment_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Payment\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Payment\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Payment_Transaction": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Payment\\Transaction"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Payment\\Transaction"
     },
     "Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Payment\\Transaction\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Payment\\Transaction\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Comment": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Comment"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Comment"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Item": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Item"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Item"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Track": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Track"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Track"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Child": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Attribute\\Backend\\Child"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Attribute\\Backend\\Child"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Comment\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Comment\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Item_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Item\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Item\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Shipment_Track_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Shipment\\Track\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Shipment\\Track\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Status_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Status\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Status\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Status_History": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Status\\History"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Status\\History"
     },
     "Mage_Sales_Model_Resource_Order_Status_History_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Status\\History\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Status\\History\\Collection"
     },
     "Mage_Sales_Model_Resource_Order_Tax_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Tax\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Tax\\Collection"
     },
     "Mage_Sales_Model_Resource_Report_Bestsellers": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Bestsellers"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Bestsellers"
     },
     "Mage_Sales_Model_Resource_Report_Invoiced": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Invoiced"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Invoiced"
     },
     "Mage_Sales_Model_Resource_Report_Order": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Order"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Order"
     },
     "Mage_Sales_Model_Resource_Report_Refunded": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Refunded"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Refunded"
     },
     "Mage_Sales_Model_Resource_Report_Shipping": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Shipping"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Shipping"
     },
     "Mage_Sales_Model_Resource_Report_Bestsellers_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Bestsellers\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Bestsellers\\Collection"
     },
     "Mage_Sales_Model_Resource_Report_Invoiced_Collection_Invoiced": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Invoiced\\Collection\\Invoiced"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Invoiced\\Collection\\Invoiced"
     },
     "Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Invoiced\\Collection\\Order"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Invoiced\\Collection\\Order"
     },
     "Mage_Sales_Model_Resource_Report_Order_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Order\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Order\\Collection"
     },
     "Mage_Sales_Model_Resource_Report_Order_Createdat": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Order\\Createdat"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Order\\Createdat"
     },
     "Mage_Sales_Model_Resource_Report_Order_Updatedat": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Order\\Updatedat"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Order\\Updatedat"
     },
     "Mage_Sales_Model_Resource_Report_Order_Updatedat_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Order\\Updatedat\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Order\\Updatedat\\Collection"
     },
     "Mage_Sales_Model_Resource_Report_Refunded_Collection_Order": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Refunded\\Collection\\Order"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Refunded\\Collection\\Order"
     },
     "Mage_Sales_Model_Resource_Report_Refunded_Collection_Refunded": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Refunded\\Collection\\Refunded"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Refunded\\Collection\\Refunded"
     },
     "Mage_Sales_Model_Resource_Report_Shipping_Collection_Order": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Shipping\\Collection\\Order"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Shipping\\Collection\\Order"
     },
     "Mage_Sales_Model_Resource_Report_Shipping_Collection_Shipment": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Report\\Shipping\\Collection\\Shipment"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Report\\Shipping\\Collection\\Shipment"
     },
     "Mage_Sales_Model_Resource_Sale_Collection": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Sale\\Collection"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Sale\\Collection"
     },
     "Mage_SalesRule_Helper_Coupon": {
         "m2class": "\\Magento\\SalesRule\\Helper\\Coupon"
     },
     "Mage_SalesRule_Model_Coupon": {
         "m2class": "\\Magento\\SalesRule\\Model\\Coupon"
-    },
-    "Mage_SalesRule_Model_Observer": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Observer"
     },
     "Mage_SalesRule_Model_Rule": {
         "m2class": "\\Magento\\SalesRule\\Model\\Rule"
@@ -4491,40 +4413,40 @@
         "m2class": "\\Magento\\SalesRule\\Model\\Quote\\Discount"
     },
     "Mage_SalesRule_Model_Resource_Coupon": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Coupon"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Coupon"
     },
     "Mage_SalesRule_Model_Resource_Rule": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Rule"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Rule"
     },
     "Mage_SalesRule_Model_Resource_Coupon_Collection": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Coupon\\Collection"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Coupon\\Collection"
     },
     "Mage_SalesRule_Model_Resource_Coupon_Usage": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Coupon\\Usage"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Coupon\\Usage"
     },
     "Mage_SalesRule_Model_Resource_Report_Collection": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Report\\Collection"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Report\\Collection"
     },
     "Mage_SalesRule_Model_Resource_Report_Rule": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Report\\Rule"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Report\\Rule"
     },
     "Mage_SalesRule_Model_Resource_Report_Rule_Createdat": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Report\\Rule\\Createdat"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Report\\Rule\\Createdat"
     },
     "Mage_SalesRule_Model_Resource_Report_Rule_Updatedat": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Report\\Rule\\Updatedat"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Report\\Rule\\Updatedat"
     },
     "Mage_SalesRule_Model_Resource_Report_Updatedat_Collection": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Report\\Updatedat\\Collection"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Report\\Updatedat\\Collection"
     },
     "Mage_SalesRule_Model_Resource_Rule_Collection": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Rule\\Collection"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Rule\\Collection"
     },
     "Mage_SalesRule_Model_Resource_Rule_Customer": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Rule\\Customer"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Rule\\Customer"
     },
     "Mage_SalesRule_Model_Resource_Rule_Customer_Collection": {
-        "m2class": "\\Magento\\SalesRule\\Model\\Resource\\Rule\\Customer\\Collection"
+        "m2class": "\\Magento\\SalesRule\\Model\\ResourceModel\\Rule\\Customer\\Collection"
     },
     "Mage_SalesRule_Model_Rule_Customer": {
         "m2class": "\\Magento\\SalesRule\\Model\\Rule\\Customer"
@@ -4566,10 +4488,10 @@
         "m2class": "\\Magento\\Sendfriend\\Model\\Sendfriend"
     },
     "Mage_Sendfriend_Model_Resource_Sendfriend": {
-        "m2class": "\\Magento\\Sendfriend\\Model\\Resource\\Sendfriend"
+        "m2class": "\\Magento\\Sendfriend\\Model\\ResourceModel\\Sendfriend"
     },
     "Mage_Sendfriend_Model_Resource_Sendfriend_Collection": {
-        "m2class": "\\Magento\\Sendfriend\\Model\\Resource\\Sendfriend\\Collection"
+        "m2class": "\\Magento\\Sendfriend\\Model\\ResourceModel\\Sendfriend\\Collection"
     },
     "Mage_Shipping_Block_Tracking_Ajax": {
         "m2class": "\\Magento\\Shipping\\Block\\Tracking\\Ajax"
@@ -4632,19 +4554,19 @@
         "m2class": "\\Magento\\Sitemap\\Model\\Sitemap"
     },
     "Mage_Sitemap_Model_Resource_Sitemap": {
-        "m2class": "\\Magento\\Sitemap\\Model\\Resource\\Sitemap"
+        "m2class": "\\Magento\\Sitemap\\Model\\ResourceModel\\Sitemap"
     },
     "Mage_Sitemap_Model_Resource_Catalog_Category": {
-        "m2class": "\\Magento\\Sitemap\\Model\\Resource\\Catalog\\Category"
+        "m2class": "\\Magento\\Sitemap\\Model\\ResourceModel\\Catalog\\Category"
     },
     "Mage_Sitemap_Model_Resource_Catalog_Product": {
-        "m2class": "\\Magento\\Sitemap\\Model\\Resource\\Catalog\\Product"
+        "m2class": "\\Magento\\Sitemap\\Model\\ResourceModel\\Catalog\\Product"
     },
     "Mage_Sitemap_Model_Resource_Cms_Page": {
-        "m2class": "\\Magento\\Sitemap\\Model\\Resource\\Cms\\Page"
+        "m2class": "\\Magento\\Sitemap\\Model\\ResourceModel\\Cms\\Page"
     },
     "Mage_Sitemap_Model_Resource_Sitemap_Collection": {
-        "m2class": "\\Magento\\Sitemap\\Model\\Resource\\Sitemap\\Collection"
+        "m2class": "\\Magento\\Sitemap\\Model\\ResourceModel\\Sitemap\\Collection"
     },
     "Mage_Tax_Block_Adminhtml_Frontend_Region_Updater": {
         "m2class": "\\Magento\\Tax\\Block\\Adminhtml\\Frontend\\Region\\Updater"
@@ -4689,55 +4611,55 @@
         "m2class": "\\Magento\\Tax\\Model\\Config\\Notification"
     },
     "Mage_Tax_Model_Resource_Calculation": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation"
     },
     "Mage_Tax_Model_Resource_Setup": {
         "m2class": "\\Magento\\Tax\\Setup\\TaxSetup"
     },
     "Mage_Tax_Model_Resource_Calculation_Collection": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation\\Collection"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation\\Collection"
     },
     "Mage_Tax_Model_Resource_Calculation_Rate": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation\\Rate"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation\\Rate"
     },
     "Mage_Tax_Model_Resource_Calculation_Rule": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation\\Rule"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation\\Rule"
     },
     "Mage_Tax_Model_Resource_Calculation_Rate_Collection": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation\\Rate\\Collection"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation\\Rate\\Collection"
     },
     "Mage_Tax_Model_Resource_Calculation_Rate_Title": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation\\Rate\\Title"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation\\Rate\\Title"
     },
     "Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation\\Rate\\Title\\Collection"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation\\Rate\\Title\\Collection"
     },
     "Mage_Tax_Model_Resource_Calculation_Rule_Collection": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Calculation\\Rule\\Collection"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Calculation\\Rule\\Collection"
     },
     "Mage_Tax_Model_Resource_Report_Collection": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Report\\Collection"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Report\\Collection"
     },
     "Mage_Tax_Model_Resource_Report_Tax": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Report\\Tax"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Report\\Tax"
     },
     "Mage_Tax_Model_Resource_Report_Tax_Createdat": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Report\\Tax\\Createdat"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Report\\Tax\\Createdat"
     },
     "Mage_Tax_Model_Resource_Report_Tax_Updatedat": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Report\\Tax\\Updatedat"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Report\\Tax\\Updatedat"
     },
     "Mage_Tax_Model_Resource_Report_Updatedat_Collection": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Report\\Updatedat\\Collection"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Report\\Updatedat\\Collection"
     },
     "Mage_Tax_Model_Resource_Sales_Order_Tax": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Sales\\Order\\Tax"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Sales\\Order\\Tax"
     },
     "Mage_Tax_Model_Resource_Sales_Order_Tax_Collection": {
-        "m2class": "\\Magento\\Tax\\Model\\Resource\\Sales\\Order\\Tax\\Collection"
+        "m2class": "\\Magento\\Tax\\Model\\ResourceModel\\Sales\\Order\\Tax\\Collection"
     },
     "Mage_Tax_Model_Resource_Sales_Order_Tax_Item": {
-        "m2class": "\\Magento\\Sales\\Model\\Resource\\Order\\Tax\\Item"
+        "m2class": "\\Magento\\Sales\\Model\\ResourceModel\\Order\\Tax\\Item"
     },
     "Mage_Tax_Model_Sales_Order_Tax": {
         "m2class": "\\Magento\\Tax\\Model\\Sales\\Order\\Tax"
@@ -4874,9 +4796,6 @@
     "Mage_Weee_Helper_Data": {
         "m2class": "\\Magento\\Weee\\Helper\\Data"
     },
-    "Mage_Weee_Model_Observer": {
-        "m2class": "\\Magento\\Weee\\Model\\Observer"
-    },
     "Mage_Weee_Model_Tax": {
         "m2class": "\\Magento\\Weee\\Model\\Tax"
     },
@@ -4890,10 +4809,10 @@
         "m2class": "\\Magento\\Weee\\Setup\\InstallData"
     },
     "Mage_Weee_Model_Resource_Tax": {
-        "m2class": "\\Magento\\Weee\\Model\\Resource\\Tax"
+        "m2class": "\\Magento\\Weee\\Model\\ResourceModel\\Tax"
     },
     "Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax": {
-        "m2class": "\\Magento\\Weee\\Model\\Resource\\Attribute\\Backend\\Weee\\Tax"
+        "m2class": "\\Magento\\Weee\\Model\\ResourceModel\\Attribute\\Backend\\Weee\\Tax"
     },
     "Mage_Weee_Model_Total_Creditmemo_Weee": {
         "m2class": "\\Magento\\Weee\\Model\\Total\\Creditmemo\\Weee"
@@ -4950,13 +4869,13 @@
         "m2class": "\\Magento\\Widget\\Model\\Widget"
     },
     "Mage_Widget_Model_Resource_Widget": {
-        "m2class": "\\Magento\\Widget\\Model\\Resource\\Widget"
+        "m2class": "\\Magento\\Widget\\Model\\ResourceModel\\Widget"
     },
     "Mage_Widget_Model_Resource_Widget_Instance": {
-        "m2class": "\\Magento\\Widget\\Model\\Resource\\Widget\\Instance"
+        "m2class": "\\Magento\\Widget\\Model\\ResourceModel\\Widget\\Instance"
     },
     "Mage_Widget_Model_Resource_Widget_Instance_Collection": {
-        "m2class": "\\Magento\\Widget\\Model\\Resource\\Widget\\Instance\\Collection"
+        "m2class": "\\Magento\\Widget\\Model\\ResourceModel\\Widget\\Instance\\Collection"
     },
     "Mage_Widget_Model_Template_Filter": {
         "m2class": "\\Magento\\Widget\\Model\\Template\\Filter"
@@ -5021,9 +4940,6 @@
     "Mage_Wishlist_Model_Item": {
         "m2class": "\\Magento\\Wishlist\\Model\\Item"
     },
-    "Mage_Wishlist_Model_Observer": {
-        "m2class": "\\Magento\\Wishlist\\Model\\Observer"
-    },
     "Mage_Wishlist_Model_Wishlist": {
         "m2class": "\\Magento\\Wishlist\\Model\\Wishlist"
     },
@@ -5034,22 +4950,22 @@
         "m2class": "\\Magento\\Wishlist\\Model\\Item\\Option"
     },
     "Mage_Wishlist_Model_Resource_Item": {
-        "m2class": "\\Magento\\Wishlist\\Model\\Resource\\Item"
+        "m2class": "\\Magento\\Wishlist\\Model\\ResourceModel\\Item"
     },
     "Mage_Wishlist_Model_Resource_Wishlist": {
-        "m2class": "\\Magento\\Wishlist\\Model\\Resource\\Wishlist"
+        "m2class": "\\Magento\\Wishlist\\Model\\ResourceModel\\Wishlist"
     },
     "Mage_Wishlist_Model_Resource_Item_Collection": {
-        "m2class": "\\Magento\\Wishlist\\Model\\Resource\\Item\\Collection"
+        "m2class": "\\Magento\\Wishlist\\Model\\ResourceModel\\Item\\Collection"
     },
     "Mage_Wishlist_Model_Resource_Item_Option": {
-        "m2class": "\\Magento\\Wishlist\\Model\\Resource\\Item\\Option"
+        "m2class": "\\Magento\\Wishlist\\Model\\ResourceModel\\Item\\Option"
     },
     "Mage_Wishlist_Model_Resource_Item_Option_Collection": {
-        "m2class": "\\Magento\\Wishlist\\Model\\Resource\\Item\\Option\\Collection"
+        "m2class": "\\Magento\\Wishlist\\Model\\ResourceModel\\Item\\Option\\Collection"
     },
     "Mage_Wishlist_Model_Resource_Wishlist_Collection": {
-        "m2class": "\\Magento\\Wishlist\\Model\\Resource\\Wishlist\\Collection"
+        "m2class": "\\Magento\\Wishlist\\Model\\ResourceModel\\Wishlist\\Collection"
     },
     "Enterprise_AdminGws_Block_Adminhtml_Permissions_Grid_Role": {
         "m2class": "\\Magento\\AdminGws\\Block\\Adminhtml\\Permissions\\Grid\\Role"
@@ -5075,14 +4991,11 @@
     "Enterprise_AdminGws_Model_Models": {
         "m2class": "\\Magento\\AdminGws\\Model\\Models"
     },
-    "Enterprise_AdminGws_Model_Observer": {
-        "m2class": "\\Magento\\AdminGws\\Model\\Observer"
-    },
     "Enterprise_AdminGws_Model_Role": {
         "m2class": "\\Magento\\AdminGws\\Model\\Role"
     },
     "Enterprise_AdminGws_Model_Resource_Collections": {
-        "m2class": "\\Magento\\AdminGws\\Model\\Resource\\Collections"
+        "m2class": "\\Magento\\AdminGws\\Model\\ResourceModel\\Collections"
     },
     "Enterprise_Banner_Block_Adminhtml_Banner": {
         "m2class": "\\Magento\\Banner\\Block\\Adminhtml\\Banner"
@@ -5144,32 +5057,26 @@
     "Enterprise_Banner_Model_Config": {
         "m2class": "\\Magento\\Banner\\Model\\Config"
     },
-    "Enterprise_Banner_Model_Observer": {
-        "m2class": "\\Magento\\Banner\\Model\\Observer"
-    },
     "Enterprise_Banner_Model_Salesrule": {
         "m2class": "\\Magento\\Banner\\Model\\Salesrule"
     },
     "Enterprise_Banner_Model_Resource_Banner": {
-        "m2class": "\\Magento\\Banner\\Model\\Resource\\Banner"
+        "m2class": "\\Magento\\Banner\\Model\\ResourceModel\\Banner"
     },
     "Enterprise_Banner_Model_Resource_Catalogrule": {
-        "m2class": "\\Magento\\Banner\\Model\\Resource\\Catalogrule"
+        "m2class": "\\Magento\\Banner\\Model\\ResourceModel\\Catalogrule"
     },
     "Enterprise_Banner_Model_Resource_Salesrule": {
-        "m2class": "\\Magento\\Banner\\Model\\Resource\\Salesrule"
+        "m2class": "\\Magento\\Banner\\Model\\ResourceModel\\Salesrule"
     },
     "Enterprise_Banner_Model_Resource_Banner_Collection": {
-        "m2class": "\\Magento\\Banner\\Model\\Resource\\Banner\\Collection"
+        "m2class": "\\Magento\\Banner\\Model\\ResourceModel\\Banner\\Collection"
     },
     "Enterprise_Banner_Model_Resource_Catalogrule_Collection": {
-        "m2class": "\\Magento\\Banner\\Model\\Resource\\Catalogrule\\Collection"
+        "m2class": "\\Magento\\Banner\\Model\\ResourceModel\\Catalogrule\\Collection"
     },
     "Enterprise_Banner_Model_Resource_Salesrule_Collection": {
-        "m2class": "\\Magento\\Banner\\Model\\Resource\\Salesrule\\Collection"
-    },
-    "Enterprise_Bundle_Model_Resource_Indexer_Stock": {
-        "m2class": "\\Magento\\Bundle\\Model\\Resource\\Indexer\\Stock"
+        "m2class": "\\Magento\\Banner\\Model\\ResourceModel\\Salesrule\\Collection"
     },
     "Enterprise_CatalogEvent_Block_Adminhtml_Event": {
         "m2class": "\\Magento\\CatalogEvent\\Block\\Adminhtml\\Event"
@@ -5220,10 +5127,10 @@
         "m2class": "\\Magento\\CatalogEvent\\Model\\Adminhtml\\System\\Config\\Backend\\Cache"
     },
     "Enterprise_CatalogEvent_Model_Resource_Event": {
-        "m2class": "\\Magento\\CatalogEvent\\Model\\Resource\\Event"
+        "m2class": "\\Magento\\CatalogEvent\\Model\\ResourceModel\\Event"
     },
     "Enterprise_CatalogEvent_Model_Resource_Event_Collection": {
-        "m2class": "\\Magento\\CatalogEvent\\Model\\Resource\\Event\\Collection"
+        "m2class": "\\Magento\\CatalogEvent\\Model\\ResourceModel\\Event\\Collection"
     },
     "Enterprise_CatalogInventory_Helper_Data": {
         "m2class": "\\Magento\\CatalogInventory\\Helper\\Data"
@@ -5240,9 +5147,6 @@
     "Enterprise_CatalogPermissions_Model_Permission": {
         "m2class": "\\Magento\\CatalogPermissions\\Model\\Permission"
     },
-    "Enterprise_CatalogPermissions_Model_Adminhtml_Observer": {
-        "m2class": "\\Magento\\CatalogPermissions\\Model\\Adminhtml\\Observer"
-    },
     "Enterprise_CatalogPermissions_Model_Adminhtml_System_Config_Source_Grant": {
         "m2class": "\\Magento\\CatalogPermissions\\Model\\Adminhtml\\System\\Config\\Source\\Grant"
     },
@@ -5256,13 +5160,13 @@
         "m2class": "\\Magento\\CatalogPermissions\\Model\\Permission\\Index"
     },
     "Enterprise_CatalogPermissions_Model_Resource_Permission": {
-        "m2class": "\\Magento\\CatalogPermissions\\Model\\Resource\\Permission"
+        "m2class": "\\Magento\\CatalogPermissions\\Model\\ResourceModel\\Permission"
     },
     "Enterprise_CatalogPermissions_Model_Resource_Permission_Collection": {
-        "m2class": "\\Magento\\CatalogPermissions\\Model\\Resource\\Permission\\Collection"
+        "m2class": "\\Magento\\CatalogPermissions\\Model\\ResourceModel\\Permission\\Collection"
     },
     "Enterprise_CatalogPermissions_Model_Resource_Permission_Index": {
-        "m2class": "\\Magento\\CatalogPermissions\\Model\\Resource\\Permission\\Index"
+        "m2class": "\\Magento\\CatalogPermissions\\Model\\ResourceModel\\Permission\\Index"
     },
     "Enterprise_CatalogSearch_Helper_Data": {
         "m2class": "\\Magento\\CatalogSearch\\Helper\\Data"
@@ -5376,7 +5280,7 @@
         "m2class": "\\Magento\\AdvancedCheckout\\Model\\Cart\\Sku\\Source\\Settings"
     },
     "Enterprise_Checkout_Model_Resource_Product_Collection": {
-        "m2class": "\\Magento\\AdvancedCheckout\\Model\\Resource\\Product\\Collection"
+        "m2class": "\\Magento\\AdvancedCheckout\\Model\\ResourceModel\\Product\\Collection"
     },
     "Enterprise_Cms_Block_Adminhtml_Cms_Page": {
         "m2class": "\\Magento\\VersionsCms\\Block\\Adminhtml\\Cms\\Page"
@@ -5484,25 +5388,25 @@
         "m2class": "\\Magento\\VersionsCms\\Model\\Page\\Version"
     },
     "Enterprise_Cms_Model_Resource_Increment": {
-        "m2class": "\\Magento\\VersionsCms\\Model\\Resource\\Increment"
+        "m2class": "\\Magento\\VersionsCms\\Model\\ResourceModel\\Increment"
     },
     "Enterprise_Cms_Model_Resource_Hierarchy_Node": {
-        "m2class": "\\Magento\\VersionsCms\\Model\\Resource\\Hierarchy\\Node"
+        "m2class": "\\Magento\\VersionsCms\\Model\\ResourceModel\\Hierarchy\\Node"
     },
     "Enterprise_Cms_Model_Resource_Hierarchy_Node_Collection": {
-        "m2class": "\\Magento\\VersionsCms\\Model\\Resource\\Hierarchy\\Node\\Collection"
+        "m2class": "\\Magento\\VersionsCms\\Model\\ResourceModel\\Hierarchy\\Node\\Collection"
     },
     "Enterprise_Cms_Model_Resource_Page_Revision": {
-        "m2class": "\\Magento\\VersionsCms\\Model\\Resource\\Page\\Revision"
+        "m2class": "\\Magento\\VersionsCms\\Model\\ResourceModel\\Page\\Revision"
     },
     "Enterprise_Cms_Model_Resource_Page_Version": {
-        "m2class": "\\Magento\\VersionsCms\\Model\\Resource\\Page\\Version"
+        "m2class": "\\Magento\\VersionsCms\\Model\\ResourceModel\\Page\\Version"
     },
     "Enterprise_Cms_Model_Resource_Page_Revision_Collection": {
-        "m2class": "\\Magento\\VersionsCms\\Model\\Resource\\Page\\Revision\\Collection"
+        "m2class": "\\Magento\\VersionsCms\\Model\\ResourceModel\\Page\\Revision\\Collection"
     },
     "Enterprise_Cms_Model_Resource_Page_Version_Collection": {
-        "m2class": "\\Magento\\VersionsCms\\Model\\Resource\\Page\\Version\\Collection"
+        "m2class": "\\Magento\\VersionsCms\\Model\\ResourceModel\\Page\\Version\\Collection"
     },
     "Enterprise_Cms_Model_Source_Versioning": {
         "m2class": "\\Magento\\VersionsCms\\Model\\Source\\Versioning"
@@ -5604,16 +5508,16 @@
         "m2class": "\\Magento\\CustomerCustomAttributes\\Helper\\Data"
     },
     "Enterprise_Customer_Model_Resource_Sales_Order": {
-        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\Resource\\Sales\\Order"
+        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\ResourceModel\\Sales\\Order"
     },
     "Enterprise_Customer_Model_Resource_Sales_Quote": {
-        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\Resource\\Sales\\Quote"
+        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\ResourceModel\\Sales\\Quote"
     },
     "Enterprise_Customer_Model_Resource_Sales_Order_Address": {
-        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\Resource\\Sales\\Order\\Address"
+        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\ResourceModel\\Sales\\Order\\Address"
     },
     "Enterprise_Customer_Model_Resource_Sales_Quote_Address": {
-        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\Resource\\Sales\\Quote\\Address"
+        "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\ResourceModel\\Sales\\Quote\\Address"
     },
     "Enterprise_Customer_Model_Sales_Order": {
         "m2class": "\\Magento\\CustomerCustomAttributes\\Model\\Sales\\Order"
@@ -5685,16 +5589,16 @@
         "m2class": "\\Magento\\CustomerBalance\\Model\\Balance\\History"
     },
     "Enterprise_CustomerBalance_Model_Resource_Balance": {
-        "m2class": "\\Magento\\CustomerBalance\\Model\\Resource\\Balance"
+        "m2class": "\\Magento\\CustomerBalance\\Model\\ResourceModel\\Balance"
     },
     "Enterprise_CustomerBalance_Model_Resource_Balance_Collection": {
-        "m2class": "\\Magento\\CustomerBalance\\Model\\Resource\\Balance\\Collection"
+        "m2class": "\\Magento\\CustomerBalance\\Model\\ResourceModel\\Balance\\Collection"
     },
     "Enterprise_CustomerBalance_Model_Resource_Balance_History": {
-        "m2class": "\\Magento\\CustomerBalance\\Model\\Resource\\Balance\\History"
+        "m2class": "\\Magento\\CustomerBalance\\Model\\ResourceModel\\Balance\\History"
     },
     "Enterprise_CustomerBalance_Model_Resource_Balance_History_Collection": {
-        "m2class": "\\Magento\\CustomerBalance\\Model\\Resource\\Balance\\History\\Collection"
+        "m2class": "\\Magento\\CustomerBalance\\Model\\ResourceModel\\Balance\\History\\Collection"
     },
     "Enterprise_CustomerBalance_Model_Total_Creditmemo_Customerbalance": {
         "m2class": "\\Magento\\CustomerBalance\\Model\\Total\\Creditmemo\\Customerbalance"
@@ -5748,16 +5652,16 @@
         "m2class": "\\Magento\\CustomerSegment\\Model\\Segment"
     },
     "Enterprise_CustomerSegment_Model_Resource_Customer": {
-        "m2class": "\\Magento\\CustomerSegment\\Model\\Resource\\Customer"
+        "m2class": "\\Magento\\CustomerSegment\\Model\\ResourceModel\\Customer"
     },
     "Enterprise_CustomerSegment_Model_Resource_Segment": {
-        "m2class": "\\Magento\\CustomerSegment\\Model\\Resource\\Segment"
+        "m2class": "\\Magento\\CustomerSegment\\Model\\ResourceModel\\Segment"
     },
     "Enterprise_CustomerSegment_Model_Resource_Report_Customer_Collection": {
-        "m2class": "\\Magento\\CustomerSegment\\Model\\Resource\\Report\\Customer\\Collection"
+        "m2class": "\\Magento\\CustomerSegment\\Model\\ResourceModel\\Report\\Customer\\Collection"
     },
     "Enterprise_CustomerSegment_Model_Resource_Segment_Collection": {
-        "m2class": "\\Magento\\CustomerSegment\\Model\\Resource\\Segment\\Collection"
+        "m2class": "\\Magento\\CustomerSegment\\Model\\ResourceModel\\Segment\\Collection"
     },
     "Enterprise_CustomerSegment_Model_Segment_Condition_Combine": {
         "m2class": "\\Magento\\CustomerSegment\\Model\\Segment\\Condition\\Combine"
@@ -5882,9 +5786,6 @@
     "Enterprise_Eav_Helper_Data": {
         "m2class": "\\Magento\\CustomAttributeManagement\\Helper\\Data"
     },
-    "Enterprise_Enterprise_Model_Observer": {
-        "m2class": "\\Magento\\Enterprise\\Model\\Observer"
-    },
     "Enterprise_GiftCard_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Giftcard": {
         "m2class": "\\Magento\\GiftCard\\Block\\Adminhtml\\Catalog\\Product\\Composite\\Fieldset\\Giftcard"
     },
@@ -5931,10 +5832,10 @@
         "m2class": "\\Magento\\GiftCard\\Model\\Catalog\\Product\\Type\\Giftcard"
     },
     "Enterprise_GiftCard_Model_Resource_Attribute_Backend_Giftcard_Amount": {
-        "m2class": "\\Magento\\GiftCard\\Model\\Resource\\Attribute\\Backend\\Giftcard\\Amount"
+        "m2class": "\\Magento\\GiftCard\\Model\\ResourceModel\\Attribute\\Backend\\Giftcard\\Amount"
     },
     "Enterprise_GiftCard_Model_Resource_Indexer_Price": {
-        "m2class": "\\Magento\\GiftCard\\Model\\Resource\\Indexer\\Price"
+        "m2class": "\\Magento\\GiftCard\\Model\\ResourceModel\\Indexer\\Price"
     },
     "Enterprise_GiftCard_Model_Source_Open": {
         "m2class": "\\Magento\\GiftCard\\Model\\Source\\Open"
@@ -6015,22 +5916,22 @@
         "m2class": "\\Magento\\GiftCardAccount\\Model\\Pool"
     },
     "Enterprise_GiftCardAccount_Model_Resource_Giftcardaccount": {
-        "m2class": "\\Magento\\GiftCardAccount\\Model\\Resource\\Giftcardaccount"
+        "m2class": "\\Magento\\GiftCardAccount\\Model\\ResourceModel\\Giftcardaccount"
     },
     "Enterprise_GiftCardAccount_Model_Resource_History": {
-        "m2class": "\\Magento\\GiftCardAccount\\Model\\Resource\\History"
+        "m2class": "\\Magento\\GiftCardAccount\\Model\\ResourceModel\\History"
     },
     "Enterprise_GiftCardAccount_Model_Resource_Pool": {
-        "m2class": "\\Magento\\GiftCardAccount\\Model\\Resource\\Pool"
+        "m2class": "\\Magento\\GiftCardAccount\\Model\\ResourceModel\\Pool"
     },
     "Enterprise_GiftCardAccount_Model_Resource_Giftcardaccount_Collection": {
-        "m2class": "\\Magento\\GiftCardAccount\\Model\\Resource\\Giftcardaccount\\Collection"
+        "m2class": "\\Magento\\GiftCardAccount\\Model\\ResourceModel\\Giftcardaccount\\Collection"
     },
     "Enterprise_GiftCardAccount_Model_Resource_History_Collection": {
-        "m2class": "\\Magento\\GiftCardAccount\\Model\\Resource\\History\\Collection"
+        "m2class": "\\Magento\\GiftCardAccount\\Model\\ResourceModel\\History\\Collection"
     },
     "Enterprise_GiftCardAccount_Model_Resource_Pool_Collection": {
-        "m2class": "\\Magento\\GiftCardAccount\\Model\\Resource\\Pool\\Collection"
+        "m2class": "\\Magento\\GiftCardAccount\\Model\\ResourceModel\\Pool\\Collection"
     },
     "Enterprise_GiftCardAccount_Model_Source_Format": {
         "m2class": "\\Magento\\GiftCardAccount\\Model\\Source\\Format"
@@ -6201,34 +6102,34 @@
         "m2class": "\\Magento\\GiftRegistry\\Model\\Item\\Option"
     },
     "Enterprise_GiftRegistry_Model_Resource_Entity": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Entity"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Entity"
     },
     "Enterprise_GiftRegistry_Model_Resource_Item": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Item"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Item"
     },
     "Enterprise_GiftRegistry_Model_Resource_Person": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Person"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Person"
     },
     "Enterprise_GiftRegistry_Model_Resource_Type": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Type"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Type"
     },
     "Enterprise_GiftRegistry_Model_Resource_Entity_Collection": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Entity\\Collection"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Entity\\Collection"
     },
     "Enterprise_GiftRegistry_Model_Resource_Item_Collection": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Item\\Collection"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Item\\Collection"
     },
     "Enterprise_GiftRegistry_Model_Resource_Item_Option": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Item\\Option"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Item\\Option"
     },
     "Enterprise_GiftRegistry_Model_Resource_Item_Option_Collection": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Item\\Option\\Collection"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Item\\Option\\Collection"
     },
     "Enterprise_GiftRegistry_Model_Resource_Person_Collection": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Person\\Collection"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Person\\Collection"
     },
     "Enterprise_GiftRegistry_Model_Resource_Type_Collection": {
-        "m2class": "\\Magento\\GiftRegistry\\Model\\Resource\\Type\\Collection"
+        "m2class": "\\Magento\\GiftRegistry\\Model\\ResourceModel\\Type\\Collection"
     },
     "Enterprise_GiftRegistry_Model_Source_Search": {
         "m2class": "\\Magento\\GiftRegistry\\Model\\Source\\Search"
@@ -6306,10 +6207,10 @@
         "m2class": "\\Magento\\GiftWrapping\\Model\\Wrapping"
     },
     "Enterprise_GiftWrapping_Model_Resource_Wrapping": {
-        "m2class": "\\Magento\\GiftWrapping\\Model\\Resource\\Wrapping"
+        "m2class": "\\Magento\\GiftWrapping\\Model\\ResourceModel\\Wrapping"
     },
     "Enterprise_GiftWrapping_Model_Resource_Wrapping_Collection": {
-        "m2class": "\\Magento\\GiftWrapping\\Model\\Resource\\Wrapping\\Collection"
+        "m2class": "\\Magento\\GiftWrapping\\Model\\ResourceModel\\Wrapping\\Collection"
     },
     "Enterprise_GiftWrapping_Model_Total_Creditmemo_Giftwrapping": {
         "m2class": "\\Magento\\GiftWrapping\\Model\\Total\\Creditmemo\\Giftwrapping"
@@ -6343,9 +6244,6 @@
     },
     "Enterprise_GoogleAnalyticsUniversal_Helper_Data": {
         "m2class": "\\Magento\\GoogleTagManager\\Helper\\Data"
-    },
-    "Enterprise_GoogleAnalyticsUniversal_Model_Observer": {
-        "m2class": "\\Magento\\GoogleTagManager\\Model\\Observer"
     },
     "Enterprise_GoogleAnalyticsUniversal_Model_Config_Source_Accounttype": {
         "m2class": "\\Magento\\GoogleTagManager\\Model\\Config\\Source\\Accounttype"
@@ -6384,10 +6282,10 @@
         "m2class": "\\Magento\\ScheduledImportExport\\Model\\Observer"
     },
     "Enterprise_ImportExport_Model_Resource_Scheduled_Operation": {
-        "m2class": "\\Magento\\ScheduledImportExport\\Model\\Resource\\Scheduled\\Operation"
+        "m2class": "\\Magento\\ScheduledImportExport\\Model\\ResourceModel\\Scheduled\\Operation"
     },
     "Enterprise_ImportExport_Model_Resource_Scheduled_Operation_Collection": {
-        "m2class": "\\Magento\\ScheduledImportExport\\Model\\Resource\\Scheduled\\Operation\\Collection"
+        "m2class": "\\Magento\\ScheduledImportExport\\Model\\ResourceModel\\Scheduled\\Operation\\Collection"
     },
     "Enterprise_ImportExport_Model_Scheduled_Operation": {
         "m2class": "\\Magento\\ScheduledImportExport\\Model\\Scheduled\\Operation"
@@ -6465,25 +6363,25 @@
         "m2class": "\\Magento\\Invitation\\Model\\Invitation\\History"
     },
     "Enterprise_Invitation_Model_Resource_Invitation": {
-        "m2class": "\\Magento\\Invitation\\Model\\Resource\\Invitation"
+        "m2class": "\\Magento\\Invitation\\Model\\ResourceModel\\Invitation"
     },
     "Enterprise_Invitation_Model_Resource_Invitation_Collection": {
-        "m2class": "\\Magento\\Invitation\\Model\\Resource\\Invitation\\Collection"
+        "m2class": "\\Magento\\Invitation\\Model\\ResourceModel\\Invitation\\Collection"
     },
     "Enterprise_Invitation_Model_Resource_Invitation_History": {
-        "m2class": "\\Magento\\Invitation\\Model\\Resource\\Invitation\\History"
+        "m2class": "\\Magento\\Invitation\\Model\\ResourceModel\\Invitation\\History"
     },
     "Enterprise_Invitation_Model_Resource_Invitation_History_Collection": {
-        "m2class": "\\Magento\\Invitation\\Model\\Resource\\Invitation\\History\\Collection"
+        "m2class": "\\Magento\\Invitation\\Model\\ResourceModel\\Invitation\\History\\Collection"
     },
     "Enterprise_Invitation_Model_Resource_Report_Invitation_Collection": {
-        "m2class": "\\Magento\\Invitation\\Model\\Resource\\Report\\Invitation\\Collection"
+        "m2class": "\\Magento\\Invitation\\Model\\ResourceModel\\Report\\Invitation\\Collection"
     },
     "Enterprise_Invitation_Model_Resource_Report_Invitation_Customer_Collection": {
-        "m2class": "\\Magento\\Invitation\\Model\\Resource\\Report\\Invitation\\Customer\\Collection"
+        "m2class": "\\Magento\\Invitation\\Model\\ResourceModel\\Report\\Invitation\\Customer\\Collection"
     },
     "Enterprise_Invitation_Model_Resource_Report_Invitation_Order_Collection": {
-        "m2class": "\\Magento\\Invitation\\Model\\Resource\\Report\\Invitation\\Order\\Collection"
+        "m2class": "\\Magento\\Invitation\\Model\\ResourceModel\\Report\\Invitation\\Order\\Collection"
     },
     "Enterprise_Invitation_Model_Source_Invitation_Status": {
         "m2class": "\\Magento\\Invitation\\Model\\Source\\Invitation\\Status"
@@ -6539,9 +6437,6 @@
     "Enterprise_Logging_Model_Flag": {
         "m2class": "\\Magento\\Logging\\Model\\Flag"
     },
-    "Enterprise_Logging_Model_Observer": {
-        "m2class": "\\Magento\\Logging\\Model\\Observer"
-    },
     "Enterprise_Logging_Model_Processor": {
         "m2class": "\\Magento\\Logging\\Model\\Processor"
     },
@@ -6558,16 +6453,16 @@
         "m2class": "\\Magento\\Logging\\Model\\Handler\\Models"
     },
     "Enterprise_Logging_Model_Resource_Event": {
-        "m2class": "\\Magento\\Logging\\Model\\Resource\\Event"
+        "m2class": "\\Magento\\Logging\\Model\\ResourceModel\\Event"
     },
     "Enterprise_Logging_Model_Resource_Event_Changes": {
-        "m2class": "\\Magento\\Logging\\Model\\Resource\\Event\\Changes"
+        "m2class": "\\Magento\\Logging\\Model\\ResourceModel\\Event\\Changes"
     },
     "Enterprise_Logging_Model_Resource_Event_Collection": {
-        "m2class": "\\Magento\\Logging\\Model\\Resource\\Event\\Collection"
+        "m2class": "\\Magento\\Logging\\Model\\ResourceModel\\Event\\Collection"
     },
     "Enterprise_Logging_Model_Resource_Event_Changes_Collection": {
-        "m2class": "\\Magento\\Logging\\Model\\Resource\\Event\\Changes\\Collection"
+        "m2class": "\\Magento\\Logging\\Model\\ResourceModel\\Event\\Changes\\Collection"
     },
     "Enterprise_Logging_Model_Source_Frequency": {
         "m2class": "\\Magento\\Logging\\Model\\Source\\Frequency"
@@ -6585,7 +6480,7 @@
         "m2class": "\\Magento\\EncryptionKey\\Block\\Adminhtml\\Crypt\\Key\\Form"
     },
     "Enterprise_Pci_Model_Resource_Key_Change": {
-        "m2class": "\\Magento\\EncryptionKey\\Model\\Resource\\Key\\Change"
+        "m2class": "\\Magento\\EncryptionKey\\Model\\ResourceModel\\Key\\Change"
     },
     "Enterprise_Persistent_Block_Adminhtml_System_Config_Customer": {
         "m2class": "\\Magento\\PersistentHistory\\Block\\Adminhtml\\System\\Config\\Customer"
@@ -6605,14 +6500,8 @@
     "Enterprise_PricePermissions_Helper_Data": {
         "m2class": "\\Magento\\PricePermissions\\Helper\\Data"
     },
-    "Enterprise_PricePermissions_Model_Observer": {
-        "m2class": "\\Magento\\PricePermissions\\Model\\Observer"
-    },
     "Enterprise_PromotionPermissions_Helper_Data": {
         "m2class": "\\Magento\\PromotionPermissions\\Helper\\Data"
-    },
-    "Enterprise_PromotionPermissions_Model_Observer": {
-        "m2class": "\\Magento\\PromotionPermissions\\Model\\Observer"
     },
     "Enterprise_Reminder_Block_Adminhtml_Reminder": {
         "m2class": "\\Magento\\Reminder\\Block\\Adminhtml\\Reminder"
@@ -6650,20 +6539,17 @@
     "Enterprise_Reminder_Helper_Data": {
         "m2class": "\\Magento\\Reminder\\Helper\\Data"
     },
-    "Enterprise_Reminder_Model_Observer": {
-        "m2class": "\\Magento\\Reminder\\Model\\Observer"
-    },
     "Enterprise_Reminder_Model_Rule": {
         "m2class": "\\Magento\\Reminder\\Model\\Rule"
     },
     "Enterprise_Reminder_Model_Resource_Rule": {
-        "m2class": "\\Magento\\Reminder\\Model\\Resource\\Rule"
+        "m2class": "\\Magento\\Reminder\\Model\\ResourceModel\\Rule"
     },
     "Enterprise_Reminder_Model_Resource_Customer_Collection": {
-        "m2class": "\\Magento\\Reminder\\Model\\Resource\\Customer\\Collection"
+        "m2class": "\\Magento\\Reminder\\Model\\ResourceModel\\Customer\\Collection"
     },
     "Enterprise_Reminder_Model_Resource_Rule_Collection": {
-        "m2class": "\\Magento\\Reminder\\Model\\Resource\\Rule\\Collection"
+        "m2class": "\\Magento\\Reminder\\Model\\ResourceModel\\Rule\\Collection"
     },
     "Enterprise_Reminder_Model_Rule_Condition_Cart": {
         "m2class": "\\Magento\\Reminder\\Model\\Rule\\Condition\\Cart"
@@ -6843,22 +6729,22 @@
         "m2class": "\\Magento\\Reward\\Model\\Action\\Salesrule"
     },
     "Enterprise_Reward_Model_Resource_Reward": {
-        "m2class": "\\Magento\\Reward\\Model\\Resource\\Reward"
+        "m2class": "\\Magento\\Reward\\Model\\ResourceModel\\Reward"
     },
     "Enterprise_Reward_Model_Resource_Reward_Collection": {
-        "m2class": "\\Magento\\Reward\\Model\\Resource\\Reward\\Collection"
+        "m2class": "\\Magento\\Reward\\Model\\ResourceModel\\Reward\\Collection"
     },
     "Enterprise_Reward_Model_Resource_Reward_History": {
-        "m2class": "\\Magento\\Reward\\Model\\Resource\\Reward\\History"
+        "m2class": "\\Magento\\Reward\\Model\\ResourceModel\\Reward\\History"
     },
     "Enterprise_Reward_Model_Resource_Reward_Rate": {
-        "m2class": "\\Magento\\Reward\\Model\\Resource\\Reward\\Rate"
+        "m2class": "\\Magento\\Reward\\Model\\ResourceModel\\Reward\\Rate"
     },
     "Enterprise_Reward_Model_Resource_Reward_History_Collection": {
-        "m2class": "\\Magento\\Reward\\Model\\Resource\\Reward\\History\\Collection"
+        "m2class": "\\Magento\\Reward\\Model\\ResourceModel\\Reward\\History\\Collection"
     },
     "Enterprise_Reward_Model_Resource_Reward_Rate_Collection": {
-        "m2class": "\\Magento\\Reward\\Model\\Resource\\Reward\\Rate\\Collection"
+        "m2class": "\\Magento\\Reward\\Model\\ResourceModel\\Reward\\Rate\\Collection"
     },
     "Enterprise_Reward_Model_Reward_History": {
         "m2class": "\\Magento\\Reward\\Model\\Reward\\History"
@@ -7076,9 +6962,6 @@
     "Enterprise_Rma_Model_Item": {
         "m2class": "\\Magento\\Rma\\Model\\Item"
     },
-    "Enterprise_Rma_Model_Observer": {
-        "m2class": "\\Magento\\Rma\\Model\\Observer"
-    },
     "Enterprise_Rma_Model_Rma": {
         "m2class": "\\Magento\\Rma\\Model\\Rma"
     },
@@ -7104,49 +6987,49 @@
         "m2class": "\\Magento\\Rma\\Model\\Product\\Source"
     },
     "Enterprise_Rma_Model_Resource_Grid": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Grid"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Grid"
     },
     "Enterprise_Rma_Model_Resource_Item": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Item"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Item"
     },
     "Enterprise_Rma_Model_Resource_Rma": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Rma"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Rma"
     },
     "Enterprise_Rma_Model_Resource_Shipping": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Shipping"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Shipping"
     },
     "Enterprise_Rma_Model_Resource_Grid_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Grid\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Grid\\Collection"
     },
     "Enterprise_Rma_Model_Resource_Item_Attribute": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Item\\Attribute"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Item\\Attribute"
     },
     "Enterprise_Rma_Model_Resource_Item_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Item\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Item\\Collection"
     },
     "Enterprise_Rma_Model_Resource_Item_Attribute_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Item\\Attribute\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Item\\Attribute\\Collection"
     },
     "Enterprise_Rma_Model_Resource_Item_Form_Attribute": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Item\\Form\\Attribute"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Item\\Form\\Attribute"
     },
     "Enterprise_Rma_Model_Resource_Item_Form_Attribute_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Item\\Form\\Attribute\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Item\\Form\\Attribute\\Collection"
     },
     "Enterprise_Rma_Model_Resource_Rma_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Rma\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Rma\\Collection"
     },
     "Enterprise_Rma_Model_Resource_Rma_Grid_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Rma\\Grid\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Rma\\Grid\\Collection"
     },
     "Enterprise_Rma_Model_Resource_Rma_Status_History": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Rma\\Status\\History"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Rma\\Status\\History"
     },
     "Enterprise_Rma_Model_Resource_Rma_Status_History_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Rma\\Status\\History\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Rma\\Status\\History\\Collection"
     },
     "Enterprise_Rma_Model_Resource_Shipping_Collection": {
-        "m2class": "\\Magento\\Rma\\Model\\Resource\\Shipping\\Collection"
+        "m2class": "\\Magento\\Rma\\Model\\ResourceModel\\Shipping\\Collection"
     },
     "Enterprise_Rma_Model_Rma_Create": {
         "m2class": "\\Magento\\Rma\\Model\\Rma\\Create"
@@ -7166,17 +7049,14 @@
     "Enterprise_SalesArchive_Model_Config": {
         "m2class": "\\Magento\\SalesArchive\\Model\\Config"
     },
-    "Enterprise_SalesArchive_Model_Observer": {
-        "m2class": "\\Magento\\SalesArchive\\Model\\Observer"
-    },
     "Enterprise_SalesArchive_Model_Order_Status_Source": {
         "m2class": "\\Magento\\SalesArchive\\Model\\Order\\Status\\Source"
     },
     "Enterprise_SalesArchive_Model_Resource_Archive": {
-        "m2class": "\\Magento\\SalesArchive\\Model\\Resource\\Archive"
+        "m2class": "\\Magento\\SalesArchive\\Model\\ResourceModel\\Archive"
     },
     "Enterprise_SalesArchive_Model_Resource_Order_Collection": {
-        "m2class": "\\Magento\\SalesArchive\\Model\\Resource\\Order\\Collection"
+        "m2class": "\\Magento\\SalesArchive\\Model\\ResourceModel\\Order\\Collection"
     },
     "Enterprise_SalesArchive_Model_System_Config_Backend_Active": {
         "m2class": "\\Magento\\SalesArchive\\Model\\System\\Config\\Backend\\Active"
@@ -7194,7 +7074,7 @@
         "m2class": "\\Magento\\AdvancedSearch\\Block\\Adminhtml\\Search\\Grid"
     },
     "Enterprise_Search_Model_Resource_Recommendations": {
-        "m2class": "\\Magento\\AdvancedSearch\\Model\\Resource\\Recommendations"
+        "m2class": "\\Magento\\AdvancedSearch\\Model\\ResourceModel\\Recommendations"
     },
     "Enterprise_Support_Block_Adminhtml_Backup_Log": {
         "m2class": "\\Magento\\Support\\Block\\Adminhtml\\Backup\\Log"
@@ -7209,16 +7089,16 @@
         "m2class": "\\Magento\\Support\\Model\\Backup\\Item\\Db"
     },
     "Enterprise_Support_Model_Resource_Backup": {
-        "m2class": "\\Magento\\Support\\Model\\Resource\\Backup"
+        "m2class": "\\Magento\\Support\\Model\\ResourceModel\\Backup"
     },
     "Enterprise_Support_Model_Resource_Backup_Collection": {
-        "m2class": "\\Magento\\Support\\Model\\Resource\\Backup\\Collection"
+        "m2class": "\\Magento\\Support\\Model\\ResourceModel\\Backup\\Collection"
     },
     "Enterprise_Support_Model_Resource_Backup_Item": {
-        "m2class": "\\Magento\\Support\\Model\\Resource\\Backup\\Item"
+        "m2class": "\\Magento\\Support\\Model\\ResourceModel\\Backup\\Item"
     },
     "Enterprise_Support_Model_Resource_Backup_Item_Collection": {
-        "m2class": "\\Magento\\Support\\Model\\Resource\\Backup\\Item\\Collection"
+        "m2class": "\\Magento\\Support\\Model\\ResourceModel\\Backup\\Item\\Collection"
     },
     "Enterprise_TargetRule_Block_Adminhtml_Product": {
         "m2class": "\\Magento\\TargetRule\\Block\\Adminhtml\\Product"
@@ -7262,9 +7142,6 @@
     "Enterprise_TargetRule_Model_Index": {
         "m2class": "\\Magento\\TargetRule\\Model\\Index"
     },
-    "Enterprise_TargetRule_Model_Observer": {
-        "m2class": "\\Magento\\TargetRule\\Model\\Observer"
-    },
     "Enterprise_TargetRule_Model_Rule": {
         "m2class": "\\Magento\\TargetRule\\Model\\Rule"
     },
@@ -7284,13 +7161,13 @@
         "m2class": "\\Magento\\TargetRule\\Model\\Catalog\\Product\\Attribute\\Backend\\Rule"
     },
     "Enterprise_TargetRule_Model_Resource_Index": {
-        "m2class": "\\Magento\\TargetRule\\Model\\Resource\\Index"
+        "m2class": "\\Magento\\TargetRule\\Model\\ResourceModel\\Index"
     },
     "Enterprise_TargetRule_Model_Resource_Rule": {
-        "m2class": "\\Magento\\TargetRule\\Model\\Resource\\Rule"
+        "m2class": "\\Magento\\TargetRule\\Model\\ResourceModel\\Rule"
     },
     "Enterprise_TargetRule_Model_Resource_Rule_Collection": {
-        "m2class": "\\Magento\\TargetRule\\Model\\Resource\\Rule\\Collection"
+        "m2class": "\\Magento\\TargetRule\\Model\\ResourceModel\\Rule\\Collection"
     },
     "Enterprise_TargetRule_Model_Rule_Condition_Combine": {
         "m2class": "\\Magento\\TargetRule\\Model\\Rule\\Condition\\Combine"
@@ -7389,13 +7266,13 @@
         "m2class": "\\Magento\\MultipleWishlist\\Model\\Config\\Source\\Search"
     },
     "Enterprise_Wishlist_Model_Resource_Item": {
-        "m2class": "\\Magento\\MultipleWishlist\\Model\\Resource\\Item"
+        "m2class": "\\Magento\\MultipleWishlist\\Model\\ResourceModel\\Item"
     },
     "Enterprise_Wishlist_Model_Resource_Item_Collection": {
-        "m2class": "\\Magento\\MultipleWishlist\\Model\\Resource\\Item\\Collection"
+        "m2class": "\\Magento\\MultipleWishlist\\Model\\ResourceModel\\Item\\Collection"
     },
     "Enterprise_Wishlist_Model_Resource_Item_Report_Collection": {
-        "m2class": "\\Magento\\MultipleWishlist\\Model\\Resource\\Item\\Report\\Collection"
+        "m2class": "\\Magento\\MultipleWishlist\\Model\\ResourceModel\\Item\\Report\\Collection"
     },
     "Enterprise_Wishlist_Model_Search_Strategy_Email": {
         "m2class": "\\Magento\\MultipleWishlist\\Model\\Search\\Strategy\\Email"
