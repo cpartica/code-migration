@@ -59,6 +59,13 @@ class TableFunctionMatcher implements \Magento\Migration\Code\Processor\Mage\Mat
         }
     }
 
+    /**
+     * @param $tokens
+     * @param $index
+     * @return bool
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
     protected function isTableCall(&$tokens, $index)
     {
         for ($i = $index; $i <= $index + 2; $i++) {

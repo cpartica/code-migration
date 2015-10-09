@@ -48,6 +48,8 @@ class Table extends AbstractFunction implements TableFunctionInterface
 
     /**
      * @return $this
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     private function parse()
     {
@@ -101,12 +103,6 @@ class Table extends AbstractFunction implements TableFunctionInterface
 
         if ($this->argumentType == $this::ARG_ARRAY) {
             $this->endIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $this->endIndex, ')');
-        }
-
-        //test debug code
-        $par = [];
-        for ($i = $this->index; $i <= $this->endIndex; $i++) {
-            $par[] = $this->tokens[$i];
         }
 
         $this->objectName = $this->getObjectName();
