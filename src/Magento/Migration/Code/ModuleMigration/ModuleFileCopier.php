@@ -102,6 +102,8 @@ class ModuleFileCopier
      * @param $files
      * @param string $contentFolder
      * @return bool
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function copyM2Files($files, $contentFolder = 'Model')
     {
