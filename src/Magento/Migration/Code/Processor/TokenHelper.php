@@ -81,71 +81,29 @@ class TokenHelper
     }
 
     /**
-     * Return the index of a function call
+     * Return the index of the token that is after the nearest function call
      *
      * @param array $tokens
      * @param int $index
      * @return int|null
      * @throws \Exception
      */
-    public function skipFunctionCall(array &$tokens, $index)
+    public function skipMethodCall(array &$tokens, $index)
     {
-        $count = count($tokens);
+        //do not go past current statement;
+        $endIndex = $this->getNextIndexOfSimpleToken($tokens, $index, ';');
         //find the first (, then find match )
-        $nextIndex = $this->getNextIndexOf($tokens, $index, '(') + 1;
+        $nextIndex = $this->getNextIndexOfSimpleToken($tokens, $index, '(') + 1;
 
-        $nestedLevel = 0; //used to skip nested (), can't handle quote though
+        $nestedLevel = 0; //used to skip nested ()
         $found = false;
-        while (!$found && $nextIndex < $count) {
+        while (!$found && $nextIndex < $endIndex) {
             if (is_array($tokens[$nextIndex])) {
                 $nextIndex++;
                 continue;
-            }
-            if ($tokens[$nextIndex] == '(') {
+            } elseif ($tokens[$nextIndex] == '(') {
                 $nestedLevel++;
-                $nextIndex++;
             } elseif ($tokens[$nextIndex] == ')') {
-                if ($nestedLevel == 0) {
-                    break;
-                } else {
-                    $nestedLevel--;
-                    $nextIndex++;
-                }
-            } else {
-                $nextIndex++;
-            }
-        }
-
-        if ($nextIndex == $count) {
-            throw new \Exception("Unexpected token structure");
-        }
-        $nextIndex++;
-        return $nextIndex;
-    }
-
-    /**
-     * Return the index after function definition
-     *
-     * @param array $tokens
-     * @param int $index
-     * @return int
-     */
-    public function skipFunctionDefinition(array &$tokens, $index)
-    {
-        //find the first {, then find match }
-        $nextIndex = $this->getNextIndexOf($tokens, $index, '{') + 1;
-
-        $nestedLevel = 0; //used to skip nested (), can't handle quote though
-        $found = false;
-        while (!$found) {
-            if (is_array($tokens[$nextIndex])) {
-                $nextIndex++;
-                continue;
-            }
-            if ($tokens[$nextIndex] == '{') {
-                $nestedLevel++;
-            }
-            if ($tokens[$nextIndex] == '}') {
                 if ($nestedLevel == 0) {
                     break;
                 } else {
@@ -155,6 +113,48 @@ class TokenHelper
             $nextIndex++;
         }
 
+        if ($nextIndex == $endIndex) {
+            throw new \Exception("Unexpected token structure");
+        }
+        $nextIndex++;
+        return $nextIndex;
+    }
+
+    /**
+     * Return the index of first token after the nearest block
+     *
+     * @param array $tokens
+     * @param int $index
+     * @return int
+     */
+    public function skipBlock(array &$tokens, $index)
+    {
+        $count = count($tokens);
+        //find the first {, then find match }
+        $nextIndex = $this->getNextIndexOfSimpleToken($tokens, $index, '{') + 1;
+
+        $nestedLevel = 0; //used to skip nested block
+        $found = false;
+        while (!$found && $nextIndex < $count) {
+            if (is_array($tokens[$nextIndex])) {
+                $nextIndex++;
+                continue;
+            }
+            if ($tokens[$nextIndex] == '{') {
+                $nestedLevel++;
+            } elseif ($tokens[$nextIndex] == '}') {
+                if ($nestedLevel == 0) {
+                    break;
+                } else {
+                    $nestedLevel--;
+                }
+            }
+            $nextIndex++;
+        }
+
+        if ($nextIndex == $count) {
+            throw new \Exception("Incorrect block structure");
+        }
         return $nextIndex + 1;
     }
 
@@ -167,13 +167,13 @@ class TokenHelper
      * @return int
      * @throws \Exception
      */
-    public function getNextIndexOf(array &$tokens, $index, $token)
+    public function getNextIndexOfSimpleToken(array &$tokens, $index, $token)
     {
         $count = count($tokens);
         while (is_array($tokens[$index]) || $tokens[$index] != $token) {
             $index++;
             if ($index == $count) {
-                throw new \Exception('Token' . $token . ' not found after index ' . $index);
+                throw new \Exception('Token ' . $token . ' not found after index ' . $index);
             }
         }
 
@@ -189,16 +189,14 @@ class TokenHelper
      * @param string $tokenValue
      * @return null|int
      */
-    public function getNextIndexOfType(array &$tokens, $index, $tokenType, $tokenValue = null)
+    public function getNextIndexOfTokenType(array &$tokens, $index, $tokenType, $tokenValue = null)
     {
         $length = count($tokens);
-        while ($index < $length) {
+        for (; $index < $length; $index++) {
             if (!is_array($tokens[$index]) || $tokens[$index][0] != $tokenType) {
-                $index++;
                 continue;
             }
             if ($tokenValue !== null && $tokens[$index][1] != $tokenValue) {
-                $index++;
                 continue;
             }
             return $index;
@@ -215,7 +213,7 @@ class TokenHelper
      * @param string $tokenValue
      * @return null|int
      */
-    public function getPrevIndexOfType(array &$tokens, $index, $tokenType, $tokenValue = null)
+    public function getPrevIndexOfTokenType(array &$tokens, $index, $tokenType, $tokenValue = null)
     {
         while ($index > 0) {
             if (!is_array($tokens[$index]) || $tokens[$index][0] != $tokenType) {
@@ -241,8 +239,8 @@ class TokenHelper
     public function getFunctionArguments(array &$tokens, $startingIndex)
     {
         $arguments = [];
-        $startingIndex = $this->getNextIndexOf($tokens, $startingIndex, '(');
-        $endingIndex = $this->getNextIndexOf($tokens, $startingIndex, ')');
+        $startingIndex = $this->getNextIndexOfSimpleToken($tokens, $startingIndex, '(');
+        $endingIndex = $this->getNextIndexOfSimpleToken($tokens, $startingIndex, ')');
 
         $index = $startingIndex;
         while ($index < $endingIndex) {
@@ -254,23 +252,31 @@ class TokenHelper
             if (($tokens[$index][0] == T_STRING || $tokens[$index][0] == T_ARRAY)
                 && (is_array($tokens[$index + 2]) && $tokens[$index + 2][0] == T_VARIABLE)
             ) {
-                $variableIndex = $this->getNextIndexOfType($tokens, $index, T_VARIABLE);
+                //variable with type
+                $variableType = $tokens[$index][1];
+                $index = $index + 2;
                 /** @var \Magento\Migration\Code\Processor\Mage\MageFunction\Argument $argument */
                 $argument = $this->argumentFactory->create()
-                    ->setType($tokens[$index][1])
-                    ->setName($tokens[$variableIndex][1]);
-                if (!is_array($tokens[$variableIndex + 2]) && $tokens[$variableIndex + 2] == '=') {
+                    ->setType($variableType)
+                    ->setName($tokens[$index][1]);
+                $nextIndex = $this->getNextTokenIndex($tokens, $index);
+                if (!is_array($tokens[$nextIndex]) && $tokens[$nextIndex] == '=') {
                     $argument->setIsOptional(true);
+                    $index = $nextIndex + 1;
+                } else {
+                    $index++;
                 }
-                $index = $variableIndex + 1;
             } elseif ($tokens[$index][0] == T_VARIABLE) {
                 /** @var \Magento\Migration\Code\Processor\Mage\MageFunction\Argument $argument */
                 $argument = $this->argumentFactory->create()
                     ->setName($tokens[$index][1]);
-                if (!is_array($tokens[$index + 2]) && $tokens[$index + 2] == '=') {
+                $nextIndex = $this->getNextTokenIndex($tokens, $index);
+                if (!is_array($tokens[$nextIndex]) && $tokens[$nextIndex] == '=') {
                     $argument->setIsOptional(true);
+                    $index = $nextIndex + 1;
+                } else {
+                    $index++;
                 }
-                $index++;
             } else {
                 $index++;
             }
@@ -281,13 +287,20 @@ class TokenHelper
         return $arguments;
     }
 
+    /**
+     * This method can be used to go back one line and skip doc comment if necessary
+     *
+     * @param array $tokens
+     * @param int $index The index of token 'function'
+     * @return int
+     */
     public function getFunctionStartingIndex(array &$tokens, $index)
     {
         //first, go to previous line
         $lineNumber = $tokens[$index][2];
 
         $currentIndex = $index - 1;
-        while (is_array($tokens[$currentIndex]) && $tokens[$currentIndex][2] == $lineNumber) {
+        while ($currentIndex > 0 && is_array($tokens[$currentIndex]) && $tokens[$currentIndex][2] == $lineNumber) {
             $currentIndex--;
         }
 
@@ -339,42 +352,6 @@ class TokenHelper
         return null;
     }
 
-
-    /**
-     * Return the index after method call
-     *
-     * @param array $tokens
-     * @param int $index
-     * @return int
-     */
-    public function skipMethodCall(array &$tokens, $index)
-    {
-        //find the first (, then find match )
-        $nextIndex = $this->getNextIndexOf($tokens, $index, '(') + 1;
-
-        $nestedLevel = 0; //used to skip nested (), can't handle quote though
-        $found = false;
-        while (!$found) {
-            if (is_array($tokens[$nextIndex])) {
-                $nextIndex++;
-                continue;
-            }
-            if ($tokens[$nextIndex] == '(') {
-                $nestedLevel++;
-            }
-            if ($tokens[$nextIndex] == ')') {
-                if ($nestedLevel == 0) {
-                    break;
-                } else {
-                    $nestedLevel--;
-                }
-            }
-            $nextIndex++;
-        }
-
-        return $nextIndex;
-    }
-
     /**
      * Get the argument of a method call
      * use starting index as the object or the method itself
@@ -386,14 +363,18 @@ class TokenHelper
      */
     public function getCallArguments(array &$tokens, $startingIndex, $trim = true)
     {
-        $startingIndex = $this->getNextIndexOf($tokens, $startingIndex, '(');
-        $endingIndex = $this->skipMethodCall($tokens, $startingIndex);
+        $startingIndex = $this->getNextIndexOfSimpleToken($tokens, $startingIndex, '(');
+        $endingIndex = $this->skipMethodCall($tokens, $startingIndex) - 1;
 
         $nextIndex = $startingIndex + 1;
-        $nestedLevel = 0; //used to skip nested (), can't handle quote though
+        $nestedLevel = 0; //used to skip nested ()
         $paramIndexes = [];
         $prevIndex = $nextIndex;
+        $hasArgument = false;
         while ($nextIndex < $endingIndex) {
+            if (!is_array($tokens[$nextIndex]) || $tokens[$nextIndex][0] != T_WHITESPACE) {
+                $hasArgument = true;
+            }
             if (is_array($tokens[$nextIndex])) {
                 $nextIndex++;
                 continue;
@@ -414,8 +395,12 @@ class TokenHelper
             }
             $nextIndex++;
         }
+
         //add the last or non comma param
-        $paramIndexes[] = ['from' => $prevIndex, 'to' => $nextIndex - 1];
+        if ($hasArgument) {
+            $paramIndexes[] = ['from' => $prevIndex, 'to' => $nextIndex - 1];
+        }
+
         //build arguments
         $argumentCollection = $this->callCollectionFactory->create();
         foreach ($paramIndexes as $key => $idx) {
@@ -451,7 +436,7 @@ class TokenHelper
 
     /**
      * Replaces between start and end index with tokens
-     * match the start and end index with the function parantesis
+     * match the start and end index with the function parenthesis
      *
      * @param mixed[] $tokens
      * @param $index
@@ -460,20 +445,26 @@ class TokenHelper
      */
     public function replaceCallArgumentsTokens(&$tokens, $index, $replacementTokens)
     {
-        $indexStart = $this->getNextIndexOf($tokens, $index, '(');
-        $indexEnd = $this->skipMethodCall($tokens, $index);
+        $indexStart = $this->getNextIndexOfSimpleToken($tokens, $index, '(');
+        $indexEnd = $this->skipMethodCall($tokens, $index) - 1;
 
-        if ($tokens[$indexStart] != '(' && $tokens[$indexStart] != ')') {
+        if ((!is_array($tokens[$indexStart]) && $tokens[$indexStart] != '(')
+            || (!is_array($tokens[$indexEnd]) && $tokens[$indexEnd] != ')')) {
             $this->logger->warn(
                 'Start and End index don\'t match parenthesis function call index boundaries ' . $tokens[$indexStart][2]
             );
             return $this;
         }
 
+        if ($indexEnd == $indexStart + 1) {
+            $this->logger->warn('No place to insert replacement tokens');
+            return $this;
+        }
+
         $tokens[$indexStart + 1] = [T_CONSTANT_ENCAPSED_STRING, '', $indexStart + 1, 'T_CONSTANT_ENCAPSED_STRING'];
-        foreach ($replacementTokens->getTokens() as $idx) {
-            /** @var  \Magento\Migration\Code\Processor\TokenArgument $idx */
-            $tokens[$indexStart + 1][1] .= $idx->getName();
+        foreach ($replacementTokens->getTokens() as $token) {
+            /** @var  \Magento\Migration\Code\Processor\TokenArgument $token */
+            $tokens[$indexStart + 1][1] .= $token->getName();
         }
 
         for ($i = $indexStart + 2; $i < $indexEnd; $i++) {

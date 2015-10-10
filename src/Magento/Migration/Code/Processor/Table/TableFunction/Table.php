@@ -99,10 +99,10 @@ class Table extends AbstractFunction implements TableFunctionInterface
             return $this;
         }
 
-        $this->endIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $this->index, ')');
+        $this->endIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $this->index, ')');
 
         if ($this->argumentType == $this::ARG_ARRAY) {
-            $this->endIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $this->endIndex, ')');
+            $this->endIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $this->endIndex, ')');
         }
 
         $this->objectName = $this->getObjectName();

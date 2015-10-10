@@ -91,10 +91,10 @@ class GetStoreConfig extends AbstractFunction implements \Magento\Migration\Code
         $count = $arguments->getCount();
 
         if ($count > 1) {
-            $currentIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $currentIndex, ',');
+            $currentIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $currentIndex, ',');
             $this->tokens[$currentIndex] = ', ' . '\Magento\Store\Model\ScopeInterface::SCOPE_STORE' . ', ';
         } else {
-            $currentIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $currentIndex, ')');
+            $currentIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $currentIndex, ')');
             $this->tokens[$currentIndex] = ', ' . '\Magento\Store\Model\ScopeInterface::SCOPE_STORE' . ')';
         }
 

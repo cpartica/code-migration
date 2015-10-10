@@ -384,7 +384,6 @@ class ClassDependencyScanner
             if ($className != null) {
                 $referenceClasses[$className][] = $context;
             }
-            $this->logger->warn('variable used in Mage::get() call at line ' . $argument[2] . ': ' . $argument[1]);
         } else {
             if (is_array($argument)) {
                 $this->logger->warn('variable used in Mage::get() call at line ' . $argument[2] . ': ' . $argument[1]);

@@ -67,7 +67,7 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
         $this->diVariableName = $this->generateVariableName($this->singletonClass);
         $this->methodName = $this->getSingletonMethod();
 
-        $this->endIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $this->index, '(');
+        $this->endIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $this->index, '(');
         return $this;
     }
 
@@ -125,8 +125,8 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
      */
     protected function getSingletonMethod()
     {
-        $nextIndex = $this->tokenHelper->skipFunctionCall($this->tokens, $this->index);
-        $nextIndex = $this->tokenHelper->getNextIndexOfType($this->tokens, $nextIndex, T_STRING);
+        $nextIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
+        $nextIndex = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $nextIndex, T_STRING);
         return $this->tokens[$nextIndex][1];
 
     }
@@ -193,7 +193,7 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
         if ($this->methodName == null || $this->singletonClass == null) {
             return $this;
         }
-        $indexOfMethodCall = $this->tokenHelper->skipFunctionCall($this->tokens, $this->index);
+        $indexOfMethodCall = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
         $currentIndex = $this->index;
 
         while ($currentIndex < $indexOfMethodCall) {

@@ -97,7 +97,7 @@ class Constructor
      */
     protected function addMembers($variables)
     {
-        $firstFunctionIndex = $this->tokenHelper->getNextIndexOfType($this->tokens, 0, T_FUNCTION);
+        $firstFunctionIndex = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, 0, T_FUNCTION);
         $firstFunctionIndex = $this->tokenHelper->getFunctionStartingIndex($this->tokens, $firstFunctionIndex);
 
         $text = "\n";
@@ -128,7 +128,7 @@ class Constructor
 //        }
 //
         if (empty($existingArguments)) {
-            $startIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $startIndex, '(');
+            $startIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $startIndex, '(');
 
             $text = '';
             foreach ($variables as $variable) {
@@ -166,7 +166,7 @@ class Constructor
                     $text .= "\n\t\t";
                 }
                 if ($count == 0) {
-                    $indexToInsert = $this->tokenHelper->getNextIndexOf($this->tokens, $startIndex, '(');
+                    $indexToInsert = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $startIndex, '(');
                     if (is_array($this->tokens[$indexToInsert + 1])
                         && $this->tokens[$indexToInsert + 1][0] == T_WHITESPACE) {
                         $indexToInsert++;
@@ -176,15 +176,15 @@ class Constructor
                         $this->tokens[$indexToInsert] .= $text;
                     }
                 } else {
-                    $variableIndex = $this->tokenHelper->getNextIndexOfType(
+                    $variableIndex = $this->tokenHelper->getNextIndexOfTokenType(
                         $this->tokens,
                         $startIndex,
                         T_VARIABLE,
                         $existingArguments[$count - 1]->getName()
                     );
-                    $indexToInsert = $this->tokenHelper->getNextIndexOf($this->tokens, $variableIndex, ',');
+                    $indexToInsert = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $variableIndex, ',');
                     $indexToInsert = $this->tokenHelper
-                        ->getNextIndexOfType($this->tokens, $indexToInsert, T_WHITESPACE);
+                        ->getNextIndexOfTokenType($this->tokens, $indexToInsert, T_WHITESPACE);
                     $this->tokens[$indexToInsert][1] = $this->tokens[$indexToInsert][1] . $text;
                 }
             } else {
@@ -197,13 +197,13 @@ class Constructor
                     }
                     $text .= ' $' . $variable['variable_name'] . ',';
                 }
-                $variableIndex = $this->tokenHelper->getNextIndexOfType(
+                $variableIndex = $this->tokenHelper->getNextIndexOfTokenType(
                     $this->tokens,
                     $startIndex,
                     T_VARIABLE,
                     $existingArguments[$numArguments - 1]->getName()
                 );
-                $indexToInsert = $this->tokenHelper->getNextIndexOfType($this->tokens, $variableIndex, T_WHITESPACE);
+                $indexToInsert = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $variableIndex, T_WHITESPACE);
 
                 $this->tokens[$indexToInsert][1] = ',' . $this->tokens[$indexToInsert][1];
                 $text = trim($text, ',');
@@ -213,7 +213,7 @@ class Constructor
         }
 
 
-        $startIndex = $this->tokenHelper->getNextIndexOf($this->tokens, $startIndex, '{');
+        $startIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $startIndex, '{');
         $text = '';
         foreach ($variables as $variable) {
             $text .= "\n\t\t\$this->" . $variable['variable_name'] . ' = $' . $variable['variable_name'] . ';';
@@ -264,12 +264,12 @@ class Constructor
     public function getParentClass()
     {
         $index = 0;
-        $indexExtend = $this->tokenHelper->getNextIndexOfType($this->tokens, $index, T_EXTENDS);
+        $indexExtend = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $index, T_EXTENDS);
         if ($indexExtend === null) {
             return null;
         }
 
-        $indexParentClass = $this->tokenHelper->getNextIndexOfType($this->tokens, $indexExtend, T_STRING);
+        $indexParentClass = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $indexExtend, T_STRING);
         return $this->tokens[$indexParentClass][1];
     }
 
@@ -278,7 +278,7 @@ class Constructor
      */
     public function getConstructorIndex()
     {
-        $index = $this->tokenHelper->getNextIndexOf($this->tokens, 0, '{');
+        $index = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, 0, '{');
 
         $length = count($this->tokens);
         //check whether function __construct is defined
@@ -290,7 +290,7 @@ class Constructor
                 continue;
             }
 
-            $functionNameIndex = $this->tokenHelper->getNextIndexOfType($this->tokens, $index, T_STRING);
+            $functionNameIndex = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $index, T_STRING);
             if ($this->tokens[$functionNameIndex][1] != '__construct') {
                 if (!$firstFunctionIndex) {
                     //remember the index to insert constructor;

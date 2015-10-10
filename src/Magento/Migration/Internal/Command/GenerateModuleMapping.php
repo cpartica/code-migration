@@ -199,28 +199,9 @@ class GenerateModuleMapping extends Command
             }
         }
 
-        //process Enterprise modules, avoid conflict
-//        $configFiles = glob($m1BaseDir . '/app/code/core/Enterprise/*/etc/config.xml');
-//        foreach ($configFiles as $configFile) {
-//            $content = file_get_contents($configFile);
-//            $config = new \Magento\Migration\Utility\M1\Config($content);
-//            $moduleName = $config->getModuleName();
-//            $mapping = $this->mapModuleName($moduleName, $m2BaseDir);
-//
-//
-//            $coreModules = array_flip($moduleMapping);
-//            if (isset($coreModules[$mapping])) {
-//                $moduleMapping[$moduleName] = 'conflict';
-//            } elseif ($mapping != null) {
-//                $moduleMapping[$moduleName] = $mapping;
-//            } else {
-//                $moduleMapping[$moduleName] = 'obsolete';
-//            }
-//        }
-
         $outputFileName = BP . '/mapping/module_mapping.json';
         if (file_put_contents($outputFileName, json_encode($moduleMapping, JSON_PRETTY_PRINT))) {
-            $this->logger->info($outputFileName . ' was generated');
+            $this->logger->info($outputFileName . " was generated");
         } else {
             $this->logger->error('Could not write '.$outputFileName . '. check writing permissions');
         }

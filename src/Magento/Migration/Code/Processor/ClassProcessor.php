@@ -91,9 +91,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function processExtends(array &$tokens)
     {
-        $extendIndex = $this->tokenHelper->getNextIndexOfType($tokens, 0, T_EXTENDS);
+        $extendIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_EXTENDS);
         if ($extendIndex != null) {
-            $parentClassIndex = $this->tokenHelper->getNextIndexOfType($tokens, $extendIndex, T_STRING);
+            $parentClassIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $extendIndex, T_STRING);
             $parentClassName = $tokens[$parentClassIndex][1];
 
             $mappedClass = $this->classMap->mapM1Class($parentClassName);
@@ -142,7 +142,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
 
         $this->modifyParentConstructorCall($tokens, $parameters, $constructorIndex);
 
-        $startOfParameterList = $this->tokenHelper->getNextIndexOf($tokens, $constructorIndex, '(');
+        $startOfParameterList = $this->tokenHelper->getNextIndexOfSimpleToken($tokens, $constructorIndex, '(');
         $startingLine = $currentLine = $tokens[$startOfParameterList - 1][2];
         if (!is_array($tokens[$startOfParameterList + 1]) && $tokens[$startOfParameterList + 1] == ')') {
             $tokensToInsert = [];
@@ -209,24 +209,24 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function modifyParentConstructorCall(array &$tokens, array $parameters, $constructorIndex)
     {
-        $endOfConstructor = $this->tokenHelper->skipFunctionDefinition($tokens, $constructorIndex);
+        $endOfConstructor = $this->tokenHelper->skipBlock($tokens, $constructorIndex);
 
         $found = false;
-        $index = $this->tokenHelper->getNextIndexOfType($tokens, $constructorIndex, T_DOUBLE_COLON);
+        $index = $this->tokenHelper->getNextIndexOfTokenType($tokens, $constructorIndex, T_DOUBLE_COLON);
         while (!$found && $index != null && $index <= $endOfConstructor) {
             if (is_array($tokens[$index - 1]) && $tokens[$index - 1][1] == 'parent'
                 && is_array($tokens[$index + 1]) && $tokens[$index + 1][1] == '__construct'
             ) {
                 $found = true;
             } else {
-                $index = $this->tokenHelper->getNextIndexOfType($tokens, $index + 1, T_DOUBLE_COLON);
+                $index = $this->tokenHelper->getNextIndexOfTokenType($tokens, $index + 1, T_DOUBLE_COLON);
             }
         }
 
         $tokensToInsert = [];
         if (!$found) {
             //add parent::__construct call
-            $insertIndex = $this->tokenHelper->getNextIndexOf($tokens, $constructorIndex, '{');
+            $insertIndex = $this->tokenHelper->getNextIndexOfSimpleToken($tokens, $constructorIndex, '{');
             $startingLine = $currentLine = $tokens[$insertIndex - 1][2];
             $tokensToInsert[] = [T_WHITESPACE, "\n\t\t", $currentLine++];
             $tokensToInsert[] = [T_STRING, 'parent', $currentLine];
@@ -277,15 +277,15 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function processNamespace(array &$tokens)
     {
-        $classIndex = $this->tokenHelper->getNextIndexOfType($tokens, 0, T_CLASS);
+        $classIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS);
         if ($classIndex == null) {
-            $classIndex = $this->tokenHelper->getNextIndexOfType($tokens, 0, T_INTERFACE);
+            $classIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_INTERFACE);
         }
 
         if ($classIndex == null) {
             return $this;
         } else {
-            $classNameIndex = $this->tokenHelper->getNextIndexOfType($tokens, $classIndex, T_STRING);
+            $classNameIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $classIndex, T_STRING);
             $className = $tokens[$classNameIndex][1];
             $parts = explode('_', $className);
             $shortClassName = array_pop($parts);
@@ -293,7 +293,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             $tokens[$classNameIndex][1] = $shortClassName;
         }
 
-        $openTagIndex = $this->tokenHelper->getNextIndexOfType($tokens, 0, T_OPEN_TAG);
+        $openTagIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_OPEN_TAG);
         if ($openTagIndex === null) {
             $this->logger->error('Can not find the open tag');
             return $this;
@@ -306,7 +306,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         }
 
         //find the previous whitespace and append the namespace to to
-        $index = $this->tokenHelper->getPrevIndexOfType($tokens, $index, T_WHITESPACE);
+        $index = $this->tokenHelper->getPrevIndexOfTokenType($tokens, $index, T_WHITESPACE);
         $tokens[$index][1] = $tokens[$index][1] . 'namespace ' . $nameSpace . ";\n\n";
 
         return $this;
@@ -319,11 +319,11 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function getNameSpace(array &$tokens)
     {
-        $indexNamespace = $this->tokenHelper->getNextIndexOfType($tokens, 0, T_NAMESPACE);
+        $indexNamespace = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_NAMESPACE);
         if ($indexNamespace == null) {
             return null;
         } else {
-            $indexNamespace = $this->tokenHelper->getNextIndexOfType($tokens, $indexNamespace, T_STRING);
+            $indexNamespace = $this->tokenHelper->getNextIndexOfTokenType($tokens, $indexNamespace, T_STRING);
             return $tokens[$indexNamespace][1];
         }
     }
@@ -334,7 +334,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function processArgumentType(array &$tokens)
     {
-        $functionIndex = $this->tokenHelper->getNextIndexOfType($tokens, 0, T_FUNCTION);
+        $functionIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_FUNCTION);
         while ($functionIndex != null) {
             $arguments = $this->tokenHelper->getFunctionArguments($tokens, $functionIndex);
 
@@ -345,7 +345,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                     if (strpos($typeName, 'Mage_') === 0 || strpos($typeName, 'Varien_') === 0) {
                         $mappedClass = $this->classMap->mapM1Class($typeName);
                         if ($mappedClass !== null) {
-                            $currentIndex = $this->tokenHelper->getNextIndexOfType(
+                            $currentIndex = $this->tokenHelper->getNextIndexOfTokenType(
                                 $tokens,
                                 $currentIndex + 1,
                                 T_STRING,
@@ -356,7 +356,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                     }
                 }
             }
-            $functionIndex = $this->tokenHelper->getNextIndexOfType($tokens, $functionIndex + 1, T_FUNCTION);
+            $functionIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $functionIndex + 1, T_FUNCTION);
         }
         return $this;
     }
@@ -367,7 +367,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     public function processStaticClassReference(array &$tokens)
     {
-        $doubleColonIndex = $this->tokenHelper->getNextIndexOfType($tokens, 0, T_DOUBLE_COLON);
+        $doubleColonIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_DOUBLE_COLON);
         while ($doubleColonIndex != null) {
             $prevToken = $tokens[$doubleColonIndex - 1];
             if (is_array($prevToken) && $prevToken[0] == T_STRING
@@ -378,7 +378,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                     $prevToken[1] = $mappedClass;
                 }
             }
-            $doubleColonIndex = $this->tokenHelper->getNextIndexOfType($tokens, $doubleColonIndex + 1, T_FUNCTION);
+            $doubleColonIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $doubleColonIndex + 1, T_FUNCTION);
         }
         return $this;
     }
