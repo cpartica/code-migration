@@ -10,6 +10,10 @@ if (!defined('TESTS_TEMP_DIR')) {
     define('TESTS_TEMP_DIR', dirname(__DIR__) . '/tmp');
 }
 
+if (!defined('BP')) {
+    define('BP', dirname(dirname(__DIR__)));
+}
+
 require_once __DIR__ . '/autoload.php';
 
 \Magento\Framework\Phrase::setRenderer(new \Magento\Framework\Phrase\Renderer\Placeholder());

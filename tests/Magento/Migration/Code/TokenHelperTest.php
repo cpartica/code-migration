@@ -44,7 +44,7 @@ class TokenHelperTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        $fileContent = file_get_contents('_files/tokenHelperTest.php');
+        $fileContent = file_get_contents(__DIR__ . '/_files/tokenHelperTest.file');
         self::$tokens = token_get_all($fileContent);
         for ($i = 0; $i < count(self::$tokens); $i++) {
             if (is_array(self::$tokens[$i])) {
@@ -424,7 +424,7 @@ class TokenHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testReplaceCallArgumentsTokens()
     {
-        $fileContent = file_get_contents('_files/tokenHelperTest.php');
+        $fileContent = file_get_contents(__DIR__ . '/_files/tokenHelperTest.file');
         $tokens = token_get_all($fileContent);
         for ($i = 0; $i < count(self::$tokens); $i++) {
             if (is_array($tokens[$i])) {
@@ -449,7 +449,7 @@ class TokenHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testReplaceCallArgumentsTokensNoArgument()
     {
-        $fileContent = file_get_contents('_files/tokenHelperTest.php');
+        $fileContent = file_get_contents(__DIR__ . '/_files/tokenHelperTest.file');
         $tokens = token_get_all($fileContent);
         for ($i = 0; $i < count(self::$tokens); $i++) {
             if (is_array($tokens[$i])) {

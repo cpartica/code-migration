@@ -19,12 +19,12 @@ class ClassDependencyScanner
     const CONTEXT_NEW = 'new';
 
     /**
-     * @var \Magento\Migration\Mapping\ClassMap
+     * @var \Magento\Migration\Mapping\ClassMapping
      */
     protected $classMapper;
 
     /**
-     * @var \Magento\Migration\Mapping\AliasMap
+     * @var \Magento\Migration\Mapping\Alias
      */
     protected $aliasMapper;
 
@@ -34,8 +34,8 @@ class ClassDependencyScanner
     protected $logger;
 
     public function __construct(
-        \Magento\Migration\Mapping\ClassMap $classMapper,
-        \Magento\Migration\Mapping\AliasMap $aliasMapper,
+        \Magento\Migration\Mapping\ClassMapping $classMapper,
+        \Magento\Migration\Mapping\Alias $aliasMapper,
         \Magento\Migration\Logger\Logger $logger
     ) {
         $this->classMapper = $classMapper;

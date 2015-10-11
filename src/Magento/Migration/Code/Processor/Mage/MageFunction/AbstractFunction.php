@@ -13,11 +13,11 @@ namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 class AbstractFunction
 {
     /**
-     * @var \Magento\Migration\Mapping\ClassMap
+     * @var \Magento\Migration\Mapping\ClassMapping
      */
     protected $classMapper;
     /**
-     * @var \Magento\Migration\Mapping\AliasMap
+     * @var \Magento\Migration\Mapping\Alias
      */
     protected $aliasMapper;
 
@@ -47,8 +47,8 @@ class AbstractFunction
     protected $tokenHelper;
 
     public function __construct(
-        \Magento\Migration\Mapping\ClassMap $classMapper,
-        \Magento\Migration\Mapping\AliasMap $aliasMapper,
+        \Magento\Migration\Mapping\ClassMapping $classMapper,
+        \Magento\Migration\Mapping\Alias $aliasMapper,
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
         \Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory $argumentFactory

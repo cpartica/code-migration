@@ -6,7 +6,7 @@
  */
 namespace Magento\Migration\Mapping;
 
-class ClassMap
+class ClassMapping
 {
     /**
      * @var array

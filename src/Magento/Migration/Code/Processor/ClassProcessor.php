@@ -14,11 +14,11 @@ namespace Magento\Migration\Code\Processor;
 class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
 {
     /**
-     * @var \Magento\Migration\Mapping\ClassMap
+     * @var \Magento\Migration\Mapping\ClassMapping
      */
     protected $classMap;
     /**
-     * @var \Magento\Migration\Mapping\AliasMap
+     * @var \Magento\Migration\Mapping\Alias
      */
     protected $aliasMap;
 
@@ -43,8 +43,8 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected $constructorHelperFactory;
 
     public function __construct(
-        \Magento\Migration\Mapping\ClassMap $classMap,
-        \Magento\Migration\Mapping\AliasMap $aliasMap,
+        \Magento\Migration\Mapping\ClassMapping $classMap,
+        \Magento\Migration\Mapping\Alias $aliasMap,
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Mapping\Context $context,
         \Magento\Migration\Code\Processor\Mage\MageFunction\ConstructorFactory $constructorHelperFactory,
@@ -344,7 +344,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                     $typeName = $argument->getType();
                     if (strpos($typeName, 'Mage_') === 0 || strpos($typeName, 'Varien_') === 0) {
                         $mappedClass = $this->classMap->mapM1Class($typeName);
-                        if ($mappedClass !== null) {
+                        if ($mappedClass !== null && $mappedClass != 'obsolete') {
                             $currentIndex = $this->tokenHelper->getNextIndexOfTokenType(
                                 $tokens,
                                 $currentIndex + 1,
@@ -374,7 +374,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                 && strpos($prevToken[1], 'Mage_') === 0 || strpos($prevToken[1], 'Varien_')
             ) {
                 $mappedClass = $this->classMap->mapM1Class($prevToken[1]);
-                if ($mappedClass !== null) {
+                if ($mappedClass !== null && $mappedClass != 'obsolete') {
                     $prevToken[1] = $mappedClass;
                 }
             }

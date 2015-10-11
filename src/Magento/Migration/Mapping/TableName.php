@@ -6,7 +6,7 @@
  */
 namespace Magento\Migration\Mapping;
 
-class TableNameMap
+class TableName
 {
     protected $mapping;
 

@@ -19,7 +19,7 @@ class GenerateClassDependency extends Command
     protected $classDependencyScanner;
 
     /**
-     * @var \Magento\Migration\Mapping\ClassMap
+     * @var \Magento\Migration\Mapping\ClassMapping
      */
     protected $classMapper;
 

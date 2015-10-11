@@ -125,42 +125,42 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
                 'tokens' => [
                     0 =>
                         [
-                            0 => 379,
+                            0 => T_WHITESPACE,
                             1 => ' ',
                             2 => 101,
                             3 => 'T_WHITESPACE',
                         ],
                     1 =>
                         [
-                            0 => 364,
+                            0 => T_DOUBLE_COLON,
                             1 => '=>',
                             2 => 101,
                             3 => 'T_DOUBLE_ARROW',
                         ],
                     2 =>
                         [
-                            0 => 379,
+                            0 => T_WHITESPACE,
                             1 => ' ',
                             2 => 101,
                             3 => 'T_WHITESPACE',
                         ],
                     3 =>
                         [
-                            0 => 312,
+                            0 => T_VARIABLE,
                             1 => '$this',
                             2 => 101,
                             3 => 'T_VARIABLE',
                         ],
                     4 =>
                         [
-                            0 => 363,
+                            0 => T_OBJECT_OPERATOR,
                             1 => '->',
                             2 => 101,
                             3 => 'T_OBJECT_OPERATOR',
                         ],
                     5 =>
                         [
-                            0 => 310,
+                            0 => T_STRING,
                             1 => 'getTable',
                             2 => 101,
                             3 => 'T_STRING',
@@ -168,7 +168,7 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
                     6 => '(',
                     7 =>
                         [
-                            0 => 318,
+                            0 => T_CONSTANT_ENCAPSED_STRING,
                             1 => '\'catalogrule/rule_product\'',
                             2 => 101,
                             3 => 'T_CONSTANT_ENCAPSED_STRING',

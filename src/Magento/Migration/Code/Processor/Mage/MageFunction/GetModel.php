@@ -97,6 +97,9 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
         $m2ClassName = $this->classMapper->mapM1Class($m1ClassName);
         if (!$m2ClassName) {
             $m2ClassName = '\\' . str_replace('_', '\\', $m1ClassName);
+        } elseif ($m2ClassName == 'obsolete') {
+            $this->logger->warn('Model is obsolete: ' . $m1ClassName);
+            return null;
         }
 
         return $m2ClassName . 'Factory';

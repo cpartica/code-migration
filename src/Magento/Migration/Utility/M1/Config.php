@@ -8,11 +8,6 @@ namespace Magento\Migration\Utility\M1;
 class Config
 {
     /**
-     * @var string
-     */
-    protected $baseDir;
-
-    /**
      * @var \SimpleXMLElement
      */
     protected $config;
@@ -25,38 +20,9 @@ class Config
         $this->config = simplexml_load_string($configFileContent);
     }
 
-    public function getHelperAliases()
-    {
-        $helperAliases = [];
-        if (!empty($this->config->global->helpers)) {
-            foreach ($this->config->global->helpers as $helperAlias) {
-                /**
-                 * @var \SimpleXMLElement $helperClass
-                 */
-                foreach ($helperAlias as $alias => $helperClass) {
-                    $helperAliases[$alias] = (string)$helperClass->class;
-                }
-            }
-        }
-        return $helperAliases;
-    }
-
-    public function getModelAliases()
-    {
-        $modelAliases = [];
-        if (!empty($this->config->global->model)) {
-            foreach ($this->config->global->model as $modelAlias) {
-                /**
-                 * @var \SimpleXMLElement $modelClass
-                 */
-                foreach ($modelAlias as $alias => $modelClass) {
-                    $modelAliases[$alias] = (string)$modelClass->class;
-                }
-            }
-        }
-        return $modelAliases;
-    }
-
+    /**
+     * @return array
+     */
     public function getTableAliases()
     {
         $tableAliases = [];
@@ -80,6 +46,10 @@ class Config
         return $tableAliases;
     }
 
+    /**
+     * @param string $type
+     * @return array
+     */
     public function getAliases($type)
     {
         $result = [];
@@ -98,6 +68,9 @@ class Config
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function getModuleName()
     {
         $childrens = $this->config->modules->children();

@@ -13,7 +13,7 @@ namespace Magento\Migration\Code\Processor\Table\TableFunction;
 class AbstractFunction
 {
     /**
-     * @var \Magento\Migration\Mapping\TableNameMap
+     * @var \Magento\Migration\Mapping\TableName
      */
     protected $tableNameMapper;
 
@@ -48,14 +48,14 @@ class AbstractFunction
     protected $tokenFactory;
 
     /**
-     * @param \Magento\Migration\Mapping\TableNameMap $tableNameMapper
+     * @param \Magento\Migration\Mapping\TableName $tableNameMapper
      * @param \Magento\Migration\Logger\Logger $logger
      * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
      * @param \Magento\Migration\Code\Processor\TokenArgumentFactory $tokenFactory
      * @param \Magento\Migration\Code\Processor\TokenArgumentCollectionFactory $tokenCollectionFactory
      */
     public function __construct(
-        \Magento\Migration\Mapping\TableNameMap $tableNameMapper,
+        \Magento\Migration\Mapping\TableName $tableNameMapper,
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
         \Magento\Migration\Code\Processor\TokenArgumentFactory $tokenFactory,

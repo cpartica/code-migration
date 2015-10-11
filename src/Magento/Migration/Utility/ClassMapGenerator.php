@@ -24,11 +24,11 @@ class ClassMapGenerator
     protected $unmapped = [];
 
     /**
-     * @var \Magento\Migration\Mapping\ModuleMap
+     * @var \Magento\Migration\Mapping\Module
      */
     protected $moduleMapper;
 
-    public function __construct(\Magento\Migration\Mapping\ModuleMap $moduleMap)
+    public function __construct(\Magento\Migration\Mapping\Module $moduleMap)
     {
         $this->moduleMapper = $moduleMap;
         $this->obsoleteClassListPath = BP . '/utils/obsolete_classes.php';

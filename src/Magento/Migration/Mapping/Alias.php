@@ -6,7 +6,7 @@
  */
 namespace Magento\Migration\Mapping;
 
-class AliasMap
+class Alias
 {
     /**
      * @var array
