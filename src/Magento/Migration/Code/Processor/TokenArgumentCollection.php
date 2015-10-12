@@ -32,13 +32,17 @@ class TokenArgumentCollection
 
     /**
      * @param TokenArgument $argument
-     * @param int $index;
+     * @param int|null $index;
      * @return $this
      */
-    public function addToken($argument, $index)
+    public function addToken($argument, $index = null)
     {
-        if (!array_key_exists($index, $this->tokens)) {
-            $this->tokens[$index] = $argument;
+        if ($index) {
+            if (!array_key_exists($index, $this->tokens)) {
+                $this->tokens[$index] = $argument;
+            }
+        } else {
+            $this->tokens[] = $argument;
         }
         return $this;
     }
@@ -58,17 +62,17 @@ class TokenArgumentCollection
     /**
      * gets the Nth token (N=1 is the first token)
      *
-     * @param int $n
+     * @param int $index
      * @return TokenArgument|null
      */
-    public function getToken($n)
+    public function getToken($index)
     {
-        $i = 1;
+        $cnt = 1;
         foreach ($this->getTokens() as $arg) {
-            if ($i == $n) {
+            if ($cnt == $index) {
                 return $arg;
             }
-            $i++;
+            $cnt++;
         }
         return null;
     }
@@ -84,17 +88,18 @@ class TokenArgumentCollection
     /**
      * gets index of the Nth token (N=1 is the first token)
      *
-     * @param int $n
+     * @param int $index
      * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    public function getTokenIndex($n)
+    public function getTokenIndex($index)
     {
-        $i = 1;
-        foreach ($this->getTokens() as $index => $arg) {
-            if ($i == $n) {
-                return $index;
+        $cnt = 1;
+        foreach ($this->getTokens() as $arrIndex => $arg) {
+            if ($cnt == $index) {
+                return $arrIndex;
             }
-            $i++;
+            $cnt++;
         }
         return null;
     }
@@ -108,7 +113,7 @@ class TokenArgumentCollection
     {
         $str = '';
         foreach ($this->getTokens() as $arg) {
-            $str .=$arg->getName();
+            $str .= $arg->getName();
         }
         return $str;
     }
