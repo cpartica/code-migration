@@ -120,6 +120,47 @@ class TokenHelper
         return $nextIndex;
     }
 
+
+    /**
+     * Return the index of the token that is after the nearest function call
+     *
+     * @param array $tokens
+     * @param int $index
+     * @return int|null
+     * @throws \Exception
+     */
+    public function skipFunctionArgumentList(array &$tokens, $index)
+    {
+        //do not go past function opening bracket
+        $endIndex = $this->getNextIndexOfSimpleToken($tokens, $index, '{');
+        //find the first (, then find match )
+        $nextIndex = $this->getNextIndexOfSimpleToken($tokens, $index, '(') + 1;
+
+        $nestedLevel = 0; //used to skip nested ()
+        $found = false;
+        while (!$found && $nextIndex < $endIndex) {
+            if (is_array($tokens[$nextIndex])) {
+                $nextIndex++;
+                continue;
+            } elseif ($tokens[$nextIndex] == '(') {
+                $nestedLevel++;
+            } elseif ($tokens[$nextIndex] == ')') {
+                if ($nestedLevel == 0) {
+                    break;
+                } else {
+                    $nestedLevel--;
+                }
+            }
+            $nextIndex++;
+        }
+
+        if ($nextIndex == $endIndex) {
+            throw new \Exception("Unexpected token structure");
+        }
+        $nextIndex++;
+        return $nextIndex;
+    }
+
     /**
      * Return the index of first token after the nearest block
      *
@@ -240,7 +281,7 @@ class TokenHelper
     {
         $arguments = [];
         $startingIndex = $this->getNextIndexOfSimpleToken($tokens, $startingIndex, '(');
-        $endingIndex = $this->getNextIndexOfSimpleToken($tokens, $startingIndex, ')');
+        $endingIndex = $this->skipFunctionArgumentList($tokens, $startingIndex - 1) - 1;
 
         $index = $startingIndex;
         while ($index < $endingIndex) {
@@ -471,5 +512,55 @@ class TokenHelper
             $tokens[$i] = '';
         }
         return $this;
+    }
+
+    /**
+     * Reconstruct tokens
+     *
+     * @param array $tokens
+     * @return array
+     */
+    public function refresh(array &$tokens)
+    {
+        $content = $this->reconstructContent($tokens);
+
+        $updatedTokens = $this->parseContent($content);
+        return $updatedTokens;
+    }
+
+    /**
+     * @param array $tokens
+     * @return string
+     */
+    public function reconstructContent(array &$tokens)
+    {
+        $content = '';
+        foreach ($tokens as $token) {
+            if (is_array($token)) {
+                $content .= $token[1];
+            } else {
+                $content .= $token;
+            }
+        }
+
+        return $content;
+    }
+
+    /**
+     * Parse content into tokens, add token name
+     *
+     * @param string $content
+     * @return array
+     */
+    public function parseContent($content)
+    {
+        $tokens = token_get_all($content);
+        for ($i = 0; $i < count($tokens); $i++) {
+            if (is_array($tokens[$i])) {
+                $tokens[$i][3] = token_name($tokens[$i][0]);
+            }
+        }
+
+        return $tokens;
     }
 }

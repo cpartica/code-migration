@@ -80,8 +80,13 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         //process static class reference, e.g., CLASSNAME::CONSTANT_NAME
         $this->processStaticClassReference($tokens);
 
+        //process instanceof, e.g., instance Mage_Type
+        $this->processInstanceOf($tokens);
+
         // process constructor change due to class inheritance
         $this->processExtends($tokens);
+
+        $tokens = $this->tokenHelper->refresh($tokens);
         return $tokens;
     }
 
@@ -146,7 +151,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $startingLine = $currentLine = $tokens[$startOfParameterList - 1][2];
         if (!is_array($tokens[$startOfParameterList + 1]) && $tokens[$startOfParameterList + 1] == ')') {
             $tokensToInsert = [];
-            $tokensToInsert[] = [T_WHITESPACE, "\n\t\t", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine++];
 
             $numParameters = count($parameters);
             foreach ($parameters as $parameter) {
@@ -176,7 +181,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                 if ($parameter->getPosition() < $numParameters - 1) {
                     $tokensToInsert[] = ',';
                 }
-                $tokensToInsert[] = [T_WHITESPACE, "\n\t\t", $currentLine++];
+                $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine++];
             }
         } else {
             //Most of constructor in M1 do not take parameters
@@ -228,16 +233,16 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             //add parent::__construct call
             $insertIndex = $this->tokenHelper->getNextIndexOfSimpleToken($tokens, $constructorIndex, '{');
             $startingLine = $currentLine = $tokens[$insertIndex - 1][2];
-            $tokensToInsert[] = [T_WHITESPACE, "\n\t\t", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine++];
             $tokensToInsert[] = [T_STRING, 'parent', $currentLine];
             $tokensToInsert[] = [T_DOUBLE_COLON, '::', $currentLine];
             $tokensToInsert[] = [T_STRING, '__construct', $currentLine];
             $tokensToInsert[] = '(';
-            $tokensToInsert[] = [T_WHITESPACE, "\n\t\t\t", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine++];
         } else {
             $insertIndex = $index + 2;
             $startingLine = $currentLine = $tokens[$index][2];
-            $tokensToInsert[] = [T_WHITESPACE, "\n\t\t\t", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine++];
         }
 
         $numParameters = count($parameters);
@@ -246,13 +251,13 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             if ($parameter->getPosition() < $numParameters - 1) {
                 $tokensToInsert[] = ',';
             }
-            $tokensToInsert[] = [T_WHITESPACE, "\n\t\t\t", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine++];
         }
 
         if (!$found) {
             $tokensToInsert[] = ')';
             $tokensToInsert[] = ';';
-            $tokensToInsert[] = [T_WHITESPACE, "\n\t\t\t", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n", $currentLine++];
         }
         $numInsertedLines = $currentLine - $startingLine;
 
@@ -278,11 +283,11 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected function processNamespace(array &$tokens)
     {
         $classIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS);
-        if ($classIndex == null) {
+        if ($classIndex === null) {
             $classIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_INTERFACE);
         }
 
-        if ($classIndex == null) {
+        if ($classIndex === null) {
             return $this;
         } else {
             $classNameIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $classIndex, T_STRING);
@@ -303,11 +308,10 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         if (is_array($tokens[$index]) && $tokens[$index][0] == T_DOC_COMMENT) {
             //skip the first doc block
             $index = $this->tokenHelper->getNextLineIndex($tokens, $index, $tokens[$index][2]);
+            $tokens[$index][1] = $tokens[$index][1] . "namespace " . $nameSpace . ";\n\n";
+        } else {
+            $tokens[$openTagIndex][1] = $tokens[$openTagIndex][1] . "namespace " . $nameSpace . ";\n\n";
         }
-
-        //find the previous whitespace and append the namespace to to
-        $index = $this->tokenHelper->getPrevIndexOfTokenType($tokens, $index, T_WHITESPACE);
-        $tokens[$index][1] = $tokens[$index][1] . 'namespace ' . $nameSpace . ";\n\n";
 
         return $this;
     }
@@ -371,14 +375,42 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         while ($doubleColonIndex != null) {
             $prevToken = $tokens[$doubleColonIndex - 1];
             if (is_array($prevToken) && $prevToken[0] == T_STRING
-                && strpos($prevToken[1], 'Mage_') === 0 || strpos($prevToken[1], 'Varien_')
+                && (strpos($prevToken[1], 'Mage_') === 0 || strpos($prevToken[1], 'Varien_') === 0)
             ) {
                 $mappedClass = $this->classMap->mapM1Class($prevToken[1]);
                 if ($mappedClass !== null && $mappedClass != 'obsolete') {
-                    $prevToken[1] = $mappedClass;
+                    $tokens[$doubleColonIndex - 1][1] = $mappedClass;
                 }
             }
-            $doubleColonIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $doubleColonIndex + 1, T_FUNCTION);
+            $doubleColonIndex =
+                $this->tokenHelper->getNextIndexOfTokenType($tokens, $doubleColonIndex + 1, T_DOUBLE_COLON);
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $tokens
+     * @return $this
+     */
+    public function processInstanceOf(array &$tokens)
+    {
+        $currentIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_INSTANCEOF);
+        while ($currentIndex != null) {
+            $nextTokenIndex = $this->tokenHelper->getNextTokenIndex($tokens, $currentIndex);
+            if ($nextTokenIndex == null) {
+                return $this;
+            }
+            $nextToken = $tokens[$nextTokenIndex];
+            if (is_array($nextToken) && $nextToken[0] == T_STRING
+                && (strpos($nextToken[1], 'Mage_') === 0 || strpos($nextToken[1], 'Varien_') === 0)
+            ) {
+                $mappedClass = $this->classMap->mapM1Class($nextToken[1]);
+                if ($mappedClass !== null && $mappedClass != 'obsolete') {
+                    $tokens[$nextTokenIndex][1] = $mappedClass;
+                }
+            }
+            $currentIndex =
+                $this->tokenHelper->getNextIndexOfTokenType($tokens, $currentIndex + 1, T_INSTANCEOF);
         }
         return $this;
     }

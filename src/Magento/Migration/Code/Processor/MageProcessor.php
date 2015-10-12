@@ -74,9 +74,16 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
             $constructorHelper->setContext($tokens, $index);
             $constructorHelper->injectArguments($diVariables);
         }
+
+        //reconstruct tokens
+
         return $tokens;
     }
 
+    /**
+     * @param array $tokens
+     * @return bool
+     */
     protected function isClass(array &$tokens)
     {
         return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS) != null;

@@ -13,6 +13,11 @@ class Converter
     protected $processors;
 
     /**
+     * @var \Magento\Migration\Code\Processor\TokenHelper
+     */
+    protected $tokenHelper;
+
+    /**
      * @var \Magento\Migration\Logger\Logger
      */
     protected $logger;
@@ -23,9 +28,11 @@ class Converter
      */
     public function __construct(
         array $processors,
+        \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
         \Magento\Migration\Logger\Logger $logger
     ) {
         $this->processors = $processors;
+        $this->tokenHelper = $tokenHelper;
         $this->logger = $logger;
     }
 
@@ -36,25 +43,13 @@ class Converter
     public function convert($fileContent)
     {
         try {
-            $tokens = token_get_all($fileContent);
+            $tokens = $this->tokenHelper->parseContent($fileContent);
 
-            for ($i = 0; $i < count($tokens); $i++) {
-                if (is_array($tokens[$i])) {
-                    $tokens[$i][] = token_name($tokens[$i][0]);
-                }
-            }
             foreach ($this->processors as $processor) {
                 $tokens = $processor->process($tokens);
             }
 
-            $convertedContent = '';
-            foreach ($tokens as $token) {
-                if (is_array($token)) {
-                    $convertedContent .= $token[1];
-                } else {
-                    $convertedContent .= $token;
-                }
-            }
+            $convertedContent = $this->tokenHelper->reconstructContent($tokens);
             return $convertedContent;
         } catch (\Exception $e) {
             $this->logger->error('Caught exception: ' . $e->getMessage());

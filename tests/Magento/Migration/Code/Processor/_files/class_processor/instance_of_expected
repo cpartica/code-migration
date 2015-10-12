@@ -1,0 +1,18 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+namespace \Magento\Migration\NameSpace;
+
+class Test
+{
+    public function function1($obj)
+    {
+        $obj;
+        if ( $obj instanceof \Magento\Type
+            || $obj instanceof \Magento\Framework\Type || $obj instanceof Mage_Type_Obsolete) {
+
+        }
+    }
+}

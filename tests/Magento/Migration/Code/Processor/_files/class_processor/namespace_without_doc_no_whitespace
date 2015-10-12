@@ -1,0 +1,7 @@
+<?php
+class Magento_Migration_NameSpace_Test
+{
+    public function __construct()
+    {
+    }
+}

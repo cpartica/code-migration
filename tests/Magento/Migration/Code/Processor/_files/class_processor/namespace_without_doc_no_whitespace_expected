@@ -1,0 +1,9 @@
+<?php
+namespace Magento\Migration\NameSpace;
+
+class Test
+{
+    public function __construct()
+    {
+    }
+}
