@@ -99,6 +99,10 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $extendIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_EXTENDS);
         if ($extendIndex != null) {
             $parentClassIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $extendIndex, T_STRING);
+            if ($parentClassIndex == null) {
+                $this->logger->warn("Expected class name not found after extends keyword");
+                return $this;
+            }
             $parentClassName = $tokens[$parentClassIndex][1];
 
             $mappedClass = $this->classMap->mapM1Class($parentClassName);
@@ -108,50 +112,62 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                 try {
                     if ($mappedClass == 'obsolete') {
                         $this->logger->warn('The parent class ' . $parentClassName . ' is obsolete');
+                        return $this;
                     }
                     if (!class_exists($mappedClass)) {
                         $this->logger->warn('Can not find the class ' . $mappedClass);
                         return $this;
                     }
                     $reflectionClass = new \ReflectionClass($mappedClass);
-                    $constructor = $reflectionClass->getConstructor();
-                    if ($constructor == null) {
+                    $parentConstructor = $reflectionClass->getConstructor();
+                    if ($parentConstructor == null) {
                         return $this;
                     }
-                    $this->extendConstructor($tokens, $constructor);
+                    $this->extendConstructor($tokens, $parentConstructor);
                 } catch (\Exception $e) {
                     $this->logger->warn("Failed to load parent class: " . $mappedClass);
                     return $this;
                 }
+            } else {
+                $this->logger->warn("Parent class is not mapped, constructor not converted: " . $parentClassName);
             }
         }
 
         return $this;
     }
 
+    /**
+     * @param array $tokens
+     * @param \ReflectionMethod $constructor
+     * @return $this
+     * @throws \Exception
+     */
     protected function extendConstructor(array &$tokens, \ReflectionMethod $constructor)
     {
         /** @var \Magento\Migration\Code\Processor\Mage\MageFunction\Constructor $contructorHelper */
         $contructorHelper = $this->constructorHelperFactory->create();
         $contructorHelper->setContext($tokens);
 
-        $constructorIndex = $contructorHelper->getConstructorIndex();
-        if ($constructorIndex < 0) {
+        $parameters = $constructor->getParameters();
+        if (empty($parameters)) {
             return $this;
         }
 
-        $parameters = $constructor->getParameters();
-        if (empty($parameters)) {
+        $constructorIndex = $contructorHelper->getConstructorIndex();
+        if ($constructorIndex < 0) {
+            //insert a new constructor
+            $constructorIndex = 0 - $constructorIndex;
+            $this->insertConstructor($tokens, $constructorIndex, $constructor);
             return $this;
         }
 
         $this->modifyParentConstructorCall($tokens, $parameters, $constructorIndex);
 
         $startOfParameterList = $this->tokenHelper->getNextIndexOfSimpleToken($tokens, $constructorIndex, '(');
-        $startingLine = $currentLine = $tokens[$startOfParameterList - 1][2];
+        $currentLine = $tokens[$startOfParameterList - 1][2];
         if (!is_array($tokens[$startOfParameterList + 1]) && $tokens[$startOfParameterList + 1] == ')') {
             $tokensToInsert = [];
-            $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine];
 
             $numParameters = count($parameters);
             foreach ($parameters as $parameter) {
@@ -174,14 +190,16 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                     } elseif (is_array($defaultValue) && empty($defaultValue)) {
                         $defaultValue = '[]';
                     } else {
-                        //TODO: how to handle this?
+                        $defaultValue = trim(var_export($defaultValue, true));
                     }
                     $tokensToInsert[] = [T_STRING, $defaultValue, $currentLine];
                 }
                 if ($parameter->getPosition() < $numParameters - 1) {
                     $tokensToInsert[] = ',';
+                    $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine];
+                } else {
+                    $tokensToInsert[] = [T_WHITESPACE, "\n    ", $currentLine];
                 }
-                $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine++];
             }
         } else {
             //Most of constructor in M1 do not take parameters
@@ -189,16 +207,114 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             return $this;
         }
 
-        $numInsertedLines = $currentLine - $startingLine;
         $afterInsertion = array_slice($tokens, $startOfParameterList + 1);
-        for ($i = 0; $i < count($afterInsertion); $i++) {
-            if (is_array($afterInsertion[$i])) {
-                $afterInsertion[$i][2] += $numInsertedLines;
-            }
-        }
 
         $tokens = array_merge(
             array_slice($tokens, 0, $startOfParameterList + 1),
+            $tokensToInsert,
+            $afterInsertion
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param array $tokens
+     * @param int $index
+     * @param \ReflectionMethod $parentConstructor
+     * @return $this
+     */
+    protected function insertConstructor(array &$tokens, $index, $parentConstructor)
+    {
+        $index = $index;
+        $tokensToInsert = [];
+
+        $parameters = $parentConstructor->getParameters();
+        $count = count($parameters);
+
+        $tokensToInsert[] = [T_WHITESPACE, "\n    ", 1]; //the line number is not important
+        $tokensToInsert[] = [T_PUBLIC, "public", 1];
+        $tokensToInsert[] = [T_WHITESPACE, " ", 1];
+        $tokensToInsert[] = [T_FUNCTION, "function", 1];
+        $tokensToInsert[] = [T_WHITESPACE, " ", 1];
+        $tokensToInsert[] = [T_STRING, "__construct", 1];
+        $tokensToInsert[] = '(';
+        $tokensToInsert[] = [T_WHITESPACE, "\n        ", 1];
+
+        for ($i = 0; $i < $count; $i++) {
+            $isLast = ($i == $count - 1);
+
+            $parameter = $parameters[$i];
+            $parameterName = $parameter->getName();
+            $parameterClass = $parameter->getClass();
+            if ($parameterClass) {
+                $tokensToInsert[] = [T_STRING, '\\' . $parameterClass->getName(), 1];
+                $tokensToInsert[] = [T_WHITESPACE, ' ', 1];
+            } elseif ($parameter->isArray()) {
+                $tokensToInsert[] = [T_STRING, 'array', 1];
+                $tokensToInsert[] = [T_WHITESPACE, ' ', 1];
+            }
+            $tokensToInsert[] = [T_VARIABLE, '$' . $parameter->getName(), 1];
+
+            if ($parameter->isDefaultValueAvailable()) {
+                $tokensToInsert[] = [T_WHITESPACE, ' ', 1];
+                $tokensToInsert[] = '=';
+                $tokensToInsert[] = [T_WHITESPACE, ' ', 1];
+                $defaultValue = $parameter->getDefaultValue();
+                if (is_array($defaultValue) && empty($defaultValue)) {
+                    $defaultValue = '[]';
+                } elseif ($defaultValue === null) {
+                    $defaultValue = 'null';
+                } else {
+                    $defaultValue = trim(var_export($defaultValue, true));
+                }
+                $tokensToInsert[] = [T_STRING, $defaultValue, 1];
+            }
+
+            if (!$isLast) {
+                $tokensToInsert[] = ',';
+                $tokensToInsert[] = [T_WHITESPACE, "\n        ", 1];
+            } else {
+                $tokensToInsert[] = [T_WHITESPACE, "\n    ", 1];
+            }
+        }
+
+        $tokensToInsert[] = ')';
+        $tokensToInsert[] = [T_WHITESPACE, " ", 1];
+        $tokensToInsert[] = '{';
+        $tokensToInsert[] = [T_WHITESPACE, "\n        ", 1];
+
+        $tokensToInsert[] = [T_STRING, "parent", 1];
+        $tokensToInsert[] = [T_DOUBLE_COLON, "::", 1];
+        $tokensToInsert[] = [T_STRING, "__construct", 1];
+        $tokensToInsert[] = '(';
+        $tokensToInsert[] = [T_WHITESPACE, "\n            ", 1];
+
+        for ($i = 0; $i < $count; $i++) {
+            $isLast = ($i == $count - 1);
+
+            $parameter = $parameters[$i];
+            $parameterName = $parameter->getName();
+
+            $tokensToInsert[] = [T_VARIABLE, '$' . $parameterName, 1];
+            if (!$isLast) {
+                $tokensToInsert[] = ',';
+                $tokensToInsert[] = [T_WHITESPACE, "\n            ", 1];
+            } else {
+                $tokensToInsert[] = [T_WHITESPACE, "\n        ", 1];
+            }
+        }
+
+        $tokensToInsert[] = ')';
+        $tokensToInsert[] = ';';
+        $tokensToInsert[] = [T_WHITESPACE, "\n    ", 1];
+        $tokensToInsert[] = '}';
+        $tokensToInsert[] = [T_WHITESPACE, "\n", 1];
+
+        $afterInsertion = array_slice($tokens, $index);
+
+        $tokens = array_merge(
+            array_slice($tokens, 0, $index),
             $tokensToInsert,
             $afterInsertion
         );
@@ -232,17 +348,17 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         if (!$found) {
             //add parent::__construct call
             $insertIndex = $this->tokenHelper->getNextIndexOfSimpleToken($tokens, $constructorIndex, '{');
-            $startingLine = $currentLine = $tokens[$insertIndex - 1][2];
-            $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine++];
+            $currentLine = $tokens[$insertIndex - 1][2];
+            $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine];
             $tokensToInsert[] = [T_STRING, 'parent', $currentLine];
             $tokensToInsert[] = [T_DOUBLE_COLON, '::', $currentLine];
             $tokensToInsert[] = [T_STRING, '__construct', $currentLine];
             $tokensToInsert[] = '(';
-            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine];
         } else {
             $insertIndex = $index + 2;
-            $startingLine = $currentLine = $tokens[$index][2];
-            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine++];
+            $currentLine = $tokens[$index][2];
+            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine];
         }
 
         $numParameters = count($parameters);
@@ -250,23 +366,18 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             $tokensToInsert[] = [T_VARIABLE, '$' . $parameter->getName(), $currentLine];
             if ($parameter->getPosition() < $numParameters - 1) {
                 $tokensToInsert[] = ',';
+                $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine];
+            } else {
+                $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine];
             }
-            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine++];
         }
 
         if (!$found) {
             $tokensToInsert[] = ')';
             $tokensToInsert[] = ';';
-            $tokensToInsert[] = [T_WHITESPACE, "\n", $currentLine++];
+            $tokensToInsert[] = [T_WHITESPACE, "\n", $currentLine];
         }
-        $numInsertedLines = $currentLine - $startingLine;
-
         $afterInsertion = array_slice($tokens, $insertIndex + 1);
-        for ($i = 0; $i < count($afterInsertion); $i++) {
-            if (is_array($afterInsertion[$i])) {
-                $afterInsertion[$i][2] += $numInsertedLines;
-            }
-        }
 
         $tokens = array_merge(
             array_slice($tokens, 0, $insertIndex + 1),

@@ -10,7 +10,9 @@ class Type
     public function __construct(
         $input1,
         $input2 = null,
-        array $input3 = []
+        array $input3 = [],
+        $input4 = true,
+        $input5 = false
     ) {
         //echo 'hello';
     }

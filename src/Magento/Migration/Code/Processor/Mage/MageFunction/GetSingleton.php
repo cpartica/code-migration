@@ -111,7 +111,6 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
 
         $parts[0] = '';
         $parts[2] = '';
-        array_push($parts, 'singleton');
         $variableNameParts = $parts;
 
         $variableName = lcfirst(str_replace(' ', '', ucwords(implode(' ', $variableNameParts))));

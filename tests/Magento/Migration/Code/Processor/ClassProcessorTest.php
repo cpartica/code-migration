@@ -235,10 +235,14 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
                 'input' => 'no_existing_constructor_argument',
                 'expected' => 'no_existing_constructor_argument_expected'
             ],
-//            'no_constructor' => [
-//                'input' => 'no_constructor',
-//                'expected' => 'no_constructor_expected'
-//            ],
+            'no_constructor' => [
+                'input' => 'no_constructor',
+                'expected' => 'no_constructor_expected'
+            ],
+            'existing_parent_constructor_call' => [
+                'input' => 'existing_parent_constructor_call',
+                'expected' => 'existing_parent_constructor_call_expected',
+            ]
         ];
         return $data;
     }
