@@ -95,7 +95,7 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
             ->method('getCount')
             ->willReturn(1);
 
-        $callArgCollection->expects($this->once())
+        $callArgCollection->expects($this->atLeastOnce())
             ->method('getFirstArgument')
             ->willReturn($tokenArgCollection);
 

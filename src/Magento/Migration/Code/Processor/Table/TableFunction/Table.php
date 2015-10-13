@@ -32,6 +32,11 @@ class Table extends AbstractFunction implements TableFunctionInterface
     protected $objectName = null;
 
     /**
+     * @var string
+     */
+    protected $methodName = null;
+
+    /**
      * @var int
      */
     protected $endIndex = null;
@@ -54,13 +59,12 @@ class Table extends AbstractFunction implements TableFunctionInterface
     private function parse()
     {
         $this->parsed = true;
-
         /** @var CallArgumentCollection arguments */
         $this->arguments = $this->tokenHelper->getCallArguments($this->tokens, $this->index + 2);
 
         /** @var \Magento\Migration\Code\Processor\TokenArgument $argument */
         $argument = $this->arguments->getFirstArgument()->getFirstToken();
-
+        $this->methodName = $this->getMethodName();
         if (is_object($argument) && $argument->getType() != T_VARIABLE) {
             if ($argument->getType() == T_ARRAY) {
                 $this->argumentType = $this::ARG_ARRAY;
@@ -116,20 +120,37 @@ class Table extends AbstractFunction implements TableFunctionInterface
      * $this->getTable($somevar)
      * $this->getTable(array($var1, $var2))
      *
-     * @param string $m1
+     * @param string $m1Table
      * @return null|string
      */
-    protected function getTableName($m1)
+    protected function getTableName($m1Table)
     {
-        $m1 = trim(trim($m1, '\''), '\"');
+        $m1Table = trim(trim($m1Table, '\''), '\"');
 
-        $parts = explode('/', $m1);
+        $parts = explode('/', $m1Table);
         $tableName = $this->tableNameMapper->mapTableName($parts[0], $parts[1]);
         if ($tableName == null) {
             return null;
         }
 
         return $tableName;
+    }
+
+    /**
+     * Return the token of argument of a getTableName call
+     *
+     * @return array|string|void
+     */
+    protected function getMethodName()
+    {
+        $index = $this->tokenHelper->getNextTokenIndex($this->tokens, $this->index + 1);
+        if ($index) {
+            if (is_array($this->tokens[$index])) {
+                return $this->tokens[$index][1];
+            } else {
+                return $index;
+            }
+        }
     }
 
     /**
@@ -174,35 +195,94 @@ class Table extends AbstractFunction implements TableFunctionInterface
             return $this;
         }
 
-        $tokenCollection = $this->tokenCollectionFactory->create();
+        if ($this->getMethodName() == '_init' &&
+            $this->tokenHelper->getExtendsClass($this->tokens) != 'Mage_Core_Model_Resource_Db_Abstract'
+        ) {
+            return $this;
+        }
 
         if ($this->argumentType == $this::ARG_STRING) {
-            //build the replacement arguments & replace old arguments
-            $token = $this->tokenFactory->create()->setName('\'' . $this->tableName . '\'');
-            $tokenCollection->addToken($token, 0);
-            $this->tokenHelper->replaceCallArgumentsTokens($this->tokens, $this->index, $tokenCollection);
+            $this->handleStringCall();
         } elseif ($this->argumentType == $this::ARG_ARRAY) {
-            $tableStringIndex = $this->tokenHelper->getNextTokenIndex($this->tokens, $this->index, 5);
-            if ($this->suffixTokens) {
-                if ($this->suffixTokens->getFirstToken()->getType() == T_CONSTANT_ENCAPSED_STRING) {
-                    $token = $this->tokenFactory->create()->setName(
-                        '\'' . $this->tableName . '_' .
-                        str_replace('\'', '', $this->suffixTokens->getFirstToken()->getName()) . '\''
-                    );
-                    $tokenCollection->addToken($token, 0);
-                } elseif ($this->suffixTokens->getFirstToken()->getType() != T_CONSTANT_ENCAPSED_STRING) {
-                    $token = $this->tokenFactory->create()->setName(
-                        '\'' . $this->tableName . '_\' . ' . $this->suffixTokens->getString()
-                    );
-                    $tokenCollection->addToken($token, 0);
-                }
-                $this->tokenHelper->replaceCallArgumentsTokens($this->tokens, $this->index, $tokenCollection);
-            } else {
-                $this->logger->warn(
-                    'Expecting suffix for array table name call at ' . $this->tokens[$tableStringIndex][2]
-                );
-            }
+            $this->handleArrayCall();
         }
         return $this;
     }
+
+    /*
+     * @return $this
+     */
+    protected function handleStringCall()
+    {
+        $tokenCollection = $this->tokenCollectionFactory->create();
+        //build the replacement arguments & replace old arguments
+        $token = $this->tokenFactory->create()->setName('\'' . $this->tableName . '\'');
+        $tokenCollection->addToken($token, 0);
+
+        $tokenCollection = $this->handleExtraParamsCall($tokenCollection);
+
+        $this->replaceParams($tokenCollection);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function handleArrayCall()
+    {
+        $tokenCollection = $this->tokenCollectionFactory->create();
+        $tableStringIndex = $this->tokenHelper->getNextTokenIndex($this->tokens, $this->index, 5);
+        if ($this->suffixTokens) {
+            if ($this->suffixTokens->getFirstToken()->getType() == T_CONSTANT_ENCAPSED_STRING) {
+                $token = $this->tokenFactory->create()->setName(
+                    '\'' . $this->tableName . '_' .
+                    str_replace('\'', '', $this->suffixTokens->getFirstToken()->getName()) . '\''
+                );
+                $tokenCollection->addToken($token, 0);
+            } elseif ($this->suffixTokens->getFirstToken()->getType() != T_CONSTANT_ENCAPSED_STRING) {
+                $token = $this->tokenFactory->create()->setName(
+                    '\'' . $this->tableName . '_\' . ' . $this->suffixTokens->getString()
+                );
+                $tokenCollection->addToken($token, 0);
+            }
+
+            $tokenCollection = $this->handleExtraParamsCall($tokenCollection);
+
+            $this->replaceParams($tokenCollection);
+        } else {
+            $this->logger->warn(
+                'Expecting suffix for array table name call at ' . $this->tokens[$tableStringIndex][2]
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * @param \Magento\Migration\Code\Processor\TokenArgumentCollection $tokenCollection
+     * @return \Magento\Migration\Code\Processor\TokenArgumentCollection
+     */
+    protected function handleExtraParamsCall($tokenCollection)
+    {
+        //getIdxName extra params
+        if ($this->arguments->getCount()>1) {
+            for ($cnt = 2; $cnt <= $this->arguments->getCount(); $cnt++) {
+                $token = $this->tokenFactory->create()->setName(", ");
+                $tokenCollection->addToken($token, 0);
+                foreach ($this->arguments->getArgument($cnt)->getTokens() as $arg) {
+                    $tokenCollection->addToken($arg, 0);
+                }
+            }
+        }
+        return $tokenCollection;
+    }
+
+    /**
+     * @param \Magento\Migration\Code\Processor\TokenArgumentCollection $tokenCollection
+     * @return void
+     */
+    protected function replaceParams($tokenCollection)
+    {
+        $this->tokenHelper->replaceCallArgumentsTokens($this->tokens, $this->index, $tokenCollection);
+    }
 }
+

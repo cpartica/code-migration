@@ -74,17 +74,24 @@ class TableFunctionMatcher implements \Magento\Migration\Code\Processor\Mage\Mat
             }
         }
 
-        if ($tokens[$index][0] != T_VARIABLE ||
-            $tokens[$index + 1][0] != T_OBJECT_OPERATOR ||
-            $tokens[$index + 2][1] != 'getTable'
+        if ($tokens[$index + 1][0] != T_OBJECT_OPERATOR ||
+            (
+                $tokens[$index + 2][1] != 'getTable' &&
+                $tokens[$index + 2][1] != 'getTableName' &&
+                $tokens[$index + 2][1] != 'getIdxName'  &&
+                $tokens[$index + 2][1] != '_init'
+            )
         ) {
             return false;
         }
 
         /** @var CallArgumentCollection $arguments */
         $arguments = $this->tokenHelper->getCallArguments($tokens, $index + 2);
-        if ($arguments->getCount() != 1) {
-            $this->logger->warn('getTable has more than one parameter format call: ' . $tokens[$index + 4][2]);
+        if (!$arguments->getCount() > 1) {
+            return false;
+        }
+
+        if (!$arguments->getFirstArgument()) {
             return false;
         }
 
@@ -104,11 +111,6 @@ class TableFunctionMatcher implements \Magento\Migration\Code\Processor\Mage\Mat
                 /** @var CallArgumentCollection $arrayArguments */
                 $arrayArguments = $this->tokenHelper
                     ->getCallArguments($tokens, $token = $arguments->getFirstArgument()->getTokenIndex(1));
-                if ($arrayArguments->getCount() != 2) {
-                    $this->logger->warn(
-                        'getTable array argument doesn\'t have exactly 2 arguments: ' . $tokens[$index + 4][2]
-                    );
-                }
                 /** @var \Magento\Migration\Code\Processor\TokenArgument $tokenInArray */
                 $tokenInArray = $arrayArguments->getFirstArgument()->getFirstToken();
                 if (!preg_match('/^.+\/.+$/', $tokenInArray->getName())) {

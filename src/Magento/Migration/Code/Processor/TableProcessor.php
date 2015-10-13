@@ -18,15 +18,23 @@ class TableProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected $objectManager;
 
     /**
+     * @var \Magento\Migration\Code\Processor\TokenHelper
+     */
+    protected $tokenHelper;
+
+    /**
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
      * @param Table\TableFunctionMatcher $matcher
+     * @param TokenHelper $tokenHelper
      */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        \Magento\Migration\Code\Processor\Table\TableFunctionMatcher $matcher
+        \Magento\Migration\Code\Processor\Table\TableFunctionMatcher $matcher,
+        \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
     ) {
         $this->objectManager = $objectManager;
         $this->matcher = $matcher;
+        $this->tokenHelper = $tokenHelper;
     }
 
     /**
@@ -45,6 +53,7 @@ class TableProcessor implements \Magento\Migration\Code\ProcessorInterface
             }
             $index++;
         }
+        $tokens = $this->tokenHelper->refresh($tokens);
         return $tokens;
     }
 }
