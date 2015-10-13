@@ -28,12 +28,12 @@ class GenerateClassDependency extends Command
 
     /**
      * @param \Magento\Migration\Utility\ClassDependencyScanner\Proxy $classDependencyScanner
-     * @param \Magento\Migration\Mapping\ClassMap\Proxy $classMapper
+     * @param \Magento\Migration\Mapping\ClassMapping\Proxy $classMapper
      * @param \Magento\Migration\Logger\Logger $logger
      */
     public function __construct(
         \Magento\Migration\Utility\ClassDependencyScanner\Proxy $classDependencyScanner,
-        \Magento\Migration\Mapping\ClassMap\Proxy $classMapper,
+        \Magento\Migration\Mapping\ClassMapping\Proxy $classMapper,
         \Magento\Migration\Logger\Logger $logger
     ) {
         $this->classDependencyScanner = $classDependencyScanner;

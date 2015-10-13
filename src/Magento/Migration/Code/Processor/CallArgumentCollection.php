@@ -35,9 +35,11 @@ class CallArgumentCollection
      * @param int $index;
      * @return $this
      */
-    public function addArgument($argument, $index)
+    public function addArgument($argument, $index = null)
     {
-        if (!array_key_exists($index, $this->arguments)) {
+        if ($index == null) {
+            $this->arguments[] = $argument;
+        } elseif (!array_key_exists($index, $this->arguments)) {
             $this->arguments[$index] = $argument;
         }
         return $this;
@@ -66,17 +68,17 @@ class CallArgumentCollection
     /**
      * gets the Nth argument (N=1 is the first token)
      *
-     * @param int $n
+     * @param int $index
      * @return TokenArgumentCollection|null
      */
-    public function getArgument($n)
+    public function getArgument($index)
     {
-        $i = 1;
+        $cnt = 1;
         foreach ($this->getArguments() as $arg) {
-            if ($i == $n) {
+            if ($cnt == $index) {
                 return $arg;
             }
-            $i++;
+            $cnt++;
         }
         return null;
     }
@@ -91,17 +93,18 @@ class CallArgumentCollection
 
     /**
      * gets the index of the Nth argument  (N=1 is the first token)
-     * @param int $n
+     * @param int $index
      * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    public function getArgumentIndex($n)
+    public function getArgumentIndex($index)
     {
-        $i = 1;
-        foreach ($this->getArguments() as $index => $arg) {
-            if ($i == $n) {
-                return $index;
+        $cnt = 1;
+        foreach ($this->getArguments() as $arrIndex => $arg) {
+            if ($cnt == $index) {
+                return $arrIndex;
             }
-            $i++;
+            $cnt++;
         }
         return null;
     }
