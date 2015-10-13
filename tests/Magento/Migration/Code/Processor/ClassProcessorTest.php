@@ -206,6 +206,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
     public function testProcessInheritance($inputFile, $expectedFile)
     {
         include_once __DIR__ . '/_files/class_processor/Magento/Type.php';
+        include_once __DIR__ . '/_files/class_processor/Magento/EmptyConstructorType.php';
         $file = __DIR__ . '/_files/class_processor/' . $inputFile;
         $fileContent = file_get_contents($file);
 
@@ -214,6 +215,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
 
         $classMap = [
             ['Mage_Type', '\\Magento\\Type'],
+            ['Mage_EmptyConstructorType', '\\Magento\\EmptyConstructorType'],
         ];
         $this->classMapMock->expects($this->exactly(1))
             ->method('mapM1Class')
@@ -242,7 +244,19 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
             'existing_parent_constructor_call' => [
                 'input' => 'existing_parent_constructor_call',
                 'expected' => 'existing_parent_constructor_call_expected',
-            ]
+            ],
+            'empty_parent_constructor' => [
+                'input' => 'empty_parent_constructor',
+                'expected' => 'empty_parent_constructor_expected',
+            ],
+            'empty_parent_constructor_existing_parent_call' => [
+                'input' => 'empty_parent_constructor_existing_parent_call',
+                'expected' => 'empty_parent_constructor_existing_parent_call_expected',
+            ],
+            'empty_parent_constructor_no_existing_constructor' => [
+                'input' => 'empty_parent_constructor_no_existing_constructor',
+                'expected' => 'empty_parent_constructor_no_existing_constructor_expected',
+            ],
         ];
         return $data;
     }

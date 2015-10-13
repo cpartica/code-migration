@@ -149,9 +149,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $contructorHelper->setContext($tokens);
 
         $parameters = $constructor->getParameters();
-        if (empty($parameters)) {
-            return $this;
-        }
+        $count = count($parameters);
 
         $constructorIndex = $contructorHelper->getConstructorIndex();
         if ($constructorIndex < 0) {
@@ -167,7 +165,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $currentLine = $tokens[$startOfParameterList - 1][2];
         if (!is_array($tokens[$startOfParameterList + 1]) && $tokens[$startOfParameterList + 1] == ')') {
             $tokensToInsert = [];
-            $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine];
+            if ($count > 0) {
+                $tokensToInsert[] = [T_WHITESPACE, "\n        ", $currentLine];
+            }
 
             $numParameters = count($parameters);
             foreach ($parameters as $parameter) {
@@ -204,6 +204,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         } else {
             //Most of constructor in M1 do not take parameters
             //TODO: handle existing constructor parameters
+            $this->logger->warn("Need to merge parameter from parent constructor manually");
             return $this;
         }
 
@@ -239,7 +240,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $tokensToInsert[] = [T_WHITESPACE, " ", 1];
         $tokensToInsert[] = [T_STRING, "__construct", 1];
         $tokensToInsert[] = '(';
-        $tokensToInsert[] = [T_WHITESPACE, "\n        ", 1];
+        if ($count > 0) {
+            $tokensToInsert[] = [T_WHITESPACE, "\n        ", 1];
+        }
 
         for ($i = 0; $i < $count; $i++) {
             $isLast = ($i == $count - 1);
@@ -280,7 +283,11 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         }
 
         $tokensToInsert[] = ')';
-        $tokensToInsert[] = [T_WHITESPACE, " ", 1];
+        if ($count > 0) {
+            $tokensToInsert[] = [T_WHITESPACE, " ", 1];
+        } else {
+            $tokensToInsert[] = [T_WHITESPACE, "\n    ", 1];
+        }
         $tokensToInsert[] = '{';
         $tokensToInsert[] = [T_WHITESPACE, "\n        ", 1];
 
@@ -288,7 +295,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $tokensToInsert[] = [T_DOUBLE_COLON, "::", 1];
         $tokensToInsert[] = [T_STRING, "__construct", 1];
         $tokensToInsert[] = '(';
-        $tokensToInsert[] = [T_WHITESPACE, "\n            ", 1];
+        if ($count > 0) {
+            $tokensToInsert[] = [T_WHITESPACE, "\n            ", 1];
+        }
 
         for ($i = 0; $i < $count; $i++) {
             $isLast = ($i == $count - 1);
@@ -344,6 +353,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             }
         }
 
+        $count = count($parameters);
         $tokensToInsert = [];
         if (!$found) {
             //add parent::__construct call
@@ -354,11 +364,15 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             $tokensToInsert[] = [T_DOUBLE_COLON, '::', $currentLine];
             $tokensToInsert[] = [T_STRING, '__construct', $currentLine];
             $tokensToInsert[] = '(';
-            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine];
+            if ($count > 0) {
+                $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine];
+            }
         } else {
             $insertIndex = $index + 2;
             $currentLine = $tokens[$index][2];
-            $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine];
+            if ($count > 0) {
+                $tokensToInsert[] = [T_WHITESPACE, "\n            ", $currentLine];
+            }
         }
 
         $numParameters = count($parameters);
@@ -375,7 +389,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         if (!$found) {
             $tokensToInsert[] = ')';
             $tokensToInsert[] = ';';
-            $tokensToInsert[] = [T_WHITESPACE, "\n", $currentLine];
+            if ($count > 0) {
+                $tokensToInsert[] = [T_WHITESPACE, "\n", $currentLine];
+            }
         }
         $afterInsertion = array_slice($tokens, $insertIndex + 1);
 
