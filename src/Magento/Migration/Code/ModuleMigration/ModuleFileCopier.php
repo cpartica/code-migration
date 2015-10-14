@@ -34,7 +34,7 @@ class ModuleFileCopier
     /**
      * @param string $outputFolder
      * @param string $module
-     * @param \Magento\Framework\Filesystem\Driver\File $file ;
+     * @param \Magento\Framework\Filesystem\Driver\File $file
      */
     public function __construct(
         $outputFolder,
