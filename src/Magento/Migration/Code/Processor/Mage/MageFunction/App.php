@@ -90,26 +90,29 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
     {
         $this->parsed = true;
 
-        if (!is_array($this->tokens[$this->index + 5]) || $this->tokens[$this->index + 5][0] != T_OBJECT_OPERATOR
-            || !is_array($this->tokens[$this->index + 6]) || $this->tokens[$this->index + 6][0] != T_STRING) {
+        $endOfMethodCallIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index) - 1;
+        $nextTokenIndex = $this->tokenHelper->getNextTokenIndex($this->tokens, $endOfMethodCallIndex);
+        $nextNextTokenIndex = $this->tokenHelper->getNextTokenIndex($this->tokens, $nextTokenIndex);
+        if (!is_array($this->tokens[$nextTokenIndex]) || $this->tokens[$nextTokenIndex][0] != T_OBJECT_OPERATOR
+            || !is_array($this->tokens[$nextNextTokenIndex]) || $this->tokens[$nextNextTokenIndex][0] != T_STRING) {
             $this->logger->warn('Method call not found after Mage::app() call');
             return $this;
         }
         //e.g., Mage:app()->getCookie()->doSomething(
-        $this->methodName = $this->tokens[$this->index + 6][1]; //getCookie
+        $this->methodName = $this->tokens[$nextNextTokenIndex][1]; //getCookie
 
         if (isset($this->methodToM1ClassMap[$this->methodName])) {
             $m1Class = $this->methodToM1ClassMap[$this->methodName];
             $m2Class = $this->classMapper->mapM1Class($m1Class);
             if ($m2Class && $m2Class != 'obsolete') {
                 //e.g. Mage::app()->getRequest()->
-                $this->diVariableName = $this->generateVariableName($m1Class);
+                $this->diVariableName = $this->generateVariableName($this->methodName);
                 $this->diClass = $m2Class;
-                $this->endIndex = $this->index + 9;
+                $this->endIndex = $this->tokenHelper->skipMethodCall($this->tokens, $nextNextTokenIndex) - 1;
             } elseif ($m2Class == 'obsolete') {
                 //e.g., Mage:app()->getLayout()->doSomething(
-                $methodMap = $this->classMapper->getClassMethodMap($m1Class);
                 //TODO: handle chained method calls if possible
+                return $this;
             } else {
                 $this->logger->warn('Method in Mage_Core_Model_App not converted: ' . $this->methodName);
                 return $this;
@@ -118,7 +121,7 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
             //e.g., Mage::app()->getStore(...
             $this->diClass = $this->methodToM2Map[$this->methodName]['class'];
             $this->diVariableName = $this->methodToM2Map[$this->methodName]['variable_name'];
-            $this->endIndex = $this->index + 5;
+            $this->endIndex = $endOfMethodCallIndex;
         } else {
             $this->logger->warn('Method in Mage_Core_Model_App not converted: ' . $this->methodName);
         }
@@ -126,13 +129,12 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
         return $this;
     }
 
-    protected function generateVariableName($m1Class)
+    protected function generateVariableName($methodName)
     {
-        $parts = explode('_', $m1Class);
-        $last = array_pop($parts);
-        $last = str_replace('Interface', '', $last);
-        $last = lcfirst($last);
-        return $last;
+        //skip 'get'
+        $variableName = substr($methodName, 3);
+        $variableName = lcfirst($variableName);
+        return $variableName;
     }
 
     /**
@@ -200,7 +202,7 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
 
         $currentIndex = $this->index;
 
-        while ($currentIndex < $this->endIndex) {
+        while ($currentIndex <= $this->endIndex) {
             if (is_array($this->tokens[$currentIndex])) {
                 $this->tokens[$currentIndex][1] = '';
             } else {

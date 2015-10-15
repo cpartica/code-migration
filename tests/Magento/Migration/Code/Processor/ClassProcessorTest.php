@@ -28,7 +28,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
     protected $contextMock;
 
     /**
-     * @var \Magento\Migration\Code\Processor\Mage\MageFunction\ConstructorFactory|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Migration\Code\Processor\ConstructorHelperFactory|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $constructorHelperFactoryMock;
 
@@ -60,7 +60,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
         )->getMock();
 
         $this->constructorHelperFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\Mage\MageFunction\ConstructorFactory'
+            '\Magento\Migration\Code\Processor\ConstructorHelperFactory'
         )->setMethods(['create'])
             ->getMock();
 
@@ -82,7 +82,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->willReturnCallback(
                 function () use ($argumentFactoryMock) {
-                    return new \Magento\Migration\Code\Processor\Mage\MageFunction\Constructor (
+                    return new \Magento\Migration\Code\Processor\ConstructorHelper (
                         $this->loggerMock,
                         $this->tokenHelper,
                         $argumentFactoryMock

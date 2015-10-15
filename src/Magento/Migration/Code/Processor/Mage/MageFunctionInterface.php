@@ -13,7 +13,6 @@ interface MageFunctionInterface
     const MAGE_CONSTRUCTOR = 'constructor';
     const MAGE_APP = 'app';
     const MAGE_GET_STORE_CONFIG = 'getStoreConfig';
-    const MAGE_REGISTER = 'register';
     const MAGE_REGISTRY = 'registry';
 
     /**

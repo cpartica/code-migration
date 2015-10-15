@@ -3,21 +3,14 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\Processor\Mage\MageFunction;
+namespace Magento\Migration\Code\Processor;
 
-use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
-
-class Constructor
+class ConstructorHelper
 {
     /**
      * @var array
      */
     protected $tokens;
-
-    /**
-     * @var int
-     */
-    protected $index;
 
     /**
      * @var \Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory
@@ -33,11 +26,6 @@ class Constructor
      * @var \Magento\Migration\Code\Processor\TokenHelper
      */
     protected $tokenHelper;
-
-    /**
-     * @var bool
-     */
-    protected $parsed = false;
 
     /** @var string  */
     protected $parentClassName;
@@ -57,10 +45,9 @@ class Constructor
      * @param int $index
      * @return void
      */
-    public function setContext(array &$tokens, $index = 0)
+    public function setContext(array &$tokens)
     {
         $this->tokens = &$tokens;
-        $this->index = $index;
     }
 
     /**
@@ -77,7 +64,7 @@ class Constructor
      */
     public function injectArguments($variables)
     {
-        //update doc
+        //add member variables
         //update argument list
         //update assignment
 
@@ -99,12 +86,16 @@ class Constructor
     {
         $firstFunctionIndex = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, 0, T_FUNCTION);
         $firstFunctionIndex = $this->tokenHelper->getFunctionStartingIndex($this->tokens, $firstFunctionIndex);
+        if (is_array($this->tokens[$firstFunctionIndex]) && $this->tokens[$firstFunctionIndex][0] == T_WHITESPACE) {
+            $this->tokens[$firstFunctionIndex][1] = "";
+        }
 
         $text = "\n";
         foreach ($variables as $variable) {
-            $text .= "\n\t/** \n\t * @var " . $variable['type'] . "\n\t */\n";
-            $text .= "\tprotected $" . $variable['variable_name'] . ";\n";
+            $text .= "\n    /**\n     * @var " . $variable['type'] . "\n     */\n";
+            $text .= "    protected $" . $variable['variable_name'] . ";\n";
         }
+        $text .= "\n    ";
         $this->tokens[$firstFunctionIndex][1]
             = $this->tokens[$firstFunctionIndex][1] . $text . $this->tokens[$firstFunctionIndex][1];
         return;
@@ -118,28 +109,19 @@ class Constructor
         $startIndex = $this->getConstructorIndex();
         $existingArguments = $this->tokenHelper->getFunctionArguments($this->tokens, $startIndex);
 
-//        $text = '';
-//        foreach ($variables as $variable) {
-//            $text .= "\n\t\t";
-//            if (isset($variable['type'])) {
-//                $text .= $variable['type'];
-//            }
-//            $text .= ' $' . $variable['variable_name'] . ',';
-//        }
-//
+        $text = '';
         if (empty($existingArguments)) {
             $startIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $startIndex, '(');
 
-            $text = '';
             foreach ($variables as $variable) {
-                $text .= "\n\t\t";
+                $text .= "\n        ";
                 if (isset($variable['type'])) {
                     $text .= $variable['type'];
                 }
                 $text .= ' $' . $variable['variable_name'] . ',';
             }
             $text = trim($text, ',');
-            $text .= "\n";
+            $text .= "\n    ";
 
             $this->tokens[$startIndex] .= $text;
         } else {
@@ -157,22 +139,22 @@ class Constructor
             }
 
             if ($firstOptionalVariableName != null) {
-                $text = '';
                 foreach ($variables as $variable) {
                     if (isset($variable['type'])) {
                         $text .= $variable['type'];
                     }
                     $text .= ' $' . $variable['variable_name'] . ',';
-                    $text .= "\n\t\t";
+                    $text .= "\n        ";
                 }
                 if ($count == 0) {
+                    //all arguments are optional
                     $indexToInsert = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $startIndex, '(');
                     if (is_array($this->tokens[$indexToInsert + 1])
                         && $this->tokens[$indexToInsert + 1][0] == T_WHITESPACE) {
                         $indexToInsert++;
                         $this->tokens[$indexToInsert][1] .= $text;
                     } else {
-                        $text = "\n\t\t" . $text;
+                        $text = "\n        " . $text;
                         $this->tokens[$indexToInsert] .= $text;
                     }
                 } else {
@@ -189,13 +171,18 @@ class Constructor
                 }
             } else {
                 //insert after all arguments
-                $text = '';
-                $text .= "\n\t\t";
-                foreach ($variables as $variable) {
+                $text .= "\n        ";
+                for ($i = 0; $i < count($variables); $i++) {
+                    $variable = $variables[$i];
                     if (isset($variable['type'])) {
                         $text .= $variable['type'];
                     }
-                    $text .= ' $' . $variable['variable_name'] . ',';
+                    $text .= ' $' . $variable['variable_name'];
+                    if ($i == $count - 1) {
+                        $text .= ",\n        ";
+                    } else {
+                        $text .= "\n    ";
+                    }
                 }
                 $variableIndex = $this->tokenHelper->getNextIndexOfTokenType(
                     $this->tokens,
@@ -203,12 +190,20 @@ class Constructor
                     T_VARIABLE,
                     $existingArguments[$numArguments - 1]->getName()
                 );
-                $indexToInsert = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $variableIndex, T_WHITESPACE);
-
-                $this->tokens[$indexToInsert][1] = ',' . $this->tokens[$indexToInsert][1];
-                $text = trim($text, ',');
-                $text .= "\n\t\t";
-                $this->tokens[$indexToInsert][1] .= $text;
+                $indexToInsert = $this->tokenHelper->getNextIndexOfSimpleToken(
+                    $this->tokens,
+                    $variableIndex,
+                    ')'
+                );
+                if (is_array($this->tokens[$indexToInsert - 1])
+                    && $this->tokens[$indexToInsert - 1][0] == T_WHITESPACE) {
+                    $indexToInsert = $indexToInsert - 1;
+                    $this->tokens[$indexToInsert][1] = '';
+                    $this->tokens[$indexToInsert][1] = ',' . $this->tokens[$indexToInsert][1];
+                    $this->tokens[$indexToInsert][1] .= $text;
+                } else {
+                    $this->tokens[$indexToInsert] = ',' . $text . ')';
+                }
             }
         }
 
@@ -216,7 +211,7 @@ class Constructor
         $startIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $startIndex, '{');
         $text = '';
         foreach ($variables as $variable) {
-            $text .= "\n\t\t\$this->" . $variable['variable_name'] . ' = $' . $variable['variable_name'] . ';';
+            $text .= "\n        \$this->" . $variable['variable_name'] . ' = $' . $variable['variable_name'] . ';';
         }
         $this->tokens[$startIndex] = $this->tokens[$startIndex] . $text;
     }
@@ -224,7 +219,7 @@ class Constructor
     protected function generateConstructor($variables)
     {
         //TODO: update doc
-        $text = "\n\tpublic function __construct(\n";
+        $text = "public function __construct(\n";
 
         $isFirst = true;
         foreach ($variables as $variable) {
@@ -233,7 +228,7 @@ class Constructor
             } else {
                 $isFirst = false;
             }
-            $text .= "\t\t";
+            $text .= "        ";
 
             if (isset($variable['type'])) {
                 $text .= $variable['type'];
@@ -242,23 +237,15 @@ class Constructor
             $text .= $variable['variable_name'];
         }
 
-        $text .= "\n\t) {\n";
+        $text .= "\n    ) {\n";
         foreach ($variables as $variable) {
-            $text .= "\t\t";
+            $text .= "        ";
             $text .= '$this->' . $variable['variable_name'] . ' = $' . $variable['variable_name'] . ";\n";
         }
 
-        $text .= "\t}\n\t";
+        $text .= "    }\n    ";
 
         return $text;
-    }
-
-    public function addInheritedArguments()
-    {
-        //get the arguments for parent class constructor
-        //add those variable to constructor
-        //call parent constructor
-
     }
 
     public function getParentClass()

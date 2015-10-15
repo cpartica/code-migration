@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+namespace \Magento\Migration\NameSpace;
+
+class Test
+{
+    protected $state;
+    /**
+     * constructor
+     */
+    public function __construct()
+    {
+        $this->state = null;
+    }
+
+    /**
+     * @return void
+     */
+    public function function1()
+    {
+    }
+}

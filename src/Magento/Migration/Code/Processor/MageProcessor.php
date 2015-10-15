@@ -67,16 +67,16 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
 
         //TODO: avoid adding di variable if parent class already has variable of the same type
         if (!empty($diVariables)) {
-            /** @var \Magento\Migration\Code\Processor\Mage\MageFunction\Constructor $constructorHelper */
+            /** @var \Magento\Migration\Code\Processor\ConstructorHelper $constructorHelper */
             $constructorHelper = $this->objectManager->create(
-                '\Magento\Migration\Code\Processor\Mage\MageFunction\Constructor'
+                '\Magento\Migration\Code\Processor\ConstructorHelper'
             );
-            $constructorHelper->setContext($tokens, $index);
+            $constructorHelper->setContext($tokens);
             $constructorHelper->injectArguments($diVariables);
         }
 
         //reconstruct tokens
-
+        $tokens = $this->tokenHelper->refresh($tokens);
         return $tokens;
     }
 

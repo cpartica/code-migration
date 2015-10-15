@@ -68,7 +68,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
         $this->diVariableName = $this->generateVariableName($this->modelFactoryClass);
         $this->methodName = $this->getModelMethod();
 
-        $this->endIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $this->index, '(');
+        $this->endIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index) - 1;
         return $this;
     }
 
@@ -80,16 +80,16 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
     {
         $m1 = trim(trim($m1, '\''), '\"');
 
-        $parts = explode('/', $m1);
-        $className = $this->aliasMapper->mapAlias($parts[0], 'model');
-        if ($className == null) {
-            return null;
-        }
-
-        if (count($parts) == 1) {
-            $this->logger->warn("Unexpected argument for getModel: " . $m1);
-            return null;
+        if (strpos($m1, '/') === false) {
+            //the argument is full class name
+            $m1ClassName = $m1;
         } else {
+            $parts = explode('/', $m1);
+            $className = $this->aliasMapper->mapAlias($parts[0], 'model');
+            if ($className == null) {
+                return null;
+            }
+
             $part2 = str_replace(' ', '_', ucwords(implode(' ', explode('_', $parts[1]))));
             $m1ClassName = $className . '_' . $part2;
         }

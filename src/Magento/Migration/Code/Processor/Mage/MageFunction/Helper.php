@@ -66,9 +66,10 @@ class Helper extends AbstractFunction implements \Magento\Migration\Code\Process
 
         $this->methodName = $this->getHelperMethod();
         if ($this->methodName == '__') {
+            //Mage::helper('tax')->__ the endIndex points to '->'
             $this->endIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
         } else {
-            $this->endIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $this->index, '(');
+            $this->endIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index) - 1;
         }
         return $this;
     }
@@ -204,7 +205,11 @@ class Helper extends AbstractFunction implements \Magento\Migration\Code\Process
         if ($this->methodName != '__') {
             $indexOfMethodCall = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
         } else {
-            $indexOfMethodCall = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $this->index, T_OBJECT_OPERATOR);
+            $indexOfMethodCall = $this->tokenHelper->getNextIndexOfTokenType(
+                $this->tokens,
+                $this->index,
+                T_OBJECT_OPERATOR
+            );
         }
         $currentIndex = $this->index;
 

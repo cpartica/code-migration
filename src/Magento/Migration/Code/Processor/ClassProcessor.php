@@ -38,7 +38,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected $context;
 
     /**
-     * @var \Magento\Migration\Code\Processor\Mage\MageFunction\ConstructorFactory
+     * @var \Magento\Migration\Code\Processor\ConstructorHelperFactory
      */
     protected $constructorHelperFactory;
 
@@ -47,7 +47,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         \Magento\Migration\Mapping\Alias $aliasMap,
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Mapping\Context $context,
-        \Magento\Migration\Code\Processor\Mage\MageFunction\ConstructorFactory $constructorHelperFactory,
+        \Magento\Migration\Code\Processor\ConstructorHelperFactory $constructorHelperFactory,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
     ) {
         $this->classMap = $classMap;
@@ -144,7 +144,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function extendConstructor(array &$tokens, \ReflectionMethod $constructor)
     {
-        /** @var \Magento\Migration\Code\Processor\Mage\MageFunction\Constructor $contructorHelper */
+        /** @var \Magento\Migration\Code\Processor\ConstructorHelper $contructorHelper */
         $contructorHelper = $this->constructorHelperFactory->create();
         $contructorHelper->setContext($tokens);
 

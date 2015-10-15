@@ -34,7 +34,7 @@ class Registry extends AbstractFunction implements \Magento\Migration\Code\Proce
      */
     public function getType()
     {
-        return MageFunctionInterface::MAGE_REGISTER;
+        return MageFunctionInterface::MAGE_REGISTRY;
     }
 
     /**
@@ -66,7 +66,7 @@ class Registry extends AbstractFunction implements \Magento\Migration\Code\Proce
      */
     public function getEndIndex()
     {
-        return $this->endIndex + 3;
+        return $this->index + 2;
     }
 
     /**

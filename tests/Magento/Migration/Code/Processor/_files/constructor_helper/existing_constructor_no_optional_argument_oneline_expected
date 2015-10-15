@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+namespace \Magento\Migration\NameSpace;
+
+class Test
+{
+    protected $state;
+
+    protected $catalogHelper;
+
+    /**
+     * @var \Magento\Framework\StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
+     * @var \Magento\Tax\Helper\Data
+     */
+    protected $taxHelper;
+
+    public function __construct(\Magento\Catalog\Helper\Data $catalogHelper,
+        \Magento\Framework\StoreManagerInterface $storeManager,
+        \Magento\Tax\Helper\Data $taxHelper
+    )
+    {
+        $this->storeManager = $storeManager;
+        $this->taxHelper = $taxHelper;
+        $this->state = null;
+        $this->catalogHelper = $catalogHelper;
+    }
+
+    /**
+     * @return void
+     */
+    public function function1()
+    {
+    }
+}

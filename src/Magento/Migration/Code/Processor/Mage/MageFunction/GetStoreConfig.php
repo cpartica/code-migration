@@ -30,16 +30,11 @@ class GetStoreConfig extends AbstractFunction implements \Magento\Migration\Code
     protected $diClass = '\Magento\Framework\App\Config\ScopeConfigInterface';
 
     /**
-     * @var bool
-     */
-    protected $parsed = false;
-
-    /**
      * @inheritdoc
      */
     public function getType()
     {
-        return MageFunctionInterface::MAGE_APP;
+        return MageFunctionInterface::MAGE_GET_STORE_CONFIG;
     }
 
     /**
@@ -72,7 +67,7 @@ class GetStoreConfig extends AbstractFunction implements \Magento\Migration\Code
     public function getEndIndex()
     {
         //e.g., Mage::getStoreConfig($path, $store);
-        return $this->index + 5;
+        return $this->tokenHelper->skipMethodCall($this->tokens, $this->index) - 1;
     }
 
     /**
@@ -92,7 +87,7 @@ class GetStoreConfig extends AbstractFunction implements \Magento\Migration\Code
 
         if ($count > 1) {
             $currentIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $currentIndex, ',');
-            $this->tokens[$currentIndex] = ', ' . '\Magento\Store\Model\ScopeInterface::SCOPE_STORE' . ', ';
+            $this->tokens[$currentIndex] = ', ' . '\Magento\Store\Model\ScopeInterface::SCOPE_STORE' . ',';
         } else {
             $currentIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $currentIndex, ')');
             $this->tokens[$currentIndex] = ', ' . '\Magento\Store\Model\ScopeInterface::SCOPE_STORE' . ')';
