@@ -27,6 +27,11 @@ class TableProcessorTest extends \PHPUnit_Framework_TestCase
     protected $matcher;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $tokenHelper;
+
+    /**
      * @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager
      */
     protected $objectManager;
@@ -44,11 +49,16 @@ class TableProcessorTest extends \PHPUnit_Framework_TestCase
         $className = 'Magento\Migration\Code\Processor\Table\TableFunctionMatcher';
         $this->matcher = $this->getMock($className, [], [], '', false);
 
+        $className = 'Magento\Migration\Code\Processor\TokenHelper';
+        $this->tokenHelper = $this->getMock($className, [], [], '', false);
+
+
         $this->model = $this->objectManager->getObject(
             'Magento\Migration\Code\Processor\TableProcessor',
             [
                 'objectManager' => $this->classCbjectManager,
                 'matcher' => $this->matcher,
+                'tokenHelper' => $this->tokenHelper,
             ]
         );
     }
@@ -69,6 +79,10 @@ class TableProcessorTest extends \PHPUnit_Framework_TestCase
         $this->matcher->expects($this->atLeastOnce())
             ->method('match')
             ->willReturn($matched);
+
+        $this->tokenHelper->expects($this->once())
+            ->method('refresh')
+            ->willReturn($tokens);
 
         $this->assertEquals($tokens, $this->model->process($tokens));
     }

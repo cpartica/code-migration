@@ -1041,9 +1041,9 @@
     <type name="Magento\Migration\Code\Converter">
         <arguments>
             <argument name="processors"  xsi:type="array">
+                <item name="TableProcessor" xsi:type="object">Magento\Migration\Code\Processor\TableProcessor</item>
                 <item name="classProcessor" xsi:type="object">Magento\Migration\Code\Processor\ClassProcessor</item>
                 <item name="mageProcessor" xsi:type="object">Magento\Migration\Code\Processor\MageProcessor</item>
-                <item name="TableProcessor" xsi:type="object">Magento\Migration\Code\Processor\TableProcessor</item>
             </argument>
         </arguments>
     </type>

@@ -167,6 +167,7 @@ class TokenHelper
      * @param array $tokens
      * @param int $index
      * @return int
+     * @throws \Exception
      */
     public function skipBlock(array &$tokens, $index)
     {
@@ -246,7 +247,7 @@ class TokenHelper
     }
 
     /**
-     * Return index of the previous occurance of token of type $tokenType and matches $tokenValue if provided
+     * Return index of the previous occurrence of token of type $tokenType and matches $tokenValue if provided
      *
      * @param array $tokens
      * @param int $index
@@ -276,6 +277,7 @@ class TokenHelper
      * @param array $tokens
      * @param $startingIndex
      * @return \Magento\Migration\Code\Processor\Mage\MageFunction\Argument[]
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function getFunctionArguments(array &$tokens, $startingIndex)
     {
@@ -401,6 +403,8 @@ class TokenHelper
      * @param int $startingIndex
      * @param bool $trim
      * @return \Magento\Migration\Code\Processor\CallArgumentCollection
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function getCallArguments(array &$tokens, $startingIndex, $trim = true)
     {
@@ -446,8 +450,8 @@ class TokenHelper
         $argumentCollection = $this->callCollectionFactory->create();
         foreach ($paramIndexes as $key => $idx) {
             $tokenCollection = $this->tokenCollectionFactory->create();
-            for ($i = $idx['from']; $i <= $idx['to']; $i++) {
-                $tokenCollection->addToken($this->tokenFactory->create()->setToken($tokens[$i]), $i);
+            for ($cnt = $idx['from']; $cnt <= $idx['to']; $cnt++) {
+                $tokenCollection->addToken($this->tokenFactory->create()->setToken($tokens[$cnt]), $cnt);
             }
             if ($trim) {
                 $argumentCollection->addArgument($this->trimTokenArguments($tokenCollection), $key);
@@ -508,8 +512,8 @@ class TokenHelper
             $tokens[$indexStart + 1][1] .= $token->getName();
         }
 
-        for ($i = $indexStart + 2; $i < $indexEnd; $i++) {
-            $tokens[$i] = '';
+        for ($cnt = $indexStart + 2; $cnt < $indexEnd; $cnt++) {
+            $tokens[$cnt] = '';
         }
         return $this;
     }
@@ -555,12 +559,29 @@ class TokenHelper
     public function parseContent($content)
     {
         $tokens = token_get_all($content);
-        for ($i = 0; $i < count($tokens); $i++) {
-            if (is_array($tokens[$i])) {
-                $tokens[$i][3] = token_name($tokens[$i][0]);
+        for ($cnt = 0; $cnt < count($tokens); $cnt++) {
+            if (is_array($tokens[$cnt])) {
+                $tokens[$cnt][3] = token_name($tokens[$cnt][0]);
             }
         }
 
         return $tokens;
     }
+
+
+    public function getExtendsClass($tokens)
+    {
+        $extendIndex = $this->getNextIndexOfTokenType($tokens, 0, T_EXTENDS);
+        if ($extendIndex != null) {
+            $parentClassIndex = $this->getNextIndexOfTokenType($tokens, $extendIndex, T_STRING);
+            $whiteSpaceIndex = $this->getNextIndexOfTokenType($tokens, $parentClassIndex, T_WHITESPACE);
+            $className = '';
+            for ($cnt = $parentClassIndex; $cnt <= $whiteSpaceIndex; $cnt++) {
+                $className .= $tokens[$cnt][1];
+            }
+            return ltrim(rtrim($className));
+        }
+        return false;
+    }
+
 }

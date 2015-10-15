@@ -10,6 +10,8 @@ namespace Magento\Migration\Code\Processor;
  * @package Magento\Migration\Code\Processor
  *
  * This class processes name spaces and class inheritance
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
 {
@@ -42,6 +44,14 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected $constructorHelperFactory;
 
+    /**
+     * @param \Magento\Migration\Mapping\ClassMapping $classMap
+     * @param \Magento\Migration\Mapping\Alias $aliasMap
+     * @param \Magento\Migration\Logger\Logger $logger
+     * @param \Magento\Migration\Mapping\Context $context
+     * @param Mage\MageFunction\ConstructorFactory $constructorHelperFactory
+     * @param TokenHelper $tokenHelper
+     */
     public function __construct(
         \Magento\Migration\Mapping\ClassMapping $classMap,
         \Magento\Migration\Mapping\Alias $aliasMap,
@@ -141,6 +151,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      * @param \ReflectionMethod $constructor
      * @return $this
      * @throws \Exception
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     protected function extendConstructor(array &$tokens, \ReflectionMethod $constructor)
     {
@@ -224,10 +235,10 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      * @param int $index
      * @param \ReflectionMethod $parentConstructor
      * @return $this
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     protected function insertConstructor(array &$tokens, $index, $parentConstructor)
     {
-        $index = $index;
         $tokensToInsert = [];
 
         $parameters = $parentConstructor->getParameters();
@@ -336,6 +347,8 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      * @param \ReflectionParameter[] $parameters
      * @param int $constructorIndex
      * @return $this
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     protected function modifyParentConstructorCall(array &$tokens, array $parameters, $constructorIndex)
     {
