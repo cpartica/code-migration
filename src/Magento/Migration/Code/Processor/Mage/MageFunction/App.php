@@ -36,6 +36,7 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
 
     /**
      * Some method are wrappers to get singleton object
+     * For example: Mage::app()->getLayout()-> becomes $this->layout->
      *
      * @var array
      */
@@ -49,6 +50,7 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
 
     /**
      * Mapping for methods that have been moved from Mage_Core_Model_App to a different class
+     * For example: Mage::app()->getStore( will become $this->storeManager->getStore(
      *
      * @var array
      */
@@ -81,6 +83,18 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
             'class' => '\Magento\Framework\Stdlib\CookieManagerInterface',
             'variable_name' => 'cookieManager',
         ]
+    ];
+
+    /**
+     * Functions related to caching
+     *
+     * @var array
+     */
+    protected $cacheFunctions = [
+        'saveCache' => 'save',
+        'loadCache' => 'load',
+        'removeCache' => 'remove',
+        'cleanCache' => 'clean',
     ];
 
     /**
@@ -122,6 +136,11 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
             $this->diClass = $this->methodToM2Map[$this->methodName]['class'];
             $this->diVariableName = $this->methodToM2Map[$this->methodName]['variable_name'];
             $this->endIndex = $endOfMethodCallIndex;
+        } elseif (array_key_exists($this->methodName, $this->cacheFunctions)) {
+            //Mage::app()->loadCache
+            $this->diClass = '\Magento\Framework\Cache\FrontendInterface';
+            $this->diVariableName = 'cache';
+            $this->endIndex = $nextNextTokenIndex;
         } else {
             $this->logger->warn('Method in Mage_Core_Model_App not converted: ' . $this->methodName);
         }
@@ -211,6 +230,10 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
             $currentIndex++;
         }
         $this->tokens[$this->index] = '$this->' . $this->diVariableName;
+
+        if (array_key_exists($this->methodName, $this->cacheFunctions)) {
+            $this->tokens[$this->index] .= '->' . $this->cacheFunctions[$this->methodName];
+        }
 
         return $this;
     }

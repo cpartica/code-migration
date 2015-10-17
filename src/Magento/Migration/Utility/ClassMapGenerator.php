@@ -77,11 +77,30 @@ class ClassMapGenerator
             $parts[0] = 'Magento';
         }
 
+        $parts = $this->fixReservedWords($parts);
+
         $m2ClassName = implode('\\', $parts);
         if (isset($this->obsoleteClassMap[$m2ClassName])) {
             return '\\' . $this->obsoleteClassMap[$m2ClassName];
         }
         return '\\' . $m2ClassName;
+    }
+
+    /**
+     * @param array $parts
+     * @return array
+     */
+    protected function fixReservedWords(array $parts)
+    {
+        $numParts = count($parts);
+        $lastPart = $parts[$numParts - 1];
+
+        if ($lastPart == 'Abstract' || $lastPart == 'Default') {
+            $parts[$numParts - 1] = $lastPart . $parts[$numParts - 2];
+        } elseif ($lastPart == 'Interface') {
+            $parts[$numParts - 1] = $parts[$numParts - 2] . 'Interface';
+        }
+        return $parts;
     }
 
     /**

@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+namespace \Magento\Migration\NameSpace;
+
+class Test
+{
+    public function function1()
+    {
+        throw new \Magento\Framework\Exception\LocalizedException(Mage::helper('tax')->__('Invalid configuration.'));
+    }
+}

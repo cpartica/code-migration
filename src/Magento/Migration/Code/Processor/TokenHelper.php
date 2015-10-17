@@ -132,7 +132,12 @@ class TokenHelper
     public function skipFunctionArgumentList(array &$tokens, $index)
     {
         //do not go past function opening bracket
-        $endIndex = $this->getNextIndexOfSimpleToken($tokens, $index, '{');
+        try {
+            $endIndex = $this->getNextIndexOfSimpleToken($tokens, $index, '{');
+        } catch (\Exception $e) {
+            //try semi colon for abstract function or interface
+            $endIndex = $this->getNextIndexOfSimpleToken($tokens, $index, ';');
+        }
         //find the first (, then find match )
         $nextIndex = $this->getNextIndexOfSimpleToken($tokens, $index, '(') + 1;
 

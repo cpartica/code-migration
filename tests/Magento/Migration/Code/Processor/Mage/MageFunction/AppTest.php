@@ -251,6 +251,74 @@ class AppTest extends \PHPUnit_Framework_TestCase
                 'mapped_class_name' => null,
                 'expected' => 'app_get_cookie_expected',
             ],
+            'app_load_cache' => [
+                'input' => 'app_load_cache',
+                'index' => 31,
+                'attr' => [
+                    'start_index' => 31,
+                    'end_index' => 37,
+                    'method' => 'loadCache',
+                    'class' => '\Magento\Framework\Cache\FrontendInterface',
+                    'type' => MageFunctionInterface::MAGE_APP,
+                    'di_variable_name' => 'cache',
+                    'di_variable_class' => '\Magento\Framework\Cache\FrontendInterface',
+
+                ],
+                'm1_class_name' => 'Mage_Core_Controller_Request_Http',
+                'mapped_class_name' => null,
+                'expected' => 'app_load_cache_expected',
+            ],
+            'app_save_cache' => [
+                'input' => 'app_save_cache',
+                'index' => 31,
+                'attr' => [
+                    'start_index' => 31,
+                    'end_index' => 37,
+                    'method' => 'saveCache',
+                    'class' => '\Magento\Framework\Cache\FrontendInterface',
+                    'type' => MageFunctionInterface::MAGE_APP,
+                    'di_variable_name' => 'cache',
+                    'di_variable_class' => '\Magento\Framework\Cache\FrontendInterface',
+
+                ],
+                'm1_class_name' => 'Mage_Core_Controller_Request_Http',
+                'mapped_class_name' => null,
+                'expected' => 'app_save_cache_expected',
+            ],
+            'app_remove_cache' => [
+                'input' => 'app_remove_cache',
+                'index' => 31,
+                'attr' => [
+                    'start_index' => 31,
+                    'end_index' => 37,
+                    'method' => 'removeCache',
+                    'class' => '\Magento\Framework\Cache\FrontendInterface',
+                    'type' => MageFunctionInterface::MAGE_APP,
+                    'di_variable_name' => 'cache',
+                    'di_variable_class' => '\Magento\Framework\Cache\FrontendInterface',
+
+                ],
+                'm1_class_name' => 'Mage_Core_Controller_Request_Http',
+                'mapped_class_name' => null,
+                'expected' => 'app_remove_cache_expected',
+            ],
+            'app_clean_cache' => [
+                'input' => 'app_clean_cache',
+                'index' => 31,
+                'attr' => [
+                    'start_index' => 31,
+                    'end_index' => 37,
+                    'method' => 'cleanCache',
+                    'class' => '\Magento\Framework\Cache\FrontendInterface',
+                    'type' => MageFunctionInterface::MAGE_APP,
+                    'di_variable_name' => 'cache',
+                    'di_variable_class' => '\Magento\Framework\Cache\FrontendInterface',
+
+                ],
+                'm1_class_name' => 'Mage_Core_Controller_Request_Http',
+                'mapped_class_name' => null,
+                'expected' => 'app_clean_cache_expected',
+            ],
         ];
         return $data;
     }

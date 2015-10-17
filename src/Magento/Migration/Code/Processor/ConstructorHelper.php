@@ -64,6 +64,7 @@ class ConstructorHelper
      */
     public function injectArguments($variables)
     {
+        $variables = array_values($variables);
         //add member variables
         //update argument list
         //update assignment
@@ -172,13 +173,14 @@ class ConstructorHelper
             } else {
                 //insert after all arguments
                 $text .= "\n        ";
-                for ($i = 0; $i < count($variables); $i++) {
+                $count = count($variables);
+                for ($i = 0; $i < $count; $i++) {
                     $variable = $variables[$i];
                     if (isset($variable['type'])) {
                         $text .= $variable['type'];
                     }
                     $text .= ' $' . $variable['variable_name'];
-                    if ($i == $count - 1) {
+                    if ($i < $count - 1) {
                         $text .= ",\n        ";
                     } else {
                         $text .= "\n    ";

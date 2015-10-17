@@ -45,7 +45,6 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
             $this->modelFactoryClass = $this->getModelFactoryClass($argument[1]);
             if (!$this->modelFactoryClass) {
-                $this->logger->warn('Can not map model class: ' . $argument[1]);
                 return $this;
             }
             if ($this->modelFactoryClass == "obsolete") {
@@ -87,6 +86,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
             $parts = explode('/', $m1);
             $className = $this->aliasMapper->mapAlias($parts[0], 'model');
             if ($className == null) {
+                $this->logger->warn('Model alias not found: ' . $parts[0]);
                 return null;
             }
 

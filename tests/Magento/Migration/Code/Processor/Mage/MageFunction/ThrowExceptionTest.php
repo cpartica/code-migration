@@ -6,10 +6,11 @@
 namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
-class RegistryTest extends \PHPUnit_Framework_TestCase
+
+class ThrowExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\Migration\Code\Processor\Mage\MageFunction\Registry
+     * @var \Magento\Migration\Code\Processor\Mage\MageFunction\ThrowException
      */
     protected $obj;
 
@@ -58,7 +59,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         )->setMethods(['create'])
             ->getMock();
 
-        $this->obj = new \Magento\Migration\Code\Processor\Mage\MageFunction\Registry(
+        $this->obj = new \Magento\Migration\Code\Processor\Mage\MageFunction\ThrowException(
             $this->classMapperMock,
             $this->aliasMapperMock,
             $this->loggerMock,
@@ -68,9 +69,9 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider registryDataProvider
+     * @dataProvider throwExceptionDataProvider
      */
-    public function testRegistry(
+    public function testThrowException(
         $inputFile,
         $index,
         $attrs,
@@ -100,23 +101,23 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $updatedContent);
     }
 
-    public function registryDataProvider()
+    public function throwExceptionDataProvider()
     {
         $data = [
-            'registry' => [
-                'input' => 'registry',
-                'index' => 31,
+            'throw_exception' => [
+                'input' => 'throw_exception',
+                'index' => 29,
                 'attr' => [
-                    'start_index' => 31,
-                    'end_index' => 33,
-                    'method' => 'register',
-                    'class' => '\Magento\Framework\Registry',
-                    'type' => MageFunctionInterface::MAGE_REGISTRY,
-                    'di_variable_name' => 'registry',
-                    'di_variable_class' => '\Magento\Framework\Registry',
+                    'start_index' => 29,
+                    'end_index' => 31,
+                    'method' => 'throwException',
+                    'class' => null,
+                    'type' => MageFunctionInterface::MAGE_THROW_EXCEPTION,
+                    'di_variable_name' => null,
+                    'di_variable_class' => null,
 
                 ],
-                'expected' => 'registry_expected',
+                'expected' => 'throw_exception_expected',
             ],
         ];
         return $data;

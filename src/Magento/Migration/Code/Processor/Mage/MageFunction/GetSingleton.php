@@ -44,7 +44,6 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
             $this->singletonClass = $this->getSingletonClass($argument[1]);
             if (!$this->singletonClass) {
-                $this->logger->warn('Can not map model class: ' . $argument[1]);
                 return $this;
             }
             if ($this->singletonClass == "obsolete") {
@@ -87,6 +86,7 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
             $parts = explode('/', $m1);
             $className = $this->aliasMapper->mapAlias($parts[0], 'model');
             if ($className == null) {
+                $this->logger->warn("Model alias in Mage::getSingleton call is not mapped: " . $parts[0]);
                 return null;
             }
             $part2 = str_replace(' ', '_', ucwords(implode(' ', explode('_', $parts[1]))));
