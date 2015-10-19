@@ -13,6 +13,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class GenerateViewMapping extends Command
 {
+    const REFERENCES_FILE = 'references.xml';
+
     /** @var bool */
     private $handlerFound;
 
@@ -39,6 +41,30 @@ class GenerateViewMapping extends Command
     protected $logger;
 
     /**
+     * @var \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter
+     */
+    protected $formatter;
+
+    /**
+     * @var \SimpleXMLElement
+     */
+    protected $referenceList;
+
+    /**
+     * @var string
+     */
+    protected $referencesFile;
+
+    /**
+     * @var array
+     */
+    protected $referencePattern = [
+        'reference' => '//reference[@name]',
+        'block' => '//block[@name and @type!=\'core/text_list\' and @type!=\'page/html_wrapper\']',
+        'container' => '//block[@name and (@type=\'core/text_list\' or @type=\'page/html_wrapper\')]',
+    ];
+
+    /**
      * @param \Magento\Framework\Simplexml\ConfigFactory $configFactory
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param \Magento\Migration\Logger\Logger $logger
@@ -48,11 +74,20 @@ class GenerateViewMapping extends Command
     public function __construct(
         \Magento\Framework\Simplexml\ConfigFactory $configFactory,
         \Magento\Framework\Filesystem\Driver\File $file,
-        \Magento\Migration\Logger\Logger $logger
-    ) {
+        \Magento\Migration\Logger\Logger $logger,
+        \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter
+    )
+    {
         $this->configFactory = $configFactory;
         $this->file = $file;
         $this->logger = $logger;
+        $this->formatter = $formatter;
+
+        $this->referencesFile = BP . '/mapping/' . self::REFERENCES_FILE;
+
+        $contents = '<list/>';
+
+        $this->referenceList = new \SimpleXMLElement($contents);
         parent::__construct();
     }
 
@@ -98,53 +133,63 @@ class GenerateViewMapping extends Command
 
         //we only support base, default and enterprise
         foreach ($this->areas as $area => $subareas) {
-            $tableNamesMapping = [];
-
+            //get area layout files
             $m1ConfigFiles = $this->searchM1LayoutFiles($area, $m1BaseDir);
-            $m2LayoutHandles = $this->buildM1LayoutStringFile($area, $m2BaseDir);
+            $this->buildM1LayoutStringFile($area, $m2BaseDir);
 
-            foreach ($m1ConfigFiles as $configFile) {
-                $content = $this->file->fileGetContents($configFile);
-                $layoutM1 = new \Magento\Migration\Utility\M1\Layout($content);
-                $mappingM1 = $this->mapView($layoutM1);
+            //
+            $this->writeLayoutHandlers($m1ConfigFiles, $area);
+            $this->writeReferences($m1ConfigFiles);
+        }
 
+    }
 
-                //search m2 for layout handlers
-                foreach ($mappingM1 as $layoutHandler) {
-                    $this->handlerFound = false;
-                    $this->layoutResult = $layoutHandler;
+    protected function writeLayoutHandlers($m1ConfigFiles, $area)
+    {
+        $tableNamesMapping = [];
 
-                    $this->isInM2Layout($layoutHandler);
+        foreach ($m1ConfigFiles as $configFile) {
 
-                    //match some plurals
-                    $layoutHandlerReplacement = $this->regexPlural($layoutHandler);
-                    $this->isInM2Layout($layoutHandlerReplacement);
+            $content = $this->file->fileGetContents($configFile);
+            $layoutM1 = new \Magento\Migration\Utility\M1\Layout($content);
+            $mappingM1 = $this->mapView($layoutM1);
 
-                    //some adminhtml prefixes were removed
-                    if ($area == 'adminhtml') {
-                        $layoutHandlerReplacement = $this->replaceAdminhtmlPrefix($layoutHandler);
-                        $this->matchWordinBetween($layoutHandlerReplacement);
-                        $this->matchOneWordAsPrefix($layoutHandlerReplacement);
-                        $this->matchTwoWordsAsPrefix($layoutHandlerReplacement);
-                    } else {
-                        $this->processEnterprisePrefix($layoutHandler);
-                        $this->processPagePrefix($layoutHandler);
-                    }
+            //search m2 for layout handlers
+            foreach ($mappingM1 as $layoutHandler) {
+                $this->handlerFound = false;
+                $this->layoutResult = $layoutHandler;
 
-                    $mappingM1[$layoutHandler] =
-                        $this->handlerFound ? $this->layoutResult : 'obsolete';
+                $this->isInM2Layout($layoutHandler);
+
+                //match some plurals
+                $layoutHandlerReplacement = $this->regexPlural($layoutHandler);
+                $this->isInM2Layout($layoutHandlerReplacement);
+
+                //some adminhtml prefixes were removed
+                if ($area == 'adminhtml') {
+                    $layoutHandlerReplacement = $this->replaceAdminhtmlPrefix($layoutHandler);
+                    $this->matchWordinBetween($layoutHandlerReplacement);
+                    $this->matchOneWordAsPrefix($layoutHandlerReplacement);
+                    $this->matchTwoWordsAsPrefix($layoutHandlerReplacement);
+                } else {
+                    $this->processEnterprisePrefix($layoutHandler);
+                    $this->processPagePrefix($layoutHandler);
                 }
-                $tableNamesMapping = array_merge($mappingM1, $tableNamesMapping);
-            }
 
-            $outputFileName = BP . '/mapping/view_mapping_' . $area . '.json';
-            if (file_put_contents($outputFileName, strtolower(json_encode($tableNamesMapping, JSON_PRETTY_PRINT)))) {
-                $this->logger->info($outputFileName . ' was generated');
-            } else {
-                $this->logger->error('Could not write ' . $outputFileName . '. check writing permissions');
+                $mappingM1[$layoutHandler] =
+                    $this->handlerFound ? $this->layoutResult : 'obsolete';
             }
+            $tableNamesMapping = array_merge($mappingM1, $tableNamesMapping);
+        }
+
+        $outputFileName = BP . '/mapping/view_mapping_' . $area . '.json';
+        if (file_put_contents($outputFileName, strtolower(json_encode($tableNamesMapping, JSON_PRETTY_PRINT)))) {
+            $this->logger->info($outputFileName . ' was generated');
+        } else {
+            $this->logger->error('Could not write ' . $outputFileName . '. check writing permissions');
         }
     }
+
 
     /**
      * @param \Magento\Migration\Utility\M1\Layout $layout
@@ -285,5 +330,74 @@ class GenerateViewMapping extends Command
     private function matchTwoWordsAsPrefix($layoutHandler)
     {
         $this->isInM2Layout('([^_]+)_([^_]+)_' . $layoutHandler);
+    }
+
+
+    /**
+     * Retrieve & write references and referenced names from $layouts files
+     *
+     * @param array $layouts
+     * @return $this
+     * @throws \Exception
+     */
+    public function writeReferences($layouts)
+    {
+        if (empty($layouts)) {
+            throw new \Exception("No layouts found");
+        }
+        $references = [];
+        foreach ($this->referencePattern as $patternName => $xpath) {
+            $result = [];
+            foreach ($layouts as $layout) {
+                $xml = simplexml_load_file($layout);
+                $nodes = $xml->xpath($xpath);
+                foreach ($nodes as $node) {
+                    $result[(string)$node['name']] = '';
+                }
+            }
+            $resultPrint = array_keys($result);
+            sort($resultPrint);
+            $references[$patternName] = $resultPrint;
+        }
+
+
+        $conflictReferences = $references['reference'];
+        foreach ($references as $key => $names) {
+            $this->addElements($names, $key);
+            if ($key != 'reference') {
+                $conflictReferences = array_diff($conflictReferences, $names);
+            }
+        }
+        $this->addElements($conflictReferences, 'conflictReferences');
+
+        $this->addElements(array_intersect($references['block'], $references['container']), 'conflictNames');
+
+
+        $result = $this->formatter->format($this->referenceList->asXML());
+        file_put_contents($this->referencesFile, $result);
+        return $this;
+    }
+
+    /**
+     * Create list from array
+     *
+     * @param array $data
+     * @param string $type
+     * @return $this
+     */
+    protected function addElements($data, $type)
+    {
+        array_walk_recursive(
+            $data,
+            function ($value) use ($type) {
+                if (!$this->referenceList->xpath("//item[@type='{$type}' and @value='{$value}']")) {
+                    $element = $this->referenceList->addChild('item');
+                    $element->addAttribute('type', $type);
+                    $element->addAttribute('value', $value);
+                }
+            }
+        );
+
+        return $this;
     }
 }

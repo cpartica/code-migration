@@ -80,7 +80,38 @@ class LayoutHalndlerFile
     public function createFileHandler()
     {
         if ($this->handlerFileName) {
-            return $this->file->filePutContents($this->handlerFileName, $this->xml);
+            $this->xml = "<?xml version=\"1.0\"?>\n<layout>\n" . $this->xml . '</layout>';
+            $this->file->filePutContents($this->handlerFileName, $this->xml);
+            $this->xml = $this->formatFileHandler($this->xml);
+            return $this->file->filePutContents($this->handlerFileName.".converted", $this->xml);
         }
     }
+
+    protected function formatFileHandler($xml)
+    {
+        $doc = new \DOMDocument();
+        $doc->preserveWhiteSpace = true;
+        $doc->loadXML($xml);
+
+        $stylesheet = new \DOMDocument();
+        $stylesheet->preserveWhiteSpace = true;
+
+        $formatter = new \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter();
+
+        $files = glob(__DIR__ . '/XmlProcessors/_files/*.xsl');
+        foreach ($files as $file) {
+            $stylesheet->load($file);
+            $xslt = new \XSLTProcessor();
+            $xslt->registerPHPFunctions();
+            $xslt->importStylesheet($stylesheet);
+            $b=$doc->saveXML();
+            $doc->loadXML($xslt->transformToXml($doc));
+        }
+
+
+
+        return  $formatter->format($doc->saveXML());
+        //return $doc->saveXML();
+    }
+
 }
