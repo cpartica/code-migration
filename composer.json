@@ -44,7 +44,12 @@
         "magento/framework": "~1.0.0-beta"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.1.0"
+        "phpunit/phpunit": "4.1.0",
+        "squizlabs/php_codesniffer": "1.5.3",
+        "phpmd/phpmd": "@stable",
+        "pdepend/pdepend": "2.0.6",
+        "sjparkinson/static-review": "~4.1",
+        "fabpot/php-cs-fixer": "~1.2"
     },
     "config": {
         "use-include-path": true
@@ -52,6 +57,13 @@
     "autoload": {
         "psr-4": {
             "Magento\\Migration\\": "src/Magento/Migration/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Magento\\Sniffs\\": "dev/tests/static/framework/Magento/Sniffs/",
+            "Magento\\TestFramework\\Inspection\\": "dev/tests/static/framework/Magento/TestFramework/Inspection/",
+            "Magento\\TestFramework\\Utility\\": "dev/tests/static/framework/Magento/TestFramework/Utility/"
         }
     },
     "minimum-stability": "alpha",
