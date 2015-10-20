@@ -18,6 +18,9 @@ class Module
      */
     protected $logger;
 
+    /**
+     * @param \Magento\Migration\Logger\Logger $logger
+     */
     public function __construct(\Magento\Migration\Logger\Logger $logger)
     {
         $this->logger = $logger;

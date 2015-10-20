@@ -8,8 +8,14 @@ namespace Magento\Migration\Mapping;
 
 class TableName
 {
+    /**
+     * @var array
+     */
     protected $mapping;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $mappingFile = BP . '/mapping/table_names_mapping.json';
@@ -22,6 +28,11 @@ class TableName
         }
     }
 
+    /**
+     * @param string $tableName
+     * @param string $entity
+     * @return string|null
+     */
     public function mapTableName($tableName, $entity)
     {
         if (isset($this->mapping[$tableName]) && isset($this->mapping[$tableName][$entity])) {

@@ -59,9 +59,9 @@ class MessageProcessor
         if (false === strpos($record['message'], '{')) {
             return $record;
         }
-        $replacements = array();
+        $replacements = [];
         foreach ($record['context'] as $key => $val) {
-            if (is_null($val) || is_scalar($val) || (is_object($val) && method_exists($val, "__toString"))) {
+            if ($val === null || is_scalar($val) || (is_object($val) && method_exists($val, "__toString"))) {
                 $replacements['{'.$key.'}'] = $val;
             } elseif (is_object($val)) {
                 $replacements['{'.$key.'}'] = '[object '.get_class($val).']';

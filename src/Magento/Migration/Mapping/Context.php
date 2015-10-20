@@ -27,7 +27,7 @@ class Context
     }
 
     /**
-     * @param $m1BaseDir
+     * @param string $m1BaseDir
      * @return $this
      */
     public function setM1BaseDir($m1BaseDir)
@@ -45,7 +45,7 @@ class Context
     }
 
     /**
-     * @param $m2BaseDir
+     * @param string $m2BaseDir
      * @return $this
      */
     public function setM2BaseDir($m2BaseDir)

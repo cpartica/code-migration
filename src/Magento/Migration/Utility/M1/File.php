@@ -13,12 +13,15 @@ class File extends \Magento\Migration\Utility\File
      */
     protected $basePath;
 
+    /**
+     * @param $basePath
+     */
     public function __construct($basePath)
     {
         $this->basePath = $basePath;
     }
 
-    /*
+    /**
      * @return string
      */
     public function getBasePath()
@@ -84,6 +87,9 @@ class File extends \Magento\Migration\Utility\File
         return $result;
     }
 
+    /**
+     * @return array
+     */
     public function getModulesConfigFiles()
     {
         $supportFolders = ['local', 'community'];
@@ -105,6 +111,11 @@ class File extends \Magento\Migration\Utility\File
         return $configs;
     }
 
+    /**
+     * @param string[] $maskArray
+     * @param string|null $path
+     * @return array
+     */
     public function getFilesFromPath($maskArray, $path = null)
     {
         $filesArray = [];

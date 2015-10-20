@@ -33,6 +33,12 @@ class ConvertPhpCode extends Command
      */
     protected $objectManager;
 
+    /**
+     * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     * @param \Magento\Migration\Code\Converter $converter
+     * @param \Magento\Migration\Utility\File $fileUtil
+     * @param \Magento\Migration\Logger\Logger $logger
+     */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Migration\Code\Converter $converter,
@@ -46,6 +52,9 @@ class ConvertPhpCode extends Command
         $this->logger = $logger;
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('convertPhpCode')
@@ -65,6 +74,12 @@ class ConvertPhpCode extends Command
             );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $path = $input->getArgument('path');
@@ -103,5 +118,6 @@ class ConvertPhpCode extends Command
             }
             $this->logger->info('Finished processing file ' . $filePath);
         }
+        return 0;
     }
 }

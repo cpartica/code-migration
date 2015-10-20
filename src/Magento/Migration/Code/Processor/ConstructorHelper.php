@@ -82,6 +82,7 @@ class ConstructorHelper
 
     /**
      * @param array $variables
+     * @return void
      */
     protected function addMembers($variables)
     {
@@ -104,6 +105,9 @@ class ConstructorHelper
 
     /**
      * @param array $variables
+     * @return void
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     protected function addConstructorArguments($variables)
     {
@@ -126,8 +130,6 @@ class ConstructorHelper
 
             $this->tokens[$startIndex] .= $text;
         } else {
-            //find the last required argument
-            $lastRequiredArgumentName = null;
             $count = 0;
             $numArguments = count($existingArguments);
             $firstOptionalVariableName = null;
@@ -218,6 +220,10 @@ class ConstructorHelper
         $this->tokens[$startIndex] = $this->tokens[$startIndex] . $text;
     }
 
+    /**
+     * @param array $variables
+     * @return string
+     */
     protected function generateConstructor($variables)
     {
         //TODO: update doc
@@ -250,6 +256,9 @@ class ConstructorHelper
         return $text;
     }
 
+    /**
+     * @return string|null
+     */
     public function getParentClass()
     {
         $index = 0;

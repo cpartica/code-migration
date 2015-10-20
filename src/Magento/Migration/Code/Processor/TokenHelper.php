@@ -5,6 +5,11 @@
  */
 namespace Magento\Migration\Code\Processor;
 
+/**
+ * Class TokenHelper
+ * @package Magento\Migration\Code\Processor
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 class TokenHelper
 {
     /**
@@ -280,7 +285,7 @@ class TokenHelper
      * Get the argument of a function
      *
      * @param array $tokens
-     * @param $startingIndex
+     * @param int $startingIndex
      * @return \Magento\Migration\Code\Processor\Mage\MageFunction\Argument[]
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
@@ -488,8 +493,8 @@ class TokenHelper
      * Replaces between start and end index with tokens
      * match the start and end index with the function parenthesis
      *
-     * @param mixed[] $tokens
-     * @param $index
+     * @param array $tokens
+     * @param int $index
      * @param \Magento\Migration\Code\Processor\TokenArgumentCollection $replacementTokens
      * @return $this
      */
@@ -573,7 +578,10 @@ class TokenHelper
         return $tokens;
     }
 
-
+    /**
+     * @param array $tokens
+     * @return bool|string
+     */
     public function getExtendsClass($tokens)
     {
         $extendIndex = $this->getNextIndexOfTokenType($tokens, 0, T_EXTENDS);
@@ -588,5 +596,4 @@ class TokenHelper
         }
         return false;
     }
-
 }

@@ -46,6 +46,13 @@ class AbstractFunction
      */
     protected $tokenHelper;
 
+    /**
+     * @param \Magento\Migration\Mapping\ClassMapping $classMapper
+     * @param \Magento\Migration\Mapping\Alias $aliasMapper
+     * @param \Magento\Migration\Logger\Logger $logger
+     * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
+     * @param ArgumentFactory $argumentFactory
+     */
     public function __construct(
         \Magento\Migration\Mapping\ClassMapping $classMapper,
         \Magento\Migration\Mapping\Alias $aliasMapper,

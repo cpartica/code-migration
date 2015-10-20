@@ -13,6 +13,9 @@ class File extends \Magento\Migration\Utility\File
      */
     protected $basePath;
 
+    /**
+     * @param $basePath
+     */
     public function __construct($basePath)
     {
         $this->basePath = $basePath;
@@ -47,7 +50,7 @@ class File extends \Magento\Migration\Utility\File
     /**
      * Check whether a given class exists in Magento 2
      *
-     * @param $className
+     * @param string $className
      * @return bool
      */
     public function isM2Class($className)

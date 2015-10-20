@@ -159,8 +159,9 @@ class GenerateModuleMapping extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int|null
      * @throws \Exception
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -169,12 +170,12 @@ class GenerateModuleMapping extends Command
 
         if (!is_dir($m1BaseDir)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         if (!is_dir($m2BaseDir)) {
             $this->logger->error('m2 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         $moduleMapping = [];
@@ -204,12 +205,14 @@ class GenerateModuleMapping extends Command
             $this->logger->info($outputFileName . " was generated");
         } else {
             $this->logger->error('Could not write '.$outputFileName . '. check writing permissions');
+            return 255;
         }
+        return 0;
     }
 
     /**
-     * @param $moduleName
-     * @param $m2BaseDir
+     * @param string $moduleName
+     * @param string $m2BaseDir
      * @return string
      * @throws \Exception
      */

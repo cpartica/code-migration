@@ -27,6 +27,10 @@ class GenerateViewMapping extends Command
         'adminhtml' => ['default', 'enterprise'],
         'frontend' => ['base', 'default', 'enterprise'],
     ];
+
+    /**
+     * @var array
+     */
     protected $moduleMapping = [];
 
     /** @var \Magento\Framework\Simplexml\ConfigFactory */
@@ -78,7 +82,8 @@ class GenerateViewMapping extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -87,21 +92,21 @@ class GenerateViewMapping extends Command
 
         if (!is_dir($m1BaseDir)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
 
         if (!is_dir($m2BaseDir)) {
             $this->logger->error('m2 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         //we only support base, default and enterprise
-        foreach ($this->areas as $area => $subareas) {
+        foreach (array_keys($this->areas) as $area) {
             $tableNamesMapping = [];
 
             $m1ConfigFiles = $this->searchM1LayoutFiles($area, $m1BaseDir);
-            $m2LayoutHandles = $this->buildM1LayoutStringFile($area, $m2BaseDir);
+            //$m2LayoutHandles = $this->buildM1LayoutStringFile($area, $m2BaseDir);
 
             foreach ($m1ConfigFiles as $configFile) {
                 $content = $this->file->fileGetContents($configFile);
@@ -142,8 +147,10 @@ class GenerateViewMapping extends Command
                 $this->logger->info($outputFileName . ' was generated');
             } else {
                 $this->logger->error('Could not write ' . $outputFileName . '. check writing permissions');
+                return 255;
             }
         }
+        return 0;
     }
 
     /**
@@ -166,12 +173,15 @@ class GenerateViewMapping extends Command
         foreach ($this->areas[$area] as $subarea) {
             $m1ConfigFiles = array_merge(
                 $m1ConfigFiles,
-                $this->file->search('design/' . $area .
-                    '/' . $subarea . '/default/layout/*.xml', $m1BaseDir . '/app'),
-                $this->file->search('design/' . $area .
-                    '/' . $subarea . '/default/layout/*/*.xml', $m1BaseDir . '/app'),
-                $this->file->search('design/' . $area .
-                    '/' . $subarea . '/default/layout/*/*/*.xml', $m1BaseDir . '/app')
+                $this->file->search(
+                    'design/' . $area . '/' . $subarea . '/default/layout/*.xml', $m1BaseDir . '/app'
+                ),
+                $this->file->search(
+                    'design/' . $area . '/' . $subarea . '/default/layout/*/*.xml', $m1BaseDir . '/app'
+                ),
+                $this->file->search(
+                    'design/' . $area . '/' . $subarea . '/default/layout/*/*/*.xml', $m1BaseDir . '/app'
+                )
             );
         }
         return $m1ConfigFiles;

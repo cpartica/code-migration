@@ -33,6 +33,11 @@ class ClassDependencyScanner
      */
     protected $logger;
 
+    /**
+     * @param \Magento\Migration\Mapping\ClassMapping $classMapper
+     * @param \Magento\Migration\Mapping\Alias $aliasMapper
+     * @param \Magento\Migration\Logger\Logger $logger
+     */
     public function __construct(
         \Magento\Migration\Mapping\ClassMapping $classMapper,
         \Magento\Migration\Mapping\Alias $aliasMapper,
@@ -77,7 +82,7 @@ class ClassDependencyScanner
             'processGetResourceModel',
             'processGetResourceSingleton',
             'processNew',
-//            'processGetResourceHelper', //TODO: how to handle getResourceHelper?
+            //'processGetResourceHelper', //TODO: how to handle getResourceHelper?
         ];
 
         $index = 0;
@@ -318,7 +323,7 @@ class ClassDependencyScanner
     }
 
     /**
-     * @param $m1
+     * @param string $m1
      * @return null|string
      */
     public function getHelperClass($m1)
@@ -474,6 +479,14 @@ class ClassDependencyScanner
         );
     }
 
+    /**
+     * @param array $tokens
+     * @param int $index
+     * @param array $referenceClasses
+     * @param string $methodName
+     * @param string $context
+     * @return int
+     */
     protected function processMageGetGenericResourceModelCall(
         array &$tokens,
         $index,

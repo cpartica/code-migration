@@ -236,6 +236,8 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      * @param \ReflectionMethod $parentConstructor
      * @return $this
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     protected function insertConstructor(array &$tokens, $index, $parentConstructor)
     {

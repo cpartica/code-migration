@@ -60,8 +60,8 @@ class TableFunctionMatcher implements \Magento\Migration\Code\Processor\Mage\Mat
     }
 
     /**
-     * @param $tokens
-     * @param $index
+     * @param array $tokens
+     * @param int $index
      * @return bool
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
@@ -78,7 +78,7 @@ class TableFunctionMatcher implements \Magento\Migration\Code\Processor\Mage\Mat
             (
                 $tokens[$index + 2][1] != 'getTable' &&
                 $tokens[$index + 2][1] != 'getTableName' &&
-                $tokens[$index + 2][1] != 'getIdxName'  &&
+                $tokens[$index + 2][1] != 'getIdxName' &&
                 $tokens[$index + 2][1] != '_init'
             )
         ) {

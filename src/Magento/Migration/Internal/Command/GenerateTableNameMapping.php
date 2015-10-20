@@ -13,6 +13,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class GenerateTableNameMapping extends Command
 {
+    /**
+     * @var array
+     */
     protected $moduleMapping = [];
 
     /** @var \Magento\Framework\Simplexml\ConfigFactory */
@@ -28,7 +31,6 @@ class GenerateTableNameMapping extends Command
      * @param \Magento\Framework\Simplexml\ConfigFactory $configFactory
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param \Magento\Migration\Logger\Logger $logger
-     *
      * @throws \LogicException When the command name is empty
      */
     public function __construct(
@@ -59,14 +61,15 @@ class GenerateTableNameMapping extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $m1BaseDir = $input->getArgument('m1');
         if (!is_dir($m1BaseDir)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         $tableNamesMapping = [];
@@ -86,7 +89,9 @@ class GenerateTableNameMapping extends Command
             $this->logger->info($outputFileName . ' was generated');
         } else {
             $this->logger->error('Could not write ' . $outputFileName . '. check writing permissions');
+            return 255;
         }
+        return 0;
     }
 
     /**

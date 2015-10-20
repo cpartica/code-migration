@@ -99,7 +99,7 @@ class ModuleFileCopier
     }
 
     /**
-     * @param $files
+     * @param string[] $files
      * @param string $contentFolder
      * @return bool
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)

@@ -35,7 +35,8 @@ class MessageFormatter extends \Monolog\Formatter\LineFormatter implements \Mono
                 $format = "[%datetime%][INFO]%extra.stage%%extra.codePool%%extra.module%: %message%";
                 break;
             case 'DEBUG':
-                $format = "[%datetime%][INFO]%extra.stage%%extra.codePool%%extra.module%%extra.file%%extra.method%: %message%";
+                $format = "[%datetime%][INFO]%extra.stage%%extra.codePool%%" .
+                    "extra.module%%extra.file%%extra.method%: %message%";
                 break;
             case 'ERROR':
                 $format = "[%datetime%][ERROR]: %message%";

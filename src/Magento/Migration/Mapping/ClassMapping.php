@@ -18,6 +18,9 @@ class ClassMapping
      */
     protected $logger;
 
+    /**
+     * @param \Magento\Migration\Logger\Logger $logger
+     */
     public function __construct(\Magento\Migration\Logger\Logger $logger)
     {
         $this->logger = $logger;
@@ -57,7 +60,7 @@ class ClassMapping
     }
 
     /**
-     * @param $className
+     * @param string $className
      * @return null|array
      */
     public function getClassMethodMap($className)

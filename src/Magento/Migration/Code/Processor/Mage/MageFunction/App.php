@@ -99,6 +99,7 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
 
     /**
      * @return $this
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     private function parse()
     {
@@ -148,6 +149,10 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
         return $this;
     }
 
+    /**
+     * @param $methodName
+     * @return string
+     */
     protected function generateVariableName($methodName)
     {
         //skip 'get'

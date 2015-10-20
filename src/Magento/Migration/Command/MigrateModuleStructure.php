@@ -48,6 +48,9 @@ class MigrateModuleStructure extends Command
         parent::__construct($name);
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('migrateModuleStructure')
@@ -63,6 +66,12 @@ class MigrateModuleStructure extends Command
             );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $moduleBaseDirectory = $input->getArgument('m1');
@@ -70,12 +79,12 @@ class MigrateModuleStructure extends Command
 
         if (!is_dir($moduleBaseDirectory)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         if (!is_dir($moduleOutputDirectory)) {
             $this->logger->error('m2 path doesn\'t exist');
-            exit;
+            return 255;
         }
 
         $m1FileUtil = $this->fileFactory->create(['basePath' => $moduleBaseDirectory]);
@@ -95,6 +104,6 @@ class MigrateModuleStructure extends Command
         }
 
         $this->logger->info('Ending module structure converter', []);
-
+        return 0;
     }
 }

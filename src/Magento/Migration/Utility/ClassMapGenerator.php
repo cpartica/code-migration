@@ -28,6 +28,9 @@ class ClassMapGenerator
      */
     protected $moduleMapper;
 
+    /**
+     * @param \Magento\Migration\Mapping\Module $moduleMap
+     */
     public function __construct(\Magento\Migration\Mapping\Module $moduleMap)
     {
         $this->moduleMapper = $moduleMap;
@@ -37,6 +40,8 @@ class ClassMapGenerator
     /**
      * @param string $className
      * @return string
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function mapM1CoreClass($className)
     {

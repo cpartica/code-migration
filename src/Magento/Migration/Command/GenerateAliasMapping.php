@@ -30,6 +30,9 @@ class GenerateAliasMapping extends Command
         parent::__construct($name);
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('generateAliasMapping')
@@ -41,13 +44,19 @@ class GenerateAliasMapping extends Command
             );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $m1BaseDir = $input->getArgument('m1');
 
         if (!is_dir($m1BaseDir)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         $configFiles = glob($m1BaseDir . '/app/code/core/Mage/*/etc/config.xml');
@@ -86,5 +95,6 @@ class GenerateAliasMapping extends Command
         } else {
             $this->logger->error('Could not write '.$outputFileName . '. check writing permissions');
         }
+        return 0;
     }
 }

@@ -25,6 +25,9 @@ class Layout
         $this->config = simplexml_load_string($configFileContent);
     }
 
+    /**
+     * @return array
+     */
     public function getLayoutHandlers()
     {
         $layoutHandlers = [];

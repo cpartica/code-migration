@@ -84,7 +84,7 @@ class ModuleMigration
                                 'module' => $moduleName
                             ]
                         );
-                        if ($m2ModuleFolder = $copier->createM2ModuleFolder()) {
+                        if ($copier->createM2ModuleFolder() !== null) {
                             foreach ($moduleFiles as $fileContentFolder => $files) {
                                 $copier->copyM2Files($files, $fileContentFolder);
                             }

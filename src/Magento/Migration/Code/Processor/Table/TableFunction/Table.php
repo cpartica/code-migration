@@ -209,7 +209,7 @@ class Table extends AbstractFunction implements TableFunctionInterface
         return $this;
     }
 
-    /*
+    /**
      * @return $this
      */
     protected function handleStringCall()
@@ -285,4 +285,3 @@ class Table extends AbstractFunction implements TableFunctionInterface
         $this->tokenHelper->replaceCallArgumentsTokens($this->tokens, $this->index, $tokenCollection);
     }
 }
-

@@ -10,6 +10,9 @@ use Magento\Framework\Simplexml\Config;
 
 class ModuleFileExtractor
 {
+    /**
+     * @var array
+     */
     protected $configSections = ['frontend', 'adminhtml', 'global', 'default', 'admin'];
 
     /**
@@ -190,6 +193,7 @@ class ModuleFileExtractor
      * @param array $files
      * @param string $zone
      * @return array
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function getViewTemplatesFromFiles($files, $zone = 'frontend')
     {

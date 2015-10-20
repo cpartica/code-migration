@@ -59,8 +59,10 @@ class GenerateClassDependency extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int|null
      * @throws \Exception
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -68,7 +70,7 @@ class GenerateClassDependency extends Command
 
         if (!is_dir($m1BaseDir)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         $fileUtils = new \Magento\Migration\Utility\M1\File($m1BaseDir);
@@ -114,6 +116,7 @@ class GenerateClassDependency extends Command
         } else {
             $this->logger->error('Could not write '.$aggregateClassMap . '. check writing permissions');
         }
+        return 0;
     }
 
     /**

@@ -11,6 +11,9 @@ use Magento\Framework\ObjectManagerInterface;
 
 class Aggregator
 {
+    /**
+     * @var string
+     */
     protected $commandDir = __DIR__;
 
     /**
@@ -35,6 +38,9 @@ class Aggregator
         $this->loggerManager = $loggerManager;
     }
 
+    /**
+     * @throws \Magento\Migration\Utility\Exception
+     */
     public function initialize()
     {
         $this->loggerManager->process('info');

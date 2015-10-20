@@ -24,6 +24,7 @@ class Converter
 
     /**
      * @param array $processors
+     * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
      * @param \Magento\Migration\Logger\Logger $logger
      */
     public function __construct(

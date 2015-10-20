@@ -12,6 +12,9 @@ class MageFunctionMatcher implements MatcherInterface
      */
     protected $objectManager;
 
+    /**
+     * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     */
     public function __construct(\Magento\Framework\ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
@@ -21,6 +24,7 @@ class MageFunctionMatcher implements MatcherInterface
      * @param array $tokens
      * @param int $index
      * @return MageFunctionInterface|null
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function match(&$tokens, $index)
     {

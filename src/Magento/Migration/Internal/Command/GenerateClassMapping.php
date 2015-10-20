@@ -53,7 +53,8 @@ class GenerateClassMapping extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -62,12 +63,12 @@ class GenerateClassMapping extends Command
 
         if (!is_dir($m1BaseDir)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         if (!is_dir($m2BaseDir)) {
             $this->logger->error('m2 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         $classMapping = [];
@@ -78,7 +79,7 @@ class GenerateClassMapping extends Command
         $m2FileUtils = new \Magento\Migration\Utility\M2\File($m2BaseDir);
 
         $unmapped = [];
-        foreach ($classFiles as $className => $path) {
+        foreach (array_keys($classFiles) as $className) {
             $m2ClassName = $this->classMapGenerator->mapM1CoreClass($className);
             if ($m2FileUtils->isM2Class($m2ClassName)) {
                 $classMapping[$className] = [
@@ -101,6 +102,8 @@ class GenerateClassMapping extends Command
             $this->logger->info($unmappedPath . ' was generated');
         } else {
             $this->logger->error('Could not write '.$unmappedPath . '. check writing permissions');
+            return 255;
         }
+        return 0;
     }
 }
