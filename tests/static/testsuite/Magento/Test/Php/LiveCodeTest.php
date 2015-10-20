@@ -41,7 +41,6 @@ class LiveCodeTest extends PHPUnit_Framework_TestCase
     {
         self::$pathToSource = Utility\Files::init()->getPathToSource();
         self::$reportDir = self::$pathToSource . '/tests/static/report';
-        echo self::$reportDir;
         if (!is_dir(self::$reportDir)) {
             mkdir(self::$reportDir, 0770);
         }
