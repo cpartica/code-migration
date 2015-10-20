@@ -174,13 +174,16 @@ class GenerateViewMapping extends Command
             $m1ConfigFiles = array_merge(
                 $m1ConfigFiles,
                 $this->file->search(
-                    'design/' . $area . '/' . $subarea . '/default/layout/*.xml', $m1BaseDir . '/app'
+                    'design/' . $area . '/' . $subarea . '/default/layout/*.xml',
+                    $m1BaseDir . '/app'
                 ),
                 $this->file->search(
-                    'design/' . $area . '/' . $subarea . '/default/layout/*/*.xml', $m1BaseDir . '/app'
+                    'design/' . $area . '/' . $subarea . '/default/layout/*/*.xml',
+                    $m1BaseDir . '/app'
                 ),
                 $this->file->search(
-                    'design/' . $area . '/' . $subarea . '/default/layout/*/*/*.xml', $m1BaseDir . '/app'
+                    'design/' . $area . '/' . $subarea . '/default/layout/*/*/*.xml',
+                    $m1BaseDir . '/app'
                 )
             );
         }

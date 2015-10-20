@@ -14,7 +14,7 @@ class File extends \Magento\Migration\Utility\File
     protected $basePath;
 
     /**
-     * @param $basePath
+     * @param string $basePath
      */
     public function __construct($basePath)
     {

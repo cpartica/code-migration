@@ -39,6 +39,7 @@ class Aggregator
     }
 
     /**
+     * @return void
      * @throws \Magento\Migration\Utility\Exception
      */
     public function initialize()

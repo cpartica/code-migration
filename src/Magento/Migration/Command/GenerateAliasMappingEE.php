@@ -47,7 +47,8 @@ class GenerateAliasMappingEE extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int|null
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -55,7 +56,7 @@ class GenerateAliasMappingEE extends Command
 
         if (!is_dir($m1BaseDir)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
-            exit;
+            return 255;
         }
 
         $configFiles = glob($m1BaseDir . '/app/code/core/Enterprise/*/etc/config.xml');
@@ -81,6 +82,8 @@ class GenerateAliasMappingEE extends Command
             $this->logger->info($outputFileName . ' was generated');
         } else {
             $this->logger->error('Could not write '.$outputFileName . '. check writing permissions');
+            return 255;
         }
+        return 0;
     }
 }

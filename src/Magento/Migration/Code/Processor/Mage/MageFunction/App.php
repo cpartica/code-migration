@@ -150,7 +150,7 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
     }
 
     /**
-     * @param $methodName
+     * @param string $methodName
      * @return string
      */
     protected function generateVariableName($methodName)
