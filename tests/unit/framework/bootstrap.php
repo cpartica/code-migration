@@ -4,14 +4,14 @@
  * See COPYING.txt for license details.
  */
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 if (!defined('TESTS_TEMP_DIR')) {
     define('TESTS_TEMP_DIR', dirname(__DIR__) . '/tmp');
 }
 
 if (!defined('BP')) {
-    define('BP', dirname(dirname(__DIR__)));
+    define('BP', dirname(dirname(dirname(__DIR__))));
 }
 
 require_once __DIR__ . '/autoload.php';
