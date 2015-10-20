@@ -98,7 +98,7 @@ class LayoutConverter
         if ($this->file->deleteFile($file)) {
             $this->logger->info('Deleted M1 layout file' . $file);
         } else {
-            $this->logger->warn('Error deleting M2 layout file ' . $file);
+            $this->logger->warn('Error deleting M1 layout file ' . $file);
         }
     }
 }
