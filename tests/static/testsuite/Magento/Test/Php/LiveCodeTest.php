@@ -59,37 +59,6 @@ class LiveCodeTest extends PHPUnit_Framework_TestCase
 
         $files = Files::init()->getFiles($directoriesToCheck, '*.php', true);
         return $files;
-        $changedFiles = [];
-        foreach (glob(__DIR__ . '/_files/changed_files*') as $listFile) {
-            $changedFiles = array_merge($changedFiles, file($listFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES));
-        }
-        array_walk(
-            $changedFiles,
-            function (&$file) {
-                $file = BP . '/' . $file;
-            }
-        );
-        $changedFiles = array_filter(
-            $changedFiles,
-            function ($path) use ($directoriesToCheck, $fileTypes) {
-                if (!file_exists($path)) {
-                    return false;
-                }
-                $path = realpath($path);
-                foreach ($directoriesToCheck as $directory) {
-                    $directory = realpath($directory);
-                    if (strpos($path, $directory) === 0) {
-                        if (!empty($fileTypes)) {
-                            return in_array(pathinfo($path, PATHINFO_EXTENSION), $fileTypes);
-                        }
-                        return true;
-                    }
-                }
-                return false;
-            }
-        );
-
-        return $changedFiles;
     }
 
     /**
@@ -192,33 +161,6 @@ class LiveCodeTest extends PHPUnit_Framework_TestCase
         if (file_exists($reportFile)) {
             unlink($reportFile);
         }
-    }
-
-    /**
-     * Run copy paste detector on code
-     *
-     * @return void
-     */
-    public function testCopyPaste()
-    {
-        $reportFile = self::$reportDir . '/phpcpd_report.xml';
-        $copyPasteDetector = new CopyPasteDetector($reportFile);
-
-        if (!$copyPasteDetector->canRun()) {
-            $this->markTestSkipped('PHP Copy/Paste Detector is not available.');
-        }
-
-        $blackList = [];
-        foreach (glob(__DIR__ . '/_files/phpcpd/blacklist/*.txt') as $list) {
-            $blackList = array_merge($blackList, file($list, FILE_IGNORE_NEW_LINES));
-        }
-
-        $copyPasteDetector->setBlackList($blackList);
-
-        $this->assertTrue(
-            $copyPasteDetector->run([BP]),
-            "PHP Copy/Paste Detector has found error(s): See detailed report in {$reportFile}"
-        );
     }
 
     public function testDeadCode()
