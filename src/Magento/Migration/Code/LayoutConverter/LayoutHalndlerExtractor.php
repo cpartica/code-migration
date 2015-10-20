@@ -81,7 +81,11 @@ class LayoutHalndlerExtractor
                         \Magento\Migration\Mapping\ViewMapping::ADMINHTML : \Magento\Migration\Mapping\ViewMapping::FRONTEND;
                     //look for a mapping of this layout to M2
                     if ($newName = $this->viewMapping->mapLayoutHandler($name, $type)) {
-                        $name = $newName;
+                        if ($newName != 'obsolete') {
+                            $name = $newName;
+                        } else {
+                            $name = $name . "_OBSOLETE";
+                        }
                     }
                     $fileName = dirname($this->layoutHandlerFile) . '/' . $name . '.xml';
                     $handlers[$fileName] = $layoutHandlerNode->asNiceXml();

@@ -168,12 +168,16 @@ class GenerateViewMapping extends Command
                 //some adminhtml prefixes were removed
                 if ($area == 'adminhtml') {
                     $layoutHandlerReplacement = $this->replaceAdminhtmlPrefix($layoutHandler);
+                    $this->matchProductType($layoutHandlerReplacement);
+                    $this->matchInvitations($layoutHandlerReplacement);
                     $this->matchWordinBetween($layoutHandlerReplacement);
                     $this->matchOneWordAsPrefix($layoutHandlerReplacement);
                     $this->matchTwoWordsAsPrefix($layoutHandlerReplacement);
                 } else {
+                    $this->matchProductType($layoutHandler);
                     $this->processEnterprisePrefix($layoutHandler);
                     $this->processPagePrefix($layoutHandler);
+                    $this->switchFirstTwoWords($layoutHandler);
                 }
 
                 $mappingM1[$layoutHandler] =
@@ -231,11 +235,15 @@ class GenerateViewMapping extends Command
     {
         $search = array_merge(
             glob($m2BaseDir . '/app/code/*/*/view/' . $area . '/layout/*.xml'),
-            glob($m2BaseDir . '/app/code/*/*/view/base/layout/*.xml')
+            glob($m2BaseDir . '/app/code/*/*/view/' . $area . '/layout/*/*.xml'),
+            glob($m2BaseDir . '/app/code/*/*/view/' . $area . '/layout/*/*/*.xml'),
+            glob($m2BaseDir . '/app/code/*/*/view/base/layout/*.xml'),
+            glob($m2BaseDir . '/app/code/*/*/view/base/layout/*/*.xml'),
+            glob($m2BaseDir . '/app/code/*/*/view/base/layout/*/*/*.xml')
         );
         $m2LayoutHandles = '';
         foreach ($search as $fileName) {
-            $m2LayoutHandles .= ' ' . preg_replace('/\.xml$/', '', basename($fileName)) . ' ';
+            $m2LayoutHandles .= ' ' . preg_replace('/\.xml$/is', '', basename($fileName)) . ' ';
         }
         $this->m2LayoutHandles = $m2LayoutHandles;
         return $m2LayoutHandles;
@@ -275,8 +283,10 @@ class GenerateViewMapping extends Command
      */
     private function processEnterprisePrefix($layoutHandler)
     {
-        if (preg_match('/^enterprise\_/', $layoutHandler)) {
-            $layoutHandlerReplacement = preg_replace('/^enterprise_/', 'magento_', $layoutHandler);
+        if (preg_match('/^enterprise\_/is', $layoutHandler)) {
+            $layoutHandlerReplacement = preg_replace('/^enterprise_/is', 'magento_', $layoutHandler);
+            $this->isInM2Layout($layoutHandlerReplacement);
+            $this->switchFirstTwoWords($layoutHandlerReplacement);
             $layoutHandlerReplacement = $this->regexPlural($layoutHandlerReplacement);
             $this->isInM2Layout($layoutHandlerReplacement);
         }
@@ -298,10 +308,48 @@ class GenerateViewMapping extends Command
      */
     private function replaceAdminhtmlPrefix($layoutHandler)
     {
-        $layoutHandlerReplacement = preg_replace('/^adminhtml\_/', '', $layoutHandler);
+        $layoutHandlerReplacement = preg_replace('/^adminhtml\_/is', '', $layoutHandler);
         $this->isInM2Layout($layoutHandlerReplacement);
         return $layoutHandlerReplacement;
 
+    }
+
+
+    /**
+     * @param string $layoutHandler
+     * @return void
+     */
+    private function matchProductType($layoutHandler)
+    {
+        if (preg_match('/product_type/is',$layoutHandler )) {
+            //replace product_type with product_view_type to match hanlders like catalog_product_view_type_bundle
+            $this->isInM2Layout(str_replace('product_type', 'catalog_product_view_type', strtolower($layoutHandler)));
+        }
+    }
+
+    /**
+     * @param string $layoutHandler
+     * @return void
+     */
+    private function matchInvitations($layoutHandler)
+    {
+        if (preg_match('/invitation_/is',$layoutHandler )) {
+            //replace adminhtml_invitation_index to match hanlders like invitations_index_index
+            $this->isInM2Layout(str_replace('invitation_', 'invitations_index_', strtolower($layoutHandler)));
+        }
+    }
+
+
+    /**
+     * @param string $layoutHandler
+     * @return void
+     */
+    private function switchFirstTwoWords($layoutHandler)
+    {
+        if (preg_match('/^([^\_]+)\_([^\_]+)\_(.+)$/', $layoutHandler, $match)) {
+            //switch the first 2 words
+            $this->isInM2Layout(preg_replace('/^([^\_]+)\_([^\_]+)\_(.+)$/', '$2_$1_$3', $layoutHandler));
+        }
     }
 
     /**

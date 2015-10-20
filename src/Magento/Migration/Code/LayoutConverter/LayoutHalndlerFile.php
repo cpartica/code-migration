@@ -81,9 +81,8 @@ class LayoutHalndlerFile
     {
         if ($this->handlerFileName) {
             $this->xml = "<?xml version=\"1.0\"?>\n<layout>\n" . $this->xml . '</layout>';
-            $this->file->filePutContents($this->handlerFileName, $this->xml);
             $this->xml = $this->formatFileHandler($this->xml);
-            return $this->file->filePutContents($this->handlerFileName.".converted", $this->xml);
+            return $this->file->filePutContents($this->handlerFileName, $this->xml);
         }
     }
 
@@ -104,14 +103,10 @@ class LayoutHalndlerFile
             $xslt = new \XSLTProcessor();
             $xslt->registerPHPFunctions();
             $xslt->importStylesheet($stylesheet);
-            $b=$doc->saveXML();
             $doc->loadXML($xslt->transformToXml($doc));
         }
 
-
-
         return  $formatter->format($doc->saveXML());
-        //return $doc->saveXML();
     }
 
 }
