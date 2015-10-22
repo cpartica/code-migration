@@ -34,28 +34,20 @@ class LayoutHalndlerFile
     /**
      * @var string
      */
-    protected $m1Path;
-
-    /**
-     * @var string
-     */
     protected $xml;
 
     /**
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param string $handlerFileName
      * @param string $xml
-     * @param string|null $m1Path
      */
     public function __construct(
         \Magento\Framework\Filesystem\Driver\File $file,
         $handlerFileName,
-        $xml,
-        $m1Path = null
+        $xml
     ) {
         $this->file = $file;
         $this->handlerFileName = $handlerFileName;
-        $this->m1Path = $m1Path;
         $this->xml = $xml;
         $this->parseModuleNameSpace();
     }
@@ -98,6 +90,7 @@ class LayoutHalndlerFile
         $formatter = new \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter();
 
         $files = glob(__DIR__ . '/XmlProcessors/_files/*.xsl');
+
         foreach ($files as $file) {
             $stylesheet->load($file);
             $xslt = new \XSLTProcessor();
@@ -108,5 +101,4 @@ class LayoutHalndlerFile
 
         return  $formatter->format($doc->saveXML());
     }
-
 }

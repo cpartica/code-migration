@@ -78,7 +78,8 @@ class LayoutHalndlerExtractor
                     /** @var \Magento\Framework\Simplexml\Element $layoutHandlerNode */
                     $name = strtolower($layoutHandlerNode->getName());
                     $type= preg_match('/adminhtml/is', $this->layoutHandlerFile) ?
-                        \Magento\Migration\Mapping\ViewMapping::ADMINHTML : \Magento\Migration\Mapping\ViewMapping::FRONTEND;
+                        \Magento\Migration\Mapping\ViewMapping::ADMINHTML :
+                        \Magento\Migration\Mapping\ViewMapping::FRONTEND;
                     //look for a mapping of this layout to M2
                     if ($newName = $this->viewMapping->mapLayoutHandler($name, $type)) {
                         if ($newName != 'obsolete') {

@@ -14,13 +14,12 @@ class LayoutConverter
     /**
      * @var string
      */
-    protected $m2Path;
+    protected $inputPath;
 
     /**
      * @var string
      */
-    protected $m1Path;
-
+    protected $outputPath;
 
     /**
      * @var \Magento\Migration\Logger\Logger
@@ -42,19 +41,18 @@ class LayoutConverter
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param \Magento\Migration\Code\LayoutConverter\LayoutHalndlerExtractorFactory $layoutHalndlerExtractorFactory
      * @param \Magento\Migration\Code\LayoutConverter\LayoutHalndlerFileFactory $layoutHalndlerFileFactory
-     * @param string $m2Path
-     * @param string|null $m1Path
+     * @param string $inputPath
      */
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Framework\Filesystem\Driver\File $file,
         \Magento\Migration\Code\LayoutConverter\LayoutHalndlerExtractorFactory $layoutHalndlerExtractorFactory,
         \Magento\Migration\Code\LayoutConverter\LayoutHalndlerFileFactory $layoutHalndlerFileFactory,
-        $m2Path,
-        $m1Path = null
+        $inputPath,
+        $outputPath
     ) {
-        $this->m2Path = $m2Path;
-        $this->m1Path = $m1Path;
+        $this->inputPath = $inputPath;
+        $this->outputPath = $outputPath;
         $this->file = $file;
         $this->logger = $logger;
         $this->layoutHalndlerExtractorFactory = $layoutHalndlerExtractorFactory;
@@ -66,7 +64,11 @@ class LayoutConverter
      */
     public function processLayoutHandlers($file)
     {
-        $extractor = $this->layoutHalndlerExtractorFactory->create(['layoutHandlerFile' => $file]);
+        $extractor = $this->layoutHalndlerExtractorFactory->create(
+            [
+                'layoutHandlerFile' => $file,
+            ]
+        );
         $cnt = 0;
         $handlers = $extractor->getLayoutHandlers();
         if (is_array($handlers)) {
@@ -74,8 +76,7 @@ class LayoutConverter
                 $fileHandler = $this->layoutHalndlerFileFactory->create(
                     [
                         'handlerFileName' => $handlerFileName,
-                        'xml' => $xml,
-                        'm1Path' => $this->m1Path,
+                        'xml' => $xml
                     ]
                 );
                 if ($fileHandler->createFileHandler()) {

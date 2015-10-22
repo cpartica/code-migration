@@ -20,11 +20,11 @@
         </xsl:copy>
     </xsl:template>
 
-    <!-- replace blocks with containers that contain some classes -->
-    <xsl:template match="block[@class='core/text_list' or @class='page/html_wrapper' or @class='Mage_Core_Block_Text_List' or @class='Mage_Page_Block_Html_Wrapper']">
-        <xsl:element name="container">
-            <xsl:apply-templates select="node()|@*[name()!='core/text_list' and name()!='page/html_wrapper' and name()!='Mage_Core_Block_Text_List' and name()!='Mage_Page_Block_Html_Wrapper']"/>
-        </xsl:element>
+    <!-- remove the class in the container -->
+    <xsl:template match="container[@class]">
+        <xsl:copy>
+            <xsl:apply-templates select="node()|@*[name()!='class']"/>
+        </xsl:copy>
     </xsl:template>
 
 </xsl:stylesheet>
