@@ -29,23 +29,45 @@ class ConvertLayout extends Command
     protected $logger;
 
     /**
+     * @var \Magento\Migration\Mapping\AliasFactory
+     */
+    protected $aliasFactory;
+
+    /**
+     * @var \Magento\Migration\Mapping\ClassMappingFactory
+     */
+    protected $classMappingFactory;
+
+    /**
+     * @var \Magento\Migration\Mapping\Context
+     */
+    protected $context;
+
+
+    /**
+     * @param \Magento\Migration\Logger\Logger $logger
+     * @param \Magento\Migration\Mapping\Context $context
      * @param \Magento\Migration\Code\LayoutConverterFactory $layoutConverterFactory
      * @param \Magento\Migration\Utility\M1\FileFactory $fileFactory
-     * @param \Magento\Migration\Logger\Logger $logger
+     * @param \Magento\Migration\Mapping\AliasFactory $aliasFactory
+     * @param \Magento\Migration\Mapping\ClassMappingFactory $classMappingFactory
+
      * @param string|null $name The name of the command; passing null means it must be set in configure()
      */
     public function __construct(
+        \Magento\Migration\Logger\Logger $logger,
+        \Magento\Migration\Mapping\Context $context,
         \Magento\Migration\Code\LayoutConverterFactory $layoutConverterFactory,
         \Magento\Migration\Utility\M1\FileFactory $fileFactory,
-        \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Mapping\AliasFactory $aliasFactory,
-        \Magento\Migration\Mapping\Context $context,
+        \Magento\Migration\Mapping\ClassMappingFactory $classMappingFactory,
         $name = null
     ) {
         $this->layoutConverterFactory = $layoutConverterFactory;
         $this->fileFactory = $fileFactory;
         $this->logger = $logger;
         $this->aliasFactory = $aliasFactory;
+        $this->classMappingFactory = $classMappingFactory;
         $this->context = $context;
         parent::__construct($name);
     }
@@ -58,24 +80,27 @@ class ConvertLayout extends Command
                 'inputPath',
                 InputArgument::REQUIRED,
                 'Input directory of M2 module(s) already migrated with the structure migration tool'
-            )
-            ->addArgument(
-                'outputPath',
-                InputArgument::REQUIRED,
-                'Output directory for the M2 converted layout files (can be the same value as the first parameter)'
             );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $m1StructureConverted = $input->getArgument('inputPath');
-        $moduleOutputDirectory = $input->getArgument('outputPath');
-
-        $this->context->setm1StructureConvertedDir($m1StructureConverted);
-        $alias = $this->aliasFactory->create(['context' => $this->context]);
-        $this->createAliasXMLFromJsonMapping($alias);
 
         //TODO: check if the output folder is already migrated
+
+        $this->context->setm1StructureConvertedDir($m1StructureConverted);
+
+        $alias = $this->aliasFactory->create(['context' => $this->context]);
+        $classMapping = $this->classMappingFactory->create();
+        
+        $this->createAliasXMLFromJsonMapping($alias);
+        $this->createClassMappingXMLFromJson($classMapping);
 
         if ($m1StructureConverted) {
             if (!is_dir($m1StructureConverted)) {
@@ -84,34 +109,30 @@ class ConvertLayout extends Command
             }
         }
 
-        if (!is_dir($moduleOutputDirectory)) {
-            $this->logger->error('outputPath path doesn\'t exist');
-            exit;
-        }
+        $layoutMigration = $this->layoutConverterFactory->create();
 
-        $layoutMigration = $this->layoutConverterFactory->create(
-            ['inputPath' => $m1StructureConverted, 'outputPath' => $moduleOutputDirectory]
-        );
+        $this->logger->info('Starting layout xml converter for '.$m1StructureConverted, []);
 
-        $this->logger->info('Starting layout xml converter', []);
-
-        $files = $this->getLayoutFiles($moduleOutputDirectory);
+        $files = $this->getLayoutFiles($m1StructureConverted);
         $cnt=0;
         foreach ($files as $file) {
-            $layoutMigration->processLayoutHandlers($file);
-            $cnt++;
+            if ($layoutMigration->processLayoutHandlers($file)) {
+                $cnt++;
+            }
         }
         if ($cnt == 0) {
-            $this->logger->warn($cnt . ' layouts were converted', []);
+            $this->logger->warn($cnt . ' layout files were converted', []);
         }
 
-        //$this->deleteTemporaryXMLFromJsonMapping();
+        $this->deleteTemporaryXMLFromJsonMapping();
         $this->logger->info('Ending layout xml converter', []);
 
     }
 
     protected function getLayoutFiles($path)
     {
+        //input expects the same structure as module structure conversion wrote the files in
+        //eg: app/code/*vendor*/*module*
         $m1FileUtil = $this->fileFactory->create(['basePath' => $path]);
         if (file_exists($path . '/app/code')) {
             $files = $m1FileUtil->getFiles([$path . '/app/code'], '*/*/view/*/layout/*.xml', true);
@@ -129,11 +150,25 @@ class ConvertLayout extends Command
 
     /**
      * needed for the xslt external loading of xml vars
+     * @param \Magento\Migration\Mapping\Alias $alias
      */
     protected function createAliasXMLFromJsonMapping($alias)
     {
         $file = __DIR__ . '/../../../../mapping/aliases.json';
         $xml = $this->jsonToXML($alias->getAllMapping());
+        $xmlFile = preg_replace('"\.json"', '.xml', $file);
+        file_put_contents($xmlFile, $xml);
+    }
+
+
+    /**
+     * needed for the xslt external loading of xml vars
+     * @param \Magento\Migration\Mapping\ClassMapping $classMapping
+     */
+    protected function createClassMappingXMLFromJson($classMapping)
+    {
+        $file = __DIR__ . '/../../../../mapping/class_mapping_manual.json';
+        $xml = $this->jsonToXML($classMapping->getAllClassMapping());
         $xmlFile = preg_replace('"\.json"', '.xml', $file);
         file_put_contents($xmlFile, $xml);
     }
@@ -149,11 +184,14 @@ class ConvertLayout extends Command
         }
     }
 
-
+    /**
+     * @param mixed[] $data
+     * @return bool|string
+     */
     protected function jsonToXML($data)
     {
         // An array of serializer options
-        $serializer_options = [
+        $serializerOptions = [
             'addDecl' => true,
             'encoding' => 'UTF-8',
             'indent' => '  ',
@@ -161,9 +199,8 @@ class ConvertLayout extends Command
             'mode' => 'simplexml'
         ];
 
-        $serializer = new \XML_Serializer($serializer_options);
+        $serializer = new \XML_Serializer($serializerOptions);
         if ($serializer->serialize($data)) {
-
             return $serializer->getSerializedData();
         } else {
             return false;

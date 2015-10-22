@@ -28,6 +28,11 @@
 
     <xsl:template match="reference">
         <xsl:choose>
+            <xsl:when test="@name='head' or @name='footer' or @name='content' or @name='js' or @name='left' or @name='top.container'">
+                <xsl:element name="referenceContainer">
+                    <xsl:apply-templates select="node()|@*"/>
+                </xsl:element>
+            </xsl:when>
             <xsl:when test="@name=$conflictNames/@value">
                 <xsl:copy>
                     <xsl:apply-templates select="node()|@*"/>

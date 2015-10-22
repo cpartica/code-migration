@@ -18,6 +18,9 @@ class ClassMapping
      */
     protected $logger;
 
+    /**
+     * @param \Magento\Migration\Logger\Logger $logger
+     */
     public function __construct(\Magento\Migration\Logger\Logger $logger)
     {
         $this->logger = $logger;
@@ -70,5 +73,15 @@ class ClassMapping
             }
             return null;
         }
+    }
+
+    /**
+     * get all class mapping array
+     *
+     * @return mixed[]
+     */
+    public function getAllClassMapping()
+    {
+        return $this->mapping;
     }
 }

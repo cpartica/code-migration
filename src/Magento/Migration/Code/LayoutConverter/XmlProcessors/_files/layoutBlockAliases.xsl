@@ -93,22 +93,27 @@
 
     <xsl:template match="block[@class]|container[@class]">
         <xsl:copy>
-            <xsl:attribute name="class">
-                <xsl:variable name="moduleName" select="substring-before(node()|@*[name()='class'],'/')"/>
-                <xsl:variable name="blockClass" select="substring-after(node()|@*[name()='class'],'/')"/>
+            <xsl:variable name="moduleName" select="substring-before(node()|@*[name()='class'],'/')"/>
+            <xsl:variable name="blockClass" select="substring-after(node()|@*[name()='class'],'/')"/>
+            <xsl:variable name="blockClassCamel">
+                <xsl:call-template name="cap-words">
+                    <xsl:with-param name="delimiters" select="translate($blockClass, $alnum, '')"/>
+                    <xsl:with-param name="s" select="$blockClass"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:variable name="aliasNodePrefix" select="$aliasesDoc/json/block/*[name()=$moduleName]"/>
 
-                <xsl:variable name="blockClassCamel">
-                    <xsl:call-template name="cap-words">
-                        <xsl:with-param name="delimiters" select="translate($blockClass, $alnum, '')"/>
-                        <xsl:with-param name="s" select="$blockClass"/>
-                    </xsl:call-template>
-                </xsl:variable>
-
-                <xsl:variable name="aliasNodePrefix" select="$aliasesDoc/json/block/*[name()=$moduleName]"/>
-
-                <xsl:value-of select="concat($aliasNodePrefix, '_', substring($blockClassCamel, 1, string-length($blockClassCamel) - 1))"/>
-            </xsl:attribute>
-            <xsl:apply-templates select="node()|@*[name()!='class']"/>
+            <xsl:choose>
+                <xsl:when test="string-length($aliasNodePrefix)>0">
+                    <xsl:attribute name="class">
+                        <xsl:value-of select="concat($aliasNodePrefix, '_', substring($blockClassCamel, 1, string-length($blockClassCamel) - 1))"/>
+                    </xsl:attribute>
+                    <xsl:apply-templates select="node()|@*[name()!='class']"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="node()|@*"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:copy>
     </xsl:template>
 

@@ -12,16 +12,6 @@ use Magento\Framework\ObjectManagerInterface;
 class LayoutConverter
 {
     /**
-     * @var string
-     */
-    protected $inputPath;
-
-    /**
-     * @var string
-     */
-    protected $outputPath;
-
-    /**
      * @var \Magento\Migration\Logger\Logger
      */
     protected $logger;
@@ -41,18 +31,13 @@ class LayoutConverter
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param \Magento\Migration\Code\LayoutConverter\LayoutHalndlerExtractorFactory $layoutHalndlerExtractorFactory
      * @param \Magento\Migration\Code\LayoutConverter\LayoutHalndlerFileFactory $layoutHalndlerFileFactory
-     * @param string $inputPath
      */
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Framework\Filesystem\Driver\File $file,
         \Magento\Migration\Code\LayoutConverter\LayoutHalndlerExtractorFactory $layoutHalndlerExtractorFactory,
-        \Magento\Migration\Code\LayoutConverter\LayoutHalndlerFileFactory $layoutHalndlerFileFactory,
-        $inputPath,
-        $outputPath
+        \Magento\Migration\Code\LayoutConverter\LayoutHalndlerFileFactory $layoutHalndlerFileFactory
     ) {
-        $this->inputPath = $inputPath;
-        $this->outputPath = $outputPath;
         $this->file = $file;
         $this->logger = $logger;
         $this->layoutHalndlerExtractorFactory = $layoutHalndlerExtractorFactory;
@@ -61,6 +46,7 @@ class LayoutConverter
 
     /**
      * @param string $file
+     * @return false|int
      */
     public function processLayoutHandlers($file)
     {
@@ -86,10 +72,12 @@ class LayoutConverter
                 }
                 $cnt++;
             }
-            if ($cnt) {
+            if ($cnt>0) {
                 $this->deleteM1LayoutFile($file);
+                return $cnt;
             } else {
                 $this->logger->warn('Ignoring M1 layout file due to lack of contents ' . $file);
+                return false;
             }
         }
     }
