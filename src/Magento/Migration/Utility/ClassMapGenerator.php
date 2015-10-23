@@ -92,6 +92,48 @@ class ClassMapGenerator
     }
 
     /**
+     * @param string $className
+     * @return string
+     */
+    public function mapM1Class($className)
+    {
+        if ($this->obsoleteClassMap === null) {
+            $this->obsoleteClassMap = [];
+            $this->unmapped = [];
+            $this->populateList($this->obsoleteClassMap);
+        }
+
+        if (isset($this->obsoleteClassMap[$className])) {
+            return '\\' . $this->obsoleteClassMap[$className];
+        }
+
+        $parts = explode('_', $className);
+
+        $moduleName = implode('_', [$parts[0], $parts[1]]);
+        $mappedModuleName = $this->moduleMapper->mapModule($moduleName);
+        if ($mappedModuleName) {
+            $mappedParts = explode('_', $mappedModuleName);
+            $parts[0] = $mappedParts[0];
+            $parts[1] = $mappedParts[1];
+
+            //before mapping adminhtml blocks, check the obsolete class map first
+            $m2ClassName = implode('\\', $parts);
+            if (isset($this->obsoleteClassMap[$m2ClassName])) {
+                return '\\' . $this->obsoleteClassMap[$m2ClassName];
+            }
+            if (count($parts) > 3 && $parts[0] == 'Magento' && $parts[1] == 'Backend') {
+                $parts = $this->mapAdminhtml($parts);
+            }
+            if (count($parts) > 4 && $parts[0] == 'Magento' && $parts[2] == 'Model' && $parts[3] == 'Resource') {
+                $parts[3] = 'ResourceModel';
+            }
+        }
+
+        $m2ClassName = implode('\\', $parts);
+        return '\\' . $m2ClassName;
+    }
+
+    /**
      * @param array $parts
      * @return array
      */

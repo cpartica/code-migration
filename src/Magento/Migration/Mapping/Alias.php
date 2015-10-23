@@ -67,49 +67,76 @@ class Alias
     {
         if (empty($this->mapping)) {
             if ($this->context->getM1BaseDir()) {
-                //generate mapping based on magento configuration
-                $configFiles = glob($this->context->getM1BaseDir() . '/app/code/*/*/*/etc/config.xml');
-
-                $aliases = [
-                    'helper' => [],
-                    'block' => [],
-                    'model' => [],
-                ];
-                $types = array_keys($aliases);
-                foreach ($configFiles as $configFile) {
-                    $configFileContent = file_get_contents($configFile);
-                    $config = new \Magento\Migration\Utility\M1\Config($configFileContent);
-                    foreach ($types as $type) {
-                        $aliasesForType = $config->getAliases($type . 's');
-                        $aliases[$type] = array_merge($aliases[$type], $aliasesForType);
-
-                    }
-                }
-
-                //add default
-                $coreModules = glob($this->context->getM1BaseDir() . '/app/code/core/Mage/*');
-                foreach ($coreModules as $coreModulePath) {
-                    $defaultAlias = lcfirst(basename($coreModulePath));
-                    foreach ($types as $type) {
-                        if (!isset($aliases[$type][$defaultAlias])) {
-                            $alias = 'mage ' . $defaultAlias . ' ' . $type;
-                            $alias = str_replace(' ', '_', ucwords($alias));
-                            $aliases[$type][$defaultAlias] = $alias;
-                        }
-                    }
-                }
-                $this->mapping = array_merge_recursive($this->mapping, $aliases);
+                $this->processMappingFromM1Path();
+            } elseif ($this->context->getm1StructureConvertedDir()) {
+                $this->processMappingFromJson();
+                $this->processMappingFromM1PathConverted();
             } else {
-                //use included mapping for magento core module
-                $path = BP . '/mapping/aliases*.json';
-                $mappingFiles = glob($path);
-                foreach ($mappingFiles as $mappingFile) {
-                    $content = file_get_contents($mappingFile);
-                    $mapping = json_decode($content, true);
-                    $this->mapping = array_merge_recursive($this->mapping, $mapping);
-                }
+                $this->processMappingFromJson();
             }
         }
         return $this->mapping;
     }
+
+    private function processMappingFromM1PathConverted()
+    {
+        //generate mapping based on magento configuration
+        $aliases = $this->getAliasesFromFiles(
+            glob($this->context->getm1StructureConvertedDir() . '/app/code/*/*/etc/config.xml')
+        );
+        $this->mapping = array_merge_recursive($this->mapping, $aliases);
+    }
+
+    private function processMappingFromM1Path()
+    {
+        //generate mapping based on magento configuration
+        $aliases = $this->getAliasesFromFiles(glob($this->context->getM1BaseDir() . '/app/code/*/*/*/etc/config.xml'));
+
+        //add default
+        $types = array_keys($aliases);
+        $coreModules = glob($this->context->getM1BaseDir() . '/app/code/core/Mage/*');
+        foreach ($coreModules as $coreModulePath) {
+            $defaultAlias = lcfirst(basename($coreModulePath));
+            foreach ($types as $type) {
+                if (!isset($aliases[$type][$defaultAlias])) {
+                    $alias = 'mage ' . $defaultAlias . ' ' . $type;
+                    $alias = str_replace(' ', '_', ucwords($alias));
+                    $aliases[$type][$defaultAlias] = $alias;
+                }
+            }
+        }
+        $this->mapping = array_merge_recursive($this->mapping, $aliases);
+    }
+
+    private function processMappingFromJson()
+    {
+        //use included mapping for magento core module
+        $path = BP . '/mapping/aliases*.json';
+        $mappingFiles = glob($path);
+        foreach ($mappingFiles as $mappingFile) {
+            $content = file_get_contents($mappingFile);
+            $mapping = json_decode($content, true);
+            $this->mapping = array_merge_recursive($this->mapping, $mapping);
+        }
+    }
+
+    private function getAliasesFromFiles($configFiles)
+    {
+        $aliases = [
+            'helper' => [],
+            'block' => [],
+            'model' => [],
+        ];
+        $types = array_keys($aliases);
+        foreach ($configFiles as $configFile) {
+            $configFileContent = file_get_contents($configFile);
+            $config = new \Magento\Migration\Utility\M1\Config($configFileContent);
+            foreach ($types as $type) {
+                $aliasesForType = $config->getAliases($type . 's');
+                $aliases[$type] = array_merge($aliases[$type], $aliasesForType);
+            }
+        }
+        return $aliases;
+    }
+
 }

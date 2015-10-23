@@ -74,4 +74,14 @@ class ClassMapping
             return null;
         }
     }
+
+    /**
+     * get all class mapping array
+     *
+     * @return mixed[]
+     */
+    public function getAllClassMapping()
+    {
+        return $this->mapping;
+    }
 }

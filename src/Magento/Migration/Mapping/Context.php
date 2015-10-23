@@ -19,6 +19,11 @@ class Context
     protected $m2BaseDir;
 
     /**
+     * @var string
+     */
+    protected $m1StructureConvertedDir;
+
+    /**
      * @return string
      */
     public function getM1BaseDir()
@@ -51,6 +56,24 @@ class Context
     public function setM2BaseDir($m2BaseDir)
     {
         $this->m2BaseDir = $m2BaseDir;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getm1StructureConvertedDir()
+    {
+        return $this->m1StructureConvertedDir;
+    }
+
+    /**
+     * @param $m1StructureConvertedDir
+     * @return $this
+     */
+    public function setm1StructureConvertedDir($m1StructureConvertedDir)
+    {
+        $this->m1StructureConvertedDir = $m1StructureConvertedDir;
         return $this;
     }
 }
