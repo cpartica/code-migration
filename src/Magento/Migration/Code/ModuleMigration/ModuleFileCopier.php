@@ -232,6 +232,23 @@ class ModuleFileCopier
                             }
                         }
                         break;
+                    case 'Controller':
+                        if (preg_match(
+                            '/' . $this->moduleNamespace . '\/' . $this->moduleName . '\/' .
+                            'controllers' . '\/(.+)$/is',
+                            $file,
+                            $match
+                        )) {
+                            if (count($match) == 2) {
+                                $fileToCopy = $this->outputFolder . '/app/code/' . $this->moduleNamespace . '/' .
+                                    $this->moduleName . '/' . $contentFolder . '/' . $match[1];
+                                if (!$this->file->isExists($this->file->getParentDirectory($fileToCopy))) {
+                                    $this->mkpath($this->file->getParentDirectory($fileToCopy));
+                                }
+                                $this->file->copy($file, $fileToCopy);
+                            }
+                        }
+                        break;
                     default:
                         if (preg_match(
                             '/' . $this->moduleNamespace . '\/' . $this->moduleName . '\/' .
