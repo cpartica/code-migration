@@ -27,7 +27,7 @@ PREREQUISITES
 You do not need to install a web server to run the code migration toolkit. 
 
 INSTALLATION
-Install Composer in your migration toolkit root directory.  This installs the toolkit’s dependency packages,  including the Magento 2.x Framework, which forms the basis of this toolkit.
+Run composer install in your migration toolkit root directory.  This installs the toolkit’s dependency packages,  including the Magento 2.x Framework, which forms the basis of this toolkit.
 
 
 OVERVIEW OF MODULE MIGRATION PROCESS
