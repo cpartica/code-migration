@@ -25,21 +25,12 @@ class ClassMapping
     {
         $this->logger = $logger;
 
-        $mappingFile = BP . '/mapping/class_mapping.json';
-        $content = file_get_contents($mappingFile);
-        if ($content) {
-            $this->mapping = json_decode($content, true);
-        } else {
-            $this->logger->warn("Could not open class mapping file: " . $mappingFile);
-        }
-
-        $mappingFile = BP . '/mapping/class_mapping_manual.json';
-        $content = file_get_contents($mappingFile);
-        if ($content) {
-            $mapping = json_decode($content, true);
-            $this->mapping = array_merge($this->mapping, $mapping);
-        } else {
-            $this->logger->warn("Could not open manual class mapping file: " . $mappingFile);
+        $this->mapping = [];
+        $mappingFiles = glob(BP . '/mapping/class_mapping*.json');
+        foreach ($mappingFiles as $mappingFile) {
+            $content = file_get_contents($mappingFile);
+            $classMappings = json_decode($content, true);
+            $this->mapping = array_merge($this->mapping, $classMappings);
         }
     }
 
