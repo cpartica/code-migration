@@ -208,20 +208,31 @@ class ModuleFileExtractor
                 /** @var Config $xmlConfig */
                 $xmlConfig = $this->configFactory->create();
                 $xmlConfig->loadFile($xmlfile);
-                $elements = $xmlConfig->getXpath('/layout//block[contains(@template,\'.phtml\')]');
-                if ($elements) {
-                    foreach ($elements as $element) {
-                        $attrs = $element->attributes();
+                $elementsBlocks = $xmlConfig->getXpath('/layout//block[contains(@template,\'.phtml\')]');
+                if (!$elementsBlocks) {
+                    $elementsBlocks = [];
+                }
+                $elementsTemplates = $xmlConfig->getXpath(
+                    '/layout//action[@method =\'setTemplate\']/template[contains(text(),\'.\')]'
+                );
+                if (!$elementsTemplates) {
+                    $elementsTemplates = [];
+                }
+                foreach (array_merge($elementsBlocks, $elementsTemplates) as $element) {
+                    $attrs = $element->attributes();
+                    if (preg_match('/.+\.phtml/', (string)$element)) {
+                        $template = (string)$element;
+                    } elseif (preg_match('/.+\.phtml/', (string)$attrs['template'])) {
                         $template = (string)$attrs['template'];
-                        $phtmlFiles[$template] = $template;
+                    }
+                    $phtmlFiles[$template] = $template;
 
-                        //guess the module's frontend folder where all phtml are (some might not be defined in the XML)
-                        if (preg_match('/^([^\/]+)/', $template, $match)) {
-                            if (!array_key_exists($match[1], $voteArray)) {
-                                $voteArray[$match[1]] = 1;
-                            } else {
-                                $voteArray[$match[1]] = $voteArray[$match[1]] + 1;
-                            }
+                    //guess the module's frontend folder where all phtml are (some might not be defined in the XML)
+                    if (preg_match('/^([^\/]+)/', $template, $match)) {
+                        if (!array_key_exists($match[1], $voteArray)) {
+                            $voteArray[$match[1]] = 1;
+                        } else {
+                            $voteArray[$match[1]] = $voteArray[$match[1]] + 1;
                         }
                     }
                 }
