@@ -14,6 +14,10 @@ class ModuleMigration
     /**
      * @var string
      */
+    protected $m1Path;
+    /**
+     * @var string
+     */
     protected $m2Path;
 
     /**
@@ -32,21 +36,32 @@ class ModuleMigration
     protected $moduleFileCopierFactory;
 
     /**
+     * @var \Magento\Migration\Utility\M1\ModuleEnablerConfigFactory
+     */
+    protected $moduleEnablerConfigFactory;
+
+    /**
      * @param \Magento\Migration\Logger\Logger $logger
      * @param \Magento\Migration\Code\ModuleMigration\ModuleFileExtractorFactory $moduleFileExtractorFactory
      * @param \Magento\Migration\Code\ModuleMigration\ModuleFileCopierFactory $moduleFileCopierFactory
+     * @param \Magento\Migration\Utility\M1\ModuleEnablerConfigFactory $moduleEnablerConfigFactory
+     * @param string $m1Path
      * @param string $m2Path
      */
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Code\ModuleMigration\ModuleFileExtractorFactory $moduleFileExtractorFactory,
         \Magento\Migration\Code\ModuleMigration\ModuleFileCopierFactory $moduleFileCopierFactory,
+        \Magento\Migration\Utility\M1\ModuleEnablerConfigFactory $moduleEnablerConfigFactory,
+        $m1Path,
         $m2Path
     ) {
         $this->m2Path = $m2Path;
+        $this->m1Path = $m1Path;
         $this->logger = $logger;
         $this->moduleFileExtractorFactory = $moduleFileExtractorFactory;
         $this->moduleFileCopierFactory = $moduleFileCopierFactory;
+        $this->moduleEnablerConfigFactory = $moduleEnablerConfigFactory;
     }
 
     /**
@@ -58,36 +73,46 @@ class ModuleMigration
     {
         $this->logger->info('Processing M1 codepool', ['stage' => 'M1', 'codePool' => $codePool]);
         if (is_array($namespaces)) {
+            $moduleEnablerConfig = $this->moduleEnablerConfigFactory->create(['basePath' => $this->m1Path]);
+
             foreach ($namespaces as $modules) {
                 if (is_array($namespaces)) {
                     foreach ($modules as $moduleConf) {
                         $extractor = $this->moduleFileExtractorFactory->create(['configFile' => $moduleConf]);
                         $moduleName = $extractor->getModuleName();
-                        $this->logger->info('Processing Module', ['module' => $moduleName, 'pool' => $codePool]);
+                        if ($moduleEnablerConfig->isModuleEnabled($moduleName, $codePool)) {
+                            $this->logger->info('Processing Module', ['module' => $moduleName, 'pool' => $codePool]);
 
-                        $moduleFiles = $this->mergeModuleFolders($extractor, $codePool);
+                            $moduleFiles = $this->mergeModuleFolders($extractor, $codePool);
 
-                        $this->logger->debug(
-                            'Processing Files',
-                            ['module' => $moduleName, 'pool' => $codePool, 'file' => print_r($moduleFiles, true)]
-                        );
+                            $this->logger->debug(
+                                'Processing Files',
+                                ['module' => $moduleName, 'pool' => $codePool, 'file' => print_r($moduleFiles, true)]
+                            );
 
-                        $this->logger->info(
-                            'Converting {cnt} files found in module',
-                            ['stage' => 'M2', 'module' => $moduleName, 'cnt' => $this->countFilesInModule($moduleFiles)]
-                        );
+                            $this->logger->info(
+                                'Converting {cnt} files found in module',
+                                [
+                                    'stage' => 'M2',
+                                    'module' => $moduleName,
+                                    'cnt' => $this->countFilesInModule($moduleFiles)
+                                ]
+                            );
 
-                        //copy all in M2 module format
-                        $copier = $this->moduleFileCopierFactory->create(
-                            [
-                                'outputFolder' => $this->m2Path,
-                                'module' => $moduleName
-                            ]
-                        );
-                        if ($copier->createM2ModuleFolder() !== null) {
-                            foreach ($moduleFiles as $fileContentFolder => $files) {
-                                $copier->copyM2Files($files, $fileContentFolder);
+                            //copy all in M2 module format
+                            $copier = $this->moduleFileCopierFactory->create(
+                                [
+                                    'outputFolder' => $this->m2Path,
+                                    'module' => $moduleName
+                                ]
+                            );
+                            if ($copier->createM2ModuleFolder() !== null) {
+                                foreach ($moduleFiles as $fileContentFolder => $files) {
+                                    $copier->copyM2Files($files, $fileContentFolder);
+                                }
                             }
+                        } else {
+                            $this->logger->warn('Excluding disabled module ' . $moduleName);
                         }
                     }
                 }

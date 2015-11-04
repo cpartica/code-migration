@@ -89,7 +89,12 @@ class MigrateModuleStructure extends Command
 
         $m1FileUtil = $this->fileFactory->create(['basePath' => $moduleBaseDirectory]);
 
-        $moduleMigration = $this->moduleMigrationFactory->create(['m2Path' => $moduleOutputDirectory]);
+        $moduleMigration = $this->moduleMigrationFactory->create(
+            [
+                'm1Path' => $moduleBaseDirectory,
+                'm2Path' => $moduleOutputDirectory,
+            ]
+        );
 
         $this->logger->info('Starting module structure converter', []);
 
