@@ -21,22 +21,17 @@
         </xsl:copy>
     </xsl:template>
 
-    <!-- Update action node for css & append module prefix -->
-    <xsl:template match="*[name()='action' and @method='addJs']">
-        <xsl:element name="js">
-            <xsl:attribute name="class">
-                <xsl:value-of select="concat($moduleName, '::', node()[text()])"/>
+    <xsl:template match="block[@template]">
+        <xsl:copy>
+            <xsl:attribute name="template">
+                <xsl:value-of select="concat($moduleName, '::', @template)"/>
             </xsl:attribute>
-        </xsl:element>
+            <xsl:apply-templates select="node()|@*[name()!='template']"/>
+        </xsl:copy>
     </xsl:template>
 
-    <!-- Update action node for css & append module prefix -->
-    <xsl:template match="*[name()='action' and @method='addCss']">
-        <xsl:element name="css">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($moduleName, '::', node()[text()])"/>
-            </xsl:attribute>
-        </xsl:element>
+    <xsl:template match="argument[@name='template']/text()">
+        <xsl:value-of select="concat($moduleName, '::', parent::node()/text())"/>
     </xsl:template>
 
 </xsl:stylesheet>
