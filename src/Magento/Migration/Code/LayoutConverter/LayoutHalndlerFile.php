@@ -96,6 +96,7 @@ class LayoutHalndlerFile
             $xslt = new \XSLTProcessor();
             $xslt->registerPHPFunctions();
             $xslt->importStylesheet($stylesheet);
+            $xslt->setParameter('', 'moduleName', $this->moduleNamespace . '_' . $this->moduleName);
             $doc->loadXML($xslt->transformToXml($doc));
         }
 

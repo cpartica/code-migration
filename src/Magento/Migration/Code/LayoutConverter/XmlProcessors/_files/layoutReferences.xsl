@@ -26,6 +26,12 @@
         </xsl:copy>
     </xsl:template>
 
+    <xsl:template match="reference[@name='head']">
+        <xsl:element name="head">
+            <xsl:copy-of select="node()"/>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template match="reference">
         <xsl:choose>
             <xsl:when test="@name='head' or @name='footer' or @name='content' or @name='js' or @name='left' or @name='top.container'">
