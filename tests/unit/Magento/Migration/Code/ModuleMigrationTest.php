@@ -32,6 +32,11 @@ class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
     protected $moduleFileCopierFactory;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $moduleEnablerConfigFactory;
+
+    /**
      * @var string
      */
     protected $m2Path;
@@ -57,6 +62,9 @@ class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
         $className = '\Magento\Migration\Code\ModuleMigration\ModuleFileCopierFactory';
         $this->moduleFileCopierFactory = $this->getMock($className, ['create'], [], '', false);
 
+        $className = '\Magento\Migration\Utility\M1\ModuleEnablerConfigFactory';
+        $this->moduleEnablerConfigFactory = $this->getMock($className, ['create'], [], '', false);
+
         $this->m2Path = '/path/to/m2';
 
         $this->model = $this->objectManager->getObject(
@@ -65,6 +73,7 @@ class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
                 'logger' => $this->logger,
                 'moduleFileExtractorFactory' => $this->moduleFileExtractorFactory,
                 'moduleFileCopierFactory' => $this->moduleFileCopierFactory,
+                'moduleEnablerConfigFactory' => $this->moduleEnablerConfigFactory,
                 'm2Path' => $this->m2Path,
             ]
         );
@@ -87,6 +96,9 @@ class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
         $className = '\Magento\Migration\Code\ModuleMigration\ModuleFileExtractor';
         $moduleFileExtractor = $this->getMock($className, [], [], '', false);
 
+        $className = '\Magento\Migration\Utility\M1\ModuleEnablerConfig';
+        $moduleEnablerConfigFactory = $this->getMock($className, [], [], '', false);
+
         $this->moduleFileExtractorFactory->expects($this->atLeastOnce())
             ->method('create')
             ->willReturn($moduleFileExtractor);
@@ -94,6 +106,14 @@ class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
         $this->moduleFileCopierFactory->expects($this->atLeastOnce())
             ->method('create')
             ->willReturn($moduleFileCopier);
+
+        $this->moduleEnablerConfigFactory->expects($this->atLeastOnce())
+            ->method('create')
+            ->willReturn($moduleEnablerConfigFactory);
+
+        $moduleEnablerConfigFactory->expects($this->atLeastOnce())
+                    ->method('isModuleEnabled')
+                    ->willReturn(true);
 
         $moduleFileExtractor->expects($this->atLeastOnce())
             ->method('getModuleName')
