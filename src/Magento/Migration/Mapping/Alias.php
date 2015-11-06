@@ -78,6 +78,9 @@ class Alias
         return $this->mapping;
     }
 
+    /**
+     * @return void
+     */
     private function processMappingFromM1PathConverted()
     {
         //generate mapping based on magento configuration
@@ -87,11 +90,13 @@ class Alias
         $this->mapping = array_merge_recursive($this->mapping, $aliases);
     }
 
+    /**
+     * @return void
+     */
     private function processMappingFromM1Path()
     {
         //generate mapping based on magento configuration
         $aliases = $this->getAliasesFromFiles(glob($this->context->getM1BaseDir() . '/app/code/*/*/*/etc/config.xml'));
-
         //add default
         $types = array_keys($aliases);
         $coreModules = glob($this->context->getM1BaseDir() . '/app/code/core/Mage/*');
@@ -108,6 +113,9 @@ class Alias
         $this->mapping = array_merge_recursive($this->mapping, $aliases);
     }
 
+    /**
+     * @return void
+     */
     private function processMappingFromJson()
     {
         //use included mapping for magento core module
@@ -120,6 +128,10 @@ class Alias
         }
     }
 
+    /**
+     * @param string[] $configFiles
+     * @return array
+     */
     private function getAliasesFromFiles($configFiles)
     {
         $aliases = [
@@ -138,5 +150,4 @@ class Alias
         }
         return $aliases;
     }
-
 }

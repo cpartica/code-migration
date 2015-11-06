@@ -72,7 +72,7 @@ class GenerateViewMapping extends Command
      * @param \Magento\Framework\Simplexml\ConfigFactory $configFactory
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param \Magento\Migration\Logger\Logger $logger
-     *
+     * @param \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter
      * @throws \LogicException When the command name is empty
      */
     public function __construct(
@@ -80,8 +80,7 @@ class GenerateViewMapping extends Command
         \Magento\Framework\Filesystem\Driver\File $file,
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter
-    )
-    {
+    ) {
         $this->configFactory = $configFactory;
         $this->file = $file;
         $this->logger = $logger;
@@ -149,12 +148,16 @@ class GenerateViewMapping extends Command
 
     }
 
+    /**
+     * @param string[] $m1ConfigFiles
+     * @param string $area
+     * @return int
+     */
     protected function writeLayoutHandlers($m1ConfigFiles, $area)
     {
         $tableNamesMapping = [];
 
         foreach ($m1ConfigFiles as $configFile) {
-
             $content = $this->file->fileGetContents($configFile);
             $layoutM1 = new \Magento\Migration\Utility\M1\Layout($content);
             $mappingM1 = $this->mapView($layoutM1);
@@ -332,7 +335,7 @@ class GenerateViewMapping extends Command
      */
     private function matchProductType($layoutHandler)
     {
-        if (preg_match('/product_type/is',$layoutHandler )) {
+        if (preg_match('/product_type/is', $layoutHandler)) {
             //replace product_type with product_view_type to match hanlders like catalog_product_view_type_bundle
             $this->isInM2Layout(str_replace('product_type', 'catalog_product_view_type', strtolower($layoutHandler)));
         }
@@ -344,7 +347,7 @@ class GenerateViewMapping extends Command
      */
     private function matchInvitations($layoutHandler)
     {
-        if (preg_match('/invitation_/is',$layoutHandler )) {
+        if (preg_match('/invitation_/is', $layoutHandler)) {
             //replace adminhtml_invitation_index to match hanlders like invitations_index_index
             $this->isInM2Layout(str_replace('invitation_', 'invitations_index_', strtolower($layoutHandler)));
         }
@@ -357,7 +360,7 @@ class GenerateViewMapping extends Command
      */
     private function switchFirstTwoWords($layoutHandler)
     {
-        if (preg_match('/^([^\_]+)\_([^\_]+)\_(.+)$/', $layoutHandler, $match)) {
+        if (preg_match('/^([^\_]+)\_([^\_]+)\_(.+)$/', $layoutHandler)) {
             //switch the first 2 words
             $this->isInM2Layout(preg_replace('/^([^\_]+)\_([^\_]+)\_(.+)$/', '$2_$1_$3', $layoutHandler));
         }
@@ -456,7 +459,6 @@ class GenerateViewMapping extends Command
                 }
             }
         );
-
         return $this;
     }
 }

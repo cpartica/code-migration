@@ -82,6 +82,10 @@ class LayoutConverter
         }
     }
 
+    /**
+     * @param string $file
+     * @return void
+     */
     protected function deleteM1LayoutFile($file)
     {
         if ($this->file->deleteFile($file)) {

@@ -51,7 +51,6 @@ class ConvertLayout extends Command
      * @param \Magento\Migration\Utility\M1\FileFactory $fileFactory
      * @param \Magento\Migration\Mapping\AliasFactory $aliasFactory
      * @param \Magento\Migration\Mapping\ClassMappingFactory $classMappingFactory
-
      * @param string|null $name The name of the command; passing null means it must be set in configure()
      */
     public function __construct(
@@ -72,6 +71,10 @@ class ConvertLayout extends Command
         parent::__construct($name);
     }
 
+    /**
+     * configure the command
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('convertLayout')
@@ -126,9 +129,12 @@ class ConvertLayout extends Command
 
         $this->deleteTemporaryXMLFromJsonMapping();
         $this->logger->info('Ending layout xml converter', []);
-
     }
 
+    /**
+     * @param string $path
+     * @return string[]
+     */
     protected function getLayoutFiles($path)
     {
         //input expects the same structure as module structure conversion wrote the files in
@@ -151,6 +157,7 @@ class ConvertLayout extends Command
     /**
      * needed for the xslt external loading of xml vars
      * @param \Magento\Migration\Mapping\Alias $alias
+     * @return void
      */
     protected function createAliasXMLFromJsonMapping($alias)
     {
@@ -164,6 +171,7 @@ class ConvertLayout extends Command
     /**
      * needed for the xslt external loading of xml vars
      * @param \Magento\Migration\Mapping\ClassMapping $classMapping
+     * @return void
      */
     protected function createClassMappingXMLFromJson($classMapping)
     {

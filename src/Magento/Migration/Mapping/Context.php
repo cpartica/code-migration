@@ -68,7 +68,7 @@ class Context
     }
 
     /**
-     * @param $m1StructureConvertedDir
+     * @param string $m1StructureConvertedDir
      * @return $this
      */
     public function setm1StructureConvertedDir($m1StructureConvertedDir)

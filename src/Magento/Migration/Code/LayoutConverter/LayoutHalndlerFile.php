@@ -69,6 +69,9 @@ class LayoutHalndlerFile
         return $this;
     }
 
+    /**
+     * @return int|void
+     */
     public function createFileHandler()
     {
         if ($this->handlerFileName) {
@@ -78,6 +81,10 @@ class LayoutHalndlerFile
         }
     }
 
+    /**
+     * @param string $xml
+     * @return string
+     */
     protected function formatFileHandler($xml)
     {
         $doc = new \DOMDocument();

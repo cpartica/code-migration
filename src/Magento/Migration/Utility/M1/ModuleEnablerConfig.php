@@ -24,6 +24,7 @@ class ModuleEnablerConfig
 
     /**
      * @param string $basePath
+     * @return void
      */
     public function __construct($basePath)
     {
@@ -32,6 +33,10 @@ class ModuleEnablerConfig
         $this->mergeXMLFiles();
     }
 
+    /**
+     * get all the xmls
+     * @return void
+     */
     protected function grabAllModulesEnablerConfig()
     {
         if (file_exists($this->basePath)) {
@@ -39,6 +44,10 @@ class ModuleEnablerConfig
         }
     }
 
+    /**
+     * merges all the xmls
+     * @return void
+     */
     protected function mergeXMLFiles()
     {
         if (is_array($this->xmlFiles)) {
@@ -53,6 +62,7 @@ class ModuleEnablerConfig
     /**
      * @param \SimpleXMLElement $base
      * @param \SimpleXMLElement $add
+     * @return void
      * */
     protected function mergeXML(&$base, $add)
     {
@@ -83,5 +93,6 @@ class ModuleEnablerConfig
             $pool = $this->config->xpath("//config/modules/{$module}/codePool[contains(text(),'{$pool}')]");
             return $active && $pool;
         }
+        return false;
     }
 }

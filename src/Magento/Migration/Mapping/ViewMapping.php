@@ -11,8 +11,14 @@ class ViewMapping
     const ADMINHTML = 0;
     const FRONTEND = 1;
 
+    /**
+     * @var string[]
+     */
     protected $mappingFrontend;
 
+    /**
+     * @var string[]
+     */
     protected $mappingAdminhtml;
 
     public function __construct()
@@ -21,6 +27,9 @@ class ViewMapping
         $this->loadFrontend();
     }
 
+    /**
+     * @return void
+     */
     protected function loadAdminhtml()
     {
         $mappingFile = BP . '/mapping/view_mapping_adminhtml.json';
@@ -33,6 +42,9 @@ class ViewMapping
         }
     }
 
+    /**
+     * @return void
+     */
     protected function loadFrontend()
     {
         $mappingFile = BP . '/mapping/view_mapping_frontend.json';
@@ -45,6 +57,11 @@ class ViewMapping
         }
     }
 
+    /**
+     * @param string $handleName
+     * @param int $type
+     * @return string|void
+     */
     public function mapLayoutHandler($handleName, $type = self::ADMINHTML)
     {
         if ($type == self::ADMINHTML) {
@@ -56,6 +73,5 @@ class ViewMapping
                 return $this->mappingFrontend[$handleName];
             }
         }
-        return null;
     }
 }
