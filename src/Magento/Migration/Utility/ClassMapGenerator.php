@@ -94,6 +94,7 @@ class ClassMapGenerator
     /**
      * @param string $className
      * @return string
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function mapM1Class($className)
     {

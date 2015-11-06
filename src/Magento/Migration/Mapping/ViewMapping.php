@@ -21,6 +21,9 @@ class ViewMapping
      */
     protected $mappingAdminhtml;
 
+    /**
+     * ViewMapping constructor.
+     */
     public function __construct()
     {
         $this->loadAdminhtml();

@@ -194,6 +194,7 @@ class ModuleFileExtractor
      * @param string $zone
      * @return array
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function getViewTemplatesFromFiles($files, $zone = 'frontend')
     {

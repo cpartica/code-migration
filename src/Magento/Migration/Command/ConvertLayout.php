@@ -90,6 +90,8 @@ class ConvertLayout extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -183,6 +185,7 @@ class ConvertLayout extends Command
 
     /**
      * needed for the xslt external loading of xml vars
+     * @return void
      */
     protected function deleteTemporaryXMLFromJsonMapping()
     {
