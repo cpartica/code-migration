@@ -41,9 +41,13 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
     {
         $this->parsed = true;
         $argument = $this->getMageCallFirstArgument($this->index);
-        //TODO: detect the usage of Mage::getModel()->getCollection();
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
             $this->modelFactoryClass = $this->getModelFactoryClass($argument[1]);
+            if ($this->isCollectionCall()) {
+                $this->modelFactoryClass = rtrim($this->modelFactoryClass, 'Factory') . 'CollectionFactory';
+                $this->removeCollectionCall();
+            }
+
             if (!$this->modelFactoryClass) {
                 return $this;
             }
@@ -132,6 +136,57 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
         $nextIndex = $this->tokenHelper->getNextIndexOfTokenType($this->tokens, $nextIndex, T_STRING);
         return $this->tokens[$nextIndex][1];
 
+    }
+
+    /**
+     * The format is Mage::getMage('module/name')->getCollection
+     *
+     * @return int|false
+     */
+    protected function isCollectionCall()
+    {
+        $index = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
+        if ($this->tokens[$index][0] == T_WHITESPACE) {
+            $nextIndex = $this->tokenHelper->getNextTokenIndex($this->tokens, $index);
+        } else {
+            $nextIndex = $index;
+        }
+        $nextNextIndex = $this->tokenHelper->getNextTokenIndex($this->tokens, $nextIndex);
+        if ($this->tokens[$nextIndex][0] == T_OBJECT_OPERATOR &&
+            $this->tokens[$nextNextIndex][0] == T_STRING &&
+            $this->tokens[$nextNextIndex][1] == 'getCollection'
+        ) {
+            return $nextIndex;
+        }
+        return false;
+    }
+
+    /**
+     * remove ->getCollection when called with getMage
+     *
+     * @return string
+     */
+    protected function removeCollectionCall()
+    {
+        if ($index = $this->isCollectionCall()) {
+            $nextNextIndex = $this->tokenHelper->getNextTokenIndex($this->tokens, $index);
+            $this->tokens[$index] = '';
+            $this->tokens[$nextNextIndex] = '';
+            $indexOfMethodCall = $indexOfMethodCall = $this->tokenHelper->skipMethodCall($this->tokens, $nextNextIndex);
+            if ($this->tokens[$indexOfMethodCall][0] == T_WHITESPACE) {
+                $indexOfMethodCall++;
+            }
+            $currentIndex = $nextNextIndex;
+            while ($currentIndex < $indexOfMethodCall) {
+                if (is_array($this->tokens[$currentIndex])) {
+                    $this->tokens[$currentIndex][1] = '';
+                } else {
+                    $this->tokens[$currentIndex] = '';
+                }
+                $currentIndex++;
+            }
+        }
+        return false;
     }
 
     /**
