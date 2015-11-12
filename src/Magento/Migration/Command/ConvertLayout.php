@@ -196,7 +196,7 @@ class ConvertLayout extends Command
     }
 
     /**
-     * @param mixed[] $data
+     * @param array $data
      * @return bool|string
      */
     protected function jsonToXML($data)

@@ -68,11 +68,12 @@ class Alias
         if (empty($this->mapping)) {
             if ($this->context->getM1BaseDir()) {
                 $this->processMappingFromM1Path();
-            } elseif ($this->context->getm1StructureConvertedDir()) {
-                $this->processMappingFromJson();
-                $this->processMappingFromM1PathConverted();
             } else {
                 $this->processMappingFromJson();
+
+            }
+            if ($this->context->getm1StructureConvertedDir()) {
+                $this->processMappingFromM1PathConverted();
             }
         }
         return $this->mapping;

@@ -100,7 +100,7 @@ class TokenArgument
     }
 
     /**
-     * @return mixed[]
+     * @return array
      */
     public function getToken()
     {

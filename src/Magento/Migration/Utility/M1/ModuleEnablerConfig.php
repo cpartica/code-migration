@@ -13,7 +13,7 @@ class ModuleEnablerConfig
     protected $basePath;
 
     /**
-     * @var mixed[]
+     * @var array
      */
     protected $xmlFiles;
 
@@ -24,7 +24,6 @@ class ModuleEnablerConfig
 
     /**
      * @param string $basePath
-     * @return void
      */
     public function __construct($basePath)
     {

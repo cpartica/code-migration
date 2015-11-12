@@ -409,7 +409,7 @@ class TokenHelper
      * Get the argument of a method call
      * use starting index as the object or the method itself
      *
-     * @param mixed[] $tokens
+     * @param array $tokens
      * @param int $startingIndex
      * @param bool $trim
      * @return \Magento\Migration\Code\Processor\CallArgumentCollection

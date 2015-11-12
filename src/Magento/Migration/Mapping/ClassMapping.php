@@ -69,7 +69,7 @@ class ClassMapping
     /**
      * get all class mapping array
      *
-     * @return mixed[]
+     * @return array
      */
     public function getAllClassMapping()
     {

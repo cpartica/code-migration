@@ -88,7 +88,8 @@ class ConvertPhpCode extends Command
 
         $this->objectManager->get('\Magento\Migration\Mapping\Context')
             ->setM1BaseDir($m1BaseDir)
-            ->setM2BaseDir($m2BaseDir);
+            ->setM2BaseDir($m2BaseDir)
+            ->setm1StructureConvertedDir($path);
 
         if ($m2BaseDir) {
             \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()
@@ -103,7 +104,7 @@ class ConvertPhpCode extends Command
             $phpFiles = [$path];
         } else {
             $this->logger->error('Invalid path: ' . $path);
-            return;
+            return null;
         }
 
         foreach ($phpFiles as $filePath) {
