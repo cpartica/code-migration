@@ -11,12 +11,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ConvertLayout extends Command
+class ConvertEtc extends Command
 {
     /**
-     * @var \Magento\Migration\Code\LayoutConverter
+     * @var \Magento\Migration\Code\EtcConverter
      */
-    protected $layoutConverter;
+    protected $etcConverter;
 
     /**
      * @var \Magento\Migration\Utility\M1\FileFactory
@@ -47,7 +47,7 @@ class ConvertLayout extends Command
     /**
      * @param \Magento\Migration\Logger\Logger $logger
      * @param \Magento\Migration\Mapping\Context $context
-     * @param \Magento\Migration\Code\LayoutConverter $layoutConverter
+     * @param \Magento\Migration\Code\EtcConverter $etcConverter
      * @param \Magento\Migration\Utility\M1\FileFactory $fileFactory
      * @param \Magento\Migration\Mapping\AliasFactory $aliasFactory
      * @param \Magento\Migration\Mapping\ClassMappingFactory $classMappingFactory
@@ -56,13 +56,13 @@ class ConvertLayout extends Command
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Mapping\Context $context,
-        \Magento\Migration\Code\LayoutConverter $layoutConverter,
+        \Magento\Migration\Code\EtcConverter $etcConverter,
         \Magento\Migration\Utility\M1\FileFactory $fileFactory,
         \Magento\Migration\Mapping\AliasFactory $aliasFactory,
         \Magento\Migration\Mapping\ClassMappingFactory $classMappingFactory,
         $name = null
     ) {
-        $this->layoutConverter = $layoutConverter;
+        $this->etcConverter = $etcConverter;
         $this->fileFactory = $fileFactory;
         $this->logger = $logger;
         $this->aliasFactory = $aliasFactory;
@@ -77,8 +77,8 @@ class ConvertLayout extends Command
      */
     protected function configure()
     {
-        $this->setName('convertLayout')
-            ->setDescription('converts M1 layout handlers to M2 format')
+        $this->setName('convertEtc')
+            ->setDescription('converts M1 etc config to M2')
             ->addArgument(
                 'inputPath',
                 InputArgument::REQUIRED,
@@ -114,44 +114,37 @@ class ConvertLayout extends Command
             }
         }
 
-        $this->logger->info('Starting layout xml converter for '.$m1StructureConverted, []);
+        $this->logger->info('Starting etc xml converter for '.$m1StructureConverted, []);
 
-        $files = $this->getLayoutFiles($m1StructureConverted);
-        $cnt=0;
+        $files = $this->getEtcFiles($m1StructureConverted);
         foreach ($files as $file) {
-            if ($this->layoutConverter->processLayoutHandlers($file)) {
-                $cnt++;
-            }
+            $this->etcConverter->processConfig($file);
         }
-        if ($cnt == 0) {
-            $this->logger->warn($cnt . ' layout files were converted', []);
-        }
-
         $this->deleteTemporaryXMLFromJsonMapping();
-        $this->logger->info('Ending layout xml converter', []);
+        $this->logger->info('Ending etc xml converter', []);
     }
 
     /**
      * @param string $path
      * @return string[]
      */
-    protected function getLayoutFiles($path)
+    protected function getEtcFiles($path)
     {
         //input expects the same structure as module structure conversion wrote the files in
         //eg: app/code/*vendor*/*module*
         $m1FileUtil = $this->fileFactory->create(['basePath' => $path]);
         if (file_exists($path . '/app/code')) {
-            $files = $m1FileUtil->getFiles([$path . '/app/code'], '*/*/view/*/layout/*.xml', true);
+            $files = $m1FileUtil->getFiles([$path . '/app/code/*/*/etc'], '*.xml', true);
         } else {
-            $files = $m1FileUtil->getFiles([$path], '*/*/view/*/layout/*.xml', true);
+            $files = $m1FileUtil->getFiles([$path] . '*/*/etc', '*.xml', true);
         }
-        $layoutFiles = [];
+        $etcFiles = [];
         foreach ($files as $file) {
-            if (!preg_match('/Magento\/[^\/]+\/view\/[^\/]+/is', $file)) {
-                $layoutFiles[] = $file;
+            if (!preg_match('/Magento\/[^\/]+\/etc\/[^\/]+/is', $file)) {
+                $etcFiles[] = $file;
             }
         }
-        return $layoutFiles;
+        return $etcFiles;
     }
 
     /**

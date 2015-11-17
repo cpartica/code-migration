@@ -9,7 +9,7 @@ use Magento\Migration\Utility\M1\File;
 
 class ModuleFileCopier
 {
-    const FILE_PERMS = 0777;
+    const FILE_PERMS = 0755;
 
     /**
      * @var \Magento\Framework\Filesystem\Driver\File

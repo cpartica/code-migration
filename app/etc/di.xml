@@ -1047,4 +1047,24 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\Migration\Code\EtcConverter">
+        <arguments>
+            <argument name="extractors"  xsi:type="array">
+                <item name="configExtractor" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor</item>
+                <item name="systemExtractor" xsi:type="object">Magento\Migration\Code\EtcConverter\SystemExtractor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Migration\Code\EtcConverter\ConfigExtractor">
+        <arguments>
+            <argument name="sections"  xsi:type="array">
+                <item name="module" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsModule</item>
+                <item name="default" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsDefault</item>
+                <item name="routers" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsRouters</item>
+                <item name="events" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsEvents</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

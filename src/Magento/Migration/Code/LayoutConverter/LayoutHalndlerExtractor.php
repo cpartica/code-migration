@@ -65,8 +65,7 @@ class LayoutHalndlerExtractor
     /**
      * loops through layout handlers in an M1 layout xml format
      *
-     * @param Config|null $config
-     * @return array|null
+     * @return array|false
      */
     public function getLayoutHandlers()
     {

@@ -9,7 +9,7 @@ use Magento\Migration\Utility\M1\File;
 
 class LayoutHalndlerFile
 {
-    const FILE_PERMS = 0777;
+    const FILE_PERMS = 0755;
 
     /**
      * @var \Magento\Framework\Filesystem\Driver\File
@@ -37,17 +37,25 @@ class LayoutHalndlerFile
     protected $xml;
 
     /**
+     * @var \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter
+     */
+    protected $formatter;
+
+    /**
      * @param \Magento\Framework\Filesystem\Driver\File $file
+     * @param \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter,
      * @param string $handlerFileName
      * @param string $xml
      */
     public function __construct(
         \Magento\Framework\Filesystem\Driver\File $file,
+        \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter,
         $handlerFileName,
         $xml
     ) {
         $this->file = $file;
         $this->handlerFileName = $handlerFileName;
+        $this->formatter = $formatter;
         $this->xml = $xml;
         $this->parseModuleNameSpace();
     }
@@ -94,8 +102,6 @@ class LayoutHalndlerFile
         $stylesheet = new \DOMDocument();
         $stylesheet->preserveWhiteSpace = true;
 
-        $formatter = new \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter();
-
         $files = glob(__DIR__ . '/XmlProcessors/_files/*.xsl');
 
         foreach ($files as $file) {
@@ -107,6 +113,6 @@ class LayoutHalndlerFile
             $doc->loadXML($xslt->transformToXml($doc));
         }
 
-        return  $formatter->format($doc->saveXML());
+        return  $this->formatter->format($doc->saveXML());
     }
 }
