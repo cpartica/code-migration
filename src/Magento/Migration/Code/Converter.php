@@ -13,6 +13,11 @@ class Converter
     protected $processors;
 
     /**
+     * @var string $filePath
+     */
+    protected $filePath;
+
+    /**
      * @var \Magento\Migration\Code\Processor\TokenHelper
      */
     protected $tokenHelper;
@@ -47,7 +52,9 @@ class Converter
             $tokens = $this->tokenHelper->parseContent($fileContent);
 
             foreach ($this->processors as $processor) {
+                $processor->setFilePath($this->filePath);
                 $tokens = $processor->process($tokens);
+                $this->setFilePath($processor->getFilePath());
             }
 
             $convertedContent = $this->tokenHelper->reconstructContent($tokens);
@@ -56,5 +63,23 @@ class Converter
             $this->logger->error('Caught exception: ' . $e->getMessage());
         }
         return $fileContent;
+    }
+
+    /**
+     * @param string $filePath
+     * @return $this
+     */
+    public function setFilePath($filePath)
+    {
+        $this->filePath = $filePath;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilePath()
+    {
+        return $this->filePath;
     }
 }

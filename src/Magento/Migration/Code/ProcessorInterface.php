@@ -14,4 +14,15 @@ interface ProcessorInterface
      * @return array
      */
     public function process(array $tokens);
+
+    /**
+     * @param string $filePath
+     * @return $this
+     */
+    public function setFilePath($filePath);
+
+    /**
+     * @return string
+     */
+    public function getFilePath();
 }

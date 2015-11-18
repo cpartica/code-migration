@@ -42,7 +42,6 @@ class ConstructorHelper
 
     /**
      * @param array $tokens
-     * @param int $index
      * @return void
      */
     public function setContext(array &$tokens)

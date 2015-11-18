@@ -8,7 +8,7 @@ namespace Magento\Migration\Code\Processor\Table\TableFunction;
 /**
  * Class AbstractFunction
  * Base class for
- * @package Magento\Migration\Code\Processor\Mage\MageFunction
+ * @package Magento\Migration\Code\Processor\Table\TableFunction
  */
 class AbstractFunction
 {

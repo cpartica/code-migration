@@ -8,6 +8,11 @@ namespace Magento\Migration\Code\Processor;
 class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
 {
     /**
+     * @var string $filePath
+     */
+    protected $filePath;
+
+    /**
      * @var \Magento\Migration\Code\Processor\Mage\MatcherInterface
      */
     protected $matcher;
@@ -35,6 +40,24 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
         $this->objectManager = $objectManager;
         $this->tokenHelper = $tokenHelper;
         $this->matcher = $matcher;
+    }
+
+    /**
+     * @param string $filePath
+     * @return $this
+     */
+    public function setFilePath($filePath)
+    {
+        $this->filePath = $filePath;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilePath()
+    {
+        return $this->filePath;
     }
 
     /**

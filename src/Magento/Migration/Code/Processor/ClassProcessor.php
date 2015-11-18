@@ -16,6 +16,11 @@ namespace Magento\Migration\Code\Processor;
 class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
 {
     /**
+     * @var string $filePath
+     */
+    protected $filePath;
+
+    /**
      * @var \Magento\Migration\Mapping\ClassMapping
      */
     protected $classMap;
@@ -49,7 +54,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
      * @param \Magento\Migration\Mapping\Alias $aliasMap
      * @param \Magento\Migration\Logger\Logger $logger
      * @param \Magento\Migration\Mapping\Context $context
-     * @param Mage\MageFunction\ConstructorFactory $constructorHelperFactory
+     * @param \Magento\Migration\Code\Processor\ConstructorHelperFactory $constructorHelperFactory
      * @param TokenHelper $tokenHelper
      */
     public function __construct(
@@ -66,6 +71,24 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $this->context = $context;
         $this->constructorHelperFactory = $constructorHelperFactory;
         $this->tokenHelper = $tokenHelper;
+    }
+
+    /**
+     * @param string $filePath
+     * @return $this
+     */
+    public function setFilePath($filePath)
+    {
+        $this->filePath = $filePath;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilePath()
+    {
+        return $this->filePath;
     }
 
     /**
@@ -435,6 +458,10 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             $classNameIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $classIndex, T_STRING);
             $className = $tokens[$classNameIndex][1];
             $parts = explode('_', $className);
+            //fix controller namespace
+            if (preg_match('/Controller$/', $className)) {
+                array_splice($parts, 2, 0, 'Controller');
+            }
             $shortClassName = array_pop($parts);
             $nameSpace = implode('\\', $parts);
             $tokens[$classNameIndex][1] = $shortClassName;

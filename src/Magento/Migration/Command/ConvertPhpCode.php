@@ -110,9 +110,9 @@ class ConvertPhpCode extends Command
         foreach ($phpFiles as $filePath) {
             $this->logger->info('Processing file ' . $filePath);
             try {
-                $outputFilePath = $filePath . '.converted';
                 $fileContent = file_get_contents($filePath);
-                $convertedContent = $this->converter->convert($fileContent);
+                $convertedContent = $this->converter->setFilePath($filePath)->convert($fileContent);
+                $outputFilePath = $this->converter->getFilePath() . '.converted';
                 file_put_contents($outputFilePath, $convertedContent);
             } catch (\Exception $e) {
                 $this->logger->error("caught exception: " . $e->getMessage() . "\n" . $e->getTraceAsString());

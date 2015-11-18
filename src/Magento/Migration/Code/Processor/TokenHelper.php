@@ -219,6 +219,29 @@ class TokenHelper
      * @return int
      * @throws \Exception
      */
+    public function getPrevIndexOfSimpleToken(array &$tokens, $index, $token)
+    {
+        while (is_array($tokens[$index]) ||
+            (is_array($token) ? !in_array($tokens[$index], $token) : $tokens[$index] != $token)
+        ) {
+            $index--;
+            if ($index == 0) {
+                throw new \Exception('Token ' . $token . ' not found after index ' . $index);
+            }
+        }
+
+        return $index;
+    }
+
+    /**
+     * Get the index of token that equals input token
+     *
+     * @param array $tokens
+     * @param int $index
+     * @param string $token
+     * @return int
+     * @throws \Exception
+     */
     public function getNextIndexOfSimpleToken(array &$tokens, $index, $token)
     {
         $count = count($tokens);
