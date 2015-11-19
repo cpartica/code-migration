@@ -81,7 +81,7 @@ class ControllerProcessor implements \Magento\Migration\Code\ProcessorInterface
         if ($this->tokenHelper->getExtendsClass($tokens) != 'Magento\\Framework\\App\\Action\\Action' &&
         !preg_match('/controller/is', $this->tokenHelper->getExtendsClass($tokens))
         ) {
-            return false;
+            return $tokens;
         }
 
         $index = 0;
@@ -91,8 +91,7 @@ class ControllerProcessor implements \Magento\Migration\Code\ProcessorInterface
         while ($index < $length - 3) {
             $matchedFunction = $this->matcher->match($tokens, $index);
             if ($matchedFunction) {
-                $matchedFunction->convertToM2();
-                $actionMethods[$matchedFunction->getMethodName()] = $matchedFunction->convertToM2()->getMethodTokens();
+                $actionMethods[$matchedFunction->getMethodName()] = $matchedFunction->getMethodTokens();
             }
             $index++;
         }

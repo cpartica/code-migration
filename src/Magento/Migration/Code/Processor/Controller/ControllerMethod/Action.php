@@ -38,7 +38,7 @@ class Action extends AbstractFunction implements ControllerMethodInterface
         $blockStartIndex = $this->tokenHelper->getFunctionStartingIndex($this->tokens, $this->index);
         $this->endIndex = $this->tokenHelper->skipBlock($this->tokens, $blockStartIndex);
 
-        $this->index = $this->tokenHelper->getPrevIndexOfSimpleToken($this->tokens, $this->index, ['}', '{']) + 1;
+        $this->index = $this->tokenHelper->getPrevIndexOfSimpleToken($this->tokens, $this->index, ['}', '{', ';']) + 1;
 
         $this->methodName = ucfirst(
             preg_replace(
@@ -90,6 +90,9 @@ class Action extends AbstractFunction implements ControllerMethodInterface
     {
         if (!$this->parsed) {
             $this->parse();
+        }
+        if (empty($this->methodTokens)) {
+            $this->convertToM2();
         }
         return $this->methodTokens;
     }

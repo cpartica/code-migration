@@ -226,7 +226,7 @@ class TokenHelper
         ) {
             $index--;
             if ($index == 0) {
-                throw new \Exception('Token ' . $token . ' not found after index ' . $index);
+                throw new \Exception('Token ' . $token . ' not found before index ' . $index);
             }
         }
 

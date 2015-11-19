@@ -74,7 +74,7 @@ class ActionHelper
         if (!empty($this->tokens) && $this->abstractFileName && $this->abstractNamespace) {
             foreach ($this->tokens as $className => $arrayOfTokens) {
                 if (is_array($arrayOfTokens)) {
-                    $this->changeClassToExecute($arrayOfTokens);
+                    $this->changeMethodNameToExecute($arrayOfTokens);
                     $actionFilePath =  $this->getNewFileName($className);
                     if (!file_exists(dirname($actionFilePath))) {
                         @mkdir(dirname($actionFilePath));
@@ -119,19 +119,18 @@ class ActionHelper
             'class ' . $className . ' extends \\' . $this->abstractNamespace . '\\' . $this->getParentClass() . "\n" .
             '{' . "\n" .
             $this->tokenHelper->reconstructContent($tokens) .
-            '}' . "\n" .
-            '?>' . "\n";
+            '}' . "\n";
     }
 
     /**
      * @param array $tokens
      * @return $this
      */
-    protected function changeClassToExecute(array &$tokens)
+    protected function changeMethodNameToExecute(array &$tokens)
     {
         $indexClass = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_FUNCTION);
-        $classNameIndex = $this->tokenHelper->getNextTokenIndex($tokens, $indexClass);
-        $tokens[$classNameIndex][1] = 'execute';
+        $methodNameIndex = $this->tokenHelper->getNextTokenIndex($tokens, $indexClass);
+        $tokens[$methodNameIndex][1] = 'execute';
         return $this;
     }
 }
