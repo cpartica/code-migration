@@ -162,9 +162,11 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                     return $this;
                 }
             } else {
-                //TODO: add parent::__constructor even if the class couldn't be mapped
-                $this->logger->warn("Parent class is not mapped, constructor not converted," .
-                "parent::__constructor is not called: " . $parentClassName);
+                //TODO: add parent::__constructor even if the class couldn't be mapped and add a code comment
+                $this->logger->warn(
+                    "Parent class is not mapped, constructor not converted," .
+                    "parent::__constructor is not called: " . $parentClassName
+                );
             }
         }
 
