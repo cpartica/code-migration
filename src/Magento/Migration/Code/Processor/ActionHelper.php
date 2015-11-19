@@ -31,8 +31,7 @@ class ActionHelper
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
-    )
-    {
+    ) {
         $this->tokenHelper = $tokenHelper;
         $this->logger = $logger;
     }
@@ -99,6 +98,7 @@ class ActionHelper
     }
 
     /**
+     * @param string $className
      * @return string
      */
     private function getNewFileName($className)

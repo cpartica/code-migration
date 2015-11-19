@@ -37,7 +37,6 @@ class AbstractFunction
      * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
      */
     public function __construct(
-        \Magento\Migration\Mapping\TableName $tableNameMapper,
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
     ) {

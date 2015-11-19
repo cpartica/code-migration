@@ -181,11 +181,11 @@
         "m2class": "\\Magento\\Backend\\Block\\Widget\\Tabs"
     },
     "Mage_Adminhtml_Catalog_ProductController": {
-        "m2class": "obsolete",
+        "m2class": "\\Magento\\Catalog\\Controller\\Adminhtml\\Product",
         "comment": "The controller has been splited further into actions under Magento/Catalog/Controller/Adminhtml/Product/."
     },
     "Mage_Adminhtml_Cms_PageController": {
-        "m2class": "obsolete",
+        "m2class": "\\Magento\\Framework\\App\\Action\\Action",
         "comment": "The controller has been splited into multiple actions under Magento/Cms/Controller/Adminhtml/Page/"
     },
     "Mage_Adminhtml_Controller_Action": {
@@ -213,11 +213,11 @@
         "m2class": "\\Magento\\Sales\\Model\\AdminOrder\\Create"
     },
     "Mage_Adminhtml_Sales_OrderController": {
-        "m2class": "obsolete",
+        "m2class": "\\Magento\\Sales\\Controller\\Adminhtml\\Order",
         "comment": "The controller has been splited into multiple actions under Magento/Sales/Controller/Adminhtml/Order/"
     },
     "Mage_Adminhtml_Sales_Order_CreateController": {
-        "m2class": "obsolete",
+        "m2class": "\\Magento\\Sales\\Controller\\Adminhtml\\Order\\Create",
         "comment": "The controller has been splited into multiple actions under Magento/Sales/Controller/Adminhtml/Order/Create"
     },
     "Mage_Api2_Exception": {
@@ -646,8 +646,7 @@
         "m2class": "obsolete"
     },
     "Mage_Customer_AccountController": {
-        "m2class": "obsolete",
-        "comment": "See controllers in \\Magento\\Customer\\Controller\\Account"
+        "m2class": "\\Magento\\Customer\\Controller\\AbstractAccount"
     },
     "Mage_Customer_Helper_Data": {
         "m2class": "obsolete",
@@ -948,7 +947,7 @@
         "m2class": "\\Magento\\Shipping\\Helper\\Carrier"
     },
     "Mage_Wishlist_IndexController": {
-        "m2class": "obsolete",
+        "m2class": "\\Magento\\Wishlist\\Controller\\AbstractIndex",
         "comment": "See the controllers in \\Magento\\Wishlist\\Controller\\Index"
     },
     "Mage_Wishlist_Model_Resource_Product_Collection": {

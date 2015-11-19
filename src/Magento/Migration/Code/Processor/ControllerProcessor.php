@@ -158,7 +158,8 @@ class ControllerProcessor implements \Magento\Migration\Code\ProcessorInterface
      * @param array $tokens
      * @return $this
      */
-    protected function abstractizeCurrentClass($tokens) {
+    protected function abstractizeCurrentClass($tokens)
+    {
         //convert the non action class into abstract
         $this->convertToAbstract($tokens)
             ->changeClassName($tokens)
