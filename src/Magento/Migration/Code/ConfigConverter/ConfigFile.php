@@ -3,11 +3,11 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\EtcConverter;
+namespace Magento\Migration\Code\ConfigConverter;
 
 use Magento\Migration\Utility\M1\File;
 
-class EtcFile
+class ConfigFile implements ConfigFileInterface
 {
     const FILE_PERMS = 0755;
 
@@ -22,9 +22,9 @@ class EtcFile
     protected $formatter;
 
     /**
-     * @var \Magento\Migration\Code\EtcConverter\EtcTypeInterface
+     * @var \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface
      */
-    protected $etcType;
+    protected $configType;
 
     /**
      * @var string
@@ -39,16 +39,16 @@ class EtcFile
     /**
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter,
-     * @param \Magento\Migration\Code\EtcConverter\EtcTypeInterface $etcType
+     * @param \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface $configType
      */
     public function __construct(
         \Magento\Framework\Filesystem\Driver\File $file,
         \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter,
-        \Magento\Migration\Code\EtcConverter\EtcTypeInterface $etcType
+        \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface $configType
     ) {
         $this->file = $file;
         $this->formatter = $formatter;
-        $this->etcType = $etcType;
+        $this->configType = $configType;
         $this->parseModuleNameSpace();
     }
 
@@ -57,8 +57,8 @@ class EtcFile
      */
     protected function parseModuleNameSpace()
     {
-        if ($this->etcType->getFileName()) {
-            if (preg_match('/app\/code\/([^\/]+)\/([^\/]+)\/etc/is', $this->etcType->getFileName(), $match)) {
+        if ($this->configType->getFileName()) {
+            if (preg_match('/app\/code\/([^\/]+)\/([^\/]+)\/etc/is', $this->configType->getFileName(), $match)) {
                 if (count($match) == 3) {
                     $this->moduleNamespace = $match[1];
                     $this->moduleName = $match[2];
@@ -72,13 +72,13 @@ class EtcFile
     /**
      * @return int|void
      */
-    public function createFileHandler()
+    public function createFile()
     {
-        if ($this->etcType->getFileName()) {
-            $this->xml = "<?xml version=\"1.0\"?>" . $this->etcType->getXmlContent()->asXML();
-            $this->xml = $this->formatFileHandler($this->xml);
-            $this->mkpath(dirname($this->etcType->getFileName()));
-            return $this->file->filePutContents($this->etcType->getFileName(), $this->xml);
+        if ($this->configType->getFileName()) {
+            $this->xml = "<?xml version=\"1.0\"?>" . $this->configType->getXmlContent()->asXML();
+            $this->xml = $this->formatFile($this->xml);
+            $this->mkpath(dirname($this->configType->getFileName()));
+            return $this->file->filePutContents($this->configType->getFileName(), $this->xml);
         }
     }
 
@@ -86,7 +86,7 @@ class EtcFile
      * @param string $xml
      * @return string
      */
-    protected function formatFileHandler($xml)
+    protected function formatFile($xml)
     {
         $doc = new \DOMDocument();
         $doc->preserveWhiteSpace = true;

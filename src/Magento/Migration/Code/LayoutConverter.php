@@ -73,7 +73,7 @@ class LayoutConverter
                 $cnt++;
             }
             if ($cnt>0) {
-                //$this->deleteM1LayoutFile($file);
+                $this->deleteM1LayoutFile($file);
                 return $cnt;
             } else {
                 $this->logger->warn('Ignoring M1 layout file due to lack of contents ' . $file);

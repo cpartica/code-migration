@@ -3,11 +3,11 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\EtcConverter;
+namespace Magento\Migration\Code\ConfigConverter;
 
-use \Magento\Migration\Code\EtcConverter\EtcTypeInterface;
+use \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface;
 
-class EtcType implements EtcTypeInterface
+class ConfigType implements ConfigTypeInterface
 {
     /**
      * @var \Magento\Framework\Simplexml\Element $xmlConfig

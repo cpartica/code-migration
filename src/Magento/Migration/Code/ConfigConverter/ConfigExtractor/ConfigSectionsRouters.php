@@ -3,9 +3,9 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\EtcConverter\ConfigExtractor;
+namespace Magento\Migration\Code\ConfigConverter\ConfigExtractor;
 
-use \Magento\Migration\Code\EtcConverter\EtcType;
+use \Magento\Migration\Code\ConfigConverter\ConfigType;
 
 class ConfigSectionsRouters implements ConfigSectionsInterface
 {
@@ -15,29 +15,29 @@ class ConfigSectionsRouters implements ConfigSectionsInterface
      */
     protected $locations = [
         'global' => '',
-        'frontend' => '/frontend',
-        'adminhtml' => '/adminhtml',
-        'admin' => '/adminhtml',
+        'frontend' => 'frontend',
+        'adminhtml' => 'adminhtml',
+        'admin' => 'adminhtml',
     ];
 
     /**
-     * @var \Magento\Migration\Code\EtcConverter\EtcTypeInterface
+     * @var \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface
      */
-    protected $etcTypeInterfaceFactory;
+    protected $configTypeInterfaceFactory;
 
     /**
-     * @param \Magento\Migration\Code\EtcConverter\EtcType $etcTypeInterfaceFactory
+     * @param \Magento\Migration\Code\ConfigConverter\ConfigType $configTypeInterfaceFactory
      */
     public function __construct(
-        \Magento\Migration\Code\EtcConverter\EtcTypeFactory $etcTypeInterfaceFactory
+        \Magento\Migration\Code\ConfigConverter\ConfigTypeFactory $configTypeInterfaceFactory
     ) {
-        $this->etcTypeInterfaceFactory = $etcTypeInterfaceFactory;
+        $this->configTypeInterfaceFactory = $configTypeInterfaceFactory;
     }
 
     /**
      * @param string $file
      * @param \Magento\Framework\Simplexml\Config $xmlConfig
-     * @return \Magento\Migration\Code\EtcConverter\EtcTypeInterface[]|false
+     * @return \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface[]|false
      */
     public function extract($file, $xmlConfig)
     {
@@ -45,8 +45,9 @@ class ConfigSectionsRouters implements ConfigSectionsInterface
         foreach ($this->locations as $location => $folder) {
             $node = $xmlConfig->getNode($location . '/routers');
             if ($node) {
-                $fileName = dirname($file) . $folder. '/' . self::CONFIG_NAME . '.xml';
-                $handlers[] = $this->etcTypeInterfaceFactory->create()
+                $fileName = dirname($file) . \DIRECTORY_SEPARATOR . $folder. \DIRECTORY_SEPARATOR .
+                self::CONFIG_NAME . '.xml';
+                $handlers[] = $this->configTypeInterfaceFactory->create()
                     ->setFileName($fileName)
                     ->setXmlContent($node)
                     ->setType(self::CONFIG_NAME);

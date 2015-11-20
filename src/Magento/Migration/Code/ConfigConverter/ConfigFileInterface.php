@@ -3,12 +3,12 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\EtcConverter;
+namespace Magento\Migration\Code\ConfigConverter;
 
-interface EtcFileInterface
+interface ConfigFileInterface
 {
     /**
-     * @return mixed
+     * @return int|void
      */
     public function createFile();
 }

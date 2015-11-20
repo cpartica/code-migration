@@ -1049,22 +1049,40 @@
         </arguments>
     </type>
 
-    <type name="Magento\Migration\Code\EtcConverter">
+    <type name="Magento\Migration\Code\ConfigConverter">
         <arguments>
             <argument name="extractors"  xsi:type="array">
-                <item name="configExtractor" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor</item>
-                <item name="systemExtractor" xsi:type="object">Magento\Migration\Code\EtcConverter\SystemExtractor</item>
+                <item name="configExtractor" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor</item>
+                <item name="systemExtractor" xsi:type="object">Magento\Migration\Code\ConfigConverter\SystemExtractor</item>
+                <item name="adminhtmlExtractor" xsi:type="object">Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor</item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Magento\Migration\Code\EtcConverter\ConfigExtractor">
+    <type name="Magento\Migration\Code\ConfigConverter\ConfigExtractor">
         <arguments>
             <argument name="sections"  xsi:type="array">
-                <item name="module" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsModule</item>
-                <item name="default" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsDefault</item>
-                <item name="routers" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsRouters</item>
-                <item name="events" xsi:type="object">Magento\Migration\Code\EtcConverter\ConfigExtractor\ConfigSectionsEvents</item>
+                <item name="module" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsModule</item>
+                <item name="default" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsDefault</item>
+                <item name="routers" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsRouters</item>
+                <item name="events" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsEvents</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Migration\Code\ConfigConverter\SystemExtractor">
+        <arguments>
+            <argument name="sections"  xsi:type="array">
+                <item name="system" xsi:type="object">Magento\Migration\Code\ConfigConverter\SystemExtractor\SystemSections</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor">
+        <arguments>
+            <argument name="sections"  xsi:type="array">
+                <item name="acl" xsi:type="object">Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor\AdminhtmlAcl</item>
+                <item name="menu" xsi:type="object">Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor\AdminhtmlMenu</item>
             </argument>
         </arguments>
     </type>

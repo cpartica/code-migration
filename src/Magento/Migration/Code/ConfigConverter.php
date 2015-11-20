@@ -7,10 +7,10 @@ namespace Magento\Migration\Code;
 
 use Magento\Framework\ObjectManagerInterface;
 
-class EtcConverter
+class ConfigConverter
 {
     /**
-     * @var \Magento\Migration\Code\EtcConverter\EtcExtractorInterface[]
+     * @var \Magento\Migration\Code\ConfigConverter\ConfigExtractorInterface[]
      */
     protected $extractors;
 
@@ -20,26 +20,26 @@ class EtcConverter
     protected $logger;
 
     /**
-     * @var \Magento\Migration\Code\EtcConverter\EtcFileFactory
+     * @var \Magento\Migration\Code\ConfigConverter\ConfigFileFactory
      */
-    protected $etcFileFactory;
+    protected $configFileFactory;
 
     /**
      * @param array $extractors
      * @param \Magento\Migration\Logger\Logger $logger
      * @param \Magento\Framework\Filesystem\Driver\File $file
-     * @param \Magento\Migration\Code\EtcConverter\EtcFileFactory $etcFileFactory
+     * @param \Magento\Migration\Code\ConfigConverter\ConfigFileFactory $configFileFactory
      */
     public function __construct(
         array $extractors,
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Framework\Filesystem\Driver\File $file,
-        \Magento\Migration\Code\EtcConverter\EtcFileFactory $etcFileFactory
+        \Magento\Migration\Code\ConfigConverter\ConfigFileFactory $configFileFactory
     ) {
         $this->file = $file;
         $this->logger = $logger;
         $this->extractors = $extractors;
-        $this->etcFileFactory = $etcFileFactory;
+        $this->configFileFactory = $configFileFactory;
     }
 
     /**
@@ -49,17 +49,16 @@ class EtcConverter
     public function processConfig($file)
     {
         foreach ($this->extractors as $extractor) {
-            $extractor->setFile($file);
-            $etcTypes = $extractor->getEtcTypes();
-            if (is_array($etcTypes)) {
-                array_walk_recursive($etcTypes, function ($etcType) {
-                    if ($etcType) {
-                        /** @var \Magento\Migration\Code\EtcConverter\EtcTypeInterface $etcType */
-                        $fileHandler = $this->etcFileFactory->create(['etcType' => $etcType]);
-                        if ($fileHandler->createFileHandler()) {
-                            $this->logger->info('Created M2 config file ' . $etcType->getFileName());
+            $configTypes = $extractor->getConfigTypes($file);
+            if (is_array($configTypes)) {
+                array_walk_recursive($configTypes, function ($configType) {
+                    if ($configType) {
+                        /** @var \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface $configType */
+                        $fileHandler = $this->configFileFactory->create(['configType' => $configType]);
+                        if ($fileHandler->createFile()) {
+                            $this->logger->info('Created M2 config file ' . $configType->getFileName());
                         } else {
-                            $this->logger->warn('Error creating M2 config file ' . $etcType->getFileName());
+                            $this->logger->warn('Error creating M2 config file ' . $configType->getFileName());
                         }
                     }
                 });
@@ -71,7 +70,7 @@ class EtcConverter
      * @param string $file
      * @return void
      */
-    protected function deleteM1EtcFile($file)
+    protected function deleteM1ConfigFile($file)
     {
         if ($this->file->deleteFile($file)) {
             $this->logger->info('Deleted M1 config file' . $file);

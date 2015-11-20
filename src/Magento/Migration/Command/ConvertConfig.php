@@ -11,12 +11,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ConvertEtc extends Command
+class ConvertConfig extends Command
 {
     /**
-     * @var \Magento\Migration\Code\EtcConverter
+     * @var \Magento\Migration\Code\ConfigConverter
      */
-    protected $etcConverter;
+    protected $configConverter;
 
     /**
      * @var \Magento\Migration\Utility\M1\FileFactory
@@ -47,7 +47,7 @@ class ConvertEtc extends Command
     /**
      * @param \Magento\Migration\Logger\Logger $logger
      * @param \Magento\Migration\Mapping\Context $context
-     * @param \Magento\Migration\Code\EtcConverter $etcConverter
+     * @param \Magento\Migration\Code\ConfigConverter $configConverter
      * @param \Magento\Migration\Utility\M1\FileFactory $fileFactory
      * @param \Magento\Migration\Mapping\AliasFactory $aliasFactory
      * @param \Magento\Migration\Mapping\ClassMappingFactory $classMappingFactory
@@ -56,13 +56,13 @@ class ConvertEtc extends Command
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Mapping\Context $context,
-        \Magento\Migration\Code\EtcConverter $etcConverter,
+        \Magento\Migration\Code\ConfigConverter $configConverter,
         \Magento\Migration\Utility\M1\FileFactory $fileFactory,
         \Magento\Migration\Mapping\AliasFactory $aliasFactory,
         \Magento\Migration\Mapping\ClassMappingFactory $classMappingFactory,
         $name = null
     ) {
-        $this->etcConverter = $etcConverter;
+        $this->configConverter = $configConverter;
         $this->fileFactory = $fileFactory;
         $this->logger = $logger;
         $this->aliasFactory = $aliasFactory;
@@ -77,7 +77,7 @@ class ConvertEtc extends Command
      */
     protected function configure()
     {
-        $this->setName('convertEtc')
+        $this->setName('convertConfig')
             ->setDescription('converts M1 etc config to M2')
             ->addArgument(
                 'inputPath',
@@ -114,21 +114,21 @@ class ConvertEtc extends Command
             }
         }
 
-        $this->logger->info('Starting etc xml converter for '.$m1StructureConverted, []);
+        $this->logger->info('Starting etc config xml converter for '.$m1StructureConverted, []);
 
-        $files = $this->getEtcFiles($m1StructureConverted);
+        $files = $this->getConfigFiles($m1StructureConverted);
         foreach ($files as $file) {
-            $this->etcConverter->processConfig($file);
+            $this->configConverter->processConfig($file);
         }
         $this->deleteTemporaryXMLFromJsonMapping();
-        $this->logger->info('Ending etc xml converter', []);
+        $this->logger->info('Ending etc config xml converter', []);
     }
 
     /**
      * @param string $path
      * @return string[]
      */
-    protected function getEtcFiles($path)
+    protected function getConfigFiles($path)
     {
         //input expects the same structure as module structure conversion wrote the files in
         //eg: app/code/*vendor*/*module*
@@ -138,13 +138,13 @@ class ConvertEtc extends Command
         } else {
             $files = $m1FileUtil->getFiles([$path] . '*/*/etc', '*.xml', true);
         }
-        $etcFiles = [];
+        $configFiles = [];
         foreach ($files as $file) {
             if (!preg_match('/Magento\/[^\/]+\/etc\/[^\/]+/is', $file)) {
-                $etcFiles[] = $file;
+                $configFiles[] = $file;
             }
         }
-        return $etcFiles;
+        return $configFiles;
     }
 
     /**
