@@ -75,7 +75,7 @@ class ConfigFile implements ConfigFileInterface
     public function createFile()
     {
         if ($this->configType->getFileName()) {
-            $this->xml = "<?xml version=\"1.0\"?>" . $this->configType->getXmlContent()->asXML();
+            $this->xml = $this->configType->getXmlContent()->asXML();
             $this->xml = $this->formatFile($this->xml);
             $this->mkpath(dirname($this->configType->getFileName()));
             return $this->file->filePutContents($this->configType->getFileName(), $this->xml);

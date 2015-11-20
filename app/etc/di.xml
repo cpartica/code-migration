@@ -1055,24 +1055,29 @@
                 <item name="configExtractor" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor</item>
                 <item name="systemExtractor" xsi:type="object">Magento\Migration\Code\ConfigConverter\SystemExtractor</item>
                 <item name="adminhtmlExtractor" xsi:type="object">Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor</item>
+                <item name="widgetExtractor" xsi:type="object">Magento\Migration\Code\ConfigConverter\WidgetExtractor</item>
             </argument>
         </arguments>
     </type>
 
     <type name="Magento\Migration\Code\ConfigConverter\ConfigExtractor">
         <arguments>
-            <argument name="sections"  xsi:type="array">
+            <argument name="sections" xsi:type="array">
                 <item name="module" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsModule</item>
                 <item name="default" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsDefault</item>
                 <item name="routers" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsRouters</item>
                 <item name="events" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsEvents</item>
+                <item name="payment" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsPayment</item>
+                <item name="addressFormats" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsAddressFormats</item>
+                <item name="fieldset" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsFieldset</item>
+                <item name="crontab" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsCrontab</item>
             </argument>
         </arguments>
     </type>
 
     <type name="Magento\Migration\Code\ConfigConverter\SystemExtractor">
         <arguments>
-            <argument name="sections"  xsi:type="array">
+            <argument name="sections" xsi:type="array">
                 <item name="system" xsi:type="object">Magento\Migration\Code\ConfigConverter\SystemExtractor\SystemSections</item>
             </argument>
         </arguments>
@@ -1080,9 +1085,17 @@
 
     <type name="Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor">
         <arguments>
-            <argument name="sections"  xsi:type="array">
+            <argument name="sections" xsi:type="array">
                 <item name="acl" xsi:type="object">Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor\AdminhtmlAcl</item>
                 <item name="menu" xsi:type="object">Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor\AdminhtmlMenu</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Migration\Code\ConfigConverter\WidgetExtractor">
+        <arguments>
+            <argument name="sections" xsi:type="array">
+                <item name="widget" xsi:type="object">Magento\Migration\Code\ConfigConverter\WidgetExtractor\Widget</item>
             </argument>
         </arguments>
     </type>

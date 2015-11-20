@@ -5,8 +5,6 @@
  */
 namespace Magento\Migration\Code\ConfigConverter;
 
-use \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface;
-
 class ConfigType implements ConfigTypeInterface
 {
     /**

@@ -5,45 +5,19 @@
  */
 namespace Magento\Migration\Code\ConfigConverter\ConfigExtractor;
 
-use \Magento\Migration\Code\ConfigConverter\ConfigType;
+use \Magento\Migration\Code\ConfigConverter\ConfigSectionsInterface;
+use \Magento\Migration\Code\ConfigConverter\ConfigSectionsAbstract;
 
-class ConfigSectionsDefault implements ConfigSectionsInterface
+class ConfigSectionsDefault extends ConfigSectionsAbstract implements ConfigSectionsInterface
 {
-    const CONFIG_NAME = 'config';
-
     /**
-     * @var \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface
+     * @var string
      */
-    protected $configTypeInterfaceFactory;
-
+    protected $fileName = 'config';
     /**
-     * @param \Magento\Migration\Code\ConfigConverter\ConfigType $configTypeInterfaceFactory
+     * @var array
      */
-    public function __construct(
-        \Magento\Migration\Code\ConfigConverter\ConfigTypeFactory $configTypeInterfaceFactory
-    ) {
-        $this->configTypeInterfaceFactory = $configTypeInterfaceFactory;
-    }
-
-    /**
-     * @param string $file
-     * @param \Magento\Framework\Simplexml\Config $xmlConfig
-     * @return \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface[]|false
-     */
-    public function extract($file, $xmlConfig)
-    {
-        $handlers = [];
-        $node = $xmlConfig->getNode('default');
-        if ($node) {
-            $fileName = dirname($file) . \DIRECTORY_SEPARATOR . self::CONFIG_NAME . '.xml';
-            $handlers[] = $this->configTypeInterfaceFactory->create()
-                ->setFileName($fileName)
-                ->setXmlContent($node)
-                ->setType(self::CONFIG_NAME);
-            return $handlers;
-        } else {
-            return false;
-        }
-
-    }
+    protected $locations = [
+        'default' => '.'
+    ];
 }

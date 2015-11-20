@@ -8,21 +8,18 @@ namespace Magento\Migration\Code\ConfigConverter\ConfigExtractor;
 use \Magento\Migration\Code\ConfigConverter\ConfigSectionsInterface;
 use \Magento\Migration\Code\ConfigConverter\ConfigSectionsAbstract;
 
-class ConfigSectionsEvents extends ConfigSectionsAbstract implements ConfigSectionsInterface
+class ConfigSectionsCrontab extends ConfigSectionsAbstract implements ConfigSectionsInterface
 {
     /**
      * @var string
      */
-    protected $fileName = 'events';
+    protected $fileName = 'crontab';
 
     /**
      * @var array
      */
     protected $locations = [
-        'global/events' => '.',
-        'crontab/events' => '.',
-        'frontend/events' => 'frontend',
-        'adminhtml/events' => 'adminhtml',
-        'admin/events' => 'adminhtml',
+        'crontab/jobs' => '.',
+        '*/crontab/jobs' => '.'
     ];
 }
