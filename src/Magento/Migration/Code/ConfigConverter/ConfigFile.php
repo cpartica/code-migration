@@ -95,17 +95,18 @@ class ConfigFile implements ConfigFileInterface
         $stylesheet = new \DOMDocument();
         $stylesheet->preserveWhiteSpace = true;
 
-        $files = glob(__DIR__ . '/XmlProcessors/_files/*.xsl');
-
-        if ($files) {
-            foreach ($files as $file) {
-                $stylesheet->load($file);
-                $xslt = new \XSLTProcessor();
-                $xslt->registerPHPFunctions();
-                $xslt->importStylesheet($stylesheet);
-                $xslt->setParameter('', 'moduleName', $this->moduleNamespace . '_' . $this->moduleName);
-                $doc->loadXML($xslt->transformToXml($doc));
-            }
+        foreach ($this->configType->getXsls() as $file) {
+            $stylesheet->load(
+                __DIR__ . DIRECTORY_SEPARATOR . 'XmlProcessors' . DIRECTORY_SEPARATOR .'_files' .
+                DIRECTORY_SEPARATOR . $file
+            );
+            $xslt = new \XSLTProcessor();
+            $xslt->registerPHPFunctions();
+            $xslt->importStylesheet($stylesheet);
+            $xslt->setParameter('', 'moduleName', $this->moduleNamespace . '_' . $this->moduleName);
+            $xslt->setParameter('', 'schema', $this->configType->getXmlSchema());
+            $xslt->setParameter('', 'tagName', $this->configType->getTagName());
+            $doc->loadXML($xslt->transformToXml($doc));
         }
 
         return  $this->formatter->format($doc->saveXML());

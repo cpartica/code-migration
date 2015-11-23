@@ -16,4 +16,14 @@ class SystemSections extends ConfigSectionsAbstract implements ConfigSectionsInt
      * @var array
      */
     protected $locations = ['adminhtml'];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = ['config.xsl'];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:module:Magento_Config:etc/system_file.xsd';
 }

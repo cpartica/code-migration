@@ -16,4 +16,14 @@ class Widget extends ConfigSectionsAbstract implements ConfigSectionsInterface
      * @var array
      */
     protected $locations = ['.'];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = ['config.xsl'];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:module:Magento_Widget:etc/widget.xsd';
 }

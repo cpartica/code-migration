@@ -22,4 +22,23 @@ class ConfigSectionsCrontab extends ConfigSectionsAbstract implements ConfigSect
         'crontab/jobs' => '.',
         '*/crontab/jobs' => '.'
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = [
+        'config.xsl',
+        'removeFirstTag.xsl',
+        'transTagToAttr.xsl'
+    ];
+
+    /**
+     * @var string
+     */
+    protected $tagName = 'job';
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:module:Magento_Cron:etc/crontab.xsd';
 }

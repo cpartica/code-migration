@@ -21,4 +21,14 @@ class ConfigSectionsModule extends ConfigSectionsAbstract implements ConfigSecti
     protected $locations = [
         'modules' => '.'
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = ['config.xsl'];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:framework:Module/etc/module.xsd';
 }

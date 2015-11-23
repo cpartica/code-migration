@@ -39,4 +39,35 @@ interface ConfigTypeInterface
      * @return string
      */
     public function getType();
+
+    /**
+     * @param string[] $xsls
+     * @return $this
+     */
+    public function setXsls($xsls);
+
+    /**
+     * @return string[]
+     */
+    public function getXsls();
+
+    /**
+     * @param string $xmlSchema
+     * @return $this
+     */
+    public function setXmlSchema($xmlSchema);
+    /**
+     * @return string
+     */
+    public function getXmlSchema();
+
+    /**
+     * @param string $tagName
+     * @return $this
+     */
+    public function setTagName($tagName);
+    /**
+     * @return string
+     */
+    public function getTagName();
 }

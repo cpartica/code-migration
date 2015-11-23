@@ -21,4 +21,14 @@ class AdminhtmlMenu extends ConfigSectionsAbstract implements ConfigSectionsInte
     protected $locations = [
         'menu' => 'adminhtml'
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = ['config.xsl'];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:module:Magento_Backend:etc/menu.xsd';
 }

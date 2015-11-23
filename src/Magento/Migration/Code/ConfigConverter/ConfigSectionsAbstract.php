@@ -8,6 +8,22 @@ namespace Magento\Migration\Code\ConfigConverter;
 
 abstract class ConfigSectionsAbstract extends ConfigType implements ConfigSectionsInterface
 {
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema;
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = [];
+
+    /**
+     * @var string
+     */
+    protected $tagName = 'job';
+
     /**
      * @var string
      */
@@ -54,6 +70,9 @@ abstract class ConfigSectionsAbstract extends ConfigType implements ConfigSectio
                     $handlers[] = $this->configTypeInterfaceFactory->create()
                         ->setFileName($fileName)
                         ->setXmlContent($node)
+                        ->setXsls($this->xsls)
+                        ->setTagName($this->tagName)
+                        ->setXmlSchema($this->xmlSchema)
                         ->setType($this->fileName);
                 }
             }

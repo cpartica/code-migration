@@ -8,26 +8,22 @@ namespace Magento\Migration\Code\ConfigConverter\ConfigExtractor;
 use \Magento\Migration\Code\ConfigConverter\ConfigSectionsInterface;
 use \Magento\Migration\Code\ConfigConverter\ConfigSectionsAbstract;
 
-class ConfigSectionsEvents extends ConfigSectionsAbstract implements ConfigSectionsInterface
+class ConfigSectionsSales extends ConfigSectionsAbstract implements ConfigSectionsInterface
 {
     /**
      * @var string
      */
-    protected $fileName = 'events';
+    protected $fileName = 'sales';
 
     /**
      * @var array
      */
     protected $locations = [
-        'global/events' => '.',
-        'crontab/events' => '.',
-        'frontend/events' => 'frontend',
-        'adminhtml/events' => 'adminhtml',
-        'admin/events' => 'adminhtml',
+        'global/sales' => '.'
     ];
 
     /**
-     * @var string[]
+     * @var array
      */
     protected $xsls = [
         'config.xsl',
@@ -38,10 +34,10 @@ class ConfigSectionsEvents extends ConfigSectionsAbstract implements ConfigSecti
     /**
      * @var string
      */
-    protected $tagName = 'event';
+    protected $tagName = 'section';
 
     /**
      * @var string
      */
-    protected $xmlSchema = 'urn:magento:framework:Event/etc/events.xsd';
+    protected $xmlSchema = 'urn:magento:module:Magento_Sales:etc/sales.xsd';
 }

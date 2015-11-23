@@ -20,4 +20,14 @@ class ConfigSectionsPayment extends ConfigSectionsAbstract implements ConfigSect
     protected $locations = [
         'global/payment' => '.'
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = ['config.xsl'];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:module:Magento_Payment:etc/payment.xsd';
 }

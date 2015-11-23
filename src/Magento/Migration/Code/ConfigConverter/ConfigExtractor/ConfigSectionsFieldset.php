@@ -46,4 +46,14 @@ class ConfigSectionsFieldset extends ConfigSectionsAbstract implements ConfigSec
         }
         return null;
     }
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = ['config.xsl'];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:framework:DataObject/etc/fieldset.xsd';
 }

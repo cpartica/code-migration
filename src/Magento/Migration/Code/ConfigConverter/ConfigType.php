@@ -8,17 +8,32 @@ namespace Magento\Migration\Code\ConfigConverter;
 class ConfigType implements ConfigTypeInterface
 {
     /**
-     * @var \Magento\Framework\Simplexml\Element $xmlConfig
+     * @var \Magento\Framework\Simplexml\Element
      */
     protected $xmlElement;
 
     /**
-     * @var string $filename
+     * @var string
      */
     protected $filename;
 
     /**
-     * @var string $type
+     * @var string[]
+     */
+    protected $xsls = [];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema;
+
+    /**
+     * @var string
+     */
+    protected $tagName;
+
+    /**
+     * @var string
      */
     protected $type;
 
@@ -74,5 +89,59 @@ class ConfigType implements ConfigTypeInterface
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @param string[] $xsls
+     * @return $this
+     */
+    public function setXsls($xsls)
+    {
+        $this->xsls = $xsls;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getXsls()
+    {
+        return $this->xsls;
+    }
+
+    /**
+     * @param string $xmlSchema
+     * @return $this
+     */
+    public function setXmlSchema($xmlSchema)
+    {
+        $this->xmlSchema = $xmlSchema;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getXmlSchema()
+    {
+        return $this->xmlSchema;
+    }
+
+    /**
+     * @param string $tagName
+     * @return $this
+     */
+    public function setTagName($tagName)
+    {
+        $this->tagName = $tagName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTagName()
+    {
+        return $this->tagName;
     }
 }

@@ -3,31 +3,35 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\ConfigConverter\AdminhtmlExtractor;
+namespace Magento\Migration\Code\ConfigConverter\ConfigExtractor;
 
 use \Magento\Migration\Code\ConfigConverter\ConfigSectionsInterface;
 use \Magento\Migration\Code\ConfigConverter\ConfigSectionsAbstract;
 
-class AdminhtmlAcl extends ConfigSectionsAbstract implements ConfigSectionsInterface
+class ConfigSectionsPdf extends ConfigSectionsAbstract implements ConfigSectionsInterface
 {
     /**
      * @var string
      */
-    protected $fileName = 'acl';
+    protected $fileName = 'pdf';
+
     /**
      * @var array
      */
     protected $locations = [
-        'acl' => '.'
+        'global/pdf' => '.'
     ];
 
     /**
      * @var string[]
      */
-    protected $xsls = ['config.xsl'];
+    protected $xsls = [
+        'config.xsl',
+        'removeFirstTag.xsl'
+    ];
 
     /**
      * @var string
      */
-    protected $xmlSchema = 'urn:magento:framework:Acl/etc/acl.xsd';
+    protected $xmlSchema = 'urn:magento:module:Magento_Sales:etc/pdf_file.xsd';
 }

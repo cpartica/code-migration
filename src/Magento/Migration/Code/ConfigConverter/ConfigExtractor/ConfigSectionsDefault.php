@@ -20,4 +20,14 @@ class ConfigSectionsDefault extends ConfigSectionsAbstract implements ConfigSect
     protected $locations = [
         'default' => '.'
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = ['config.xsl'];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:module:Magento_Store:etc/config.xsd';
 }

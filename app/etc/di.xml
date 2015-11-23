@@ -1071,6 +1071,11 @@
                 <item name="addressFormats" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsAddressFormats</item>
                 <item name="fieldset" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsFieldset</item>
                 <item name="crontab" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsCrontab</item>
+                <item name="index" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsIndex</item>
+                <item name="eavAttributes" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsEav</item>
+                <item name="pdf" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsPdf</item>
+                <item name="sales" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsSales</item>
+                <item name="emailTemplates" xsi:type="object">Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsEmailTemplate</item>
             </argument>
         </arguments>
     </type>

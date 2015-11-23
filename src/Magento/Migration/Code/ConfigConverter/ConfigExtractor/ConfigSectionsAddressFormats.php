@@ -18,6 +18,19 @@ class ConfigSectionsAddressFormats extends ConfigSectionsAbstract implements Con
      * @var array
      */
     protected $locations = [
-        'global/*/address/formats/*' => '.'
+        'global/*/address/formats' => '.'
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $xsls = [
+        'config.xsl',
+        'removeFirstTag.xsl'
+    ];
+
+    /**
+     * @var string
+     */
+    protected $xmlSchema = 'urn:magento:module:Magento_Customer:etc/address_formats.xsd';
 }
