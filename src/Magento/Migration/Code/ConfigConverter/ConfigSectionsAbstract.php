@@ -5,7 +5,12 @@
  */
 namespace Magento\Migration\Code\ConfigConverter;
 
-
+/**
+ * Class ConfigSectionsAbstract
+ * @package Magento\Migration\Code\ConfigConverter
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ *
+ */
 abstract class ConfigSectionsAbstract extends ConfigType implements ConfigSectionsInterface
 {
 

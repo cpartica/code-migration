@@ -29,7 +29,8 @@ class ConfigSectionsCrontab extends ConfigSectionsAbstract implements ConfigSect
     protected $xsls = [
         'config.xsl',
         'removeFirstTag.xsl',
-        'transTagToAttr.xsl'
+        'transTagToAttr.xsl',
+        'cronAddDefault.xsl'
     ];
 
     /**

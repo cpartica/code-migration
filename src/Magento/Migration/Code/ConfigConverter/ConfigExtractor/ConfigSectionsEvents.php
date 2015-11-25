@@ -32,7 +32,8 @@ class ConfigSectionsEvents extends ConfigSectionsAbstract implements ConfigSecti
     protected $xsls = [
         'config.xsl',
         'removeFirstTag.xsl',
-        'transTagToAttr.xsl'
+        'transTagToAttr.xsl',
+        'eventsObservers.xsl'
     ];
 
     /**

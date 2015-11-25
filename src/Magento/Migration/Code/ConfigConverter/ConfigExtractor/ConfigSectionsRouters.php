@@ -60,7 +60,8 @@ class ConfigSectionsRouters extends ConfigSectionsAbstract implements ConfigSect
     protected $xsls = [
         'config.xsl',
         'removeFirstTag.xsl',
-        'transTagToAttr2ndLvl.xsl'
+        'transTagToAttr2ndLvl.xsl',
+        'routeArgsToParentAsAttr.xsl'
     ];
 
     /**

@@ -20,7 +20,17 @@ class SystemSections extends ConfigSectionsAbstract implements ConfigSectionsInt
     /**
      * @var string[]
      */
-    protected $xsls = ['config.xsl'];
+    protected $xsls = [
+        'config.xsl',
+        'removeFirstTag.xsl',
+        'transTagToAttr.xsl',
+        'systemMod.xsl'
+    ];
+
+    /**
+     * @var string
+     */
+    protected $tagName = 'section';
 
     /**
      * @var string

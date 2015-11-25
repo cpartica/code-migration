@@ -25,7 +25,11 @@ class ConfigSectionsModule extends ConfigSectionsAbstract implements ConfigSecti
     /**
      * @var string[]
      */
-    protected $xsls = ['config.xsl'];
+    protected $xsls = [
+        'config.xsl',
+        'removeFirstTag.xsl',
+        'moduleMod.xsl'
+    ];
 
     /**
      * @var string
