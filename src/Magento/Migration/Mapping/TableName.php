@@ -24,7 +24,7 @@ class TableName
     protected $logger;
 
     /**
-     * @var Context
+     * @var \Magento\Migration\Mapping\Context
      */
     protected $context;
 
@@ -34,18 +34,26 @@ class TableName
     protected $file;
 
     /**
+     * @var \Magento\Migration\Utility\M1\ConfigFactory
+     */
+    protected $configFactory;
+
+    /**
      * @param \Magento\Migration\Logger\Logger $logger
-     * @param Context $context
+     * @param Magento\Migration\Mapping;\Context $context
      * @param \Magento\Migration\Utility\File $file
+     * @param \Magento\Migration\Utility\M1\ConfigFactory $configFactory
      */
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
-        Context $context,
-        \Magento\Migration\Utility\File $file
+        \Magento\Migration\Mapping\Context $context,
+        \Magento\Migration\Utility\File $file,
+        \Magento\Migration\Utility\M1\ConfigFactory $configFactory
     ) {
         $this->logger = $logger;
         $this->context = $context;
         $this->file = $file;
+        $this->configFactory = $configFactory;
         $this->getAllMapping();
     }
 
@@ -95,24 +103,23 @@ class TableName
             $basePath = dirname($this->context->getm1StructureConvertedDir());
         }
 
+        $searchArray = [
+            $basePath,
+            $basePath . "/*",
+            $basePath . "/*/*",
+            $basePath . "/*/*/*",
+            $basePath . "/*/*/*/*",
+            $basePath . "/*/*/*/*/*"
+        ];
+        if (preg_match('/(.+app\/code)/', $basePath, $match)) {
+            $searchArray[] = $match[0];
+        }
         foreach ($this->file->getFiles(
-            [
-                $basePath,
-                $basePath . "/*",
-                $basePath . "/*/*",
-                $basePath . "/*/*/*",
-                $basePath . "/*/*/*/*",
-                $basePath . "/*/*/*/*/*",
-                $basePath . "/..",
-                $basePath . "/../..",
-                $basePath . "/../../..",
-                $basePath . "/../../../..",
-                $basePath . "/../../../../..",
-            ],
+            $searchArray,
             "etc/config.xml"
         ) as $configFiles) {
-            $content = file_get_contents($configFiles);
-            $config = new \Magento\Migration\Utility\M1\Config($content);
+            /** @var \Magento\Migration\Utility\M1\Config $config */
+            $config = $this->configFactory->create(['configFileContent' => file_get_contents($configFiles)]);
             $mapping = $config->getTableAliases();
             if (count($mapping) > 0) {
                 $this->mapping = array_merge($this->mapping, $mapping);

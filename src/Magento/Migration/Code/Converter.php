@@ -52,8 +52,10 @@ class Converter
             $tokens = $this->tokenHelper->parseContent($fileContent);
 
             foreach ($this->processors as $processor) {
+                //initial filepath
                 $processor->setFilePath($this->filePath);
                 $tokens = $processor->process($tokens);
+                //possibly modified file path by process
                 $this->setFilePath($processor->getFilePath());
             }
 

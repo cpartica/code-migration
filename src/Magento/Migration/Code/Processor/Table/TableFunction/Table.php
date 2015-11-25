@@ -195,8 +195,10 @@ class Table extends AbstractFunction implements TableFunctionInterface
             return $this;
         }
 
+        // avoid processing init on classes that are not resources
         if ($this->getMethodName() == '_init' &&
-            $this->tokenHelper->getExtendsClass($this->tokens) != 'Mage_Core_Model_Resource_Db_Abstract'
+            !preg_match('/^Mage_Core_Model_Resource/', $this->tokenHelper->getExtendsClass($this->tokens)) &&
+            !preg_match('/^Mage_Core_Model_Mysql/', $this->tokenHelper->getExtendsClass($this->tokens))
         ) {
             return $this;
         }

@@ -13,11 +13,23 @@ class Config
     protected $config;
 
     /**
-     * @param string $configFileContent
+     * @var \Magento\Migration\Logger\Logger
      */
-    public function __construct($configFileContent)
-    {
+    protected $logger;
+
+    /**
+     * @param string $configFileContent
+     * @param \Magento\Migration\Logger\Logger $logger
+     */
+    public function __construct(
+        $configFileContent,
+        \Magento\Migration\Logger\Logger $logger
+    ) {
+        $this->logger = $logger;
         $this->config = simplexml_load_string($configFileContent);
+        if (!$this->config instanceof \SimpleXMLElement) {
+            $this->logger->warn($configFileContent . ' is not a valid xml file or couldn\'t be loaded');
+        }
     }
 
     /**
@@ -26,20 +38,30 @@ class Config
     public function getTableAliases()
     {
         $tableAliases = [];
-        $tables = $this->config->xpath('/config/global/models//entities/*/table');
-        if (is_array($tables)) {
-            foreach ($tables as $tableAlias) {
-                /** @var \SimpleXMLElement $tableAlias */
-                $tableAliasName = (string)$tableAlias;
-                $entityName = current($tableAlias->xpath(".."))->getName();
-                $resourceModelName = current(current($tableAlias->xpath("../../../.."))->xpath('//resourceModel'));
-                if ($resourceModelName instanceof \SimpleXMLElement) {
-                    $modelName = current($resourceModelName->xpath('..'))->getName();
-                    $tableAliases[$modelName][$entityName] = $tableAliasName;
-                } else {
-                    $modelName = str_replace('_resource', '', current($tableAlias->xpath("../../.."))->getName());
-                    $tableAliases[$modelName][$entityName] = $tableAliasName;
+        if ($this->config instanceof \SimpleXMLElement) {
+            $tables = $this->config->xpath('/config/global/models//entities/*/table');
+            if (is_array($tables)) {
+                foreach ($tables as $tableAlias) {
+                    if ($tableAlias instanceof \SimpleXMLElement) {
+                        /** @var \SimpleXMLElement $tableAlias */
+                        $tableAliasName = (string)$tableAlias;
+                        $entityName = current($tableAlias->xpath(".."))->getName();
+                        $resourceModelName = current(
+                            current($tableAlias->xpath("../../../.."))->xpath('//resourceModel')
+                        );
+                        if ($resourceModelName instanceof \SimpleXMLElement) {
+                            $modelName = current($resourceModelName->xpath('..'))->getName();
+                            $tableAliases[$modelName][$entityName] = $tableAliasName;
+                        } else {
+                            $modelName = str_replace(
+                                '_resource',
+                                '',
+                                current($tableAlias->xpath("../../.."))->getName()
+                            );
+                            $tableAliases[$modelName][$entityName] = $tableAliasName;
 
+                        }
+                    }
                 }
             }
         }
@@ -73,6 +95,7 @@ class Config
      */
     public function getModuleName()
     {
+        /** @var \SimpleXMLElement[] $childrens */
         $childrens = $this->config->modules->children();
         return $childrens[0]->getName();
     }
