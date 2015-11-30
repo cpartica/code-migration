@@ -184,7 +184,7 @@ class GenerateModuleMapping extends Command
         $configFiles = glob($m1BaseDir . '/app/code/core/*/*/etc/config.xml');
         foreach ($configFiles as $configFile) {
             $content = file_get_contents($configFile);
-            $config = new \Magento\Migration\Utility\M1\Config($content);
+            $config = new \Magento\Migration\Utility\M1\Config($content, $this->logger);
             $moduleName = $config->getModuleName();
             $mapping = $this->mapModuleName($moduleName, $m2BaseDir);
             if ($mapping != null) {

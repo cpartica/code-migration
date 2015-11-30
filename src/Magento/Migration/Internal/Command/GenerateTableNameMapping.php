@@ -77,7 +77,7 @@ class GenerateTableNameMapping extends Command
         $configFiles = $this->file->search('code/*/*/*/etc/config.xml', $m1BaseDir . '/app');
         foreach ($configFiles as $configFile) {
             $content = $this->file->fileGetContents($configFile);
-            $config = new \Magento\Migration\Utility\M1\Config($content);
+            $config = new \Magento\Migration\Utility\M1\Config($content, $this->logger);
             $mapping = $this->mapTableNames($config);
             if (count($mapping) > 0) {
                 $tableNamesMapping = array_merge($mapping, $tableNamesMapping);

@@ -69,7 +69,7 @@ class GenerateAliasMapping extends Command
         $types = array_keys($aliases);
         foreach ($configFiles as $configFile) {
             $configFileContent = file_get_contents($configFile);
-            $config = new \Magento\Migration\Utility\M1\Config($configFileContent);
+            $config = new \Magento\Migration\Utility\M1\Config($configFileContent, $this->logger);
             foreach ($types as $type) {
                 $aliasesForType = $config->getAliases($type . 's');
                 $aliases[$type] = array_merge($aliases[$type], $aliasesForType);
