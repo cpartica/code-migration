@@ -42,7 +42,11 @@ class Module
     public function mapModule($moduleName)
     {
         if (isset($this->mapping[$moduleName]) && isset($this->mapping[$moduleName]['m2module'])) {
-            return $this->mapping[$moduleName]['m2module'];
+            if (is_array($this->mapping[$moduleName]['m2module'])) {
+                return end($this->mapping[$moduleName]['m2module']);
+            } else {
+                return $this->mapping[$moduleName]['m2module'];
+            }
         } else {
             $this->logger->debug("Failed to map module: " . $moduleName);
             return null;

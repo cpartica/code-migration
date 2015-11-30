@@ -41,7 +41,11 @@ class ClassMapping
     public function mapM1Class($className)
     {
         if (isset($this->mapping[$className]) && isset($this->mapping[$className]['m2class'])) {
-            return $this->mapping[$className]['m2class'];
+            if (is_array($this->mapping[$className]['m2class'])) {
+                return end($this->mapping[$className]['m2class']);
+            } else {
+                return $this->mapping[$className]['m2class'];
+            }
         } else {
             if (strpos($className, 'Mage_') !== false) {
                 $this->logger->warn("Could not map class: " . $className);
@@ -57,7 +61,11 @@ class ClassMapping
     public function getClassMethodMap($className)
     {
         if (isset($this->mapping[$className]) && isset($this->mapping[$className]['methods'])) {
-            return $this->mapping[$className]['methods'];
+            if (is_array($this->mapping[$className]['methods'])) {
+                return end($this->mapping[$className]['methods']);
+            } else {
+                return $this->mapping[$className]['methods'];
+            }
         } else {
             if (strpos($className, 'Mage_') !== false) {
                 $this->logger->warn("Could not get class method map: " . $className);

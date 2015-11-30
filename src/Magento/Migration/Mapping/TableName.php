@@ -65,7 +65,11 @@ class TableName
     public function mapTableName($tableName, $entity)
     {
         if (isset($this->mapping[$tableName]) && isset($this->mapping[$tableName][$entity])) {
-            return $this->mapping[$tableName][$entity];
+            if (is_array($this->mapping[$tableName][$entity])) {
+                return end($this->mapping[$tableName][$entity]);
+            } else {
+                return $this->mapping[$tableName][$entity];
+            }
         } else {
             $this->logger->warn("Could not map table name " . $tableName . ' of type ' . $entity);
             return null;

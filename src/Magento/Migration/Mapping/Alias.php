@@ -51,7 +51,11 @@ class Alias
             $this->getAllMapping();
         }
         if (isset($this->mapping[$type]) && isset($this->mapping[$type][$alias])) {
-            return $this->mapping[$type][$alias];
+            if (is_array($this->mapping[$type][$alias])) {
+                return end($this->mapping[$type][$alias]);
+            } else {
+                return $this->mapping[$type][$alias];
+            }
         } else {
             $this->logger->warn("Could not map alias " . $alias . ' of type ' . $type);
             return null;
