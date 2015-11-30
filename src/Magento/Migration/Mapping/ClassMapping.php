@@ -30,7 +30,7 @@ class ClassMapping
         foreach ($mappingFiles as $mappingFile) {
             $content = file_get_contents($mappingFile);
             $classMappings = json_decode($content, true);
-            $this->mapping = array_merge($this->mapping, $classMappings);
+            $this->mapping = array_replace($this->mapping, $classMappings);
         }
     }
 

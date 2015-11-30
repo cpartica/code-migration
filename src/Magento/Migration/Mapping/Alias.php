@@ -92,7 +92,7 @@ class Alias
         $aliases = $this->getAliasesFromFiles(
             glob($this->context->getm1StructureConvertedDir() . '/app/code/*/*/etc/config.xml')
         );
-        $this->mapping = array_merge_recursive($this->mapping, $aliases);
+        $this->mapping = array_replace_recursive($this->mapping, $aliases);
     }
 
     /**
@@ -115,7 +115,7 @@ class Alias
                 }
             }
         }
-        $this->mapping = array_merge_recursive($this->mapping, $aliases);
+        $this->mapping = array_replace_recursive($this->mapping, $aliases);
     }
 
     /**
@@ -129,7 +129,7 @@ class Alias
         foreach ($mappingFiles as $mappingFile) {
             $content = file_get_contents($mappingFile);
             $mapping = json_decode($content, true);
-            $this->mapping = array_merge_recursive($this->mapping, $mapping);
+            $this->mapping = array_replace_recursive($this->mapping, $mapping);
         }
     }
 
@@ -150,7 +150,7 @@ class Alias
             $config = new \Magento\Migration\Utility\M1\Config($configFileContent, $this->logger);
             foreach ($types as $type) {
                 $aliasesForType = $config->getAliases($type . 's');
-                $aliases[$type] = array_merge($aliases[$type], $aliasesForType);
+                $aliases[$type] = array_replace($aliases[$type], $aliasesForType);
             }
         }
         return $aliases;

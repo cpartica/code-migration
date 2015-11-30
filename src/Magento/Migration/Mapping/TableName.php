@@ -126,7 +126,7 @@ class TableName
             $config = $this->configFactory->create(['configFileContent' => file_get_contents($configFiles)]);
             $mapping = $config->getTableAliases();
             if (count($mapping) > 0) {
-                $this->mapping = array_merge($this->mapping, $mapping);
+                $this->mapping = array_replace($this->mapping, $mapping);
             }
         }
         return  $this->mapping;
