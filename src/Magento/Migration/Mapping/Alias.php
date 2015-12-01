@@ -150,7 +150,7 @@ class Alias
             $config = new \Magento\Migration\Utility\M1\Config($configFileContent, $this->logger);
             foreach ($types as $type) {
                 $aliasesForType = $config->getAliases($type . 's');
-                $aliases[$type] = array_replace($aliases[$type], $aliasesForType);
+                $aliases[$type] = array_merge($aliases[$type], $aliasesForType);
             }
         }
         return $aliases;
