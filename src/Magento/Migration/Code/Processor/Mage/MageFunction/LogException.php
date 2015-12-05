@@ -75,17 +75,10 @@ class LogException extends AbstractFunction implements \Magento\Migration\Code\P
     public function convertToM2()
     {
         $indexOfMethodCall = $this->index + 2;
-        $currentIndex = $this->index;
 
-        while ($currentIndex <= $indexOfMethodCall) {
-            if (is_array($this->tokens[$currentIndex])) {
-                $this->tokens[$currentIndex][1] = '';
-            } else {
-                $this->tokens[$currentIndex] = '';
-            }
-            $currentIndex++;
-        }
-        $this->tokens[$this->index] = '$this->logger->critical';
+        $this->tokenHelper->eraseTokens($this->tokens, $this->index, $indexOfMethodCall);
+
+        $this->tokens[$this->index] = '$this->' . $this->diVariableName . '->critical';
 
         return $this;
     }

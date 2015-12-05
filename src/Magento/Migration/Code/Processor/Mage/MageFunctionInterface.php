@@ -15,6 +15,7 @@ interface MageFunctionInterface
     const MAGE_GET_STORE_CONFIG = 'getStoreConfig';
     const MAGE_REGISTRY = 'registry';
     const MAGE_THROW_EXCEPTION = 'throwException';
+    const MAGE_LOG = 'log';
     const MAGE_LOG_EXCEPTION = 'logException';
 
     /**

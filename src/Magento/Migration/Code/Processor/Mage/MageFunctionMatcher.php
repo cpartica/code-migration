@@ -81,6 +81,12 @@ class MageFunctionMatcher implements MatcherInterface
                 );
                 $throwException->setContext($tokens, $index);
                 return $throwException;
+            case 'log':
+                $log = $this->objectManager->create(
+                    '\Magento\Migration\Code\Processor\Mage\MageFunction\Log'
+                );
+                $log->setContext($tokens, $index);
+                return $log;
             case 'logException':
                 $logException = $this->objectManager->create(
                     '\Magento\Migration\Code\Processor\Mage\MageFunction\LogException'

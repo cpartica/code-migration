@@ -518,7 +518,7 @@ class TokenHelper
      *
      * @param array $tokens
      * @param int $index
-     * @param \Magento\Migration\Code\Processor\TokenArgumentCollection $replacementTokens
+     * @param string|\Magento\Migration\Code\Processor\TokenArgumentCollection $replacementTokens
      * @return $this
      */
     public function replaceCallArgumentsTokens(&$tokens, $index, $replacementTokens)
@@ -539,16 +539,56 @@ class TokenHelper
             return $this;
         }
 
-        $tokens[$indexStart + 1] = [T_CONSTANT_ENCAPSED_STRING, '', $indexStart + 1, 'T_CONSTANT_ENCAPSED_STRING'];
-        foreach ($replacementTokens->getTokens() as $token) {
-            /** @var  \Magento\Migration\Code\Processor\TokenArgument $token */
-            $tokens[$indexStart + 1][1] .= $token->getName();
-        }
+        $tokens[$indexStart + 1] = [
+            T_CONSTANT_ENCAPSED_STRING,
+            $this->renderTokens($replacementTokens),
+            $indexStart + 1,
+            'T_CONSTANT_ENCAPSED_STRING'
+        ];
 
         for ($cnt = $indexStart + 2; $cnt < $indexEnd; $cnt++) {
             $tokens[$cnt] = '';
         }
         return $this;
+    }
+
+    /**
+     * Return string representation of token(s)
+     *
+     * @param string|\Magento\Migration\Code\Processor\TokenArgumentCollection $tokens
+     * @return string
+     */
+    protected function renderTokens($tokens)
+    {
+        if ($tokens instanceof \Magento\Migration\Code\Processor\TokenArgumentCollection) {
+            $result = '';
+            foreach ($tokens->getTokens() as $token) {
+                /** @var \Magento\Migration\Code\Processor\TokenArgument $token */
+                $result .= $token->getName();
+            }
+        } else {
+            $result = (string)$tokens;
+        }
+        return $result;
+    }
+
+    /**
+     * Assign empty value to tokens in a given range
+     *
+     * @param array $tokens
+     * @param int $indexFrom
+     * @param int $indexTo
+     * @return void
+     */
+    public function eraseTokens(array &$tokens, $indexFrom, $indexTo)
+    {
+        for ($i = $indexFrom; $i <= $indexTo; $i++) {
+            if (is_array($tokens[$i])) {
+                $tokens[$i][1] = '';
+            } else {
+                $tokens[$i] = '';
+            }
+        }
     }
 
     /**
