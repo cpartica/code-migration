@@ -224,16 +224,8 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
             return $this;
         }
 
-        $currentIndex = $this->index;
+        $this->tokenHelper->eraseTokens($this->tokens, $this->index, $this->endIndex);
 
-        while ($currentIndex <= $this->endIndex) {
-            if (is_array($this->tokens[$currentIndex])) {
-                $this->tokens[$currentIndex][1] = '';
-            } else {
-                $this->tokens[$currentIndex] = '';
-            }
-            $currentIndex++;
-        }
         $this->tokens[$this->index] = '$this->' . $this->diVariableName;
 
         if (array_key_exists($this->methodName, $this->cacheFunctions)) {

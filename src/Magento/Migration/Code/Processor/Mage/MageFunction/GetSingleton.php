@@ -192,17 +192,11 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
         if ($this->methodName == null || $this->singletonClass == null) {
             return $this;
         }
-        $indexOfMethodCall = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
-        $currentIndex = $this->index;
 
-        while ($currentIndex < $indexOfMethodCall) {
-            if (is_array($this->tokens[$currentIndex])) {
-                $this->tokens[$currentIndex][1] = '';
-            } else {
-                $this->tokens[$currentIndex] = '';
-            }
-            $currentIndex++;
-        }
+        $indexOfMethodCall = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
+
+        $this->tokenHelper->eraseTokens($this->tokens, $this->index, $indexOfMethodCall - 1);
+
         $this->tokens[$this->index] = '$this->' . $this->diVariableName;
 
         return $this;

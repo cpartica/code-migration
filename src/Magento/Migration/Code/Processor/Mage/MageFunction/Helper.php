@@ -211,21 +211,14 @@ class Helper extends AbstractFunction implements \Magento\Migration\Code\Process
                 T_OBJECT_OPERATOR
             );
         }
-        $currentIndex = $this->index;
+
+        $this->tokenHelper->eraseTokens($this->tokens, $this->index, $indexOfMethodCall - 1);
 
         //TODO: change the formatting text for '__' call
-        while ($currentIndex < $indexOfMethodCall) {
-            if (is_array($this->tokens[$currentIndex])) {
-                $this->tokens[$currentIndex][1] = '';
-            } else {
-                $this->tokens[$currentIndex] = '';
-            }
-            $currentIndex++;
-        }
         if ($this->methodName != '__') {
             $this->tokens[$this->index] = '$this->' . $this->diVariableName;
         } else {
-            $this->tokens[$currentIndex][1] = '';
+            $this->tokens[$indexOfMethodCall][1] = '';
         }
 
         return $this;

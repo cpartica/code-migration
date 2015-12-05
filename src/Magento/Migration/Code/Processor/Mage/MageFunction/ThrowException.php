@@ -75,16 +75,9 @@ class ThrowException extends AbstractFunction implements \Magento\Migration\Code
     public function convertToM2()
     {
         $indexOfMethodCall = $this->index + 2;
-        $currentIndex = $this->index;
 
-        while ($currentIndex <= $indexOfMethodCall) {
-            if (is_array($this->tokens[$currentIndex])) {
-                $this->tokens[$currentIndex][1] = '';
-            } else {
-                $this->tokens[$currentIndex] = '';
-            }
-            $currentIndex++;
-        }
+        $this->tokenHelper->eraseTokens($this->tokens, $this->index, $indexOfMethodCall);
+
         $this->tokens[$this->index] = 'throw new \Magento\Framework\Exception\LocalizedException';
 
         return $this;

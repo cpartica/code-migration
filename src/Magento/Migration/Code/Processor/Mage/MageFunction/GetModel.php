@@ -176,15 +176,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
             if ($this->tokens[$indexOfMethodCall][0] == T_WHITESPACE) {
                 $indexOfMethodCall++;
             }
-            $currentIndex = $nextNextIndex;
-            while ($currentIndex < $indexOfMethodCall) {
-                if (is_array($this->tokens[$currentIndex])) {
-                    $this->tokens[$currentIndex][1] = '';
-                } else {
-                    $this->tokens[$currentIndex] = '';
-                }
-                $currentIndex++;
-            }
+            $this->tokenHelper->eraseTokens($this->tokens, $nextNextIndex, $indexOfMethodCall - 1);
         }
         return false;
     }
@@ -251,17 +243,11 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
         if ($this->methodName == null || $this->modelFactoryClass == null) {
             return $this;
         }
-        $indexOfMethodCall = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
-        $currentIndex = $this->index;
 
-        while ($currentIndex < $indexOfMethodCall) {
-            if (is_array($this->tokens[$currentIndex])) {
-                $this->tokens[$currentIndex][1] = '';
-            } else {
-                $this->tokens[$currentIndex] = '';
-            }
-            $currentIndex++;
-        }
+        $indexOfMethodCall = $this->tokenHelper->skipMethodCall($this->tokens, $this->index);
+
+        $this->tokenHelper->eraseTokens($this->tokens, $this->index, $indexOfMethodCall - 1);
+
         //TODO: handle parameter to getModel
         $this->tokens[$this->index] = '$this->' . $this->diVariableName . '->create()';
 
