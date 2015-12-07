@@ -67,6 +67,12 @@ class MageFunctionMatcher implements MatcherInterface
                 );
                 $getModelCall->setContext($tokens, $index);
                 return $getModelCall;
+            case 'dispatchEvent':
+                $dispatchEventCall = $this->objectManager->create(
+                    '\Magento\Migration\Code\Processor\Mage\MageFunction\DispatchEvent'
+                );
+                $dispatchEventCall->setContext($tokens, $index);
+                return $dispatchEventCall;
             case 'register':
             case 'unregister':
             case 'registry':
