@@ -76,18 +76,47 @@ class Config
     {
         $result = [];
         if (!empty($this->config->global->{$type})) {
-            foreach ($this->config->global->{$type} as $aliases) {
-                /**
-                 * @var \SimpleXMLElement $modelClass
-                 */
-                foreach ($aliases as $alias => $aliasClass) {
-                    if (!empty($aliasClass->class)) {
-                        $result[$alias] = (string)$aliasClass->class;
-                    }
+            foreach ($this->config->global->{$type}->children() as $alias => $node) {
+                if (!empty($node->class)) {
+                    $result[$alias] = (string)$node->class;
                 }
             }
         }
         return $result;
+    }
+
+    /**
+     * @return array
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
+    public function getResourceModelAliases()
+    {
+        $result = [];
+        if (!empty($this->config->global->models)) {
+            foreach ($this->config->global->models->children() as $alias => $node) {
+                $aliasClass = $this->dereferenceResourceModelAlias($alias);
+                if ($aliasClass) {
+                    $result[$alias] = $aliasClass;
+                }
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param string $alias
+     * @return null|string
+     */
+    protected function dereferenceResourceModelAlias($alias)
+    {
+        if (!empty($this->config->global->models->{$alias}->resourceModel)) {
+            $classNodeName = (string)$this->config->global->models->{$alias}->resourceModel;
+            if (!empty($this->config->global->models->{$classNodeName}->class)) {
+                $result = (string)$this->config->global->models->{$classNodeName}->class;
+                return $result;
+            }
+        }
+        return null;
     }
 
     /**
