@@ -67,6 +67,12 @@ class MageFunctionMatcher implements MatcherInterface
                 );
                 $getModelCall->setContext($tokens, $index);
                 return $getModelCall;
+            case 'getResourceModel':
+                $getResourceModelCall = $this->objectManager->create(
+                    '\Magento\Migration\Code\Processor\Mage\MageFunction\GetResourceModel'
+                );
+                $getResourceModelCall->setContext($tokens, $index);
+                return $getResourceModelCall;
             case 'dispatchEvent':
                 $dispatchEventCall = $this->objectManager->create(
                     '\Magento\Migration\Code\Processor\Mage\MageFunction\DispatchEvent'
