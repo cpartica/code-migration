@@ -9,6 +9,7 @@ interface MageFunctionInterface
 {
     const MAGE_HELPER = 'helper';
     const MAGE_GET_MODEL = 'getModel';
+    const MAGE_GET_RESOURCE_MODEL = 'getResourceModel';
     const MAGE_GET_SINGLETON = 'getSingleton';
     const MAGE_CONSTRUCTOR = 'constructor';
     const MAGE_APP = 'app';

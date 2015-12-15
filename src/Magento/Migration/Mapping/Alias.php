@@ -143,15 +143,18 @@ class Alias
             'helper' => [],
             'block' => [],
             'model' => [],
+            'resource_model' => [],
         ];
-        $types = array_keys($aliases);
         foreach ($configFiles as $configFile) {
             $configFileContent = file_get_contents($configFile);
             $config = new \Magento\Migration\Utility\M1\Config($configFileContent, $this->logger);
-            foreach ($types as $type) {
-                $aliasesForType = $config->getAliases($type . 's');
-                $aliases[$type] = array_merge($aliases[$type], $aliasesForType);
-            }
+            $aliasesInFile = [
+                'helper' => $config->getAliases('helpers'),
+                'block' => $config->getAliases('blocks'),
+                'model' => $config->getAliases('models'),
+                'resource_model' => $config->getResourceModelAliases(),
+            ];
+            $aliases = array_replace_recursive($aliases, $aliasesInFile);
         }
         return $aliases;
     }

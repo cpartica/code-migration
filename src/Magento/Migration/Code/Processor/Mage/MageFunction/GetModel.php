@@ -42,10 +42,13 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
         $this->parsed = true;
         $argument = $this->getMageCallFirstArgument($this->index);
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
-            $this->modelFactoryClass = $this->getModelFactoryClass($argument[1]);
+            $classAlias = trim($argument[1], '\'"');
             if ($this->isCollectionCall()) {
-                $this->modelFactoryClass = rtrim($this->modelFactoryClass, 'Factory') . 'CollectionFactory';
+                $classAlias .= '_collection';
+                $this->modelFactoryClass = $this->getModelFactoryClass($classAlias, 'resource_model');
                 $this->removeCollectionCall();
+            } else {
+                $this->modelFactoryClass = $this->getModelFactoryClass($classAlias, 'model');
             }
 
             if (!$this->modelFactoryClass) {
@@ -53,7 +56,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
             }
             if ($this->modelFactoryClass == "obsolete") {
                 $this->logger->warn(
-                    'Obsolete model not converted at ' . $this->tokens[$this->index][2] . ' ' . $argument[1]
+                    'Obsolete class not converted at ' . $this->tokens[$this->index][2] . ' ' . $classAlias
                 );
                 return $this;
             }
@@ -62,7 +65,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
                 $this->logger->warn('Unexpected token for getModel call at ' . $this->tokens[$this->index][2]);
             } else {
                 $this->logger->warn(
-                    'Variable inside a Mage::getModel call not converted: ' . $this->tokens[$this->index][2]
+                    'Variable inside a Mage::getModel call not converted at ' . $this->tokens[$this->index][2]
                 );
             }
             return $this;
@@ -77,9 +80,10 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
 
     /**
      * @param string $m1
+     * @param string $type
      * @return null|string
      */
-    protected function getModelFactoryClass($m1)
+    protected function getModelFactoryClass($m1, $type)
     {
         $m1 = trim(trim($m1, '\''), '\"');
 
@@ -88,7 +92,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
             $m1ClassName = $m1;
         } else {
             $parts = explode('/', $m1);
-            $className = $this->aliasMapper->mapAlias($parts[0], 'model');
+            $className = $this->aliasMapper->mapAlias($parts[0], $type);
             if ($className == null) {
                 $this->logger->warn('Model alias not found: ' . $parts[0]);
                 return null;
