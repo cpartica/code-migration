@@ -3,7 +3,7 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\Processor\Controller;
+namespace Magento\Migration\Code\Splitter\Controller;
 
 class ControllerMethodMatcher implements \Magento\Migration\Code\Processor\Mage\MatcherInterface
 {
@@ -53,7 +53,7 @@ class ControllerMethodMatcher implements \Magento\Migration\Code\Processor\Mage\
 
         if (preg_match('/Action$/', $methodName)) {
             $helperFunction = $this->objectManager->create(
-                '\Magento\Migration\Code\Processor\Controller\ControllerMethod\Action'
+                '\Magento\Migration\Code\Splitter\Controller\ControllerMethod\Action'
             );
             $helperFunction->setContext($tokens, $index);
             return $helperFunction;

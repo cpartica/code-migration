@@ -13,6 +13,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ConvertPhpCode extends Command
 {
+    const CONVERTED_FILE_EXT = '.converted';
+
     /**
      * @var \Magento\Migration\Utility\File
      */
@@ -111,9 +113,18 @@ class ConvertPhpCode extends Command
             $this->logger->info('Processing file ' . $filePath);
             try {
                 $fileContent = file_get_contents($filePath);
-                $convertedContent = $this->converter->setFilePath($filePath)->convert($fileContent);
-                $outputFilePath = $this->converter->getFilePath() . '.converted';
+                $additionalFiles = [];
+                $this->converter->setFilePath($filePath);
+                $fileContent = $this->converter->split($fileContent, $additionalFiles);
+                $convertedContent = $this->converter->convert($fileContent);
+                $outputFilePath = $this->converter->getFilePath() . self::CONVERTED_FILE_EXT;
                 file_put_contents($outputFilePath, $convertedContent);
+                foreach ($additionalFiles as $additionalFilePath) {
+                    $fileContent = file_get_contents($additionalFilePath);
+                    $convertedContent = $this->converter->setFilePath($additionalFilePath)->convert($fileContent);
+                    $outputFilePath = $this->converter->getFilePath();
+                    file_put_contents($outputFilePath, $convertedContent);
+                }
             } catch (\Exception $e) {
                 $this->logger->error("caught exception: " . $e->getMessage() . "\n" . $e->getTraceAsString());
             }

@@ -659,4 +659,49 @@ class TokenHelper
         }
         return false;
     }
+
+    /**
+     * @param array $tokens
+     * @return bool
+     */
+    public function isAbstract(&$tokens)
+    {
+        return $this->getNextIndexOfTokenType($tokens, 0, T_ABSTRACT) != null;
+    }
+
+    /**
+     * @param array $tokens
+     * @return null|string
+     */
+    public function getNameSpace(array &$tokens)
+    {
+        $indexNamespace = $this->getNextIndexOfTokenType($tokens, 0, T_NAMESPACE);
+        if ($indexNamespace == null) {
+            return null;
+        } else {
+            $indexNamespace = $this->getNextIndexOfTokenType($tokens, 0, T_STRING);
+
+            $indexEndNamespace = $this->getNextIndexOfSimpleToken($tokens, $indexNamespace, ';');
+            $strNamespace = '';
+            for ($index = $indexNamespace; $index <= $indexEndNamespace; $index++) {
+                if (is_array($tokens[$index])) {
+                    $strNamespace .= $tokens[$index][1];
+                } else {
+                    $strNamespace .= $tokens[$index];
+                }
+            }
+            return $strNamespace;
+        }
+    }
+
+    /**
+     * @param array $tokens
+     * @return bool
+     */
+    public function isController($tokens)
+    {
+        if (!empty($tokens)) {
+            return preg_match('/\\\Controller\\\/', $this->getNameSpace($tokens));
+        }
+    }
 }

@@ -18,6 +18,10 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     protected $processorMock;
 
     /**
+     * @var \Magento\Migration\Code\SplitterInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $splitterMock;
+    /**
      * @var \Magento\Migration\Logger\Logger|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $loggerMock;
@@ -25,12 +29,14 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->processorMock = $this->getMock('Magento\Migration\Code\ProcessorInterface');
+        $this->splitterMock = $this->getMock('Magento\Migration\Code\SplitterInterface');
         $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
 
         $tokenHelper = $this->setupTokenHelper($this->loggerMock);
 
         $this->obj = new \Magento\Migration\Code\Converter(
             [$this->processorMock],
+            [$this->splitterMock],
             $tokenHelper,
             $this->loggerMock
         );

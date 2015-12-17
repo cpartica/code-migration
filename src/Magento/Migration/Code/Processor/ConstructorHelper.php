@@ -59,7 +59,7 @@ class ConstructorHelper
 
     /**
      * @param array $variables
-     * @return string
+     * @return array
      */
     public function injectArguments($variables)
     {
@@ -69,14 +69,15 @@ class ConstructorHelper
         //update assignment
 
         $this->addMembers($variables);
-
+        $orderedInjectedArguments = [];
         if (!$this->hasConstructor()) {
             $text = $this->generateConstructor($variables);
             $indexToInsert = 0 - $this->getConstructorIndex();
             $this->tokens[$indexToInsert][1] .= $text;
         } else {
-            $this->addConstructorArguments($variables);
+            $orderedInjectedArguments = $this->addConstructorArguments($variables);
         }
+        return $orderedInjectedArguments;
     }
 
     /**
@@ -104,12 +105,13 @@ class ConstructorHelper
 
     /**
      * @param array $variables
-     * @return void
+     * @return array
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     protected function addConstructorArguments($variables)
     {
+        $orderedDiVariables = [];
         $startIndex = $this->getConstructorIndex();
         $existingArguments = $this->tokenHelper->getFunctionArguments($this->tokens, $startIndex);
 
@@ -210,13 +212,14 @@ class ConstructorHelper
             }
         }
 
-
         $startIndex = $this->tokenHelper->getNextIndexOfSimpleToken($this->tokens, $startIndex, '{');
         $text = '';
         foreach ($variables as $variable) {
+            $orderedDiVariables[$variable['variable_name']]  = $variable;
             $text .= "\n        \$this->" . $variable['variable_name'] . ' = $' . $variable['variable_name'] . ';';
         }
         $this->tokens[$startIndex] = $this->tokens[$startIndex] . $text;
+        return $orderedDiVariables;
     }
 
     /**
