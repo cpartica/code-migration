@@ -1045,6 +1045,7 @@
                 <item name="TableProcessor" xsi:type="object">Magento\Migration\Code\Processor\TableProcessor</item>
                 <item name="docBlockProcessor" xsi:type="object">Magento\Migration\Code\Processor\DocBlockProcessor</item>
                 <item name="classProcessor" xsi:type="object">Magento\Migration\Code\Processor\ClassProcessor</item>
+                <item name="modelClassProcessor" xsi:type="object">Magento\Migration\Code\Processor\ModelClassProcessor</item>
                 <item name="blockClassProcessor" xsi:type="object">Magento\Migration\Code\Processor\BlockClassProcessor</item>
                 <item name="mageProcessor" xsi:type="object">Magento\Migration\Code\Processor\MageProcessor</item>
                 <item name="operatorNewProcessor" xsi:type="object">Magento\Migration\Code\Processor\OperatorNewProcessor</item>
