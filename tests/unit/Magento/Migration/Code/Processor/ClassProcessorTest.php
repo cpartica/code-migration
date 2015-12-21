@@ -23,14 +23,14 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
     protected $aliasMapMock;
 
     /**
-     * @var \Magento\Migration\Mapping\Context|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $contextMock;
-
-    /**
      * @var \Magento\Migration\Code\Processor\ConstructorHelperFactory|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $constructorHelperFactoryMock;
+
+    /**
+     * @var \Magento\Migration\Code\Processor\ClassNameValidator|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $classNameValidatorMock;
 
     /**
      * @var \Magento\Migration\Logger\Logger|\PHPUnit_Framework_MockObject_MockObject
@@ -55,13 +55,14 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
         )->disableOriginalConstructor()
             ->getMock();
 
-        $this->contextMock = $this->getMockBuilder(
-            '\Magento\Migration\Mapping\Context'
-        )->getMock();
-
         $this->constructorHelperFactoryMock = $this->getMockBuilder(
             '\Magento\Migration\Code\Processor\ConstructorHelperFactory'
         )->setMethods(['create'])
+            ->getMock();
+
+        $this->classNameValidatorMock = $this->getMockBuilder(
+            '\Magento\Migration\Code\Processor\ClassNameValidator'
+        )->disableOriginalConstructor()
             ->getMock();
 
         $this->tokenHelper = $this->setupTokenHelper($this->loggerMock);
@@ -94,9 +95,9 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
             $this->classMapMock,
             $this->aliasMapMock,
             $this->loggerMock,
-            $this->contextMock,
             $this->constructorHelperFactoryMock,
-            $this->tokenHelper
+            $this->tokenHelper,
+            $this->classNameValidatorMock
         );
     }
 
@@ -166,7 +167,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
             ['Varien_Type', '\\Magento\\Framework\\Type'],
             ['Mage_Type_Obsolete', 'obsolete'],
         ];
-        $this->classMapMock->expects($this->exactly(3))
+        $this->classMapMock->expects($this->atLeastOnce())
             ->method('mapM1Class')
             ->willReturnMap($classMap);
 
