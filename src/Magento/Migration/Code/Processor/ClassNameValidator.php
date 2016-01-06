@@ -72,7 +72,7 @@ class ClassNameValidator
         if ($this->knownClassPrefixes === null) {
             $this->knownClassPrefixes = [];
             foreach ($this->aliasMapper->getAllMapping() as $map) {
-                $this->knownClassPrefixes += array_values($map);
+                $this->knownClassPrefixes = array_merge($this->knownClassPrefixes, array_values($map));
             }
         }
         return $this->knownClassPrefixes;
