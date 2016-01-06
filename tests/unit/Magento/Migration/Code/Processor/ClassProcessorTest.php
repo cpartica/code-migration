@@ -18,24 +18,14 @@ class ClassProcessorTest extends TestCase
     protected $obj;
 
     /**
-     * @var \Magento\Migration\Mapping\ClassMapping|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $classMapMock;
-
-    /**
-     * @var \Magento\Migration\Mapping\Alias|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $aliasMapMock;
-
-    /**
      * @var \Magento\Migration\Code\Processor\ConstructorHelperFactory|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $constructorHelperFactoryMock;
 
     /**
-     * @var \Magento\Migration\Code\Processor\ClassNameValidator|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Migration\Code\Processor\NamingHelper|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected $classNameValidatorMock;
+    protected $namingHelperMock;
 
     /**
      * @var \Magento\Migration\Logger\Logger|\PHPUnit_Framework_MockObject_MockObject
@@ -51,24 +41,25 @@ class ClassProcessorTest extends TestCase
     {
         $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
 
-        $this->classMapMock = $this->getMockBuilder(
-            '\Magento\Migration\Mapping\ClassMapping'
-        )->disableOriginalConstructor()
-            ->getMock();
-        $this->aliasMapMock = $this->getMockBuilder(
-            '\Magento\Migration\Mapping\Alias'
-        )->disableOriginalConstructor()
-            ->getMock();
-
         $this->constructorHelperFactoryMock = $this->getMockBuilder(
             '\Magento\Migration\Code\Processor\ConstructorHelperFactory'
         )->setMethods(['create'])
             ->getMock();
 
-        $this->classNameValidatorMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\ClassNameValidator'
+        $this->namingHelperMock = $this->getMockBuilder(
+            '\Magento\Migration\Code\Processor\NamingHelper'
         )->disableOriginalConstructor()
             ->getMock();
+
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('getM2ClassName')
+            ->willReturnMap([
+                ['Magento_Migration_NameSpace_Test', '\\Magento\\Migration\\NameSpace\\Test'],
+                ['Mage_Type', '\\Magento\\Type'],
+                ['Varien_Type', '\\Magento\\Framework\\Type'],
+                ['Mage_EmptyConstructorType', '\\Magento\\EmptyConstructorType'],
+            ]);
 
         $this->tokenHelper = $this->setupTokenHelper($this->loggerMock);
 
@@ -97,12 +88,10 @@ class ClassProcessorTest extends TestCase
             );
 
         $this->obj = new ClassProcessor(
-            $this->classMapMock,
-            $this->aliasMapMock,
             $this->loggerMock,
             $this->constructorHelperFactoryMock,
             $this->tokenHelper,
-            $this->classNameValidatorMock
+            $this->namingHelperMock
         );
     }
 
@@ -169,15 +158,6 @@ class ClassProcessorTest extends TestCase
 
         $tokens = token_get_all($fileContent);
 
-        $classMap = [
-            ['Mage_Type', '\\Magento\\Type'],
-            ['Varien_Type', '\\Magento\\Framework\\Type'],
-            ['Mage_Type_Obsolete', 'obsolete'],
-        ];
-        $this->classMapMock->expects($this->atLeastOnce())
-            ->method('mapM1Class')
-            ->willReturnMap($classMap);
-
         $processedTokens = $this->obj->process($tokens);
 
         $updatedContent = $this->tokenHelper->reconstructContent($processedTokens);
@@ -220,14 +200,6 @@ class ClassProcessorTest extends TestCase
 
         $tokens = token_get_all($fileContent);
         $tokens = $this->tokenHelper->refresh($tokens);
-
-        $classMap = [
-            ['Mage_Type', '\\Magento\\Type'],
-            ['Mage_EmptyConstructorType', '\\Magento\\EmptyConstructorType'],
-        ];
-        $this->classMapMock->expects($this->exactly(1))
-            ->method('mapM1Class')
-            ->willReturnMap($classMap);
 
         $processedTokens = $this->obj->process($tokens);
 

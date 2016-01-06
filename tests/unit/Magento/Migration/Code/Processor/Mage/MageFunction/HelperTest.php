@@ -7,8 +7,10 @@ namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
 use Magento\Migration\Code\TestCase;
+use Magento\Migration\Mapping\Alias;
 
 class HelperTest extends TestCase
+
 {
     /**
      * @var Helper
@@ -40,6 +42,11 @@ class HelperTest extends TestCase
      */
     protected $argumentFactoryMock;
 
+    /**
+     * @var \Magento\Migration\Code\Processor\NamingHelper|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $namingHelperMock;
+
     public function setUp()
     {
         $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
@@ -60,12 +67,34 @@ class HelperTest extends TestCase
         )->setMethods(['create'])
             ->getMock();
 
+        $this->namingHelperMock = $this->getMockBuilder(
+            '\Magento\Migration\Code\Processor\NamingHelper'
+        )->disableOriginalConstructor()
+            ->getMock();
+
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('getM1ClassName')
+            ->willReturnMap([
+                ['tax', Alias::TYPE_HELPER, 'Mage_Tax_Helper_Data'],
+                ['tax/data', Alias::TYPE_HELPER, 'Mage_Tax_Helper_Data'],
+                ['tax/config', Alias::TYPE_HELPER, 'Mage_Tax_Helper_Config'],
+            ]);
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('getM2ClassName')
+            ->willReturnMap([
+                ['Mage_Tax_Helper_Data', '\\Magento\\Tax\\Helper\\Data'],
+                ['Mage_Tax_Helper_Config', '\\Magento\\Tax\\Helper\\Config'],
+            ]);
+
         $this->obj = new Helper(
             $this->classMapperMock,
             $this->aliasMapperMock,
             $this->loggerMock,
             $this->tokenHelper,
-            $this->argumentFactoryMock
+            $this->argumentFactoryMock,
+            $this->namingHelperMock
         );
     }
 
@@ -191,10 +220,10 @@ class HelperTest extends TestCase
                     'start_index' => 31,
                     'end_index' => 36,
                     'method' => 'doSomething',
-                    'class' => '\Mage\Tax\Helper\Config',
+                    'class' => '\Magento\Tax\Helper\Config',
                     'type' => MageFunctionInterface::MAGE_HELPER,
                     'di_variable_name' => 'taxConfigHelper',
-                    'di_variable_class' => '\Mage\Tax\Helper\Config',
+                    'di_variable_class' => '\Magento\Tax\Helper\Config',
 
                 ],
                 'mapped_helper_class' => null,

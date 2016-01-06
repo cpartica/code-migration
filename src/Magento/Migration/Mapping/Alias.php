@@ -8,6 +8,16 @@ namespace Magento\Migration\Mapping;
 
 class Alias
 {
+    /**#@+
+     * Types of class aliases in Magento 1.x
+     */
+    const TYPE_BLOCK            = 'block';
+    const TYPE_HELPER           = 'helper';
+    const TYPE_MODEL            = 'model';
+    const TYPE_RESOURCE_MODEL   = 'resource_model';
+    const TYPE_CONTROLLER       = 'controller';
+    /**#@-*/
+
     /**
      * @var array
      */
@@ -140,19 +150,22 @@ class Alias
     private function getAliasesFromFiles($configFiles)
     {
         $aliases = [
-            'helper' => [],
-            'block' => [],
-            'model' => [],
-            'resource_model' => [],
+            self::TYPE_HELPER => [],
+            self::TYPE_BLOCK => [],
+            self::TYPE_MODEL => [],
+            self::TYPE_RESOURCE_MODEL => [],
+            self::TYPE_CONTROLLER => [],
         ];
         foreach ($configFiles as $configFile) {
             $configFileContent = file_get_contents($configFile);
             $config = new \Magento\Migration\Utility\M1\Config($configFileContent, $this->logger);
+            $moduleName = $config->getModuleName();
             $aliasesInFile = [
-                'helper' => $config->getAliases('helpers'),
-                'block' => $config->getAliases('blocks'),
-                'model' => $config->getAliases('models'),
-                'resource_model' => $config->getResourceModelAliases(),
+                self::TYPE_HELPER => $config->getAliases('helpers'),
+                self::TYPE_BLOCK => $config->getAliases('blocks'),
+                self::TYPE_MODEL => $config->getAliases('models'),
+                self::TYPE_RESOURCE_MODEL => $config->getResourceModelAliases(),
+                self::TYPE_CONTROLLER => $moduleName ? [strtolower($moduleName) => $moduleName] : [],
             ];
             $aliases = array_replace_recursive($aliases, $aliasesInFile);
         }

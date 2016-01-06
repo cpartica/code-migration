@@ -6,6 +6,7 @@
 namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
+use Magento\Migration\Mapping\Alias;
 
 class GetResourceModel extends AbstractFunction implements \Magento\Migration\Code\Processor\Mage\MageFunctionInterface
 {
@@ -73,8 +74,8 @@ class GetResourceModel extends AbstractFunction implements \Magento\Migration\Co
 
         if ($arguments->getFirstArgument()) {
             if ($arguments->getFirstArgument()->getFirstToken()->getType() != T_VARIABLE) {
-                $classAlias = $arguments->getFirstArgument()->getString();
-                $this->className = $this->namingHelper->getM2FactoryClassName($classAlias, 'resource_model');
+                $classAlias = trim($arguments->getFirstArgument()->getString(), '\'"');
+                $this->className = $this->getFactoryClass($classAlias, Alias::TYPE_RESOURCE_MODEL);
                 if ($this->className) {
                     $this->diVariableName = $this->namingHelper->generateVariableName($this->className);
                 }
@@ -89,6 +90,18 @@ class GetResourceModel extends AbstractFunction implements \Magento\Migration\Co
         $this->methodName = $this->getModelMethod();
 
         $this->endIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index) - 1;
+    }
+
+    /**
+     * @param string $m1ClassAlias
+     * @param string $type
+     * @return null|string
+     */
+    protected function getFactoryClass($m1ClassAlias, $type)
+    {
+        $m1ClassName = $this->namingHelper->getM1ClassName($m1ClassAlias, $type);
+        $m2ClassName = $this->namingHelper->getM2FactoryClassName($m1ClassName);
+        return $m2ClassName;
     }
 
     /**

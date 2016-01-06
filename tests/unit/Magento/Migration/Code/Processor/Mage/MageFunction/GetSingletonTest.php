@@ -8,6 +8,7 @@ namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
 use Magento\Migration\Code\TestCase;
+use Magento\Migration\Mapping\Alias;
 
 class GetSingletonTest extends TestCase
 {
@@ -41,6 +42,11 @@ class GetSingletonTest extends TestCase
      */
     protected $argumentFactoryMock;
 
+    /**
+     * @var \Magento\Migration\Code\Processor\NamingHelper|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $namingHelperMock;
+
     public function setUp()
     {
         $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
@@ -61,12 +67,40 @@ class GetSingletonTest extends TestCase
         )->setMethods(['create'])
             ->getMock();
 
+        $this->namingHelperMock = $this->getMockBuilder(
+            '\Magento\Migration\Code\Processor\NamingHelper'
+        )->disableOriginalConstructor()
+            ->getMock();
+
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('getM1ClassName')
+            ->willReturnMap([
+                ['tax/config_method', Alias::TYPE_MODEL, 'Mage_Tax_Model_Config_Method'],
+                ['Mage_Tax_Model_Rule', Alias::TYPE_MODEL, 'Mage_Tax_Model_Rule'],
+            ]);
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('getM2ClassName')
+            ->willReturnMap([
+                ['Mage_Tax_Model_Config_Method', '\\Magento\\Tax\\Model\\Config\\Method'],
+                ['Mage_Tax_Model_Rule', '\\Magento\\Tax\\Model\\Rule'],
+            ]);
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('generateVariableName')
+            ->willReturnMap([
+                ['\\Magento\\Tax\\Model\\Config\\Method', 'taxConfigMethod'],
+                ['\\Magento\\Tax\\Model\\Rule', 'taxRule'],
+            ]);
+
         $this->obj = new GetSingleton(
             $this->classMapperMock,
             $this->aliasMapperMock,
             $this->loggerMock,
             $this->tokenHelper,
-            $this->argumentFactoryMock
+            $this->argumentFactoryMock,
+            $this->namingHelperMock
         );
     }
 
@@ -131,14 +165,14 @@ class GetSingletonTest extends TestCase
                     'start_index' => 31,
                     'end_index' => 36,
                     'method' => 'doSomething',
-                    'class' => '\Magento\Tax\Model\ConfigMethod',
+                    'class' => '\Magento\Tax\Model\Config\Method',
                     'type' => MageFunctionInterface::MAGE_GET_SINGLETON,
                     'di_variable_name' => 'taxConfigMethod',
-                    'di_variable_class' => '\Magento\Tax\Model\ConfigMethod',
+                    'di_variable_class' => '\Magento\Tax\Model\Config\Method',
 
                 ],
                 'm1_class_name' => 'Mage_Tax_Model_Config_Method',
-                'mapped_singleton_class_name' => '\Magento\Tax\Model\ConfigMethod',
+                'mapped_singleton_class_name' => '\Magento\Tax\Model\Config\Method',
                 'expected' => 'singleton_mapped_expected',
             ],
             'singleton_not_mapped' => [
@@ -148,10 +182,10 @@ class GetSingletonTest extends TestCase
                     'start_index' => 31,
                     'end_index' => 36,
                     'method' => 'doSomething',
-                    'class' => '\Mage\Tax\Model\Config\Method',
+                    'class' => '\Magento\Tax\Model\Config\Method',
                     'type' => MageFunctionInterface::MAGE_GET_SINGLETON,
                     'di_variable_name' => 'taxConfigMethod',
-                    'di_variable_class' => '\Mage\Tax\Model\Config\Method',
+                    'di_variable_class' => '\Magento\Tax\Model\Config\Method',
 
                 ],
                 'm1_class_name' => 'Mage_Tax_Model_Config_Method',
