@@ -3,10 +3,9 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\Processor\Mage\MageFunction;
+namespace Magento\Migration\Code\Processor;
 
 use Magento\Migration\Code\Processor;
-use Magento\Migration\Code\Processor\ConstructorHelper;
 use Magento\Migration\Code\TestCase;
 
 class ConstructorHelperTest extends TestCase
