@@ -5,10 +5,15 @@
  */
 namespace Magento\Migration\Code\Processor;
 
-class ClassProcessorTest extends \PHPUnit_Framework_TestCase
+use Magento\Migration\Code\Processor\Mage\MageFunction\Argument;
+use Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory;
+use Magento\Migration\Code\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
+
+class ClassProcessorTest extends TestCase
 {
     /**
-     * @var \Magento\Migration\Code\Processor\ClassProcessor
+     * @var ClassProcessor
      */
     protected $obj;
 
@@ -67,7 +72,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
 
         $this->tokenHelper = $this->setupTokenHelper($this->loggerMock);
 
-        /** @var \Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory $argumentFactoryMock */
+        /** @var ArgumentFactory|PHPUnit_Framework_MockObject_MockObject $argumentFactoryMock */
         $argumentFactoryMock = $this->getMockBuilder(
             '\Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory'
         )->setMethods(['create'])
@@ -76,14 +81,14 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->willReturnCallback(
                 function () {
-                    return new \Magento\Migration\Code\Processor\Mage\MageFunction\Argument();
+                    return new Argument();
                 }
             );
         $this->constructorHelperFactoryMock->expects($this->any())
             ->method('create')
             ->willReturnCallback(
                 function () use ($argumentFactoryMock) {
-                    return new \Magento\Migration\Code\Processor\ConstructorHelper (
+                    return new ConstructorHelper (
                         $this->loggerMock,
                         $this->tokenHelper,
                         $argumentFactoryMock
@@ -91,7 +96,7 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
                 }
             );
 
-        $this->obj = new \Magento\Migration\Code\Processor\ClassProcessor(
+        $this->obj = new ClassProcessor(
             $this->classMapMock,
             $this->aliasMapMock,
             $this->loggerMock,
@@ -103,6 +108,8 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider processNameSpaceDataProvider
+     * @param string $inputFile
+     * @param string $expectedFile
      */
     public function testProcessNameSpace($inputFile, $expectedFile)
     {
@@ -260,71 +267,5 @@ class ClassProcessorTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         return $data;
-    }
-
-
-    /**
-     * @param \Magento\Migration\Logger\Logger $loggerMock
-     * @return \Magento\Migration\Code\Processor\TokenHelper
-     */
-    public function setupTokenHelper(\Magento\Migration\Logger\Logger $loggerMock)
-    {
-        $argumentFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $argumentFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\Mage\MageFunction\Argument();
-                }
-            );
-        $tokenFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\TokenArgumentFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $tokenFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\TokenArgument();
-                }
-            );
-
-
-        $tokenCollectionFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\TokenArgumentCollectionFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $tokenCollectionFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\TokenArgumentCollection();
-                }
-            );
-
-        $callCollectionFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\CallArgumentCollectionFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $callCollectionFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\CallArgumentCollection();
-                }
-            );
-
-        $tokenHelper = new \Magento\Migration\Code\Processor\TokenHelper(
-            $loggerMock,
-            $argumentFactoryMock,
-            $tokenFactoryMock,
-            $tokenCollectionFactoryMock,
-            $callCollectionFactoryMock
-        );
-
-        return $tokenHelper;
     }
 }

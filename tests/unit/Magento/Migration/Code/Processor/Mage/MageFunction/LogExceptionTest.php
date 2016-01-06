@@ -6,11 +6,12 @@
 namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
+use Magento\Migration\Code\TestCase;
 
-class LogExceptionTest extends \PHPUnit_Framework_TestCase
+class LogExceptionTest extends TestCase
 {
     /**
-     * @var \Magento\Migration\Code\Processor\Mage\MageFunction\LogException
+     * @var LogException
      */
     protected $obj;
 
@@ -59,7 +60,7 @@ class LogExceptionTest extends \PHPUnit_Framework_TestCase
         )->setMethods(['create'])
             ->getMock();
 
-        $this->obj = new \Magento\Migration\Code\Processor\Mage\MageFunction\LogException(
+        $this->obj = new LogException(
             $this->classMapperMock,
             $this->aliasMapperMock,
             $this->loggerMock,
@@ -70,6 +71,10 @@ class LogExceptionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider throwExceptionDataProvider
+     * @param $inputFile
+     * @param $index
+     * @param $attrs
+     * @param $expectedFile
      */
     public function testThrowException(
         $inputFile,
@@ -121,70 +126,5 @@ class LogExceptionTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         return $data;
-    }
-
-    /**
-     * @param \Magento\Migration\Logger\Logger $loggerMock
-     * @return \Magento\Migration\Code\Processor\TokenHelper
-     */
-    public function setupTokenHelper(\Magento\Migration\Logger\Logger $loggerMock)
-    {
-        $argumentFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $argumentFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\Mage\MageFunction\Argument();
-                }
-            );
-        $tokenFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\TokenArgumentFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $tokenFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\TokenArgument();
-                }
-            );
-
-
-        $tokenCollectionFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\TokenArgumentCollectionFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $tokenCollectionFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\TokenArgumentCollection();
-                }
-            );
-
-        $callCollectionFactoryMock = $this->getMockBuilder(
-            '\Magento\Migration\Code\Processor\CallArgumentCollectionFactory'
-        )->setMethods(['create'])
-            ->getMock();
-        $callCollectionFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturnCallback(
-                function () {
-                    return new \Magento\Migration\Code\Processor\CallArgumentCollection();
-                }
-            );
-
-        $tokenHelper = new \Magento\Migration\Code\Processor\TokenHelper(
-            $loggerMock,
-            $argumentFactoryMock,
-            $tokenFactoryMock,
-            $tokenCollectionFactoryMock,
-            $callCollectionFactoryMock
-        );
-
-        return $tokenHelper;
     }
 }
