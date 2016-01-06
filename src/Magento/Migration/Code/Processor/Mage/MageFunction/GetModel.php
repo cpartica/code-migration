@@ -6,9 +6,15 @@
 namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
+use Magento\Migration\Mapping\Alias;
 
 class GetModel extends AbstractFunction implements \Magento\Migration\Code\Processor\Mage\MageFunctionInterface
 {
+    /**
+     * @var \Magento\Migration\Code\Processor\NamingHelper
+     */
+    protected $namingHelper;
+
     /**
      * @var string
      */
@@ -35,6 +41,26 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
     protected $parsed = false;
 
     /**
+     * @param \Magento\Migration\Mapping\ClassMapping $classMapper
+     * @param Alias $aliasMapper
+     * @param \Magento\Migration\Logger\Logger $logger
+     * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
+     * @param ArgumentFactory $argumentFactory
+     * @param \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+     */
+    public function __construct(
+        \Magento\Migration\Mapping\ClassMapping $classMapper,
+        \Magento\Migration\Mapping\Alias $aliasMapper,
+        \Magento\Migration\Logger\Logger $logger,
+        \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
+        \Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory $argumentFactory,
+        \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+    ) {
+        parent::__construct($classMapper, $aliasMapper, $logger, $tokenHelper, $argumentFactory);
+        $this->namingHelper = $namingHelper;
+    }
+
+    /**
      * @return $this
      */
     private function parse()
@@ -45,19 +71,12 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
             $classAlias = trim($argument[1], '\'"');
             if ($this->isCollectionCall()) {
                 $classAlias .= '_collection';
-                $this->modelFactoryClass = $this->getModelFactoryClass($classAlias, 'resource_model');
+                $this->modelFactoryClass = $this->getFactoryClass($classAlias, Alias::TYPE_RESOURCE_MODEL);
                 $this->removeCollectionCall();
             } else {
-                $this->modelFactoryClass = $this->getModelFactoryClass($classAlias, 'model');
+                $this->modelFactoryClass = $this->getFactoryClass($classAlias, Alias::TYPE_MODEL);
             }
-
             if (!$this->modelFactoryClass) {
-                return $this;
-            }
-            if ($this->modelFactoryClass == "obsolete") {
-                $this->logger->warn(
-                    'Obsolete class not converted at ' . $this->tokens[$this->index][2] . ' ' . $classAlias
-                );
                 return $this;
             }
         } else {
@@ -71,7 +90,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
             return $this;
         }
 
-        $this->diVariableName = $this->generateVariableName($this->modelFactoryClass);
+        $this->diVariableName = $this->namingHelper->generateVariableName($this->modelFactoryClass);
         $this->methodName = $this->getModelMethod();
 
         $this->endIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index) - 1;
@@ -79,54 +98,15 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
     }
 
     /**
-     * @param string $m1
+     * @param string $m1ClassAlias
      * @param string $type
      * @return null|string
      */
-    protected function getModelFactoryClass($m1, $type)
+    protected function getFactoryClass($m1ClassAlias, $type)
     {
-        $m1 = trim(trim($m1, '\''), '\"');
-
-        if (strpos($m1, '/') === false) {
-            //the argument is full class name
-            $m1ClassName = $m1;
-        } else {
-            $parts = explode('/', $m1);
-            $className = $this->aliasMapper->mapAlias($parts[0], $type);
-            if ($className == null) {
-                $this->logger->warn('Model alias not found: ' . $parts[0]);
-                return null;
-            }
-
-            $part2 = str_replace(' ', '_', ucwords(implode(' ', explode('_', $parts[1]))));
-            $m1ClassName = $className . '_' . $part2;
-        }
-
-        $m2ClassName = $this->classMapper->mapM1Class($m1ClassName);
-        if (!$m2ClassName) {
-            $m2ClassName = '\\' . str_replace('_', '\\', $m1ClassName);
-        } elseif ($m2ClassName == 'obsolete') {
-            $this->logger->warn('Model is obsolete: ' . $m1ClassName);
-            return null;
-        }
-
-        return $m2ClassName . 'Factory';
-    }
-
-    /**
-     * @param string $helperClassName
-     * @return string
-     */
-    protected function generateVariableName($helperClassName)
-    {
-        $parts = explode('\\', trim($helperClassName, '\\'));
-
-        $parts[0] = '';
-        $parts[2] = '';
-        $variableNameParts = $parts;
-
-        $variableName = lcfirst(str_replace(' ', '', ucwords(implode(' ', $variableNameParts))));
-        return $variableName;
+        $m1ClassName = $this->namingHelper->getM1ClassName($m1ClassAlias, $type);
+        $m2ClassName = $this->namingHelper->getM2FactoryClassName($m1ClassName);
+        return $m2ClassName;
     }
 
     /**

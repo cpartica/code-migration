@@ -6,6 +6,8 @@
 namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
+use Magento\Migration\Mapping\Alias;
+
 class GetModelTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -38,6 +40,11 @@ class GetModelTest extends \PHPUnit_Framework_TestCase
      */
     protected $argumentFactoryMock;
 
+    /**
+     * @var \Magento\Migration\Code\Processor\NamingHelper|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $namingHelperMock;
+
     public function setUp()
     {
         $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
@@ -58,12 +65,40 @@ class GetModelTest extends \PHPUnit_Framework_TestCase
         )->setMethods(['create'])
             ->getMock();
 
+        $this->namingHelperMock = $this->getMockBuilder(
+            '\Magento\Migration\Code\Processor\NamingHelper'
+        )->disableOriginalConstructor()
+            ->getMock();
+
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('getM1ClassName')
+            ->willReturnMap([
+                ['tax/config_method', Alias::TYPE_MODEL, 'Mage_Tax_Model_Config_Method'],
+                ['Mage_Tax_Model_Rule', Alias::TYPE_MODEL, 'Mage_Tax_Model_Rule'],
+            ]);
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('getM2FactoryClassName')
+            ->willReturnMap([
+                ['Mage_Tax_Model_Config_Method', '\\Magento\\Tax\\Model\\Config\\MethodFactory'],
+                ['Mage_Tax_Model_Rule', '\\Magento\\Tax\\Model\\RuleFactory'],
+            ]);
+        $this->namingHelperMock
+            ->expects($this->any())
+            ->method('generateVariableName')
+            ->willReturnMap([
+                ['\\Magento\\Tax\\Model\\Config\\MethodFactory', 'taxConfigMethodFactory'],
+                ['\\Magento\\Tax\\Model\\RuleFactory', 'taxRuleFactory'],
+            ]);
+
         $this->obj = new \Magento\Migration\Code\Processor\Mage\MageFunction\GetModel(
             $this->classMapperMock,
             $this->aliasMapperMock,
             $this->loggerMock,
             $this->tokenHelper,
-            $this->argumentFactoryMock
+            $this->argumentFactoryMock,
+            $this->namingHelperMock
         );
     }
 
@@ -122,14 +157,14 @@ class GetModelTest extends \PHPUnit_Framework_TestCase
                     'start_index' => 31,
                     'end_index' => 36,
                     'method' => 'doSomething',
-                    'class' => '\Magento\Tax\Model\ConfigMethodFactory',
+                    'class' => '\Magento\Tax\Model\Config\MethodFactory',
                     'type' => MageFunctionInterface::MAGE_GET_MODEL,
                     'di_variable_name' => 'taxConfigMethodFactory',
-                    'di_variable_class' => '\Magento\Tax\Model\ConfigMethodFactory',
+                    'di_variable_class' => '\Magento\Tax\Model\Config\MethodFactory',
 
                 ],
                 'm1_class_name' => 'Mage_Tax_Model_Config_Method',
-                'mapped_model_class_name' => '\Magento\Tax\Model\ConfigMethod',
+                'mapped_model_class_name' => '\Magento\Tax\Model\Config\Method',
                 'expected' => 'model_mapped_expected',
             ],
             'model_not_mapped' => [
@@ -139,10 +174,10 @@ class GetModelTest extends \PHPUnit_Framework_TestCase
                     'start_index' => 31,
                     'end_index' => 36,
                     'method' => 'doSomething',
-                    'class' => '\Mage\Tax\Model\Config\MethodFactory',
+                    'class' => '\Magento\Tax\Model\Config\MethodFactory',
                     'type' => MageFunctionInterface::MAGE_GET_MODEL,
                     'di_variable_name' => 'taxConfigMethodFactory',
-                    'di_variable_class' => '\Mage\Tax\Model\Config\MethodFactory',
+                    'di_variable_class' => '\Magento\Tax\Model\Config\MethodFactory',
 
                 ],
                 'm1_class_name' => 'Mage_Tax_Model_Config_Method',

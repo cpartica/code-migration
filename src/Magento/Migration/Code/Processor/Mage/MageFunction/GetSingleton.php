@@ -6,9 +6,15 @@
 namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
+use Magento\Migration\Mapping\Alias;
 
 class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\Processor\Mage\MageFunctionInterface
 {
+    /**
+     * @var \Magento\Migration\Code\Processor\NamingHelper
+     */
+    protected $namingHelper;
+
     /**
      * @var string
      */
@@ -35,6 +41,26 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
     protected $parsed = false;
 
     /**
+     * @param \Magento\Migration\Mapping\ClassMapping $classMapper
+     * @param Alias $aliasMapper
+     * @param \Magento\Migration\Logger\Logger $logger
+     * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
+     * @param ArgumentFactory $argumentFactory
+     * @param \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+     */
+    public function __construct(
+        \Magento\Migration\Mapping\ClassMapping $classMapper,
+        \Magento\Migration\Mapping\Alias $aliasMapper,
+        \Magento\Migration\Logger\Logger $logger,
+        \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
+        \Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory $argumentFactory,
+        \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+    ) {
+        parent::__construct($classMapper, $aliasMapper, $logger, $tokenHelper, $argumentFactory);
+        $this->namingHelper = $namingHelper;
+    }
+
+    /**
      * @return $this
      */
     private function parse()
@@ -42,15 +68,9 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
         $this->parsed = true;
         $argument = $this->getMageCallFirstArgument($this->index);
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
-            $this->singletonClass = $this->getSingletonClass($argument[1]);
+            $classAlias = trim($argument[1], '\'"');
+            $this->singletonClass = $this->getSingletonClass($classAlias);
             if (!$this->singletonClass) {
-                return $this;
-            }
-            if ($this->singletonClass == "obsolete") {
-                $this->singletonClass = null;
-                $this->logger->warn(
-                    'Obsolete model not converted at ' . $this->tokens[$this->index][2] . ' ' . $argument[1]
-                );
                 return $this;
             }
         } else {
@@ -64,7 +84,7 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
             return $this;
         }
 
-        $this->diVariableName = $this->generateVariableName($this->singletonClass);
+        $this->diVariableName = $this->namingHelper->generateVariableName($this->singletonClass);
         $this->methodName = $this->getSingletonMethod();
 
         $this->endIndex = $this->tokenHelper->skipMethodCall($this->tokens, $this->index) - 1;
@@ -72,49 +92,14 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
     }
 
     /**
-     * @param string $m1
+     * @param string $m1ClassAlias
      * @return null|string
      */
-    protected function getSingletonClass($m1)
+    protected function getSingletonClass($m1ClassAlias)
     {
-        $m1 = trim(trim($m1, '\''), '\"');
-
-        if (strpos($m1, '/') === false) {
-            //the argument is full class name
-            $m1ClassName = $m1;
-        } else {
-            $parts = explode('/', $m1);
-            $className = $this->aliasMapper->mapAlias($parts[0], 'model');
-            if ($className == null) {
-                $this->logger->warn("Model alias in Mage::getSingleton call is not mapped: " . $parts[0]);
-                return null;
-            }
-            $part2 = str_replace(' ', '_', ucwords(implode(' ', explode('_', $parts[1]))));
-            $m1ClassName = $className . '_' . $part2;
-        }
-
-        $m2ClassName = $this->classMapper->mapM1Class($m1ClassName);
-        if (!$m2ClassName) {
-            $m2ClassName = '\\' . str_replace('_', '\\', $m1ClassName);
-        }
-
+        $m1ClassName = $this->namingHelper->getM1ClassName($m1ClassAlias, Alias::TYPE_MODEL);
+        $m2ClassName = $this->namingHelper->getM2ClassName($m1ClassName);
         return $m2ClassName;
-    }
-
-    /**
-     * @param string $helperClassName
-     * @return string
-     */
-    protected function generateVariableName($helperClassName)
-    {
-        $parts = explode('\\', trim($helperClassName, '\\'));
-
-        $parts[0] = '';
-        $parts[2] = '';
-        $variableNameParts = $parts;
-
-        $variableName = lcfirst(str_replace(' ', '', ucwords(implode(' ', $variableNameParts))));
-        return $variableName;
     }
 
     /**

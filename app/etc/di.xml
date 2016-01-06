@@ -1038,6 +1038,7 @@
     </type>
     <type name="Magento\Framework\Api\Search\SearchCriteriaBuilder" shared="false"/>
     <type name="Magento\Framework\Api\Search\FilterGroupBuilder" shared="false"/>
+    <type name="Magento\Migration\Code\Processor\ConstructorHelper" shared="false"/>
     <type name="Magento\Migration\Code\Converter">
         <arguments>
             <argument name="processors"  xsi:type="array">
@@ -1045,6 +1046,7 @@
                 <item name="classProcessor" xsi:type="object">Magento\Migration\Code\Processor\ClassProcessor</item>
                 <item name="blockClassProcessor" xsi:type="object">Magento\Migration\Code\Processor\BlockClassProcessor</item>
                 <item name="mageProcessor" xsi:type="object">Magento\Migration\Code\Processor\MageProcessor</item>
+                <item name="operatorNewProcessor" xsi:type="object">Magento\Migration\Code\Processor\OperatorNewProcessor</item>
                 <item name="controllerProcessor" xsi:type="object">Magento\Migration\Code\Processor\ControllerProcessor</item>
             </argument>
         </arguments>

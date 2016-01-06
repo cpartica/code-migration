@@ -6,9 +6,15 @@
 namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
+use Magento\Migration\Mapping\Alias;
 
 class Helper extends AbstractFunction implements \Magento\Migration\Code\Processor\Mage\MageFunctionInterface
 {
+    /**
+     * @var \Magento\Migration\Code\Processor\NamingHelper
+     */
+    protected $namingHelper;
+
     /**
      * @var string
      */
@@ -35,6 +41,26 @@ class Helper extends AbstractFunction implements \Magento\Migration\Code\Process
     protected $parsed = false;
 
     /**
+     * @param \Magento\Migration\Mapping\ClassMapping $classMapper
+     * @param Alias $aliasMapper
+     * @param \Magento\Migration\Logger\Logger $logger
+     * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
+     * @param ArgumentFactory $argumentFactory
+     * @param \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+     */
+    public function __construct(
+        \Magento\Migration\Mapping\ClassMapping $classMapper,
+        \Magento\Migration\Mapping\Alias $aliasMapper,
+        \Magento\Migration\Logger\Logger $logger,
+        \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
+        \Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory $argumentFactory,
+        \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+    ) {
+        parent::__construct($classMapper, $aliasMapper, $logger, $tokenHelper, $argumentFactory);
+        $this->namingHelper = $namingHelper;
+    }
+
+    /**
      * @return $this
      */
     private function parse()
@@ -42,15 +68,11 @@ class Helper extends AbstractFunction implements \Magento\Migration\Code\Process
         $this->parsed = true;
         $argument = $this->getMageCallFirstArgument($this->index);
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
-            $this->helperClass = $this->getHelperClass($argument[1]);
+            $classAlias = trim($argument[1], '\'"');
+            $classAlias .= ($classAlias && strpos($classAlias, '/') === false) ? '/data' : '';
+            $this->helperClass = $this->getHelperClass($classAlias);
             if (!$this->helperClass) {
                 $this->logger->warn('Can not map helper class: ' . $argument[1]);
-                return $this;
-            }
-            if ($this->helperClass == "obsolete") {
-                $this->logger->warn(
-                    'Obsolete helper not converted at ' . $this->tokens[$this->index][2] . ' ' . $argument[1]
-                );
                 return $this;
             }
         } else {
@@ -75,31 +97,13 @@ class Helper extends AbstractFunction implements \Magento\Migration\Code\Process
     }
 
     /**
-     * @param string $m1
+     * @param string $m1ClassAlias
      * @return null|string
      */
-    protected function getHelperClass($m1)
+    protected function getHelperClass($m1ClassAlias)
     {
-        $m1 = trim(trim($m1, '\''), '\"');
-
-        $parts = explode('/', $m1);
-        $className = $this->aliasMapper->mapAlias($parts[0], 'helper');
-        if ($className == null) {
-            return null;
-        }
-
-        if (count($parts) == 1) {
-            $m1ClassName = $className . '_Data';
-        } else {
-            $part2 = str_replace(' ', '_', ucwords(implode(' ', explode('_', $parts[1]))));
-            $m1ClassName = $className . '_' . $part2;
-        }
-
-        $m2ClassName = $this->classMapper->mapM1Class($m1ClassName);
-        if (!$m2ClassName) {
-            $m2ClassName = '\\' . str_replace('_', '\\', $m1ClassName);
-        }
-
+        $m1ClassName = $this->namingHelper->getM1ClassName($m1ClassAlias, Alias::TYPE_HELPER);
+        $m2ClassName = $this->namingHelper->getM2ClassName($m1ClassName);
         return $m2ClassName;
     }
 
