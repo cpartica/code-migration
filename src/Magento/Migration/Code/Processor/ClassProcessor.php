@@ -187,10 +187,14 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             $this->logger->warn('Class ' . $m1ClassName . ' is obsolete');
             return null;
         }
-        if (!$m2ClassName && !$this->classNameValidator->isNativeClass($m1ClassName)
-            && $this->classNameValidator->isKnownClass($m1ClassName)
-        ) {
-            $m2ClassName = $this->buildNamespaceClassName($m1ClassName);
+        if (!$m2ClassName) {
+            if (!$this->classNameValidator->isNativeClass($m1ClassName)
+                && $this->classNameValidator->isKnownClass($m1ClassName)
+            ) {
+                $m2ClassName = $this->buildNamespaceClassName($m1ClassName);
+            } else if (class_exists($m1ClassName)) {
+                $m2ClassName = '\\' . $m1ClassName;
+            }
         }
         return $m2ClassName;
     }
