@@ -18,6 +18,11 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
     /**
      * @var string
      */
+    protected $classAliasType;
+
+    /**
+     * @var string
+     */
     protected $singletonClass = null;
 
     /**
@@ -47,6 +52,7 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
      * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
      * @param ArgumentFactory $argumentFactory
      * @param \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+     * @param string $classAliasType
      */
     public function __construct(
         \Magento\Migration\Mapping\ClassMapping $classMapper,
@@ -54,10 +60,12 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
         \Magento\Migration\Logger\Logger $logger,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
         \Magento\Migration\Code\Processor\Mage\MageFunction\ArgumentFactory $argumentFactory,
-        \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+        \Magento\Migration\Code\Processor\NamingHelper $namingHelper,
+        $classAliasType = Alias::TYPE_MODEL
     ) {
         parent::__construct($classMapper, $aliasMapper, $logger, $tokenHelper, $argumentFactory);
         $this->namingHelper = $namingHelper;
+        $this->classAliasType = $classAliasType;
     }
 
     /**
@@ -97,7 +105,7 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
      */
     protected function getSingletonClass($m1ClassAlias)
     {
-        $m1ClassName = $this->namingHelper->getM1ClassName($m1ClassAlias, Alias::TYPE_MODEL);
+        $m1ClassName = $this->namingHelper->getM1ClassName($m1ClassAlias, $this->classAliasType);
         $m2ClassName = $this->namingHelper->getM2ClassName($m1ClassName);
         return $m2ClassName;
     }
