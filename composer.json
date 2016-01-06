@@ -66,6 +66,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Magento\\Migration\\": "tests/unit/Magento/Migration/",
             "Magento\\Sniffs\\": "dev/tests/static/framework/Magento/Sniffs/",
             "Magento\\TestFramework\\Inspection\\": "dev/tests/static/framework/Magento/TestFramework/Inspection/",
             "Magento\\TestFramework\\Utility\\": "dev/tests/static/framework/Magento/TestFramework/Utility/"
