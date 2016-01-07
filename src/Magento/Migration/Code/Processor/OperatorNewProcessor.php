@@ -110,7 +110,7 @@ class OperatorNewProcessor implements \Magento\Migration\Code\ProcessorInterface
      * @param array $tokens
      * @return array
      */
-    public function findOperatorNewTokens(array &$tokens)
+    protected function findOperatorNewTokens(array &$tokens)
     {
         $result = [];
         $currentIndex = -1;
