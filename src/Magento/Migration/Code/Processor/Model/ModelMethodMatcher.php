@@ -43,11 +43,6 @@ class ModelMethodMatcher implements \Magento\Migration\Code\Processor\Mage\Match
         $indexOfMethodCall = $this->tokenHelper->getNextIndexOfTokenType($tokens, $index, T_STRING);
         $methodName = $tokens[$indexOfMethodCall][1];
 
-
-        if ($methodName != '_init') {
-            return null;
-        }
-
         switch ($methodName) {
             case '_init':
                 /** @var \Magento\Migration\Code\Processor\Model\ModelMethod\Init $result */

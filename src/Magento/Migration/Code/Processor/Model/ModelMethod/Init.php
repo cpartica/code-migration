@@ -6,6 +6,7 @@
 namespace Magento\Migration\Code\Processor\Model\ModelMethod;
 
 use Magento\Migration\Code\Processor\Model\ModelMethodInterface;
+use Magento\Migration\Mapping\Alias;
 
 class Init extends AbstractMethod implements ModelMethodInterface
 {
@@ -17,9 +18,8 @@ class Init extends AbstractMethod implements ModelMethodInterface
         $arguments = $this->tokenHelper->getCallArguments($this->tokens, $this->index);
         if ($arguments->getFirstArgument()) {
             if ($arguments->getFirstArgument()->getFirstToken()->getType() != T_VARIABLE) {
-                $classAlias = $arguments->getFirstArgument()->getString();
-                $className = $this->namingHelper->getM2ClassName($classAlias, 'model');
-
+                $classAlias = trim($arguments->getFirstArgument()->getString(), '\'"');
+                $className = $this->getResourceModelClass($classAlias);
                 if ($className) {
                     $argumentsNew = "'" . ltrim($className, '\\') . "'";
                     for ($i = 2; $i <= $arguments->getCount(); $i++) {
@@ -29,12 +29,23 @@ class Init extends AbstractMethod implements ModelMethodInterface
                 }
             } else {
                 $this->logger->warn(sprintf(
-                    'Variable inside a Mage_Core_Model_Layout::createModel call not converted at %s',
+                    'Variable inside a Mage_Core_Model_Abstract::_init call not converted at %s',
                     $arguments->getFirstArgument()->getFirstToken()->getLine()
                 ));
             }
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $m1ClassAlias
+     * @return null|string
+     */
+    protected function getResourceModelClass($m1ClassAlias)
+    {
+        $m1ClassName = $this->namingHelper->getM1ClassName($m1ClassAlias, Alias::TYPE_RESOURCE_MODEL);
+        $m2ClassName = $this->namingHelper->getM2ClassName($m1ClassName);
+        return $m2ClassName;
     }
 }

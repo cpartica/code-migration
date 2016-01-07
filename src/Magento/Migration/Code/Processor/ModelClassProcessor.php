@@ -10,10 +10,8 @@ class ModelClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     /**#@+
      * Patterns that match model class names
      */
-    const MODEL_CLASS_UNDERSCORE            = '/^[^_]+_[^_]+_Model_/';
-    const RESOURCE_MODEL_CLASS_UNDERSCORE   = '/^[^_]+_[^_]+_Model_Resource_/';
-    const MODEL_CLASS_NAMESPACE             = '/^\\\\?[^\\\\]+\\\\[^\\\\]+\\\\Model\\\\/';
-    const RESOURCE_MODEL_CLASS_NAMESPACE    = '/^\\\\?[^\\\\]+\\\\[^\\\\]+\\\\Model\\\\ModelResource\\\\/';
+    const MODEL_CLASS_UNDERSCORE    = '/^[^_]+_[^_]+_Model_(?!Resource_|Mysql4_)/';
+    const MODEL_CLASS_NAMESPACE     = '/^\\\\?[^\\\\]+\\\\[^\\\\]+\\\\Model\\\\(?!ResourceModel\\\\)/';
     /**#@-*/
 
     /**
@@ -89,11 +87,8 @@ class ModelClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     {
         $parentClass = $this->tokenHelper->getExtendsClass($tokens);
         if ($parentClass) {
-            $matchesModel = preg_match(self::MODEL_CLASS_UNDERSCORE, $parentClass)
-                         || preg_match(self::MODEL_CLASS_NAMESPACE, $parentClass);
-            $matchesResourceModel = preg_match(self::RESOURCE_MODEL_CLASS_UNDERSCORE, $parentClass)
-                                 || preg_match(self::RESOURCE_MODEL_CLASS_NAMESPACE, $parentClass);
-            return $matchesModel && !$matchesResourceModel;
+            return preg_match(self::MODEL_CLASS_UNDERSCORE, $parentClass)
+                || preg_match(self::MODEL_CLASS_NAMESPACE, $parentClass);
         }
         return false;
     }
