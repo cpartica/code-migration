@@ -39,7 +39,7 @@ class File extends \Magento\Migration\Utility\File
         $files = $this->getFiles([$mageDir, $enterpriseDir], '*.php', true);
         $classes = [];
         foreach ($files as $file) {
-            if (strpos($file, 'sql') || strpos($file, 'data')) {
+            if (strpos($file, '/sql/') || strpos($file, '/data/')) {
                 continue;
             }
             $className = substr($file, $codeDirLen, -4);

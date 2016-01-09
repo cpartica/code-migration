@@ -80,7 +80,7 @@ class GenerateClassMapping extends Command
 
         $unmapped = [];
         foreach (array_keys($classFiles) as $className) {
-            $m2ClassName = $this->classMapGenerator->mapM1CoreClass($className);
+            $m2ClassName = $this->classMapGenerator->mapM1Class($className);
             if ($m2FileUtils->isM2Class($m2ClassName)) {
                 $classMapping[$className] = [
                     'm2class' => $m2ClassName,
