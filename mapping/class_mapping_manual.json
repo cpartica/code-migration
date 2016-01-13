@@ -607,6 +607,12 @@
             "logException": "obsolete"
         }
     },
+    "Mage_Core_Model_Mysql4_Abstract": {
+        "m2class": "\\Magento\\Framework\\Model\\ResourceModel\\Db\\AbstractDb"
+    },
+    "Mage_Core_Model_Mysql4_Collection_Abstract": {
+        "m2class": "\\Magento\\Framework\\Model\\ResourceModel\\Db\\Collection\\AbstractCollection"
+    },
     "Mage_Core_Model_Resource": {
         "m2class": "\\Magento\\Framework\\App\\ResourceConnection"
     },
