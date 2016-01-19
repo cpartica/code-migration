@@ -5,6 +5,8 @@
  */
 namespace Magento\Migration\Code\Processor\Mage;
 
+use Magento\Migration\Mapping\Alias;
+
 class MageFunctionMatcher implements MatcherInterface
 {
     /**
@@ -55,9 +57,18 @@ class MageFunctionMatcher implements MatcherInterface
                 );
                 $getStoreConfigCall->setContext($tokens, $index);
                 return $getStoreConfigCall;
+            case 'getBlockSingleton':
+            case 'getResourceSingleton':
             case 'getSingleton':
+                $classAliasTypeMap = [
+                    'getBlockSingleton'     => Alias::TYPE_BLOCK,
+                    'getResourceSingleton'  => Alias::TYPE_RESOURCE_MODEL,
+                    'getSingleton'          => Alias::TYPE_MODEL,
+                ];
+                $classAliasType = $classAliasTypeMap[$methodName];
                 $getSingletonCall = $this->objectManager->create(
-                    '\Magento\Migration\Code\Processor\Mage\MageFunction\GetSingleton'
+                    '\Magento\Migration\Code\Processor\Mage\MageFunction\GetSingleton',
+                    ['classAliasType' => $classAliasType]
                 );
                 $getSingletonCall->setContext($tokens, $index);
                 return $getSingletonCall;

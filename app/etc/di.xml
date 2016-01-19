@@ -1038,16 +1038,40 @@
     </type>
     <type name="Magento\Framework\Api\Search\SearchCriteriaBuilder" shared="false"/>
     <type name="Magento\Framework\Api\Search\FilterGroupBuilder" shared="false"/>
+    <type name="Magento\Migration\Code\Processor\ConstructorHelper" shared="false"/>
     <type name="Magento\Migration\Code\Converter">
         <arguments>
             <argument name="processors"  xsi:type="array">
                 <item name="TableProcessor" xsi:type="object">Magento\Migration\Code\Processor\TableProcessor</item>
+                <item name="docBlockProcessor" xsi:type="object">Magento\Migration\Code\Processor\DocBlockProcessor</item>
                 <item name="classProcessor" xsi:type="object">Magento\Migration\Code\Processor\ClassProcessor</item>
+                <item name="modelClassProcessor" xsi:type="object">Magento\Migration\Code\Processor\ModelClassProcessor</item>
+                <item name="blockClassProcessor" xsi:type="object">Magento\Migration\Code\Processor\BlockClassProcessor</item>
                 <item name="mageProcessor" xsi:type="object">Magento\Migration\Code\Processor\MageProcessor</item>
+                <item name="operatorNewProcessor" xsi:type="object">Magento\Migration\Code\Processor\OperatorNewProcessor</item>
                 <item name="controllerProcessor" xsi:type="object">Magento\Migration\Code\Processor\ControllerProcessor</item>
             </argument>
             <argument name="splitters"  xsi:type="array">
                 <item name="controllerSplitter" xsi:type="object">Magento\Migration\Code\Splitter\ControllerSplitter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Migration\Code\Processor\ClassProcessor">
+        <arguments>
+            <!-- M1 classes, references to which are to be converted separately by specialized processors -->
+            <argument name="skippedClasses" xsi:type="array">
+                <item name="Mage" xsi:type="string">Mage</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="\Magento\Migration\Code\Processor\ClassNameValidator">
+        <arguments>
+            <argument name="nativeClassPrefixes" xsi:type="array">
+                <item name="Varien" xsi:type="string">Varien</item>
+                <item name="Mage" xsi:type="string">Mage</item>
+                <item name="Enterprise" xsi:type="string">Enterprise</item>
             </argument>
         </arguments>
     </type>

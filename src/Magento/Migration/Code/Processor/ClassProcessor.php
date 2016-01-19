@@ -21,15 +21,6 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected $filePath;
 
     /**
-     * @var \Magento\Migration\Mapping\ClassMapping
-     */
-    protected $classMap;
-    /**
-     * @var \Magento\Migration\Mapping\Alias
-     */
-    protected $aliasMap;
-
-    /**
      * @var \Magento\Migration\Logger\Logger
      */
     protected $logger;
@@ -40,37 +31,41 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected $tokenHelper;
 
     /**
-     * @var \Magento\Migration\Mapping\Context
-     */
-    protected $context;
-
-    /**
      * @var \Magento\Migration\Code\Processor\ConstructorHelperFactory
      */
     protected $constructorHelperFactory;
 
     /**
-     * @param \Magento\Migration\Mapping\ClassMapping $classMap
-     * @param \Magento\Migration\Mapping\Alias $aliasMap
+     * @var \Magento\Migration\Code\Processor\NamingHelper
+     */
+    protected $namingHelper;
+
+    /**
+     * M1 classes, references to which are to be left unchanged
+     *
+     * @var array
+     */
+    protected $skippedClasses = [];
+
+    /**
      * @param \Magento\Migration\Logger\Logger $logger
-     * @param \Magento\Migration\Mapping\Context $context
      * @param \Magento\Migration\Code\Processor\ConstructorHelperFactory $constructorHelperFactory
      * @param TokenHelper $tokenHelper
+     * @param \Magento\Migration\Code\Processor\NamingHelper $namingHelper
+     * @param array $skippedClasses
      */
     public function __construct(
-        \Magento\Migration\Mapping\ClassMapping $classMap,
-        \Magento\Migration\Mapping\Alias $aliasMap,
         \Magento\Migration\Logger\Logger $logger,
-        \Magento\Migration\Mapping\Context $context,
         \Magento\Migration\Code\Processor\ConstructorHelperFactory $constructorHelperFactory,
-        \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
+        \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
+        \Magento\Migration\Code\Processor\NamingHelper $namingHelper,
+        array $skippedClasses = []
     ) {
-        $this->classMap = $classMap;
-        $this->aliasMap = $aliasMap;
         $this->logger = $logger;
-        $this->context = $context;
         $this->constructorHelperFactory = $constructorHelperFactory;
         $this->tokenHelper = $tokenHelper;
+        $this->namingHelper = $namingHelper;
+        $this->skippedClasses = $skippedClasses;
     }
 
     /**
@@ -138,28 +133,18 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             }
             $parentClassName = $tokens[$parentClassIndex][1];
 
-            $mappedClass = $this->classMap->mapM1Class($parentClassName);
+            $mappedClass = $this->getM2ClassName($parentClassName);
             if ($mappedClass) {
                 $tokens[$parentClassIndex][1] = $mappedClass;
 
                 try {
-                    if ($mappedClass == 'obsolete') {
-                        $this->logger->warn('The parent class ' . $parentClassName . ' is obsolete');
-                        return $this;
-                    }
-                    if (!class_exists($mappedClass)) {
-                        $this->logger->warn('Can not find the class ' . $mappedClass);
-                        return $this;
-                    }
                     $reflectionClass = new \ReflectionClass($mappedClass);
                     $parentConstructor = $reflectionClass->getConstructor();
-                    if ($parentConstructor == null) {
-                        return $this;
+                    if ($parentConstructor) {
+                        $this->extendConstructor($tokens, $parentConstructor);
                     }
-                    $this->extendConstructor($tokens, $parentConstructor);
                 } catch (\Exception $e) {
                     $this->logger->warn("Failed to load parent class: " . $mappedClass);
-                    return $this;
                 }
             } else {
                 //TODO: add parent::__constructor even if the class couldn't be mapped and add a code comment
@@ -171,6 +156,18 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $m1ClassName
+     * @return null|string
+     */
+    protected function getM2ClassName($m1ClassName)
+    {
+        if (in_array($m1ClassName, $this->skippedClasses)) {
+            return null;
+        }
+        return $this->namingHelper->getM2ClassName($m1ClassName);
     }
 
     /**
@@ -461,13 +458,8 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         } else {
             $classNameIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $classIndex, T_STRING);
             $className = $tokens[$classNameIndex][1];
-            $parts = explode('_', $className);
-            //fix controller namespace
-            if (preg_match('/Controller$/', $className)) {
-                array_splice($parts, 2, 0, 'Controller');
-            }
-            $shortClassName = array_pop($parts);
-            $nameSpace = implode('\\', $parts);
+            $m2ClassName = $this->getM2ClassName($className);
+            list($nameSpace, $shortClassName) = $this->parseNamespaceClassName($m2ClassName);
             $tokens[$classNameIndex][1] = $shortClassName;
         }
 
@@ -489,6 +481,20 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         return $this;
     }
 
+    /**
+     * @param string $className
+     * @return array
+     */
+    protected function parseNamespaceClassName($className)
+    {
+        if (preg_match('/\\\\?(.+)\\\\(.+?)$/', $className, $parts)) {
+            list(, $namespace, $class) = $parts;
+        } else {
+            $namespace = '';
+            $class = $className;
+        }
+        return [$namespace, $class];
+    }
 
     /**
      * @param array $tokens
@@ -519,17 +525,15 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             foreach ($arguments as $argument) {
                 if ($argument->getType() !== null) {
                     $typeName = $argument->getType();
-                    if (strpos($typeName, 'Mage_') === 0 || strpos($typeName, 'Varien_') === 0) {
-                        $mappedClass = $this->classMap->mapM1Class($typeName);
-                        if ($mappedClass !== null && $mappedClass != 'obsolete') {
-                            $currentIndex = $this->tokenHelper->getNextIndexOfTokenType(
-                                $tokens,
-                                $currentIndex + 1,
-                                T_STRING,
-                                $typeName
-                            );
-                            $tokens[$currentIndex][1] = $mappedClass;
-                        }
+                    $mappedClass = $this->getM2ClassName($typeName);
+                    if ($mappedClass) {
+                        $currentIndex = $this->tokenHelper->getNextIndexOfTokenType(
+                            $tokens,
+                            $currentIndex + 1,
+                            T_STRING,
+                            $typeName
+                        );
+                        $tokens[$currentIndex][1] = $mappedClass;
                     }
                 }
             }
@@ -547,11 +551,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
         $doubleColonIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_DOUBLE_COLON);
         while ($doubleColonIndex != null) {
             $prevToken = $tokens[$doubleColonIndex - 1];
-            if (is_array($prevToken) && $prevToken[0] == T_STRING
-                && (strpos($prevToken[1], 'Mage_') === 0 || strpos($prevToken[1], 'Varien_') === 0)
-            ) {
-                $mappedClass = $this->classMap->mapM1Class($prevToken[1]);
-                if ($mappedClass !== null && $mappedClass != 'obsolete') {
+            if (is_array($prevToken) && $prevToken[0] == T_STRING && !$this->isSelfReference($prevToken[1])) {
+                $mappedClass = $this->getM2ClassName($prevToken[1]);
+                if ($mappedClass) {
                     $tokens[$doubleColonIndex - 1][1] = $mappedClass;
                 }
             }
@@ -559,6 +561,15 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                 $this->tokenHelper->getNextIndexOfTokenType($tokens, $doubleColonIndex + 1, T_DOUBLE_COLON);
         }
         return $this;
+    }
+
+    /**
+     * @param string $referenceName
+     * @return bool
+     */
+    protected function isSelfReference($referenceName)
+    {
+        return in_array($referenceName, ['self', 'parent', 'static']);
     }
 
     /**
@@ -574,11 +585,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
                 return $this;
             }
             $nextToken = $tokens[$nextTokenIndex];
-            if (is_array($nextToken) && $nextToken[0] == T_STRING
-                && (strpos($nextToken[1], 'Mage_') === 0 || strpos($nextToken[1], 'Varien_') === 0)
-            ) {
-                $mappedClass = $this->classMap->mapM1Class($nextToken[1]);
-                if ($mappedClass !== null && $mappedClass != 'obsolete') {
+            if (is_array($nextToken) && $nextToken[0] == T_STRING) {
+                $mappedClass = $this->getM2ClassName($nextToken[1]);
+                if ($mappedClass) {
                     $tokens[$nextTokenIndex][1] = $mappedClass;
                 }
             }

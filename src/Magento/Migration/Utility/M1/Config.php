@@ -120,12 +120,12 @@ class Config
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getModuleName()
     {
-        /** @var \SimpleXMLElement[] $childrens */
-        $childrens = $this->config->modules->children();
-        return $childrens[0]->getName();
+        /** @var \SimpleXMLElement[] $children */
+        $children = $this->config->modules->children();
+        return isset($children[0]) ? $children[0]->getName() : null;
     }
 }

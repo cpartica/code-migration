@@ -1,0 +1,6 @@
+.DS_Store
+/.idea
+/app/etc/vendor_path.php
+/lib/internal/Magento/Framework/
+/vendor
+/var

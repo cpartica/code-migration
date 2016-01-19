@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/magento/code-migration.svg?branch=develop)](https://travis-ci.org/magento/code-migration)
+
 CODE MIGRATION TOOLKIT
  
 The Magento Code Migration Toolkit provides scripts that eases the process of converting your custom Magento 1.x module to Magento 2.0 by handling some of the most time-consuming conversion tasks. Specifically, you can run the scripts that comprise this toolkit to automatically convert:

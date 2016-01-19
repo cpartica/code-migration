@@ -45,13 +45,13 @@ class ConsoleHandler extends \Monolog\Handler\AbstractHandler implements \Monolo
         switch ($record['level']) {
             case Logger::ERROR:
             case Logger::CRITICAL:
-                echo PHP_EOL . $this->colorize($record['formatted'], self::COLOR_RED);
+                echo $this->colorize($record['formatted'], self::COLOR_RED) . PHP_EOL;
                 break;
             case Logger::WARNING:
-                echo PHP_EOL . $this->colorize($record['formatted'], self::COLOR_YELLOW);
+                echo $this->colorize($record['formatted'], self::COLOR_YELLOW) . PHP_EOL;
                 break;
             default:
-                echo PHP_EOL . $record['formatted'];
+                echo $record['formatted'] . PHP_EOL;
         }
         return false === $this->bubble;
     }
