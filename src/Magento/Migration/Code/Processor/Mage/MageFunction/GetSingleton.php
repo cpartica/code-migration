@@ -182,7 +182,7 @@ class GetSingleton extends AbstractFunction implements \Magento\Migration\Code\P
             $this->parse();
         }
 
-        if ($this->methodName == null || $this->singletonClass == null) {
+        if ($this->methodName === null || $this->singletonClass === null) {
             return $this;
         }
 

@@ -224,7 +224,7 @@ class GetModel extends AbstractFunction implements \Magento\Migration\Code\Proce
             $this->parse();
         }
 
-        if ($this->methodName == null || $this->modelFactoryClass == null) {
+        if ($this->methodName === null || $this->modelFactoryClass === null) {
             return $this;
         }
 

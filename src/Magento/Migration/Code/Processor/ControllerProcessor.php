@@ -92,7 +92,7 @@ class ControllerProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function isClass(array &$tokens)
     {
-        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS) != null;
+        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS) !== null;
     }
 
     /**
@@ -101,7 +101,7 @@ class ControllerProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function isAbstract(array &$tokens)
     {
-        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_ABSTRACT) != null;
+        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_ABSTRACT) !== null;
     }
 
     /**
@@ -111,7 +111,7 @@ class ControllerProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected function removeControllerKeywordFromClass(array &$tokens)
     {
         $indexClass = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS);
-        if ($indexClass == null) {
+        if ($indexClass === null) {
             return $this;
         } else {
             $indexClassName = $this->tokenHelper->getNextIndexOfTokenType($tokens, $indexClass, T_STRING);
@@ -129,7 +129,7 @@ class ControllerProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected function changeActionParent(array &$tokens)
     {
         $indexExtends = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_EXTENDS);
-        if ($indexExtends == null) {
+        if ($indexExtends === null) {
             return $this;
         } else {
             $indexExtends = $this->tokenHelper->getNextIndexOfTokenType($tokens, $indexExtends, T_STRING);

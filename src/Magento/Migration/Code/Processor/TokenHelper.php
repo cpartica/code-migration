@@ -648,7 +648,7 @@ class TokenHelper
     public function getExtendsClass($tokens)
     {
         $extendIndex = $this->getNextIndexOfTokenType($tokens, 0, T_EXTENDS);
-        if ($extendIndex != null) {
+        if ($extendIndex !== null) {
             $parentClassIndex = $this->getNextIndexOfTokenType($tokens, $extendIndex, T_STRING);
             $whiteSpaceIndex = $this->getNextIndexOfTokenType($tokens, $parentClassIndex, T_WHITESPACE);
             $className = '';
@@ -666,7 +666,7 @@ class TokenHelper
      */
     public function isAbstract(&$tokens)
     {
-        return $this->getNextIndexOfTokenType($tokens, 0, T_ABSTRACT) != null;
+        return $this->getNextIndexOfTokenType($tokens, 0, T_ABSTRACT) !== null;
     }
 
     /**
@@ -676,7 +676,7 @@ class TokenHelper
     public function getNameSpace(array &$tokens)
     {
         $indexNamespace = $this->getNextIndexOfTokenType($tokens, 0, T_NAMESPACE);
-        if ($indexNamespace == null) {
+        if ($indexNamespace === null) {
             return null;
         } else {
             $indexNamespace = $this->getNextIndexOfTokenType($tokens, 0, T_STRING);

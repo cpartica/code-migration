@@ -142,7 +142,7 @@ class ConstructorHelper
                 $count++;
             }
 
-            if ($firstOptionalVariableName != null) {
+            if ($firstOptionalVariableName !== null) {
                 foreach ($variables as $variable) {
                     if (isset($variable['type'])) {
                         $text .= $variable['type'];

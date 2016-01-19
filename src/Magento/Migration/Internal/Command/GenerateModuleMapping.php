@@ -187,7 +187,7 @@ class GenerateModuleMapping extends Command
             $config = new \Magento\Migration\Utility\M1\Config($content, $this->logger);
             $moduleName = $config->getModuleName();
             $mapping = $this->mapModuleName($moduleName, $m2BaseDir);
-            if ($mapping != null) {
+            if ($mapping !== null) {
                 if (!is_array($mapping)) {
                     $moduleMapping[$moduleName] = [
                         "m2module" => $mapping,

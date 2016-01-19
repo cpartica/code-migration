@@ -86,7 +86,7 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
             $matchedFunction = $this->matcher->match($tokens, $index);
             if ($matchedFunction) {
                 $matchedFunction->convertToM2();
-                if ($matchedFunction->getDiVariableName() != null) {
+                if ($matchedFunction->getDiVariableName() !== null) {
                     $diVariables[$matchedFunction->getDiVariableName()] = [
                         'variable_name' => $matchedFunction->getDiVariableName(),
                         'type' => $matchedFunction->getClass(),
@@ -125,7 +125,7 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function isClass(array &$tokens)
     {
-        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS) != null;
+        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS) !== null;
     }
 
     /**

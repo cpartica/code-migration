@@ -202,7 +202,7 @@ class Helper extends AbstractFunction implements \Magento\Migration\Code\Process
             $this->parse();
         }
 
-        if ($this->methodName == null || $this->helperClass == null) {
+        if ($this->methodName === null || $this->helperClass === null) {
             return $this;
         }
 
