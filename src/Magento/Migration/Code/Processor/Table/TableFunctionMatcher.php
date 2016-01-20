@@ -97,7 +97,7 @@ class TableFunctionMatcher implements \Magento\Migration\Code\Processor\Mage\Mat
 
         /** @var \Magento\Migration\Code\Processor\TokenArgument $token */
         $token = $arguments->getFirstArgument()->getFirstToken();
-        if ($token == null) {
+        if ($token === null) {
             //e.g., getTable()
             return false;
         }

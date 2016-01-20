@@ -13,6 +13,11 @@ class Converter
     protected $processors;
 
     /**
+     * @var SplitterInterface[]
+     */
+    protected $splitters;
+
+    /**
      * @var string $filePath
      */
     protected $filePath;
@@ -29,15 +34,18 @@ class Converter
 
     /**
      * @param array $processors
+     * @param array $splitters
      * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
      * @param \Magento\Migration\Logger\Logger $logger
      */
     public function __construct(
         array $processors,
+        array $splitters,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
         \Magento\Migration\Logger\Logger $logger
     ) {
         $this->processors = $processors;
+        $this->splitters = $splitters;
         $this->tokenHelper = $tokenHelper;
         $this->logger = $logger;
     }
@@ -57,6 +65,33 @@ class Converter
                 $tokens = $processor->process($tokens);
                 //possibly modified file path by process
                 $this->setFilePath($processor->getFilePath());
+            }
+
+            $convertedContent = $this->tokenHelper->reconstructContent($tokens);
+            return $convertedContent;
+        } catch (\Exception $e) {
+            $this->logger->error('Caught exception: ' . $e->getMessage());
+        }
+        return $fileContent;
+    }
+
+    /**
+     * @param string $fileContent
+     * @param string $additionalFiles
+     * @return string
+     */
+    public function split($fileContent, &$additionalFiles)
+    {
+        try {
+            $tokens = $this->tokenHelper->parseContent($fileContent);
+
+            foreach ($this->splitters as $splitter) {
+                /** @var \Magento\Migration\Code\SplitterInterface $splitter */
+                //initial file path
+                $splitter->setFilePath($this->filePath);
+                $tokens = $splitter->split($tokens, $additionalFiles);
+                //possibly modified file path by process
+                $this->setFilePath($splitter->getFilePath());
             }
 
             $convertedContent = $this->tokenHelper->reconstructContent($tokens);

@@ -23,21 +23,29 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected $objectManager;
 
     /**
+     * @var \Magento\Migration\Code\Processor\DiVariablesPersistent
+     */
+    protected $diVariablesPersistent;
+
+    /**
      * @var \Magento\Migration\Code\Processor\TokenHelper
      */
     protected $tokenHelper;
 
     /**
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     * @param \Magento\Migration\Code\Processor\DiVariablesPersistent $diVariablesPersistent
      * @param \Magento\Migration\Code\Processor\TokenHelper $tokenHelper
      * @param Mage\MageFunctionMatcher $matcher
      */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
+        \Magento\Migration\Code\Processor\DiVariablesPersistent $diVariablesPersistent,
         \Magento\Migration\Code\Processor\TokenHelper $tokenHelper,
         \Magento\Migration\Code\Processor\Mage\MageFunctionMatcher $matcher
     ) {
         $this->objectManager = $objectManager;
+        $this->diVariablesPersistent = $diVariablesPersistent;
         $this->tokenHelper = $tokenHelper;
         $this->matcher = $matcher;
     }
@@ -78,7 +86,7 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
             $matchedFunction = $this->matcher->match($tokens, $index);
             if ($matchedFunction) {
                 $matchedFunction->convertToM2();
-                if ($matchedFunction->getDiVariableName() != null) {
+                if ($matchedFunction->getDiVariableName() !== null) {
                     $diVariables[$matchedFunction->getDiVariableName()] = [
                         'variable_name' => $matchedFunction->getDiVariableName(),
                         'type' => $matchedFunction->getClass(),
@@ -89,13 +97,21 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
         }
 
         //TODO: avoid adding di variable if parent class already has variable of the same type
-        if (!empty($diVariables)) {
+        if (!empty($diVariables) || $this->applyParentClassDiVariables($tokens)) {
             /** @var \Magento\Migration\Code\Processor\ConstructorHelper $constructorHelper */
             $constructorHelper = $this->objectManager->create(
                 '\Magento\Migration\Code\Processor\ConstructorHelper'
             );
             $constructorHelper->setContext($tokens);
-            $constructorHelper->injectArguments($diVariables);
+            if ($this->applyParentClassDiVariables($tokens)) {
+                $diVariables = $this->mergeDiVariables($this->diVariablesPersistent->getDiVariables(), $diVariables);
+            }
+
+            $orderArray = $constructorHelper->injectArguments($diVariables);
+
+            if ($this->tokenHelper->isAbstract($tokens)) {
+                $this->diVariablesPersistent->setDiVariables($orderArray);
+            }
         }
 
         //reconstruct tokens
@@ -109,6 +125,34 @@ class MageProcessor implements \Magento\Migration\Code\ProcessorInterface
      */
     protected function isClass(array &$tokens)
     {
-        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS) != null;
+        return $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_CLASS) !== null;
+    }
+
+    /**
+     * @param array $diVariables
+     * @param array $newDiVariables
+     * @return bool
+     */
+    protected function mergeDiVariables($diVariables, $newDiVariables)
+    {
+        foreach ($newDiVariables as $key => $diVar) {
+            if (!array_key_exists($key, $diVariables)) {
+                $diVariables[$key] = $diVar;
+            }
+        }
+        return $diVariables;
+    }
+
+    /**
+     * @param array $tokens
+     * @return bool
+     */
+    protected function applyParentClassDiVariables($tokens)
+    {
+        //TODO: add more cases like any derived class should have this
+        if (($this->tokenHelper->isController($tokens) && !$this->tokenHelper->isAbstract($tokens))) {
+            return true;
+        }
+        return false;
     }
 }

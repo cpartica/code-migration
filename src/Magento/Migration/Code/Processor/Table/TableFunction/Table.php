@@ -129,7 +129,7 @@ class Table extends AbstractFunction implements TableFunctionInterface
 
         $parts = explode('/', $m1Table);
         $tableName = $this->tableNameMapper->mapTableName($parts[0], $parts[1]);
-        if ($tableName == null) {
+        if ($tableName === null) {
             return null;
         }
 
@@ -191,7 +191,7 @@ class Table extends AbstractFunction implements TableFunctionInterface
         if (!$this->parsed) {
             $this->parse();
         }
-        if ($this->tableName == null) {
+        if ($this->tableName === null) {
             return $this;
         }
 

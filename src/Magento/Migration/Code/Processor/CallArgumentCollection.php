@@ -37,7 +37,7 @@ class CallArgumentCollection
      */
     public function addArgument($argument, $index = null)
     {
-        if ($index == null) {
+        if ($index === null) {
             $this->arguments[] = $argument;
         } elseif (!array_key_exists($index, $this->arguments)) {
             $this->arguments[$index] = $argument;

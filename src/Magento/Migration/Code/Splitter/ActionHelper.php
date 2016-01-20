@@ -3,7 +3,9 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\Processor;
+namespace Magento\Migration\Code\Splitter;
+
+use Magento\Migration\Command\ConvertPhpCode;
 
 class ActionHelper
 {
@@ -27,6 +29,9 @@ class ActionHelper
 
     /** @var string */
     protected $abstractFileName;
+
+    /** @var  string */
+    protected $parentClass;
 
     public function __construct(
         \Magento\Migration\Logger\Logger $logger,
@@ -67,9 +72,10 @@ class ActionHelper
     }
 
     /**
-     * @return $this
+     * @param array $resultFiles
+     * @return string[]
      */
-    public function createActions()
+    public function createActions(array &$resultFiles)
     {
         if (!empty($this->tokens) && $this->abstractFileName && $this->abstractNamespace) {
             foreach ($this->tokens as $className => $arrayOfTokens) {
@@ -81,6 +87,7 @@ class ActionHelper
                     }
                     if (@file_put_contents($actionFilePath, $this->wrapClass($className, $arrayOfTokens))) {
                         $this->logger->info('Creating file '.$actionFilePath, []);
+                        $resultFiles[] = $actionFilePath;
                     } else {
                         $this->logger->warn('Error creating '.$actionFilePath, []);
                     }
@@ -90,11 +97,21 @@ class ActionHelper
     }
 
     /**
+     * @param string $parentClass
+     * @return $this
+     */
+    public function setParentClass($parentClass)
+    {
+        $this->parentClass = $parentClass;
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    private function getParentClass()
+    public function getParentClass()
     {
-        return rtrim(basename($this->abstractFileName), '.php');
+        return $this->parentClass;
     }
 
     /**
@@ -103,8 +120,10 @@ class ActionHelper
      */
     private function getNewFileName($className)
     {
-        return dirname($this->abstractFileName)  . DIRECTORY_SEPARATOR . ucfirst($this->getParentClass()) .
-        DIRECTORY_SEPARATOR . $className . ".php.converted";
+        return dirname($this->abstractFileName) .
+        DIRECTORY_SEPARATOR . ucfirst(preg_replace('/^.+_([a-zA-Z0-9]+)$/', '$1', $this->abstractNamespace)) .
+        DIRECTORY_SEPARATOR . ($className == 'New' ? 'NewAction' :  $className) . ".php" .
+        ConvertPhpCode::CONVERTED_FILE_EXT;
     }
 
     /**
@@ -115,11 +134,11 @@ class ActionHelper
     private function wrapClass($className, $tokens)
     {
         return '<?php' . "\n" .
-            'namespace ' . $this->abstractNamespace . '\\' . $this->getParentClass() . ";" . "\n\n" .
-            'class ' . $className . ' extends \\' . $this->abstractNamespace . '\\' . $this->getParentClass() . "\n" .
-            '{' . "\n" .
-            $this->tokenHelper->reconstructContent($tokens) .
-            '}' . "\n";
+        'class ' . $this->abstractNamespace . '_' . ($className == 'New' ? 'NewAction' :  $className) .
+        'Controller extends ' . $this->getParentClass() . "\n" .
+        '{' . "\n" .
+        $this->tokenHelper->reconstructContent($tokens) .
+        '}' . "\n";
     }
 
     /**

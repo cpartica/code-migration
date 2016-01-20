@@ -1051,6 +1051,9 @@
                 <item name="operatorNewProcessor" xsi:type="object">Magento\Migration\Code\Processor\OperatorNewProcessor</item>
                 <item name="controllerProcessor" xsi:type="object">Magento\Migration\Code\Processor\ControllerProcessor</item>
             </argument>
+            <argument name="splitters"  xsi:type="array">
+                <item name="controllerSplitter" xsi:type="object">Magento\Migration\Code\Splitter\ControllerSplitter</item>
+            </argument>
         </arguments>
     </type>
 

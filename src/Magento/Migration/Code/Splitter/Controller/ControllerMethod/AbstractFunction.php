@@ -3,12 +3,12 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Migration\Code\Processor\Controller\ControllerMethod;
+namespace Magento\Migration\Code\Splitter\Controller\ControllerMethod;
 
 /**
  * Class AbstractFunction
  * Base class for
- * @package Magento\Migration\Code\Processor\Controller\ControllerMethod
+ * @package Magento\Migration\Code\Splitter\Controller\ControllerMethod
  */
 class AbstractFunction
 {

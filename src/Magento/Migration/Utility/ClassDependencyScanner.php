@@ -262,7 +262,7 @@ class ClassDependencyScanner
         if ($argument[0] != T_VARIABLE) {
             //can't handle variable
             $className = $this->getHelperClass($argument[1]);
-            if ($className != null) {
+            if ($className !== null) {
                 $referenceClasses[$className][] = self::CONTEXT_HELPER;
             }
         } else {
@@ -332,7 +332,7 @@ class ClassDependencyScanner
 
         $parts = explode('/', $m1);
         $className = $this->aliasMapper->mapAlias($parts[0], 'helper');
-        if ($className == null) {
+        if ($className === null) {
             $this->logger->warn("Can not map alias for helper: " . $parts[0]);
             return null;
         }
@@ -386,7 +386,7 @@ class ClassDependencyScanner
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
             //can't handle variable
             $className = $this->getModelClass($argument[1]);
-            if ($className != null) {
+            if ($className !== null) {
                 $referenceClasses[$className][] = $context;
             }
         } else {
@@ -433,7 +433,7 @@ class ClassDependencyScanner
 
         $parts = explode('/', $m1);
         $className = $this->aliasMapper->mapAlias($parts[0], 'model');
-        if ($className == null) {
+        if ($className === null) {
             $this->logger->warn("Can not map alias for model: " . $parts[0]);
             return null;
         }
@@ -502,7 +502,7 @@ class ClassDependencyScanner
         if (is_array($argument) && $argument[0] != T_VARIABLE) {
             //can't handle variable
             $className = $this->getResourceModelClass($argument[1]);
-            if ($className != null) {
+            if ($className !== null) {
                 $referenceClasses[$className][] = $context;
             }
         } else {
@@ -529,7 +529,7 @@ class ClassDependencyScanner
 
         $parts = explode('/', $m1);
         $className = $this->aliasMapper->mapAlias($parts[0], 'model');
-        if ($className == null) {
+        if ($className === null) {
             $this->logger->warn("Can not map alias for model: " . $parts[0]);
             return null;
         }

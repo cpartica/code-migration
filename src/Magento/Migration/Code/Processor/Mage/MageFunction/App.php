@@ -220,7 +220,7 @@ class App extends AbstractFunction implements \Magento\Migration\Code\Processor\
             $this->parse();
         }
 
-        if ($this->methodName == null || $this->diClass == null || $this->diVariableName == null) {
+        if ($this->methodName === null || $this->diClass === null || $this->diVariableName === null) {
             return $this;
         }
 

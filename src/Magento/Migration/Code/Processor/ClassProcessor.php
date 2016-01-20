@@ -96,7 +96,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     {
         $nameSpace = $this->getNameSpace($tokens);
 
-        if ($nameSpace != null) {
+        if ($nameSpace !== null) {
             $this->logger->warn('The class already uses namespace');
         } else {
             $this->processNamespace($tokens);
@@ -125,9 +125,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected function processExtends(array &$tokens)
     {
         $extendIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_EXTENDS);
-        if ($extendIndex != null) {
+        if ($extendIndex !== null) {
             $parentClassIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, $extendIndex, T_STRING);
-            if ($parentClassIndex == null) {
+            if ($parentClassIndex === null) {
                 $this->logger->warn("Expected class name not found after extends keyword");
                 return $this;
             }
@@ -382,7 +382,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
 
         $found = false;
         $index = $this->tokenHelper->getNextIndexOfTokenType($tokens, $constructorIndex, T_DOUBLE_COLON);
-        while (!$found && $index != null && $index <= $endOfConstructor) {
+        while (!$found && $index !== null && $index <= $endOfConstructor) {
             if (is_array($tokens[$index - 1]) && $tokens[$index - 1][1] == 'parent'
                 && is_array($tokens[$index + 1]) && $tokens[$index + 1][1] == '__construct'
             ) {
@@ -503,7 +503,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected function getNameSpace(array &$tokens)
     {
         $indexNamespace = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_NAMESPACE);
-        if ($indexNamespace == null) {
+        if ($indexNamespace === null) {
             return null;
         } else {
             $indexNamespace = $this->tokenHelper->getNextIndexOfTokenType($tokens, $indexNamespace, T_STRING);
@@ -518,7 +518,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     protected function processArgumentType(array &$tokens)
     {
         $functionIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_FUNCTION);
-        while ($functionIndex != null) {
+        while ($functionIndex !== null) {
             $arguments = $this->tokenHelper->getFunctionArguments($tokens, $functionIndex);
 
             $currentIndex = $functionIndex;
@@ -549,7 +549,7 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     public function processStaticClassReference(array &$tokens)
     {
         $doubleColonIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_DOUBLE_COLON);
-        while ($doubleColonIndex != null) {
+        while ($doubleColonIndex !== null) {
             $prevToken = $tokens[$doubleColonIndex - 1];
             if (is_array($prevToken) && $prevToken[0] == T_STRING && !$this->isSelfReference($prevToken[1])) {
                 $mappedClass = $this->getM2ClassName($prevToken[1]);
@@ -579,9 +579,9 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
     public function processInstanceOf(array &$tokens)
     {
         $currentIndex = $this->tokenHelper->getNextIndexOfTokenType($tokens, 0, T_INSTANCEOF);
-        while ($currentIndex != null) {
+        while ($currentIndex !== null) {
             $nextTokenIndex = $this->tokenHelper->getNextTokenIndex($tokens, $currentIndex);
-            if ($nextTokenIndex == null) {
+            if ($nextTokenIndex === null) {
                 return $this;
             }
             $nextToken = $tokens[$nextTokenIndex];

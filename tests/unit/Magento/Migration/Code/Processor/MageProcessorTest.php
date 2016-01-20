@@ -30,6 +30,11 @@ class MageProcessorTest extends TestCase
     protected $loggerMock;
 
     /**
+     * @var \Magento\Migration\Code\Processor\DiVariablesPersistent|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $diVariablesPersistentMock;
+
+    /**
      * @var \Magento\Migration\Code\Processor\TokenHelper
      */
     protected $tokenHelper;
@@ -37,6 +42,7 @@ class MageProcessorTest extends TestCase
     public function setUp()
     {
         $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->diVariablesPersistentMock = $this->getMock('\Magento\Migration\Code\Processor\DiVariablesPersistent');
 
         $this->objectManagerMock = $this->getMockBuilder(
             '\Magento\Framework\ObjectManagerInterface'
@@ -50,6 +56,7 @@ class MageProcessorTest extends TestCase
 
         $this->obj = new MageProcessor(
             $this->objectManagerMock,
+            $this->diVariablesPersistentMock,
             $this->tokenHelper,
             $this->matcherMock
         );
