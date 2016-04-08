@@ -1,217 +1,216 @@
 [![Build Status](https://travis-ci.org/magento/code-migration.svg?branch=develop)](https://travis-ci.org/magento/code-migration)
 
-CODE MIGRATION TOOLKIT
+Code Migration Toolkit
+======================
  
-The Magento Code Migration Toolkit provides scripts that eases the process of converting your custom Magento 1.x module to Magento 2.0 by handling some of the most time-consuming conversion tasks. Specifically, you can run the scripts that comprise this toolkit to automatically convert:
+The Magento Code Migration Toolkit provides scripts that ease the process of converting custom Magento 1.x code to Magento 2 by handling some of the most time-consuming conversion tasks. The toolkit is intended for Magento developers with reasonable expertise in both Magento 1.x and Magento 2.
 
-* module directory structure (M1 and M2 module directory structures differ in key ways.) 
+
+## Scope
+
+The toolkit covers migration of the following aspects of the Magento code:
+
+* Module directory structure
+
+* Layout XML files
+
+* Config XML files
 
 * PHP files
 
-* config.xml  files
+Migration of Magento modules is the focus of the toolkit. Magento themes are out of scope of the toolkit at the moment.
 
-* layout.xml files
-
-
-ABOUT THIS TOOLKIT
-
-This toolkit can significantly reduce the work involved in migrating your M1 module to M2. However, after running this toolkit to migrate your Magento 1.x installation, you will need to manually edit some files in your installation. You must run the conversion scripts in the specified order as the output from one script may be used as input for another script. 
+The toolkit can significantly reduce the work involved in the code migration. However, after running the toolkit one will need to manually edit some of the generated files.
 
 
-PREREQUISITES
+## System Requirements
 
-* PHP  5.5.x or greater
+* PHP 5.5.x or greater
 
-* Composer package management software.  This package management software installs the Magento 2.x Framework, a requirement for installing and running the code migration toolkit.  See https://getcomposer.org/download/ for more information about Composer. 
+* [Composer](https://getcomposer.org/) dependency management software
 
-* Designated source (Magento 1.x) and target (Magento 2.0) directories. The modules you’ve designated for conversion must reside in your designated source directory. 
-
-You do not need to install a web server to run the code migration toolkit. 
-
-INSTALLATION
-Run composer install in your migration toolkit root directory.  This installs the toolkit’s dependency packages,  including the Magento 2.x Framework, which forms the basis of this toolkit.
+Note that being a command line tool the toolkit does not require a web server to be installed.
 
 
-OVERVIEW OF MODULE MIGRATION PROCESS
+## Installation
+
+Run `composer install` in the migration toolkit root directory. This installs the toolkit’s dependency packages, including the Magento 2.x Framework, which forms the basis of the toolkit.
 
 
-Step one: Migrate Magento 1.x module structure to Magento 2.0 structure (bin/migrate.php migrateModuleStructure).
+## Prerequisite Directories
 
-Step two: Migrate Magento 1.x  layout.xml Magento 2.0 structure file structure. (bin/migrate.php convertLayout).
+Before running the migration, the following directories need to be prepared:
 
-Step three: Migrate PHP code (bin/migrate.php convertPhpCode). 
+* `<src>` - Directory that contains custom Magento 1.x code that is intended to be migrated. The code must follow the Magento 1.x directory structure. Magento 1.x core files must not be included.
 
-The code migration toolkit deletes your Magento 1.x layout files (mymodulelayout.xml)  after processing, and places the converted files in the same view folder.
-Converted files are not overwritten. All converted code is saved with a *.converted extension in the same folder as the original file.
+* `<dst>` - Empty directory for the toolkit to put the generated Magento 2 code to
 
+* `<m1>` - Directory that contains:
 
-RUNNING THE TOOL
+ * Vanilla Magento 1.x codebase, and
 
-This toolkit provides three scripts that perform distinct migration tasks and which must be run in the following order. 
+ * Custom Magento 1.x code same as in `<src>` directory, and
 
-* bin/migrate.php migrateModuleStructure
+ * Dependencies of the custom Magento 1.x code, if any, that are not part of `<src>` directory as not intended to be migrated at the moment
 
-* bin/migrate.php convertLayout
+* `<m2>` - Directory that contains the vanilla Magento 2.x codebase
 
-* bin/migrate.php convertPhpCode
+The above directories are not required to be positioned relatively to each other, they can be anywhere in the file system.
 
-
-
-CONVERTING A MODULE
-
-You can specify a Magento 1.x root folder installation with the already installed modules, or just one module. If you designate a folder with multiple modules, all modules must follow Magento 1.x naming and structure conventions.  
-
-Each step is required to be made in the order presented to ensure a successful module conversion
+Note that the Magento instances living in the directories `<m1>` and `<m2>` may not necessarily be installed. Being a static analysis tool, the toolkit does not execute the Magento source code.
 
 
-STEP ONE:  Migrate Magento 1.x module structure to Magento 2.0 structure
+## Migration Procedure
 
-This script does not convert code. It simply creates the appropriate Magento 2.0 module directory structure and moves the existing Magento 1.x code there. The output of this script is used as input by other scripts in the toolkit. 
+The migration consists of the following steps:
 
-Prerequisite: Confirm all source files follow Magento 1.x naming and structure conventions. app/code/local/vendor/module/[module_files] app/design//[module_files] media/[module_files] skin//[module_files]. 
+1. Migrate Magento 1.x module structure to the structure recognized in Magento 2
 
+2. Migrate Magento 1.x layout XML files to the format recognized in Magento 2
 
-Run bin/migrate.php migrateModuleStructure. This command converts one or more modules from the Magento 1.x structure to Magento 2. Note that in Magento 2.0, all module code resides in its own directory. This script identifies each module and copies its files to the Magento 2.x structure (/app/code/vendor/module/[module_files]). 
+3. Migrate Magento 1.x config XML files to the format recognized in Magento 2
 
-For more information on the Magento 2.0 module structure, see the Magento on-line documentation set. 
+4. Migrate the PHP code in terms of how it interacts with the Magento framework, preserving the business logic
 
-
-
-STEP TWO: Convert layout files from M1 to M2
-This script splits Magento 1.x layout files and converts them to Magento 2.x xml handlers in app/code/vendor/module/view//layout/.xml
-
-Run bin/migrate.php convertLayout. 
-
-Prerequisite: Run script in Step One.
-
-The convertLayout script converts the contents of the handlers using the mapping files. 
-The script  automatically tries to map and include/merge mapping found in the input modules. Pleasef you feel that some mapping weren't picked up, then you might need to regenerate the mapping files from a magento installation that already has installed the modules that you are trying to convert
+Note that it may be necessary to regenerate the mapping files as the very first step. That is especially important in a case of migration between arbitrary Magento 1.x and Magento 2.x versions rather than the latest ones. It is an optional step, but it greatly influences the quality of the migration results. Please refer to the mapping files discussion later in the document.
 
 
-This convertLayout tool does the following conversion-related tasks:
+## Running the Migration
 
-* Splits the Magento 1.x layout.xml into multiple files. Each new layout file contains a handler.
+Run all the migration scripts:
 
-* Removes the tag and adds the and tags with the proper schemas.
+1. `php bin/migrate.php migrateModuleStructure <src> <dst>` - Migrate directory structure
 
-* Transforms the block type attribute to class and converts the name to Magento 2.x class. 
+2. `php bin/migrate.php convertLayout <dst>` - Migrate layout
 
-* Converts to where needed removing the class on the container.
+3. `php bin/migrate.php convertConfig <dst>` - Migrate config
 
-* Converts to referenceBlock or referenceContainer.
+4. `php bin/migrate.php convertPhpCode <dst> <m1> <m2>` - Migrate PHP code
 
-* Adds arguments instead of tag names for parameters on actions.
+The migration scripts are to be ran in the specified order as the output from one script may be used as input for another script.
 
-* Converts the translation labels as attributes.
-
-
+The scripts read the Magento 1.x code from the `<src>` directory, convert it, and write the transformed code to the `<dst>` directory. All converted code is saved to files with a `*.converted` extension. The directories `<m1>` and `<m2>` are used to lookup the context of the code being migrated.
 
 
-STEP THREE: Convert PHP code found in blocks, controllers, models, helpers
+## Understanding Migration Scripts
 
-This script converts most of the PHP code in the target directory to the Magento 2.x requirements.
+The toolkit comes with the flexibility to adjust certain migration steps by configuring or skipping execution of respective migration scripts. This section discusses specifics of each of the migration scripts.
 
-Prerequisite: Although you can run this script without first completing Steps one and two, we recommended first running Steps one and two for optimal accuracy.
+### Module Structure Migration Script
 
-Run bin/migrate.php convertPhpCode. The input path can be a file, a folder, a module or the entire output of the converted structure.
+This script does not alter contents of any files. Instead, it simply creates the appropriate Magento 2 module directory structure and moves the existing Magento 1.x code there. The output of this script is used as input by other scripts in the toolkit.
 
- The convertPhpCode does the following conversion-related tasks:
+### Layout Migration Script
+
+This script splits Magento 1.x layout files into separate XML files for each layout handle and converts their XML format to the one used in Magento 2.
+
+The script converts the contents of the handles using the mapping files. The script automatically tries to map and include/merge mapping found in the input modules. If you feel that some mapping were not picked up, then you might need to regenerate the mapping files from a magento installation that already has installed the modules that you are trying to convert.
+
+The script does the following conversion-related tasks:
+
+* Splits the Magento 1.x layout files into separate XML files for each layout handle
+
+* Replaces the root tag and adds the proper schemas
+
+* Transforms the block type attribute to class and converts the name to Magento 2.x class
+
+* Converts to where needed removing the class on the container
+
+* Converts `<reference>` to `<referenceBlock>` or `<referenceContainer>`
+
+* Converts format of action arguments
+
+* Converts the translation labels as attributes
+
+### Config Migration Script
+
+This script splits Magento 1.x config XML files and converts them to Magento 2.x XML format.
+
+### PHP Code Migration Script
+
+This script converts most of the PHP code to be compatible with the Magento 2 Framework.
+
+The script does the following conversion-related tasks:
 
 * Adds PHP 5.3+ namespaces used in Magento 2.x framework
 
 * Converts class name and full qualifier name for extends and implements
 
-* Identifies all Mage:: dependencies and modifies the constructor and injects the dependencies and creates properties that are assigned to the dependency classes
+* Identifies all dependencies on the `Mage` class and modifies the constructor and injects the dependencies and creates properties that are assigned to the dependency classes
 
-* Processes all Mage::getModel and Mage::getHelper and Mage::getSingleton and identifies the proper class factories
-
-* Replaces all Mage::* with the proper call through the property that identifies that call
+* Processes all `Mage::getModel`, `Mage::getHelper`, `Mage::getSingleton` and identifies the proper class factories
 
 * Replaces all references to an Magento 1.x class with the name qualifier for the Magento 2.x class
 
-* Handles Mage::throwException replacing it with the new namespace exceptions
+* Handles `Mage::throwException` replacing it with the new namespace exceptions
 
-* Replaces all requests with Mage::app() by injecting a dependency for the request or cache, etc.
+* Replaces all occurrences of `Mage::app` by injecting a dependency for the request, cache, etc.
 
-* PSR logging with Mage::logException replaced by \Psr\Log\LoggerInterface Mage::registry and Mage::register, Mage::unregister replacement with dependency injection
+* PSR logging with `Mage::log` and `Mage::logException` replaced by `\Psr\Log\LoggerInterface`
 
-* Replaces all getTable and related aliases with real table names
+* Registry manipulation with `Mage::registry` and `Mage::register`, `Mage::unregister` replaced by dependency injection
 
-Extra information about the migration tool * bin/utils.php - generates mapping files intended to improve conversion used internally
-
-
+* Replaces all `getTable` and related table aliases with real table names
 
 
-UNDERSTANDING MAPPING FILES
+## Understanding Mapping Files
 
-We use mapping files to generate lists of classes as they were transformed from Magento 1.x to Magento 2.x  These mapping files capture these gerbil differences between Magento 1.x and Magento 2.0 files:
+Mapping files are used to generate lists of classes as they were transformed from Magento 1.x to Magento 2.x. These mapping files capture these gerbil differences between Magento 1.x and Magento 2.0 files:
 
-* files are renamed in case of names in XML
+* Files are renamed in case of names in XML
 
-* obsolete classes
+* Obsolete classes
 
-* classes named according to the new namespace conventions for PHP 5.4+.
+* Classes named according to the new namespace conventions for PHP 5.3+
 
-Most of these mappings are generated with our utils automated tool but some that have the *_manual suffix are maintained manually because an automated process could not resolve those names, but subsequent processes are dependent on them.
+Most of these mappings are generated in automated fashion but some that have the `*_manual` suffix are maintained manually because an automated process could not resolve those names, but subsequent processes are dependent on them.
 
+Mappings for Magento 1.x names located in the `mapping/*.json` or `mapping/*.xml`. These mapping files provides information to the tool or developers that are used to automatically or manually port legacy Magento 1.x code.
 
-Mappings for Magento 1.x names located in the mapping/*.json or mapping/*.xml. These mapping files provides information to the tool or developers that are used to automatically or manually port legacy Magento 1.x code
+### Mapping File Reference
 
+The list of mapping files that come with the toolkit:
 
- Note: To provide more accurate mapping with the custom names defined in your own module, you must regenerate and merge these mappings.
+* `mapping/aliases.json` - List of Magento 1.x CE module aliases defined in modules' config files to identify class namespaces as Magento 2.x will need the full class
 
-MAPPING FILE
+* `mapping/aliases_ee.json` - List of Magento 1.x EE module block aliases defined in modules' config files to identify class namespaces as Magento 2.x will need the full class
 
- * mapping/aliases.json - List of Magento 1.x CE module block aliases defined in /etc/config.xml to identify a Block class namespace as Magento 2.x will need the full class for blocks
+* `mapping/class_dependency.json` - List of Magento 1.x class dependencies used for automatic vs manual class mapping
 
+* `mapping/class_dependency_aggregated.json` - List of aggregated Magento 1.x class dependencies used for automatic vs manual class mapping
 
- * mapping/aliases_ee.json - List of Magento 1.x EE module block aliases defined in /etc/config.xml to identify a Block class namespace as Magento 2.x will need the full class ufor blocks
+* `mapping/class_mapping.json` - List of automatically generated Magento 1.x (CE+EE) namespaces that map to Magento 2.x (CE+EE) namespaces for latest PHP conventions and proprietary framework
 
- * mapping/class_dependency.json - List of Magento 1.x class dependencies used for automatic vs manual class mapping
+* `mapping/class_mapping_manual.json` - List of manually maintained, Magento 1.x (CE+EE) namespaces that map to Magento 2.x (CE+EE) namespaces for latest PHP conventions and proprietary framework
 
- * mapping/class_dependency_aggregated.json - List of agregated Magento 1.x class dependencies used for automatic vs manual class mapping
+* `mapping/module_mapping.json` - List of the module names in Magento 1.x (CE+EE) that maps to the equivalent Magento 2.x (CE+EE) names
 
- * mapping/class_mapping.json - List of automatically generated Magento 1.x (CE+EE) namespaces that map to Magento 2.x (CE+EE) namespaces for latest PHP convetions and proprietary framework
+* `mapping/table_names_mapping.json` - List of table name aliases in Magento 1.x that map to the real MySQL table names as Magento 2.x will not use aliases for `getTable`
 
- * mapping/class_mapping_manual.json- List of manually maintained, Magento 1.x (CE+EE) namespaces that map to Magento 2.x (CE+EE) namespaces for latest PHP convetions and proprietary framework
+* `mapping/unmapped_classes.json` - List of classes that are not present in the `mapping/class_mapping*.json` and are not maintained in the manual list but used in the Magento core modules
 
- * mapping/module_mapping.json - List of the module names in Magento 1.x (CE+EE) that maps to the equivalent Magento 2.x (CE+EE) names
+* `mapping/view_mapping_adminhtml.json` - List of the layout `adminhtml` handle names in Magento 1.x that map to the Magento 2.x names that now are on a separate file using these namings
 
- * mapping/table_names_mapping.json - List of table names aliases in Magento 1.x that and the real MySQL table names as Magento 2.x will not use aliases for getTable()
+* `mapping/view_mapping_frontend.json` - List of the layout `frontend` handle names in Magento 1.x that map to the Magento 2.x names that now are on a separate file using these namings
 
- * mapping/unmapped_classes.json - List of classes that are not present in the class_mapping*.json and are not maintained in the manual list but used in the Magento Core modules
+* `mapping/references.xml` - List of references used in layouts that point to blocks and containers in Magento 2.x vs Magento 1.x that did not have this concept, as all were blocks
 
- * mapping/view_mapping_adminhtml.json - List of the layout adminhtml handlers names in Magento 1.x that map to the Magento 2.x names that now are on a separate file using these namings
+### Regenerate Mapping Files
 
- * mapping/view_mapping_frontend.json - List of the layout frontend handlers names in Magento 1.x that map to the Magento 2.x names that now are on a separate file using these namings
+Quality of the migration greatly relies on the accuracy of mapping files. The toolkit comes with mapping files pre-generated for the latest Magento 1.x and Magento 2 releases out of the box. Migration between any given Magento 1.x and Magento 2 versions would require mappings to be regenerated prior to running the migration scripts.
 
- * mapping/references.xml - List of references used in layouts that point to blocks and containers in Magento 2.x vs Magento 1.x that didn't had this concept, as all were blocks
+Run the following to regenerate the mapping files:
 
+* `php bin/utils.php generateClassDependency <m1>` - Regenerate `mapping/class_dependency.json` and `mapping/class_dependency_aggregated.json`
 
+* `php bin/utils.php generateClassMapping <m1> <m2>` - Regenerate `mapping/class_mapping.json` and `mapping/unmapped_classes.json`
 
-REGENERATE THE MAPPING FILE (OPTIONAL)
-Note:  As a best practice, we do not recommend regenerating mapping files. However, you might choose to  but we provide this tool if you add customizations to your Magento installation. If you include custom modules in your installation, the code migration toolkit maps artifacts found in those modules, which will result in a more comprehensive list. You can create one or more mapping files.
+* `php bin/utils.php generateModuleMapping <m1> <m2>` - Regenerate `mapping/module_mapping.json`
 
-COMMAND SYNTAX
+* `php bin/utils.php generateTableNamesMapping <m1>` - Regenerate `mapping/table_names_mapping.json`
 
- bin/utils.php CommandParam Param1 [Param2]
- bin/migrate.php CommandParam Param1 [Param2]
+* `php bin/utils.php generateViewMapping <m1> <m2>` - Regenerate `mapping/view_mapping_adminhtml.json` and `mapping/view_mapping_frontend.json`, `mapping/references.xml`
 
-PARAMETERS
+* `php bin/migrate.php generateAliasMapping <m1> <m2>` - Regenerate `mapping/aliases.json`
 
- * bin/utils.php generateClassDependency <m1> - Requires a Magento 1.x installation. Affects  mapping/class_dependency.json and mapping/class_dependency_aggregated.json
-
-
- * bin/utils.php generateClassMapping <m1> <m2> - Requires a Magento 1.x and Magento 2.x installation. Affects mapping/class_mapping.json and mapping/unmapped_classes.json.
-
-
- * bin/utils.php generateModuleMapping <m1> <m2> - Requires a Magento 1.x and Magento 2.x installation. Affects module_mapping.json.
-
- * bin/utils.php generateTableNamesMapping <m1> - Requires a Magento 1.x installation. Affects table_names_mapping.json.
-
- * bin/utils.php generateViewMapping <m1> <m2> - Requires a Magento 1.x and Magento 2.x installation. Affects mapping/view_mapping_adminhtml.json and mapping/view_mapping_frontend.json, mapping/references.xml.
-
- * bin/migrate.php generateAliasMapping <m1> <m2> - Requires a Magento 1.x and Magento 2.x installation. Affects mapping/aliases.json.
-
- * bin/migrate.php generateAliasMappingEE <m1> <m2> - Requires a Magento 1.x and Magento 2.x installation. Affects mapping/aliases_ee.json.
-
+* `php bin/migrate.php generateAliasMappingEE <m1> <m2>` - Regenerate `mapping/aliases_ee.json`
