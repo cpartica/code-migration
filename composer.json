@@ -58,7 +58,8 @@
         "fabpot/php-cs-fixer": "~1.2"
     },
     "config": {
-        "use-include-path": true
+        "use-include-path": true,
+        "secure-http": false
     },
     "autoload": {
         "psr-4": {
