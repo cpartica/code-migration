@@ -211,6 +211,6 @@ Run the following to regenerate the mapping files:
 
 * `php bin/utils.php generateViewMapping <m1> <m2>` - Regenerate `mapping/view_mapping_adminhtml.json` and `mapping/view_mapping_frontend.json`, `mapping/references.xml`
 
-* `php bin/migrate.php generateAliasMapping <m1> <m2>` - Regenerate `mapping/aliases.json`
+* `php bin/migrate.php generateAliasMapping <m1>` - Regenerate `mapping/aliases.json`
 
-* `php bin/migrate.php generateAliasMappingEE <m1> <m2>` - Regenerate `mapping/aliases_ee.json`
+* `php bin/migrate.php generateAliasMappingEE <m1>` - Regenerate `mapping/aliases_ee.json`
