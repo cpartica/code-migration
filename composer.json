@@ -10,7 +10,7 @@
   "repositories": {
     "magento": {
       "type": "composer",
-      "url": "http://packages.magento.com"
+      "url": "https://repo.magento.com"
     },
     "pear": {
       "type": "pear",
@@ -24,7 +24,7 @@
     "zendframework/zend-stdlib": "2.4.0",
     "zendframework/zend-code": "2.4.0",
     "magento/zendframework1": "1.12.13",
-    "magento/framework": "~1.0.0-beta",
+    "magento/framework": "100.0.*",
     "pear-pear.php.net/xml_serializer": "*"
   },
   "require-dev": {
