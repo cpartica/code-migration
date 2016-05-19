@@ -7,8 +7,7 @@
 $baseDir = realpath(__DIR__ . '/../../../');
 $testsBaseDir = $baseDir . '/tests/static';
 
-$vendorDir = require $baseDir . '/app/etc/vendor_path.php';
-$vendorAutoload = $baseDir . "/{$vendorDir}/autoload.php";
+$vendorAutoload = $baseDir . "/vendor/autoload.php";
 
 /* 'composer install' validation */
 if (file_exists($vendorAutoload)) {
