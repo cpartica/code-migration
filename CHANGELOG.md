@@ -13,3 +13,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Refactored bin/env.php and bin/utils.php
+- [In progress] Refactor application to GA release
