@@ -12,4 +12,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- [In progress] Refactored bin/env.php and bin/utils.php
+- Refactored bin/env.php and bin/utils.php
