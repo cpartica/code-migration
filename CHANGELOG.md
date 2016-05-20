@@ -12,5 +12,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Refactored bin/env.php and bin/utils.php
-- [In progress] Refactor application to GA release
+- Refactored bin/env.php and bin/utils.php to remove code duplication
+- Refactored application to run on the Magento 2 framework GA release
