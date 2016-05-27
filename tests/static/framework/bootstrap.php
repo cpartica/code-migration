@@ -17,9 +17,9 @@ use Magento\Framework\View\Design\Theme\ThemePackageFactory;
 $baseDir = realpath(__DIR__ . '/../../../');
 define('BP', $baseDir);
 
-//$componentRegistrar = new ComponentRegistrar();
-//$dirSearch = new DirSearch($componentRegistrar, new ReadFactory(new DriverPool()));
-//$themePackageList = new ThemePackageList($componentRegistrar, new ThemePackageFactory());
+$componentRegistrar = new ComponentRegistrar();
+$dirSearch = new DirSearch($componentRegistrar, new ReadFactory(new DriverPool()));
+$themePackageList = new ThemePackageList($componentRegistrar, new ThemePackageFactory());
 \Magento\Framework\App\Utility\Files::setInstance(
-    new Files($baseDir)
+    new Files($componentRegistrar, $dirSearch, $themePackageList)
 );

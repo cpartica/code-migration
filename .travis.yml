@@ -3,12 +3,14 @@ language: php
 php:
   - 5.5
   - 5.6
+  - 7.0
 
 env:
   - TEST_SUITE=unit
   - TEST_SUITE=static
 
 before_install:
+  - wget https://gist.githubusercontent.com/gordonknoppe/4b08b39ea14f4c66d750e34af73b6dc9/raw/51b4ffa4080d62a7e0f7ea02eec82ced40534539/auth.json
   - composer self-update
 
 install:
