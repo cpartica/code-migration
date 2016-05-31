@@ -37,6 +37,11 @@ class ConfigFile implements ConfigFileInterface
     protected $moduleName;
 
     /**
+     * @var string
+     */
+    protected $xml;
+
+    /**
      * @param \Magento\Framework\Filesystem\Driver\File $file
      * @param \Magento\Migration\Code\LayoutConverter\XmlProcessors\Formatter $formatter,
      * @param \Magento\Migration\Code\ConfigConverter\ConfigTypeInterface $configType

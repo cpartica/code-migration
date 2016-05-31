@@ -98,7 +98,7 @@ abstract class ConfigSectionsAbstract extends ConfigType implements ConfigSectio
     }
 
     /**
-     * @param \Magento\Framework\Simplexml\Element $nodeArray
+     * @param \Magento\Framework\Simplexml\Element[] $nodeArray
      * @return \Magento\Framework\Simplexml\Element|null
      */
     protected function mergeNodes($nodeArray)

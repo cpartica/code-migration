@@ -40,7 +40,7 @@ class TableName
 
     /**
      * @param \Magento\Migration\Logger\Logger $logger
-     * @param Magento\Migration\Mapping;\Context $context
+     * @param \Magento\Migration\Mapping\Context $context
      * @param \Magento\Migration\Utility\File $file
      * @param \Magento\Migration\Utility\M1\ConfigFactory $configFactory
      */
