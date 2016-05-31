@@ -10,10 +10,13 @@ use Magento\Framework\Simplexml\Config;
 
 abstract class ConfigExtractorAbstract implements ConfigExtractorInterface
 {
-    /** @var string $filename */
-    protected $filename;
     /**
-     * @var \Magento\Migration\Code\ConfigConverter\ConfigExtractor\ConfigSectionsInterface[]
+     * @var string
+     */
+    protected $filename;
+
+    /**
+     * @var \Magento\Migration\Code\ConfigConverter\ConfigSectionsInterface[]
      */
     protected $sections;
 
@@ -25,7 +28,7 @@ abstract class ConfigExtractorAbstract implements ConfigExtractorInterface
     /**
      * @var \Magento\Framework\Simplexml\ConfigFactory
      */
-    protected $xmlConfigFactory;
+    protected $configFactory;
 
     /**
      * @var Config

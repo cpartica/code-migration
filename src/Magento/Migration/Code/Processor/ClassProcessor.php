@@ -285,7 +285,6 @@ class ClassProcessor implements \Magento\Migration\Code\ProcessorInterface
             $isLast = ($i == $count - 1);
 
             $parameter = $parameters[$i];
-            $parameterName = $parameter->getName();
             $parameterClass = $parameter->getClass();
             if ($parameterClass) {
                 $tokensToInsert[] = [T_STRING, '\\' . $parameterClass->getName(), 1];
