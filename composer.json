@@ -25,7 +25,8 @@
         "zendframework/zend-code": "2.4.0",
         "magento/zendframework1": "1.12.13",
         "magento/framework": "100.0.*",
-        "pear-pear.php.net/xml_serializer": "*"
+        "pear-pear.php.net/xml_serializer": "*",
+        "zendframework/zend-http": "2.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.0",
