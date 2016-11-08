@@ -77,6 +77,12 @@ class MigrateModuleStructure extends Command
         $moduleBaseDirectory = $input->getArgument('m1');
         $moduleOutputDirectory = $input->getArgument('m2');
 
+        // Normalize path to front slashes which will work on Windows as well
+        if (DIRECTORY_SEPARATOR == "\\") {
+            $moduleBaseDirectory   = str_replace("\\", "/", $moduleBaseDirectory);
+            $moduleOutputDirectory = str_replace("\\", "/", $moduleOutputDirectory);
+        }
+
         if (!is_dir($moduleBaseDirectory)) {
             $this->logger->error('m1 path doesn\'t exist or not a directory');
             return 255;
