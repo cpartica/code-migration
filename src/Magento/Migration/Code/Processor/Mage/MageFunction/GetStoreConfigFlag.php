@@ -7,7 +7,7 @@ namespace Magento\Migration\Code\Processor\Mage\MageFunction;
 
 use Magento\Migration\Code\Processor\Mage\MageFunctionInterface;
 
-class GetStoreConfigFlag extends AbstractFunction implements \Magento\Migration\Code\Processor\Mage\MageFunctionInterface
+class GetStoreConfigFlag extends AbstractFunction implements MageFunctionInterface
 {
     /**
      * @var string
