@@ -17,6 +17,10 @@ class GenerateModuleMapping extends Command
      * @var array
      */
     protected $moduleMapping = [
+        "Mage_Sendfriend" => "Magento_SendFriend",
+        "Mage_Uploader" => [
+            "comment" => "obsolete",
+        ],  
         "Enterprise_Catalog" => "Magento_AdvancedCatalog",
         "Enterprise_Checkout" => "Magento_AdvancedCheckout",
         "Enterprise_CatalogInventory" => [
