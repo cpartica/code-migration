@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fc213e6e3f7690692294e7a03ea23aa",
+    "content-hash": "280e09c9ca5037667d122b1c4c4d398e",
     "packages": [
         {
             "name": "colinmollenhour/credis",
@@ -2740,7 +2740,7 @@
             "time": "2017-07-22T11:58:36+00:00"
         },
         {
-            "name": "fabpot/php-cs-fixer",
+            "name": "friendsofphp/php-cs-fixer",
             "version": "v1.13.3",
             "source": {
                 "type": "git",
@@ -2795,7 +2795,6 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "abandoned": "friendsofphp/php-cs-fixer",
             "time": "2017-09-11T14:11:16+00:00"
         },
         {
@@ -4176,7 +4175,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~7.1.3||~7.2.0"
+        "php": "~7.0.13|~7.1.0"
     },
     "platform-dev": []
 }
