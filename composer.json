@@ -18,22 +18,22 @@
         }
     },
     "require": {
-        "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.0",
+        "php": "~7.1.3||~7.2.0",
         "symfony/console": "2.7.4",
         "monolog/monolog": "1.17.1",
-        "zendframework/zend-stdlib": "2.5.0",
-        "zendframework/zend-code": "2.5.0",
-        "magento/zendframework1": "1.12.13",
-        "magento/framework": "100.0.*",
+        "zendframework/zend-stdlib": "^2.7.7",
+        "zendframework/zend-code": "~3.1.0",
+        "magento/zendframework1": "~1.13.0",
+        "magento/framework": "101.0.5",
         "pear/xml_serializer": "*",
-        "zendframework/zend-http": "2.5.0"
+        "zendframework/zend-http": "^2.6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.0",
         "sebastian/phpcpd": "2.0.4",
-        "squizlabs/php_codesniffer": "1.5.3",
+        "squizlabs/php_codesniffer": "3.2.2",
         "phpmd/phpmd": "@stable",
-        "pdepend/pdepend": "2.5.0",
+        "pdepend/pdepend": "2.5.2",
         "sjparkinson/static-review": "~4.1",
         "fabpot/php-cs-fixer": "~1.2"
     },
@@ -53,7 +53,5 @@
             "Magento\\TestFramework\\Inspection\\": "dev/tests/static/framework/Magento/TestFramework/Inspection/",
             "Magento\\TestFramework\\Utility\\": "dev/tests/static/framework/Magento/TestFramework/Utility/"
         }
-    },
-    "minimum-stability": "alpha",
-    "prefer-stable": true
+    }
 }
