@@ -57,6 +57,12 @@ class MageFunctionMatcher implements MatcherInterface
                 );
                 $getStoreConfigCall->setContext($tokens, $index);
                 return $getStoreConfigCall;
+            case 'getStoreConfigFlag':
+                $getStoreConfigCall = $this->objectManager->create(
+                    '\Magento\Migration\Code\Processor\Mage\MageFunction\GetStoreConfigFlag'
+                );
+                $getStoreConfigCall->setContext($tokens, $index);
+                return $getStoreConfigCall;
             case 'getBlockSingleton':
             case 'getResourceSingleton':
             case 'getSingleton':
