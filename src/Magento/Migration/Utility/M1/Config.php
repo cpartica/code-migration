@@ -125,7 +125,11 @@ class Config
     public function getModuleName()
     {
         /** @var \SimpleXMLElement[] $children */
-        $children = $this->config->modules->children();
-        return isset($children[0]) ? $children[0]->getName() : null;
+        $moduleName = null;
+        if(is_array($this->config->modules) && count($this->config->modules)) {
+          $children = $this->config->modules->children();
+          $moduleName = isset($children[0]) ? $children[0]->getName() : null;
+        }   
+        return $moduleName;
     }
 }
