@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67a4508d07612f4c2035252e1c0c529d",
+    "content-hash": "c65935e95e7029ffc43c526401a33298",
     "packages": [
         {
             "name": "colinmollenhour/credis",
@@ -726,314 +726,223 @@
             "time": "2017-03-28T22:19:25+00:00"
         },
         {
-            "name": "pear/console_getopt",
-            "version": "v1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/Console_Getopt.git",
-                "reference": "82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f"
-            },
+            "name": "pear-pear.php.net/Archive_Tar",
+            "version": "1.4.3",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/Console_Getopt/zipball/82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f",
-                "reference": "82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Console": "./"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "./"
-            ],
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Greg Beaver",
-                    "email": "cellog@php.net",
-                    "role": "Helper"
-                },
-                {
-                    "name": "Andrei Zmievski",
-                    "email": "andrei@php.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Stig Bakken",
-                    "email": "stig@php.net",
-                    "role": "Developer"
-                }
-            ],
-            "description": "More info available on: http://pear.php.net/package/Console_Getopt",
-            "time": "2015-07-20T20:28:12+00:00"
-        },
-        {
-            "name": "pear/pear-core-minimal",
-            "version": "v1.10.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/pear-core-minimal.git",
-                "reference": "052868b244d31f822796e7e9981f62557eb256d4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/052868b244d31f822796e7e9981f62557eb256d4",
-                "reference": "052868b244d31f822796e7e9981f62557eb256d4",
-                "shasum": ""
+                "type": "file",
+                "url": "https://pear.php.net/get/Archive_Tar-1.4.3.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
-                "pear/console_getopt": "~1.3",
-                "pear/pear_exception": "~1.0"
+                "php": ">=5.2.0.0"
             },
             "replace": {
-                "rsky/pear-core-min": "self.version"
+                "pear-pear/archive_tar": "== 1.4.3.0"
             },
-            "type": "library",
+            "type": "pear-library",
             "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
+                "classmap": [
+                    ""
+                ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
-                "src/"
+                "/"
             ],
             "license": [
-                "BSD-3-Clause"
+                "New BSD License"
             ],
-            "authors": [
-                {
-                    "name": "Christian Weiske",
-                    "email": "cweiske@php.net",
-                    "role": "Lead"
-                }
-            ],
-            "description": "Minimal set of PEAR core files to be used as composer dependency",
-            "time": "2018-08-22T19:28:09+00:00"
+            "description": "This class provides handling of tar files in PHP.\nIt supports creating, listing, extracting and adding to tar files.\nGzip support is available if PHP has the zlib extension built-in or\nloaded. Bz2 compression is also supported with the bz2 extension loaded."
         },
         {
-            "name": "pear/pear_exception",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/PEAR_Exception.git",
-                "reference": "8c18719fdae000b690e3912be401c76e406dd13b"
-            },
+            "name": "pear-pear.php.net/Console_Getopt",
+            "version": "1.4.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/PEAR_Exception/zipball/8c18719fdae000b690e3912be401c76e406dd13b",
-                "reference": "8c18719fdae000b690e3912be401c76e406dd13b",
-                "shasum": ""
+                "type": "file",
+                "url": "https://pear.php.net/get/Console_Getopt-1.4.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
-                "php": ">=4.4.0"
+                "php": ">=5.4.0.0"
             },
-            "require-dev": {
-                "phpunit/phpunit": "*"
+            "replace": {
+                "pear-pear/console_getopt": "== 1.4.1.0"
             },
-            "type": "class",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
+            "type": "pear-library",
             "autoload": {
-                "psr-0": {
-                    "PEAR": ""
-                }
+                "classmap": [
+                    ""
+                ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
-                "."
+                "/"
             ],
             "license": [
                 "BSD-2-Clause"
             ],
-            "authors": [
-                {
-                    "name": "Helgi Thormar",
-                    "email": "dufuz@php.net"
-                },
-                {
-                    "name": "Greg Beaver",
-                    "email": "cellog@php.net"
-                }
-            ],
-            "description": "The PEAR Exception base class.",
-            "homepage": "https://github.com/pear/PEAR_Exception",
-            "keywords": [
-                "exception"
-            ],
-            "time": "2015-02-10T20:07:52+00:00"
+            "description": "This is a PHP implementation of &quot;getopt&quot; supporting both\nshort and long options."
         },
         {
-            "name": "pear/xml_parser",
-            "version": "v1.3.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/XML_Parser.git",
-                "reference": "c9fc042d3a168c440c84ab1fed187ec784b3aac0"
-            },
+            "name": "pear-pear.php.net/PEAR",
+            "version": "1.10.6",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/XML_Parser/zipball/c9fc042d3a168c440c84ab1fed187ec784b3aac0",
-                "reference": "c9fc042d3a168c440c84ab1fed187ec784b3aac0",
-                "shasum": ""
+                "type": "file",
+                "url": "https://pear.php.net/get/PEAR-1.10.6.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
-                "pear/pear-core-minimal": "*"
+                "ext-pcre": "*",
+                "ext-xml": "*",
+                "pear-pear.php.net/archive_tar": ">=1.4.0.0",
+                "pear-pear.php.net/console_getopt": ">=1.4.1.0",
+                "pear-pear.php.net/structures_graph": ">=1.1.0.0",
+                "pear-pear.php.net/xml_util": ">=1.3.0.0",
+                "php": ">=5.4.0.0"
             },
-            "require-dev": {
-                "pear/pear": "*"
+            "conflict": {
+                "pear-pear.php.net/pear_frontend_gtk": "<0.4.0.0",
+                "pear-pear.php.net/pear_frontend_web": "<=0.4.0.0"
             },
-            "type": "library",
+            "replace": {
+                "pear-pear/pear": "== 1.10.6.0"
+            },
+            "type": "pear-library",
             "autoload": {
-                "psr-0": {
-                    "XML": "./"
-                }
+                "classmap": [
+                    ""
+                ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
-                "./"
+                "/"
             ],
             "license": [
-                "BSD-2-Clause"
+                "New BSD License"
             ],
-            "authors": [
-                {
-                    "name": "Stephan Schmidt",
-                    "email": "schst@php-tools.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Chuck Burgess",
-                    "email": "ashnazg@php.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Stig S&#230;ther Bakken",
-                    "email": "stig@php.net",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Tomas V.V.Cox",
-                    "email": "cox@php.net",
-                    "role": "Developer"
-                }
-            ],
-            "description": "XML parser",
-            "time": "2016-07-04T21:23:25+00:00"
+            "description": "The PEAR package contains:\n * the PEAR installer, for creating, distributing\n   and installing packages\n * the PEAR_Exception PHP5 error handling mechanism\n * the PEAR_ErrorStack advanced error handling mechanism\n * the PEAR_Error error handling mechanism\n * the OS_Guess class for retrieving info about the OS\n   where PHP is running on\n * the System class for quick handling of common operations\n   with files and directories\n * the PEAR base class\n  Features in a nutshell:\n  * full support for channels\n  * pre-download dependency validation\n  * new package.xml 2.0 format allows tremendous flexibility while maintaining BC\n  * support for optional dependency groups and limited support for sub-packaging\n  * robust dependency support\n  * full dependency validation on uninstall\n  * remote install for hosts with only ftp access - no more problems with\n    restricted host installation\n  * full support for mirroring\n  * support for bundling several packages into a single tarball\n  * support for static dependencies on a url-based package\n  * support for custom file roles and installation tasks"
         },
         {
-            "name": "pear/xml_serializer",
-            "version": "v0.22.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/XML_Serializer.git",
-                "reference": "f171521481144ba7fe1dd26fab5d56626248b173"
-            },
+            "name": "pear-pear.php.net/Structures_Graph",
+            "version": "1.1.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/XML_Serializer/zipball/f171521481144ba7fe1dd26fab5d56626248b173",
-                "reference": "f171521481144ba7fe1dd26fab5d56626248b173",
-                "shasum": ""
+                "type": "file",
+                "url": "https://pear.php.net/get/Structures_Graph-1.1.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "php": ">=5.3.0.0"
+            },
+            "replace": {
+                "pear-pear/structures_graph": "== 1.1.1.0"
+            },
+            "type": "pear-library",
+            "autoload": {
+                "classmap": [
+                    ""
+                ]
+            },
+            "include-path": [
+                "/"
+            ],
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "description": "Structures_Graph is a package for creating and manipulating graph datastructures. It allows building of directed\nand undirected graphs, with data and metadata stored in nodes. The library provides functions for graph traversing\nas well as for characteristic extraction from the graph topology."
+        },
+        {
+            "name": "pear-pear.php.net/XML_Parser",
+            "version": "1.3.7",
+            "dist": {
+                "type": "file",
+                "url": "https://pear.php.net/get/XML_Parser-1.3.7.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "pear-pear.php.net/pear": "*",
+                "php": ">=4.2.0.0"
+            },
+            "replace": {
+                "pear-pear/xml_parser": "== 1.3.7.0"
+            },
+            "type": "pear-library",
+            "autoload": {
+                "classmap": [
+                    ""
+                ]
+            },
+            "include-path": [
+                "/"
+            ],
+            "license": [
+                "BSD License"
+            ],
+            "description": "This is an XML parser based on PHPs built-in xml extension.\nIt supports two basic modes of operation: \"func\" and \"event\".  In \"func\" mode, it will look for a function named after each element (xmltag_ELEMENT for start tags and xmltag_ELEMENT_ for end tags), and in \"event\" mode it uses a set of generic callbacks.\n\nSince version 1.2.0 there's a new XML_Parser_Simple class that makes parsing of most XML documents easier, by automatically providing a stack for the elements.\nFurthermore its now possible to split the parser from the handler object, so you do not have to extend XML_Parser anymore in order to parse a document with it."
+        },
+        {
+            "name": "pear-pear.php.net/XML_Serializer",
+            "version": "0.21.0",
+            "dist": {
+                "type": "file",
+                "url": "https://pear.php.net/get/XML_Serializer-0.21.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "ext-xml": "*",
-                "pear/pear-core-minimal": "*",
-                "pear/xml_parser": "*",
-                "pear/xml_util": "*"
+                "pear-pear.php.net/pear": "*",
+                "pear-pear.php.net/xml_parser": ">=1.2.6.0",
+                "pear-pear.php.net/xml_util": ">=1.1.1.0",
+                "php": ">=4.2.0.0"
             },
-            "require-dev": {
-                "phpunit/phpunit": "*"
+            "replace": {
+                "pear-pear/xml_serializer": "== 0.21.0.0"
             },
-            "type": "library",
+            "type": "pear-library",
             "autoload": {
-                "psr-0": {
-                    "XML": "./"
-                }
+                "classmap": [
+                    ""
+                ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
-                "./"
+                "/"
             ],
             "license": [
-                "BSD-2-Clause"
+                "BSD License"
             ],
-            "authors": [
-                {
-                    "name": "Stephan Schmidt",
-                    "email": "schst@php-tools.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Chuck Burgess",
-                    "email": "ashnazg@php.net",
-                    "role": "Lead"
-                }
-            ],
-            "description": "More info available on: http://pear.php.net/package/XML_Serializer",
-            "time": "2018-02-13T14:04:37+00:00"
+            "description": "XML_Serializer serializes complex data structures like arrays or object as XML documents.\nThis class helps you generating any XML document you require without the need for DOM.\nFurthermore this package can be used as a replacement to serialize() and unserialize() as it comes with a matching XML_Unserializer that is able to create PHP data structures (like arrays and objects) from XML documents, if type hints are available.\nIf you use the XML_Unserializer on standard XML files, it will try to guess how it has to be unserialized. In most cases it does exactly what you expect it to do.\nTry reading a RSS file with XML_Unserializer and you have the whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.\n\nSince version 0.8.0 the package is able to treat XML documents similar to the simplexml extension of PHP 5."
         },
         {
-            "name": "pear/xml_util",
-            "version": "v1.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/XML_Util.git",
-                "reference": "c74278d925be9c2f7d39955cdce45d8275571a1d"
-            },
+            "name": "pear-pear.php.net/XML_Util",
+            "version": "1.4.3",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/XML_Util/zipball/c74278d925be9c2f7d39955cdce45d8275571a1d",
-                "reference": "c74278d925be9c2f7d39955cdce45d8275571a1d",
-                "shasum": ""
+                "type": "file",
+                "url": "https://pear.php.net/get/XML_Util-1.4.3.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
-                "pear/pear-core-minimal": "^1.10.1",
-                "php": ">=5.4"
+                "ext-pcre": "*",
+                "php": ">=5.4.0.0"
             },
-            "require-dev": {
-                "phpunit/phpunit": "@stable"
+            "replace": {
+                "pear-pear/xml_util": "== 1.4.3.0"
             },
-            "type": "library",
+            "type": "pear-library",
             "autoload": {
-                "psr-0": {
-                    "XML_Util": "./"
-                }
+                "classmap": [
+                    ""
+                ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
-                "./"
+                "/"
             ],
             "license": [
-                "BSD-3-Clause"
+                "BSD License"
             ],
-            "authors": [
-                {
-                    "name": "Stephan Schmidt",
-                    "email": "schst@php-tools.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Chuck Burgess",
-                    "email": "ashnazg@php.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Davey Shafik",
-                    "email": "davey@php.net",
-                    "role": "Helper"
-                }
-            ],
-            "description": "Methods to work with XML documents",
-            "homepage": "http://pear.php.net/package/XML_Util",
-            "time": "2017-06-28T19:21:19+00:00"
+            "description": "Selection of methods that are often needed when working with XML documents.  Functionality includes creating of attribute lists from arrays, creation of tags, validation of XML names and more."
         },
         {
             "name": "psr/container",
