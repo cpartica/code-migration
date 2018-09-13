@@ -5,7 +5,7 @@
  */
 namespace Magento\Migration\Code\Processor;
 
-class TokenHelperTest extends \PHPUnit_Framework_TestCase
+class TokenHelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\TokenHelper
@@ -104,7 +104,8 @@ class TokenHelperTest extends \PHPUnit_Framework_TestCase
                 }
             );
 
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')
+            ->disableOriginalConstructor()->getMock();
 
         $this->obj = new \Magento\Migration\Code\Processor\TokenHelper(
             $this->loggerMock,

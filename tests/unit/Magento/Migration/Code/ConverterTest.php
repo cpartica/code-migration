@@ -28,9 +28,12 @@ class ConverterTest extends TestCase
 
     public function setUp()
     {
-        $this->processorMock = $this->getMock('Magento\Migration\Code\ProcessorInterface');
-        $this->splitterMock = $this->getMock('Magento\Migration\Code\SplitterInterface');
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->processorMock = $this->getMockBuilder('Magento\Migration\Code\ProcessorInterface')
+            ->getMockForAbstractClass();
+        $this->splitterMock = $this->getMockBuilder('Magento\Migration\Code\SplitterInterface')
+            ->getMockForAbstractClass();
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')
+            ->disableOriginalConstructor()->getMock();
 
         $tokenHelper = $this->setupTokenHelper($this->loggerMock);
 

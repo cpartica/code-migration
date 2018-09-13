@@ -10,7 +10,7 @@ use Magento\Migration\Code\Processor\CallArgumentCollection;
 /**
  * Class CallArgumentCollectionTest
  */
-class CallArgumentCollectionTest extends \PHPUnit_Framework_TestCase
+class CallArgumentCollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\CallArgumentCollection
@@ -39,7 +39,7 @@ class CallArgumentCollectionTest extends \PHPUnit_Framework_TestCase
         $arr = [];
         for ($cnt=0; $cnt < 10; $cnt++) {
             /** @var TokenArgument $tokenArgument */
-            $tokenArgument = $this->getMock($className, [], [], '', false);
+            $tokenArgument = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
             $arr[] = $tokenArgument;
         }
         $this->model->setArguments($arr);
@@ -53,7 +53,7 @@ class CallArgumentCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $arr = [];
         $className = 'Magento\Migration\Code\Processor\TokenArgument';
-        $tokenArgument = $this->getMock($className, [], [], '', false);
+        $tokenArgument = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
         $arr[] = $tokenArgument;
 
         $result = $this->model->setArguments($arr);
@@ -68,7 +68,7 @@ class CallArgumentCollectionTest extends \PHPUnit_Framework_TestCase
     public function testAddArgument()
     {
         $className = 'Magento\Migration\Code\Processor\TokenArgument';
-        $tokenArgument = $this->getMock($className, [], [], '', false);
+        $tokenArgument = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $result = $this->model->addArgument($tokenArgument);
         $this->assertEquals($this->model, $result);
@@ -102,8 +102,8 @@ class CallArgumentCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $arr = [];
         $className = 'Magento\Migration\Code\Processor\TokenArgument';
-        $tokenArgument1 = $this->getMock($className, [], [], '', false);
-        $tokenArgument2 = $this->getMock($className, [], [], '', false);
+        $tokenArgument1 = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
+        $tokenArgument2 = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
         $arr[] = $tokenArgument1;
         $arr[] = $tokenArgument2;
 
@@ -122,8 +122,8 @@ class CallArgumentCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $arr = [];
         $className = 'Magento\Migration\Code\Processor\TokenArgument';
-        $tokenArgument1 = $this->getMock($className, [], [], '', false);
-        $tokenArgument2 = $this->getMock($className, [], [], '', false);
+        $tokenArgument1 = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
+        $tokenArgument2 = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
         $arr[] = $tokenArgument1;
         $arr[] = $tokenArgument2;
 
@@ -140,8 +140,8 @@ class CallArgumentCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $arr = [];
         $className = 'Magento\Migration\Code\Processor\TokenArgument';
-        $tokenArgument1 = $this->getMock($className, [], [], '', false);
-        $tokenArgument2 = $this->getMock($className, [], [], '', false);
+        $tokenArgument1 = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
+        $tokenArgument2 = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
         $arr[202] = $tokenArgument1;
         $arr[205] = $tokenArgument2;
 

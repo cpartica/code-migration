@@ -5,7 +5,7 @@
  */
 namespace Magento\Migration\Code;
 
-class AliasTest extends \PHPUnit_Framework_TestCase
+class AliasTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Mapping\Alias
@@ -26,9 +26,10 @@ class AliasTest extends \PHPUnit_Framework_TestCase
     {
         $this->contextMock = $this->getMockBuilder(
             '\Magento\Migration\Mapping\Context'
-        )->getMock();
+        )->disableOriginalConstructor()->getMock();
 
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')
+            ->disableOriginalConstructor()->getMock();
 
         $this->obj = new \Magento\Migration\Mapping\Alias(
             $this->loggerMock,

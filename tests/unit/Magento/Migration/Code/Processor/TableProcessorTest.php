@@ -10,7 +10,7 @@ use Magento\Migration\Code\Processor\TableProcessor;
 /**
  * Class TableProcessorTest
  */
-class TableProcessorTest extends \PHPUnit_Framework_TestCase
+class TableProcessorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\TableProcessor
@@ -19,7 +19,7 @@ class TableProcessorTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $classCbjectManager;
+    protected $classObjectManager;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -44,19 +44,19 @@ class TableProcessorTest extends \PHPUnit_Framework_TestCase
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 
         $className = '\Magento\Framework\ObjectManagerInterface';
-        $this->classCbjectManager = $this->getMock($className, [], [], '', false);
+        $this->classObjectManager = $this->getMockBuilder($className)->getMockForAbstractClass();
 
         $className = 'Magento\Migration\Code\Processor\Table\TableFunctionMatcher';
-        $this->matcher = $this->getMock($className, [], [], '', false);
+        $this->matcher = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = 'Magento\Migration\Code\Processor\TokenHelper';
-        $this->tokenHelper = $this->getMock($className, [], [], '', false);
+        $this->tokenHelper = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
 
         $this->model = $this->objectManager->getObject(
             'Magento\Migration\Code\Processor\TableProcessor',
             [
-                'objectManager' => $this->classCbjectManager,
+                'objectManager' => $this->classObjectManager,
                 'matcher' => $this->matcher,
                 'tokenHelper' => $this->tokenHelper,
             ]
@@ -66,12 +66,12 @@ class TableProcessorTest extends \PHPUnit_Framework_TestCase
     /**
      * test Process
      * @param mixed[] $tokens
-     * @dataProvider testProcessProvider
+     * @dataProvider processProvider
      */
     public function testProcess($tokens)
     {
         $className = '\Magento\Migration\Code\Processor\Table\TableFunction\Table';
-        $matched = $this->getMock($className, [], [], '', false);
+        $matched = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $matched->expects($this->atLeastOnce())
             ->method('convertToM2');
@@ -91,7 +91,7 @@ class TableProcessorTest extends \PHPUnit_Framework_TestCase
      * @return array
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    public function testProcessProvider()
+    public function processProvider()
     {
         return [
             [

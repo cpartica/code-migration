@@ -10,7 +10,7 @@ use Magento\Migration\Code\ModuleMigration;
 /**
  * Class ModuleMigrationTest
  */
-class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
+class ModuleMigrationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\ModuleMigration
@@ -54,16 +54,16 @@ class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 
         $className = '\Magento\Migration\Logger\Logger';
-        $this->logger = $this->getMock($className, [], [], '', false);
+        $this->logger = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Code\ModuleMigration\ModuleFileExtractorFactory';
-        $this->moduleFileExtractorFactory = $this->getMock($className, ['create'], [], '', false);
+        $this->moduleFileExtractorFactory = $this->getMockBuilder($className)->setMethods(['create'])->getMock();
 
         $className = '\Magento\Migration\Code\ModuleMigration\ModuleFileCopierFactory';
-        $this->moduleFileCopierFactory = $this->getMock($className, ['create'], [], '', false);
+        $this->moduleFileCopierFactory = $this->getMockBuilder($className)->setMethods(['create'])->getMock();
 
         $className = '\Magento\Migration\Utility\M1\ModuleEnablerConfigFactory';
-        $this->moduleEnablerConfigFactory = $this->getMock($className, ['create'], [], '', false);
+        $this->moduleEnablerConfigFactory = $this->getMockBuilder($className)->setMethods(['create'])->getMock();
 
         $this->m2Path = '/path/to/m2';
 
@@ -91,13 +91,13 @@ class ModuleMigrationTest extends \PHPUnit_Framework_TestCase
         $arrayFrontendXMLFiles = ['frontendXml' => [$this->m2Path . '/app/code/Vendor1/Module1/Block/file2']];
 
         $className = '\Magento\Migration\Code\ModuleMigration\ModuleFileCopier';
-        $moduleFileCopier = $this->getMock($className, [], [], '', false);
+        $moduleFileCopier = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Code\ModuleMigration\ModuleFileExtractor';
-        $moduleFileExtractor = $this->getMock($className, [], [], '', false);
+        $moduleFileExtractor = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Utility\M1\ModuleEnablerConfig';
-        $moduleEnablerConfigFactory = $this->getMock($className, [], [], '', false);
+        $moduleEnablerConfigFactory = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $this->moduleFileExtractorFactory->expects($this->atLeastOnce())
             ->method('create')
