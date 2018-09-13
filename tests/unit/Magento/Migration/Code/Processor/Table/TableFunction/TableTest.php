@@ -10,7 +10,7 @@ use Magento\Migration\Code\Processor\Table\TableFunction\Table;
 /**
  * Class TableTest
  */
-class TableTest extends \PHPUnit_Framework_TestCase
+class TableTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\Table\TableFunction\Table
@@ -54,19 +54,21 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 
         $className = '\Magento\Migration\Mapping\TableName';
-        $this->tableNameMapper = $this->getMock($className, [], [], '', false);
+        $this->tableNameMapper = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Logger\Logger';
-        $this->logger = $this->getMock($className, [], [], '', false);
+        $this->logger = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Code\Processor\TokenHelper';
-        $this->tokenHelper = $this->getMock($className, [], [], '', false);
+        $this->tokenHelper = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Code\Processor\TokenArgumentFactory';
-        $this->tokenFactory = $this->getMock($className, ['create'], [], '', false);
+        $this->tokenFactory = $this->getMockBuilder($className)
+            ->disableOriginalConstructor()->setMethods(['create'])->getMock();
 
         $className = '\Magento\Migration\Code\Processor\TokenArgumentCollectionFactory';
-        $this->tokenCollectionFactory = $this->getMock($className, ['create'], [], '', false);
+        $this->tokenCollectionFactory = $this->getMockBuilder($className)
+            ->disableOriginalConstructor()->setMethods(['create'])->getMock();
 
         $this->model = $this->objectManager->getObject(
             'Magento\Migration\Code\Processor\Table\TableFunction\Table',
@@ -85,7 +87,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
      * test ConvertToM2 (also tests getObjectName, getEndIndex, getStartIndex)
      * @param mixed[] $tokens
      * @param string $index
-     * @dataProvider testSetContextProvider
+     * @dataProvider setContextProvider
      */
     public function testConvertToM2($tokens, $index)
     {
@@ -93,10 +95,10 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
         //parse
         $className = '\Magento\Migration\Code\Processor\CallArgumentCollection';
-        $callArgCollection = $this->getMock($className, [], [], '', false);
+        $callArgCollection = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Code\Processor\TokenArgument';
-        $tokenArgument = $this->getMock($className, [], [], '', false);
+        $tokenArgument = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $tokenArgument->expects($this->atLeastOnce())
             ->method('getType')
@@ -107,7 +109,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
             ->willReturn('catalogrule/rule_product');
 
         $className = '\Magento\Migration\Code\Processor\TokenArgumentCollection';
-        $tokenArgCollection = $this->getMock($className, [], [], '', false);
+        $tokenArgCollection = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $tokenArgCollection->expects($this->once())
             ->method('getFirstToken')
@@ -131,7 +133,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
         //convert
         $className = '\Magento\Migration\Code\Processor\TokenArgument';
-        $token = $this->getMock($className, [], [], '', false);
+        $token = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
         $token->expects($this->once())
             ->method('setName')
             ->willReturnSelf();
@@ -141,7 +143,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
             ->willReturn($token);
 
         $className = '\Magento\Migration\Code\Processor\TokenArgumentCollection';
-        $collection = $this->getMock($className, [], [], '', false);
+        $collection = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $collection->expects($this->once())
             ->method('addToken')
@@ -156,6 +158,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
             ->willReturn($collection);
 
         $this->model->convertToM2();
+
         $this->assertEquals('$this', $this->model->getObjectName());
         $this->assertEquals(8, $this->model->getEndIndex());
         $this->assertEquals($index, $this->model->getStartIndex());
@@ -165,7 +168,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
      * test SetContext
      * @param mixed[] $tokens
      * @param string $index
-     * @dataProvider testSetContextProvider
+     * @dataProvider setContextProvider
      */
     public function testSetContext($tokens, $index)
     {
@@ -176,7 +179,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
      * @return array
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    public function testSetContextProvider()
+    public function setContextProvider()
     {
         return [
             [

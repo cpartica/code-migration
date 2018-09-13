@@ -10,7 +10,7 @@ use Magento\Migration\Code\Processor\Table\TableFunctionMatcher;
 /**
  * Class TableFunctionMatcherTest
  */
-class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
+class TableFunctionMatcherTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\Table\TableFunctionMatcher
@@ -44,13 +44,13 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 
         $className = '\Magento\Framework\ObjectManagerInterface';
-        $this->classCbjectManager = $this->getMock($className, [], [], '', false);
+        $this->classCbjectManager = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Logger\Logger';
-        $this->logger = $this->getMock($className, [], [], '', false);
+        $this->logger = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = 'Magento\Migration\Code\Processor\TokenHelper';
-        $this->tokenHelper = $this->getMock($className, [], [], '', false);
+        $this->tokenHelper = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $this->model = $this->objectManager->getObject(
             'Magento\Migration\Code\Processor\Table\TableFunctionMatcher',
@@ -66,15 +66,15 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
      * test Match
      * @param mixed[] $tokens
      * @param string $index
-     * @dataProvider testMatchProvider
+     * @dataProvider matchProvider
      */
     public function testMatch($tokens, $index)
     {
         $className = '\Magento\Migration\Code\Processor\CallArgumentCollection';
-        $callArgCollection = $this->getMock($className, [], [], '', false);
+        $callArgCollection = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $className = '\Magento\Migration\Code\Processor\TokenArgument';
-        $tokenArgument = $this->getMock($className, [], [], '', false);
+        $tokenArgument = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $tokenArgument->expects($this->atLeastOnce())
             ->method('getType')
@@ -85,7 +85,7 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
             ->willReturn('catalogrule/rule_product');
 
         $className = '\Magento\Migration\Code\Processor\TokenArgumentCollection';
-        $tokenArgCollection = $this->getMock($className, [], [], '', false);
+        $tokenArgCollection = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $tokenArgCollection->expects($this->once())
             ->method('getFirstToken')
@@ -104,7 +104,7 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
             ->willReturn($callArgCollection);
 
         $className = 'Magento\Migration\Code\Processor\Table\TableFunction\Table';
-        $tableFunction = $this->getMock($className, [], [], '', false);
+        $tableFunction = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $this->classCbjectManager->expects($this->once())
             ->method('create')
@@ -118,7 +118,7 @@ class TableFunctionMatcherTest extends \PHPUnit_Framework_TestCase
      * @return array
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    public function testMatchProvider()
+    public function matchProvider()
     {
         return [
             [

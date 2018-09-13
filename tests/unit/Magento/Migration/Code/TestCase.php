@@ -17,7 +17,7 @@ use Magento\Migration\Code\Processor\TokenHelper;
 use Magento\Migration\Logger\Logger;
 use PHPUnit_Framework_MockObject_MockObject;
 
-class TestCase extends \PHPUnit_Framework_TestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @param Logger $loggerMock

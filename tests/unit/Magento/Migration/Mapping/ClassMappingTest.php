@@ -5,7 +5,7 @@
  */
 namespace Magento\Migration\Code;
 
-class ClassMappingTest extends \PHPUnit_Framework_TestCase
+class ClassMappingTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Mapping\ClassMapping
@@ -19,7 +19,8 @@ class ClassMappingTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')
+            ->disableOriginalConstructor()->getMock();
 
         $this->obj = new \Magento\Migration\Mapping\ClassMapping(
             $this->loggerMock

@@ -5,7 +5,7 @@
  */
 namespace Magento\Migration\Code\Processor\Mage;
 
-class MageFunctionMatcherTest extends \PHPUnit_Framework_TestCase
+class MageFunctionMatcherTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\Mage\MageFunctionMatcher

@@ -100,7 +100,7 @@ abstract class AbstractMageFunctionTestCase extends TestCase
      */
     protected function initMockObjects()
     {
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')->getMock();
 
         $this->classMapperMock = $this->getMockBuilder(
             '\Magento\Migration\Mapping\ClassMapping'

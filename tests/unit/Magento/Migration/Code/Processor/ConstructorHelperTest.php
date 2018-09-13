@@ -42,7 +42,8 @@ class ConstructorHelperTest extends TestCase
 
     public function setUp()
     {
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')
+            ->disableOriginalConstructor()->getMock();
 
         $this->classMapperMock = $this->getMockBuilder(
             '\Magento\Migration\Mapping\ClassMapping'

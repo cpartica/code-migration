@@ -39,7 +39,7 @@ class ClassProcessorTest extends TestCase
 
     public function setUp()
     {
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')->getMock();
 
         $this->constructorHelperFactoryMock = $this->getMockBuilder(
             '\Magento\Migration\Code\Processor\ConstructorHelperFactory'

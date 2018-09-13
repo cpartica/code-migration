@@ -6,7 +6,7 @@
 
 $baseDir = realpath(__DIR__ . '/../../../');
 $testsBaseDir = $baseDir . '/tests/static';
-
+require $baseDir . '/vendor/squizlabs/php_codesniffer/autoload.php';
 $vendorAutoload = $baseDir . "/vendor/autoload.php";
 
 /* 'composer install' validation */

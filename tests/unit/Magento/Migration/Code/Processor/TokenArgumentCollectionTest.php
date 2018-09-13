@@ -10,7 +10,7 @@ use Magento\Migration\Code\Processor\TokenArgumentCollection;
 /**
  * Class TokenArgumentCollectionTest
  */
-class TokenArgumentCollectionTest extends \PHPUnit_Framework_TestCase
+class TokenArgumentCollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\TokenArgumentCollection
@@ -101,7 +101,7 @@ class TokenArgumentCollectionTest extends \PHPUnit_Framework_TestCase
 
         $className = 'Magento\Migration\Code\Processor\TokenArgument';
         /** @var TokenArgument $tokenArgument */
-        $tokenArgument = $this->getMock($className, [], [], '', false);
+        $tokenArgument = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $tokenArgument->expects($this->atLeastOnce())
             ->method('getName')

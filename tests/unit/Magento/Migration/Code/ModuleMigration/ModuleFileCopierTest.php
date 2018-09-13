@@ -10,7 +10,7 @@ use Magento\Migration\Code\ModuleMigration\ModuleFileCopier;
 /**
  * Class ModuleFileCopierTest
  */
-class ModuleFileCopierTest extends \PHPUnit_Framework_TestCase
+class ModuleFileCopierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ModuleFileCopier
@@ -49,7 +49,7 @@ class ModuleFileCopierTest extends \PHPUnit_Framework_TestCase
         $this->module = 'Mage_Catalog';
 
         $className = '\Magento\Framework\Filesystem\Driver\File';
-        $this->file = $this->getMock($className, [], [], '', false);
+        $this->file = $this->getMockBuilder($className)->disableOriginalConstructor()->getMock();
 
         $this->file->expects($this->any())
             ->method('isExists')

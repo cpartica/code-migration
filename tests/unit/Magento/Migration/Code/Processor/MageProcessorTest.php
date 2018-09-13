@@ -41,8 +41,12 @@ class MageProcessorTest extends TestCase
 
     public function setUp()
     {
-        $this->loggerMock = $this->getMock('\Magento\Migration\Logger\Logger');
-        $this->diVariablesPersistentMock = $this->getMock('\Magento\Migration\Code\Processor\DiVariablesPersistent');
+        $this->loggerMock = $this->getMockBuilder('\Magento\Migration\Logger\Logger')
+            ->disableOriginalConstructor()->getMock();
+        $this->diVariablesPersistentMock = $this
+            ->getMockBuilder('\Magento\Migration\Code\Processor\DiVariablesPersistent')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->objectManagerMock = $this->getMockBuilder(
             '\Magento\Framework\ObjectManagerInterface'

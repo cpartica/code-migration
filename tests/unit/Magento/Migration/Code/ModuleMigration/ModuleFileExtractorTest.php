@@ -10,7 +10,7 @@ use Magento\Migration\Code\ModuleMigration\ModuleFileExtractor;
 /**
  * Class ModuleFileExtractorTest
  */
-class ModuleFileExtractorTest extends \PHPUnit_Framework_TestCase
+class ModuleFileExtractorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ModuleFileExtractor
@@ -56,10 +56,12 @@ class ModuleFileExtractorTest extends \PHPUnit_Framework_TestCase
         $this->configFile = __DIR__ . '/../_files/app/code/core/Mage/Catalog/etc/config.xml';
 
         $className = '\Magento\Framework\Simplexml\ConfigFactory';
-        $this->configFactory = $this->getMock($className, ['create'], [], '', false);
+        $this->configFactory = $this->getMockBuilder($className)
+            ->disableOriginalConstructor()->setMethods(['create'])->getMock();
 
         $className = '\Magento\Migration\Utility\M1\FileFactory';
-        $this->fileUtilFactory = $this->getMock($className, ['create'], [], '', false);
+        $this->fileUtilFactory = $this->getMockBuilder($className)
+            ->disableOriginalConstructor()->setMethods(['create'])->getMock();
 
         $className = '\Magento\Migration\Utility\M1\File';
         $this->fileUtil = $this->objectManager->getObject($className, ['basePath' => __DIR__ . '/../_files']);

@@ -10,7 +10,7 @@ use Magento\Migration\Code\Processor\TokenArgument;
 /**
  * Class TokenArgumentTest
  */
-class TokenArgumentTest extends \PHPUnit_Framework_TestCase
+class TokenArgumentTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Migration\Code\Processor\TokenArgument
@@ -39,7 +39,7 @@ class TokenArgumentTest extends \PHPUnit_Framework_TestCase
      * test SetToken
      * tests GetToken, setToken,
      * @param mixed[]|string $token
-     * @dataProvider testSetTokenProvider
+     * @dataProvider setTokenProvider
      */
     public function testSetToken($token)
     {
@@ -59,7 +59,7 @@ class TokenArgumentTest extends \PHPUnit_Framework_TestCase
      * @return array
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    public function testSetTokenProvider()
+    public function setTokenProvider()
     {
         return [
             [
