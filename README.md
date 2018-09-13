@@ -25,7 +25,7 @@ The toolkit can significantly reduce the work involved in the code migration. Ho
 
 ## System Requirements
 
-* PHP 5.5.x or greater
+* PHP >= 5.5
 
 * [Composer](https://getcomposer.org/) dependency management software
 
